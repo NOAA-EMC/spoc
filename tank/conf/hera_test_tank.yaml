@@ -1,4 +1,6 @@
-#source: /scratch1/NCEPDEV/stmp4/Emily.Liu/Tank_Bufr/ops/prod/dcom
+
+source: /scratch1/NCEPDEV/stmp4/Emily.Liu/Tank_Bufr/ops/prod/dcom
+mapping dir: /scratch1/NCEPDEV/da/Ronald.McLaren/src/spoc/tank/mapping
 
 data types:
   - name: mhs_1b
@@ -40,7 +42,7 @@ data types:
   - name: mtiasi
     mapping: mtiasi_mapping.yaml
     operations:
-      - type: categorize
+      - type: de-duplicate
         parameters:
           shortcuts: [satellite id]
     paths:
@@ -49,9 +51,11 @@ data types:
   - name: adpupa
     mapping: adpupa_mapping.yaml
     operations:
-      - type: categorize
+      - type: de-duplicate
         parameters:
-          shortcuts: [satellite id]
+          fields: [variables/timestamp,
+                   variables/latitude,
+                   variables/longitude]
     paths:
       - b002/xx101
       - b002/xx102
