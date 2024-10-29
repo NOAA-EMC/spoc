@@ -1,5 +1,9 @@
 import os
 import sys
+sys.path.append('/work2/noaa/da/nesposito/backend_20240701/bufr_query/build/lib/python3.10')
+sys.path.append('/work2/noaa/da/nesposito/backend_20240701/ioda-bundle/build/lib/python3.10')
+sys.path.append('/work2/noaa/da/nesposito/backend_20240701/ioda-bundle/build/lib/python3.10/pyioda')
+sys.path.append('/work2/noaa/da/nesposito/backend_20240701/ioda-bundle/build/lib/python3.10/pyiodaconv')
 import bufr
 from pyioda.ioda.Engines.Bufr import Encoder
 import copy
@@ -86,15 +90,11 @@ def create_obs_group(cycle_time,input_mapping,input_path):
     ot = container.get('variables/observationType')
     ot_paths = container.get_paths('variables/observationType')
 
-    stationElevation = container.get('variables/stationElevationObsValue')
-    stationPressure = container.get('variables/stationPressureObsValue')
     airTemperature = container.get('variables/airTemperatureObsValue')
     #virtualTemperature = container.get('variables/virtualTemperatureObsValue')
     specificHumidity = container.get('variables/specificHumidityObsValue')
     wind = container.get('variables/windNorthwardObsValue')
 
-    ot_stationElevation = Compute_typ_other(ot, stationElevation)
-    ot_stationPressure = Compute_typ_other(ot, stationPressure)
     ot_airTemperature = Compute_typ_other(ot, airTemperature) 
     #ot_virtualTemperature = Compute_typ_other(ot, virtualTemperature)
     ot_specificHumidity = Compute_typ_other(ot, specificHumidity)
@@ -107,14 +107,16 @@ def create_obs_group(cycle_time,input_mapping,input_path):
 
     ialr_bc = Compute_ialr_if_masked(ot, ialr2)
 
+    print("Make an array of 0s for MetaData/sequenceNumber")
+    sequenceNum = np.zeros(ot.shape, dtype=np.int32)
+
     print(" Add new variables to container")
-    container.add('variables/stationElevationObservationType', ot_stationElevation, ot_paths)
-    container.add('variables/stationPressureObservationType', ot_stationPressure, ot_paths)
     container.add('variables/airTemperatureObservationType', ot_airTemperature, ot_paths)
     #container.add('variables/virtualTemperatureObservationType', ot_virtualTemperature, ot_paths)
     container.add('variables/specificHumidityObservationType', ot_specificHumidity, ot_paths)
     container.add('variables/windObservationType', ot_wind, ot_paths)
     container.add('variables/instantaneousAltitudeRate', ialr_bc, ot_paths) #ialr_paths)
+    container.add('variables/sequenceNumber', sequenceNum, ot_paths)
 
     description = bufr.encoders.Description(YAML_PATH)
 
