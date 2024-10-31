@@ -176,10 +176,6 @@ encoder:
       longName: "Pressure"
       units: "Pa"
 
-    #- name: "MetaData/temperatureEventCode"
-    #  source: variables/temperatureEventCode
-    #  longName: "Temperature Event Code"
-
     - name: "MetaData/heightOfStation"
       source: variables/heightOfStationMetaData
       longName: "Height Of Station"
@@ -230,10 +226,6 @@ encoder:
       units: "m s-1"
 
     #QualityMarker
-    - name: "QualityMarker/pressure"
-      source: variables/pressureQualityMarker
-      longName: "Pressure Quality Marker"
-    
     - name: "QualityMarker/airTemperature"
       source: variables/airTemperatureQualityMarker
       longName: "Temperature Quality Marker"
