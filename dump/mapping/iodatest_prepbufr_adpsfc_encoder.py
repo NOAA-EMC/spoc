@@ -1,9 +1,5 @@
 import os
 import sys
-sys.path.append('/work2/noaa/da/nesposito/backend_20240701/bufr_query/build/lib/python3.10')
-sys.path.append('/work2/noaa/da/nesposito/backend_20240701/ioda-bundle/build/lib/python3.10')
-sys.path.append('/work2/noaa/da/nesposito/backend_20240701/ioda-bundle/build/lib/python3.10/pyioda')
-sys.path.append('/work2/noaa/da/nesposito/backend_20240701/ioda-bundle/build/lib/python3.10/pyiodaconv')
 import bufr
 from pyioda.ioda.Engines.Bufr import Encoder
 import copy
