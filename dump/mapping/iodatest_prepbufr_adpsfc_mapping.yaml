@@ -10,6 +10,8 @@ bufr:
       query: "*/TYP"
 
     # MetaData
+    prepbufrDataLevelCategory:
+      query: "*/CAT"
     obsTimeMinusCycleTime:
       query: "*/DHR"
     longitude:
@@ -98,6 +100,11 @@ encoder:
       longName: "Height ObsType"
 
     # MetaData
+    - name: "MetaData/prepbufrDataLevelCategory"
+      source: variables/prepbufrDataLevelCategory
+      units: '1'
+      longName: "Prepbufr Data Level Category"
+
     - name: "MetaData/dateTime"
       source: variables/dateTime
       units: 'seconds since 1970-01-01T00:00:00Z'
