@@ -1,54 +1,115 @@
-import bufr
-from pyioda.ioda.Engines.Bufr import Encoder
+#!/usr/bin/env python3
+import sys
+import os
+import argparse
+import time
 import numpy as np
-import warnings
+import bufr
+from pyioda.ioda.Engines.Bufr import Encoder as iodaEncoder 
+from bufr.encoders.netcdf import Encoder as netcdfEncoder 
 from wxflow import Logger
 
-def get_description(mapping_path, update=False):
+# Initialize Logger
+# Get log level from the environment variable, default to 'INFO it not set
+log_level = os.getenv('LOG_LEVEL', 'INFO')
+logger = Logger('BUFR2IODA_satwnd_amv_goes.py', level=log_level, colored_log=False)
 
+def logging(comm, level, message):
+
+    if comm.rank() == 0:
+        # Define a dictionary to map levels to logger methods
+        log_methods = {
+            'DEBUG': logger.debug,
+            'INFO': logger.info,
+            'WARNING': logger.warning,
+            'ERROR': logger.error,
+            'CRITICAL': logger.critical,
+        }
+
+        # Get the appropriate logging method, default to 'INFO'
+        log_method = log_methods.get(level.upper(), logger.info)
+
+        if log_method == logger.info and level.upper() not in log_methods:
+            # Log a warning if the level is invalid
+            logger.warning(f'log level = {level}: not a valid level --> set to INFO')
+
+        # Call the logging method
+        log_method(message)
+
+def _make_description(mapping_path, update=False):
     description = bufr.encoders.Description(mapping_path)
 
     if update:
+        # Define the variables to be added in a list of dictionaries
+        variables = [
+            {
+                'name': 'ObsType/windEastward',
+                'source': 'variables/obstype_uwind',
+                'units': '1',
+                'longName': 'Observation Type based on Satellite-derived Wind Computation Method and Spectral Band',
+            },
+            {
+                'name': 'ObsType/windNorthward',
+                'source': 'variables/obstype_vwind',
+                'units': '1',
+                'longName': 'Observation Type based on Satellite-derived Wind Computation Method and Spectral Band',
+            },
+            {
+                'name': 'ObsValue/windEastward',
+                'source': 'variables/windEastward',
+                'units': 'm/s',
+                'longName': 'Eastward Wind Component',
+            },
+            {
+                'name': 'ObsValue/windNorthward',
+                'source': 'variables/windNorthward',
+                'units': 'm/s',
+                'longName': 'Northward Wind Component',
+            },
+        ]
 
-        description.add_variable(name='ObsType/windEastward',
-                                 source='variables/obstype_uwind',
-                                  units='1',
-                                  longName='Observation Type based on Satellite-derived Wind Computation Method and Spectral Band')
-
-        description.add_variable(name='ObsType/windNorthward',
-                                 source='variables/obstype_vwind',
-                                 units='1',
-                                 longName='Observation Type based on Satellite-derived Wind Computation Method and Spectral Band')
-
-        description.add_variable(name='ObsValue/windEastward',
-                                 source='variables/windEastward',
-                                 units='m/s',
-                                 longName='Eastward Wind Component')
-
-        description.add_variable(name='ObsValue/windNorthward',
-                                 source='variables/windNorthward',
-                                 units='m/s',
-                                 longName='Northward Wind Component')
+        # Loop through each variable and add it to the description
+        for var in variables:
+            description.add_variable(
+                name=var['name'],
+                source=var['source'],
+                units=var['units'],
+                longName=var['longName']
+            )
 
     return description
 
-def get_all_keys(nested_dict):
+def compute_wind_components(wdir, wspd):
+    """
+    Compute the U and V wind components from wind direction and wind speed.
 
-    keys = []
-    for key, value in nested_dict.items():
-        keys.append(key)
-        if isinstance(value, dict):
-            keys.extend(get_all_keys(value))
-    return keys
+    Parameters:
+        wdir (array-like): Wind direction in degrees (meteorological convention: 0° = North, 90° = East).
+        wspd (array-like): Wind speed.
 
-def Compute_WindComponents_from_WindDirection_and_WindSpeed(wdir, wspd):
+    Returns:
+        tuple: U and V wind components as numpy arrays with dtype float32.
+    """
+    wdir_rad = np.radians(wdir)  # Convert degrees to radians
+    u = -wspd * np.sin(wdir_rad)
+    v = -wspd * np.cos(wdir_rad)
+    
+    return u.astype(np.float32), v.astype(np.float32)
 
-    uob = (-wspd * np.sin(np.radians(wdir))).astype(np.float32)
-    vob = (-wspd * np.cos(np.radians(wdir))).astype(np.float32)
+def _get_obs_type(swcm, chanfreq):
+    """
+    Determine the observation type based on `swcm` and `chanfreq`.
 
-    return uob, vob
+    Parameters:
+        swcm (array-like): Switch mode values.
+        chanfreq (array-like): Channel frequency values (Hz).
 
-def Get_ObsType(swcm, chanfreq):
+    Returns:
+        numpy.ndarray: Observation type array.
+
+    Raises:
+        ValueError: If any `obstype` is unassigned.
+    """
 
     obstype = swcm.copy()
 
@@ -58,7 +119,7 @@ def Get_ObsType(swcm, chanfreq):
     obstype = np.where(swcm == 2, 251, obstype)  # VIS
     obstype = np.where(swcm == 1, 245, obstype)  # IRLW
 
-    condition = np.logical_and(swcm == 1, chanfreq >= 50000000000000.0)  # IRSW
+    condition = np.logical_and(swcm == 1, chanfreq >= 5e13)  # IRSW
     obstype = np.where(condition, 240, obstype)
 
     if not np.any(np.isin(obstype, [247, 246, 251, 245, 240])):
@@ -66,56 +127,24 @@ def Get_ObsType(swcm, chanfreq):
 
     return obstype
 
-def create_obs_group(input_path, mapping_path, category, env, log_level=None ):
+def _make_obs(comm, input_path, mapping_path):
 
-    # Set MPI parameters
-    comm = bufr.mpi.Comm(env["comm_name"])
-    rank = comm.rank() 
-
-    # Set logger level
-    if log_level is None:
-        log_level = 'INFO'
-    elif log_level not in ['DEBUG', 'INFO']:
-        raise ValueError("Invalid log level! log_level must be 'DEBUG' or 'INFO'.")
-
-    # Initialize logger
-    logger = Logger('BUFR2IODA_satwnd_amv_goes.py', level=log_level, colored_log=False)
-
-    # Generate keys for cache
-    inputKey = input_path
-    mappingKey = mapping_path
-
-    if rank == 0: logger.info(f'Create obs group for category: {category}')
-
-    # Check the cache for the data and return it if it exists
-    if rank == 0: logger.debug(f'Check if bufr.DataCache exists? {bufr.DataCache.has(inputKey, mappingKey)}')
-    if bufr.DataCache.has(inputKey, mappingKey):
-        container = bufr.DataCache.get(inputKey, mappingKey)
-        if rank == 0: logger.info(f'Encode {category} from cache')
-        data = Encoder(get_description(mapping_path, update=True)).encode(container)[(category,)]
-        if rank == 0: logger.info(f'Mark {category} as finished in the cache')
-        bufr.DataCache.mark_finished(inputKey, mappingKey, [category])
-        if rank == 0: logger.info(f'Return the encoded data for {category}')
-        return data
-
-    if rank == 0: logger.info(f'Get all cagegories info cache')
-    # If cache does not exist, get data into cache 
     # Get container from mapping file first
-    if rank == 0: logger.info(f'Get container from bufr parser')
+    logging(comm, 'INFO', 'Get container from bufr')
     container = bufr.Parser(input_path, mapping_path).parse(comm)
-    if rank == 0: logger.debug('container list (original):\n' + '\n'.join(str(item) for item in container.list()))
-    if rank == 0: logger.debug(f'all_sub_categories =  {container.all_sub_categories()}')
-    if rank == 0: logger.debug(f'category map =  {container.get_category_map()}')
 
-    categories = container.all_sub_categories()
-    for cat in categories:  
+    logging(comm, 'DEBUG', f'container list (original): {container.list()}')
+    logging(comm, 'DEBUG', f'all_sub_categories =  {container.all_sub_categories()}')
+    logging(comm, 'DEBUG', f'category map =  {container.get_category_map()}')
 
-        if rank == 0: logger.debug(f'category = {cat}')
-        description = get_description(mapping_path, update=True)
+    # Add new/derived data into container
+    for cat in container.all_sub_categories():  
+
+        logging(comm, 'DEBUG', f'category = {cat}')
 
         satid = container.get('variables/satelliteId', cat)
         if satid.size == 0:
-            if rank == 0: logger.info(f'category {cat[0]} does not exist in input file')
+            logging(comm, 'WARNING', f'category {cat[0]} does not exist in input file')
             paths = container.get_paths('variables/windComputationMethod', cat)
             obstype = container.get('variables/windComputationMethod', cat)
             container.add('variables/obstype_uwind', obstype, paths, cat)
@@ -131,13 +160,13 @@ def create_obs_group(input_path, mapping_path, category, env, log_level=None ):
             swcm = container.get('variables/windComputationMethod', cat)
             chanfreq = container.get('variables/sensorCentralFrequency', cat)
 
-            if rank == 0: logger.debug(f'swcm min/max = {swcm.min()} {swcm.max()}')
-            if rank == 0: logger.debug(f'chanfreq min/max = {chanfreq.min()} {chanfreq.max()}')
+            logging(comm, 'DEBUG', f'swcm min/max = {swcm.min()} {swcm.max()}')
+            logging(comm, 'DEBUG', f'chanfreq min/max = {chanfreq.min()} {chanfreq.max()}')
 
-            obstype = Get_ObsType(swcm, chanfreq)
+            obstype = _get_obs_type(swcm, chanfreq)
 
-            if rank == 0: logger.debug(f'obstype = {obstype}')
-            if rank == 0: logger.debug(f'obstype min/max =  {obstype.min()} {obstype.max()}')
+            logging(comm, 'DEBUG', f'obstype = {obstype}')
+            logging(comm, 'DEBUG', f'obstype min/max =  {obstype.min()} {obstype.max()}')
 
             paths = container.get_paths('variables/windComputationMethod', cat)
             container.add('variables/obstype_uwind', obstype, paths, cat)
@@ -147,37 +176,96 @@ def create_obs_group(input_path, mapping_path, category, env, log_level=None ):
             wdir = container.get('variables/windDirection', cat)
             wspd = container.get('variables/windSpeed', cat)
 
-            if rank == 0: logger.debug(f'wdir min/max = {wdir.min()} {wdir.max()}')
-            if rank == 0: logger.debug(f'wspd min/max = {wspd.min()} {wspd.max()}')
+            logging(comm, 'DEBUG', f'wdir min/max = {wdir.min()} {wdir.max()}')
+            logging(comm, 'DEBUG', f'wspd min/max = {wspd.min()} {wspd.max()}')
 
-            uob, vob = Compute_WindComponents_from_WindDirection_and_WindSpeed(wdir, wspd)
+            uob, vob = compute_wind_components(wdir, wspd)
 
-            if rank == 0: logger.debug(f'uob min/max = {uob.min()} {uob.max()}')
-            if rank == 0: logger.debug(f'vob min/max = {vob.min()} {vob.max()}')
+            logging(comm, 'DEBUG', f'uob min/max = {uob.min()} {uob.max()}')
+            logging(comm, 'DEBUG', f'vob min/max = {vob.min()} {vob.max()}')
 
             paths = container.get_paths('variables/windSpeed', cat)
             container.add('variables/windEastward', uob, paths, cat)
             container.add('variables/windNorthward', vob, paths, cat)
 
     # Check
-    if rank == 0: logger.debug('container list (updated):\n' + '\n'.join(str(item) for item in container.list()))
-    if rank == 0: logger.debug(f'all_sub_categories {container.all_sub_categories()}')
-     
+    logging(comm, 'DEBUG', f'container list (updated): {container.list()}')
+    logging(comm, 'DEBUG', f'all_sub_categories {container.all_sub_categories()}')
+
+    return container
+
+def create_obs_group(input_path, mapping_path, category, env):
+
+    comm = bufr.mpi.Comm(env["comm_name"])
+
+    description = _make_description(mapping_path, update=True)
+
+    # Check the cache for the data and return it if it exists
+    logging(comm, 'DEBUG', f'Check if bufr.DataCache exists? {bufr.DataCache.has(input_path, mapping_path)}')
+    if bufr.DataCache.has(input_path, mapping_path):
+        container = bufr.DataCache.get(input_path, mapping_path)
+        logging(comm, 'INFO', f'Encode {category} from cache')
+        data = iodaEncoder(description).encode(container)[(category,)]
+        logging(comm, 'INFO', f'Mark {category} as finished in the cache')
+        bufr.DataCache.mark_finished(input_path, mapping_path, [category])
+        logging(comm, 'INFO', f'Return the encoded data for {category}')
+        return data
+
+    container = _make_obs(comm, input_path, mapping_path)
+
     # Gather data from all tasks into all tasks. Each task will have the complete record 
-    if rank == 0: logger.info(f'Gather data from all tasks into all tasks')
+    logging(comm, 'INFO', f'Gather data from all tasks into all tasks')
     container.all_gather(comm)
 
-    if rank == 0: logger.info(f'Add container to cache')
+    logging(comm, 'INFO', f'Add container to cache')
     # Add the container to the cache
-    bufr.DataCache.add(inputKey, mappingKey, container.all_sub_categories(), container)
+    bufr.DataCache.add(input_path, mapping_path, container.all_sub_categories(), container)
 
     # Encode the data
-    if rank == 0: logger.info(f'Encode {category}')
-    data = Encoder(description).encode(container)[(category,)]
+    logging(comm, 'INFO', f'Encode {category}')
+    data = iodaEncoder(description).encode(container)[(category,)]
 
-    if rank == 0: logger.info(f'Mark {category} as finished in the cache')
+    logging(comm, 'INFO', f'Mark {category} as finished in the cache')
     # Mark the data as finished in the cache
-    bufr.DataCache.mark_finished(inputKey, mappingKey, [category])
+    bufr.DataCache.mark_finished(input_path, mapping_path, [category])
 
-    if rank == 0: logger.info(f'Return the encoded data for {category}')
+    logging(comm, 'INFO', f'Return the encoded data for {category}')
     return data
+
+def create_obs_file(input_path, mapping_path, output_path):
+
+    comm = bufr.mpi.Comm("world")
+    container = _make_obs(comm, input_path, mapping_path)
+    container.gather(comm)
+
+    description = _make_description(mapping_path, update=True)
+
+    # Encode the data
+    if comm.rank() == 0:
+        netcdfEncoder(description).encode(container, output_path) 
+
+    logging(comm, 'INFO', f'Return the encoded data')
+
+if __name__ == '__main__':
+
+    start_time = time.time()
+
+    bufr.mpi.App(sys.argv)
+    comm = bufr.mpi.Comm("world")
+
+    # Required input arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-i', '--input', type=str, help='Input BUFR', required=True)
+    parser.add_argument('-m', '--mapping', type=str, help='BUFR2IODA Mapping File', required=True)
+    parser.add_argument('-o', '--output', type=str, help='Output NetCDF', required=True)
+
+    args = parser.parse_args()
+    mapping = args.mapping
+    infile = args.input
+    output = args.output
+
+    create_obs_file(infile, mapping, output)
+
+    end_time = time.time()
+    running_time = end_time - start_time
+    logging(comm, 'INFO', f'Total running time: {running_time}')

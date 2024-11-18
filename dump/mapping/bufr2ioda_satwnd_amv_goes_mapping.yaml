@@ -77,9 +77,9 @@ bufr:
           _272: goes-18 
 
 encoder:
-  type: netcdf
+#  type: netcdf
 
-# dimensions:
+#  dimensions:
 
   globals:
     - name: "platformCommonName"

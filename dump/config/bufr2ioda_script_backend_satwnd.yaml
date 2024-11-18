@@ -16,11 +16,10 @@ observations:
           input_path: "./testinput/gdas.t00z.satwnd.tm00.bufr_d"
           mapping_path: "./bufr2ioda_satwind_amv_goes_mapping.yaml"
           category: "goes-16"
-          log_level: "DEBUG"
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/gdas.t00z.satwnd.abi_goes-16.tm00.nc"
+        obsfile: "./testoutput/bufr_backend/gdas.t00z.satwnd.abi_goes-16.tm00.nc"
 
 - obs space:
     name: "satwind_goes-17"
@@ -35,11 +34,10 @@ observations:
           input_path: "./testinput/gdas.t00z.satwnd.tm00.bufr_d"
           mapping_path: "./bufr2ioda_satwind_amv_goes_mapping.yaml"
           category: "goes-17"
-          log_level: "DEBUG"
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/gdas.t00z.satwnd.abi_goes-17.tm00.nc"
+        obsfile: "./testoutput/bufr_backend/gdas.t00z.satwnd.abi_goes-17.tm00.nc"
 
 - obs space:
     name: "satwind_goes-18"
@@ -54,8 +52,7 @@ observations:
           input_path: "./testinput/gdas.t00z.satwnd.tm00.bufr_d"
           mapping_path: "./bufr2ioda_satwind_amv_goes_mapping.yaml"
           category: "goes-18"
-          log_level: "DEBUG"
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/gdas.t00z.satwnd.abi_goes-18.tm00.nc"
+        obsfile: "./testoutput/bufr_backend/gdas.t00z.satwnd.abi_goes-18.tm00.nc"
