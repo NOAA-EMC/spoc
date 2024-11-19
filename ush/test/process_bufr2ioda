@@ -1,0 +1,124 @@
+#!/bin/bash -x
+
+# Enable debugging mode
+set -x
+
+# Set unlimited stack size
+ulimit -s unlimited
+ulimit -a
+
+export OOPS_TRACE=1
+export OOPS_DEBUG=1
+export LOG_LEVEL=DEBUG
+
+# Load JEDI spack-stack-1.7.0
+module use /work/noaa/epic/role-epic/spack-stack/hercules/modulefiles
+module load git-lfs/3.1.2
+
+module use /work/noaa/epic/role-epic/spack-stack/hercules/spack-stack-1.7.0/envs/ue-intel/install/modulefiles/Core
+module load stack-intel/2021.9.0
+module load stack-intel-oneapi-mpi/2021.9.0
+module load stack-python/3.10.13
+
+module load ewok-env
+
+# Configure SLUM environment
+export SLURM_ACCOUNT=da-cpu
+export SALLOC_ACCOUNT=$SLURM_ACCOUNT
+export SBATCH_ACCOUNT=$SLURM_ACCOUNT
+export SLURM_QOS=debug
+
+# bufr-query
+bufr_query_dir="/work/noaa/da/eliu/HERCULES/EMC-bufr-query/bufr-query"
+export LD_LIBRARY_PATH="${bufr_query_dir}/build/lib:${LD_LIBRARY_PATH}"
+export PYTHONPATH="${PYTHONPATH}:${bufr_query_dir}/build/lib/python3.10/site-packages"
+
+# ioda 
+ioda_dir="/work/noaa/da/eliu/HERCULES/JEDI-ioda/ioda-bundle"
+export PYTHONPATH="${PYTHONPATH}:${ioda_dir}/build/lib/python3.10"
+
+# wxflow 
+wxflow_dir="/work/noaa/da/eliu/HERCULES/EMC-wxflow/wxflow"
+export PYTHONPATH="${PYTHONPATH}:${wxflow_dir}/src"
+
+# Date and processor count
+cdate="2021080100"
+mode="$1"
+nproc="$2"
+
+# Get input arguments
+mode="$1"
+nproc="$2"
+
+# Function to display usage
+usage() {
+    echo "Usage: $0 <mode> <nproc>"
+    echo "  <mode>  : Mode of operation (e.g., bufr_backend, script_backend, bufr2netcdf)"
+    echo "  <nproc> : Number of processors (must be a positive integer)"
+    exit 1
+}
+
+# Check if both arguments are provided
+if [[ -z "$mode" || -z "$nproc" ]]; then
+    echo "Error: Missing arguments."
+    usage
+fi
+
+# Validate mode
+if [[ "$mode" != "bufr_backend" && "$mode" != "script_backend" && "$mode" != "bufr2netcdf" ]]; then
+    echo "Error: Invalid mode '$mode'. Expected 'bufr_backend' or 'script_backend' or 'bufr2netcdf'."
+    usage
+fi
+
+# Validate nproc is a positive integer
+if ! [[ "$nproc" =~ ^[0-9]+$ && "$nproc" -gt 0 ]]; then
+    echo "Error: nproc must be a positive integer."
+    usage
+fi
+
+# If all checks pass
+echo "Mode: $mode"
+echo "Number of processors: $nproc"
+
+# Extract year, month, day, and hour
+y4="${cdate:0:4}"
+m2="${cdate:4:2}"
+d2="${cdate:6:2}"
+h2="${cdate:8:2}"
+
+# Directory paths
+work_dir="$PWD"
+out_dir="${work_dir}/testoutput/$cdate/${mode}"
+in_dir="${work_dir}/testinput/"
+mkdir -p -m770 ${out_dir}
+
+# File paths
+mapping_file="${work_dir}/bufr2ioda_satwnd_amv_goes_mapping.yaml"
+input_file="${in_dir}/gdas.t${h2}z.satwnd.tm00.bufr_d"
+output_file="${out_dir}/gdas.t${h2}z.satwnd_abi_{splits/satId}.tm00.nc"
+
+config_yaml="${work_dir}/bufr2ioda_${mode}_satwnd_goes.yaml"
+
+# Run IODA bufr/script backend
+if [[ "$mode" == "bufr_backend" || "$mode" == "script_backend" ]]; then
+   if [[ "$nproc" == "0" ]]; then
+      echo Run time_IodaIO.x without MPI ...
+      ${ioda_dir}/build/bin/time_IodaIO.x ${config_yaml}
+   else
+      echo Run time_IodaIO.x with MPI ${nproc} ...
+      srun -n $nproc  --mem 96G --time 00:30:00 ${ioda_dir}/build/bin/time_IodaIO.x ${config_yaml}
+   fi
+# Run bufr_query netcdf
+elif [[ "$mode" == "bufr2netcdf" ]]; then
+   if [[ "$nproc" == "0" ]]; then
+      echo Run Python script without MPI ...
+      python bufr2ioda_satwnd_amv_goes.py -m "$mapping_file" -o "$output_file" -i "$input_file"
+   else
+      echo Run Python script with MPI ${nproc} ...
+      srun -n "$nproc" --time 00:30:00 --mem 96G python bufr2ioda_satwnd_amv_goes.py -m "$mapping_file" -o "$output_file" -i "$input_file"
+   fi
+else
+   echo Incorrect running mode ${mode} ... Valid modes are: bufr_backend, script_back, or bufr2netcdf
+fi
+
+
