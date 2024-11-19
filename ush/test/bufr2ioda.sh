@@ -41,6 +41,9 @@ if [[ -z "$mode" || -z "$nproc" || -z "$sensor" || -z "$obstype" || -z "$cycle" 
     usage
 fi
 
+# ===============
+# Validate cycle 
+# ===============
 if ! [[ "$cycle" =~ ^[0-9]{10}$ ]]; then
     echo "Error: Invalid cycle format. Expected YYYYMMDDHH."
     usage
