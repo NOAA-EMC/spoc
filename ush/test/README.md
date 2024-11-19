@@ -44,7 +44,7 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
      
    - bufr2ioda_script_backend_satwnd_amv_goes.yaml
      
-   - testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d
+   - testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d (copied from the global dump)
 
 - Processing shell script:
    - bufr2ioda.sh 
