@@ -15,7 +15,7 @@ nproc="${7:-4}"
 # Function to display usage
 # ==========================
 usage() {
-    echo "Usage: $0 <obsforge_dir> <wxflow> <cycle> <obstype> <sensor> <mode> <nproc>"
+    echo "Usage: $0 <obsforge_dir> <wxflow_dir> <cycle> <obstype> <sensor> <mode> <nproc>"
     echo "  <obsforge_dir> : root directory of obsForge build"
     echo "  <wxflow_dir>   : root directory of wxflow build"
     echo "  <cycle>        : cycle time (e.g., 2021080100)"
