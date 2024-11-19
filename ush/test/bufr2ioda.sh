@@ -3,8 +3,7 @@
 # ====================
 # Get input arguments
 # ====================
-#obsforge_dir="${1:-/scratch1/NCEPDEV/da/Emily.Liu/EMC-obsForge/obsForge}"
-obsforge_dir="${1:-/scratch1/NCEPDEV/da/Emily.Liu/obsforge}"
+obsforge_dir="${1:-/scratch1/NCEPDEV/da/Emily.Liu/EMC-obsForge/obsForge}"
 wxflow_dir="${2:-/scratch1/NCEPDEV/da/Emily.Liu/EMC-wxflow/wxflow}"
 cycle="${3:-2021080100}"
 obstype="${4:-satwnd_amv_goes}"
