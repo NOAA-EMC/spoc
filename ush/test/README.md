@@ -1,22 +1,23 @@
-# =================================================================
-#  Prerequisite
-# =================================================================
+## Prerequisite
    1. Clone and build obsForge  
+
+      ```       
       git clone --recursive https://github.com/NOAA-EMC/obsForge
       ./build.sh
+      ```
 
    2. Clone wxflow (no need to build)
-      git clone https://github.com/NOAA-EMC/wxflow 
 
+      ```
+      git clone https://github.com/NOAA-EMC/wxflow 
+      ```
 
    e.g. Emily's obsForge and wxflow builds on HERA
         obsForge: /scratch1/NCEPDEV/da/Emily.Liu/EMC-obsForge/obsForge      
         wxflow:   /scratch1/NCEPDEV/da/Emily.Liu/EMC-wxflow/wxflow
    
 
-# =================================================================
-#  Elements should be in the working directory (e.g. run_satwnd)
-# =================================================================
+## Elements should be in the working directory (e.g. run_satwnd)
    1. Required input files:
       (1) Can be obtained from SPOC:
           - bufr2ioda_bufr_backend_satwnd_amv_goes.yaml
@@ -30,11 +31,12 @@
       (1) Can be obtained from SPOC:
           - process_bufr2ioda
 
-# =================================================================
-#  How to run the test shell script
-# =================================================================
+## How to run the test shell script
    1. Get help page for usage
+
+      ```
       ./process_bufrioda -h
+      ```
 
       <obsforge_dir> : root directory of obsForge build
       <wxflow_dir>   : root directory of wxflow build
@@ -46,13 +48,24 @@
 
 
    2. Run with default input parameters 
+
+      ```
       ./process_bufrioda
+      ```
 
    3. Run with user-defined input parameters 
-      ./process_bufr2ioda /scratch1/NCEPDEV/da/Emily.Liu/EMC-obsForge/obsForge /scratch1/NCEPDEV/da/Emily.Liu/EMC-wxflow/wxflow 2021080100 satwnd_amv_goes abi bufr2netcdf 12
+
+      ```
+      obsforge_dir="/scratch1/NCEPDEV/da/Emily.Liu/EMC-obsForge/obsForge"
+      wxflow_dir="/scratch1/NCEPDEV/da/Emily.Liu/EMC-wxflow/wxflow"
+      ./process_bufr2ioda ${obsforge_dir} ${wxflow_dir} 2021080100 satwnd_amv_goes abi bufr2netcdf 12
+      ```
 
    4. Run with user-defined mode 
+
+      ```
      ./process_bufr2ioda "" "" "" "" "" bufr2netcdf" 4 
      ./process_bufr2ioda "" "" "" "" "" bufr_backend" 4 
      ./process_bufr2ioda "" "" "" "" "" script_backend" 4 
 
+      ```
