@@ -33,7 +33,7 @@ This is a prototype of testing BUFR to IODA conversion and is still evolving.
       wxflow    /scratch1/NCEPDEV/da/Emily.Liu/EMC-wxflow/wxflow
    ```
 
-## Elements should be in the working directory (e.g. run_satwnd)
+## Elements should be in the working directory from SPOC
 - Required input files:
   
    - bufr2ioda_satwnd_amv_goes.py
@@ -50,7 +50,7 @@ This is a prototype of testing BUFR to IODA conversion and is still evolving.
    - bufr2ioda.sh 
 
 ## How to run the test shell script
-- Get help page for usage
+- Get the help page for usage
 
 ```
       ./bufrioda.sh -h
