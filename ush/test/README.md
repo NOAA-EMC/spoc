@@ -2,7 +2,12 @@
    1. Clone and build obsForge  
 
       ```       
-      git clone --recursive https://github.com/NOAA-EMC/obsForge
+      git clone --recursive https://github.com/noaa-emc/obsForge -b feature/initial 
+      cd ./obsForge/sorc/ioda
+      git remote -v
+      git remote set-url origin https://github.com/jcsda-internal/ioda.git
+      git pull
+      git checkout feature/bufr_in_parallel_emily
       ./build.sh
       ```
 
