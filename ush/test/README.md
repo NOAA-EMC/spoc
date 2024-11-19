@@ -60,7 +60,7 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
       <cycle>        : cycle time (e.g., 2021080100)
       <obstype>      : observation type to create (e.g., satwnd_amv_goes)
       <sensor>       : sensor (e.g., abi)
-      <mode>         : mode of operation (three valid modes: bufr_backend, script_backend, bufr2netcdf, script2netcdf)
+      <mode>         : mode of operation (four valid modes: bufr_backend, script_backend, bufr2netcdf, script2netcdf)
       <nproc>        : number of processors (must be a positive integer)
 ```
 
