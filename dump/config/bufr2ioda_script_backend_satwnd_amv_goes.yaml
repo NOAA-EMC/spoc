@@ -13,7 +13,7 @@ observations:
         type: script 
         script file: "bufr2ioda_satwnd_amv_goes.py"
         args:
-          input_path: "./testinput/gdas.t00z.satwnd.tm00.bufr_d"
+          input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
           mapping_path: "./bufr2ioda_satwnd_amv_goes_mapping.yaml"
           category: "goes-16"
     obsdataout:
@@ -31,7 +31,7 @@ observations:
         type: script 
         script file: "bufr2ioda_satwnd_amv_goes.py"
         args:
-          input_path: "./testinput/gdas.t00z.satwnd.tm00.bufr_d"
+          input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
           mapping_path: "./bufr2ioda_satwnd_amv_goes_mapping.yaml"
           category: "goes-17"
     obsdataout:
@@ -49,7 +49,7 @@ observations:
         type: script 
         script file: "bufr2ioda_satwnd_amv_goes.py"
         args:
-          input_path: "./testinput/gdas.t00z.satwnd.tm00.bufr_d"
+          input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
           mapping_path: "./bufr2ioda_satwnd_amv_goes_mapping.yaml"
           category: "goes-18"
     obsdataout:

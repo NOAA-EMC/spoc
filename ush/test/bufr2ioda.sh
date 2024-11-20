@@ -142,7 +142,7 @@ h2="${cycle:8:2}"
 # ====================
 work_dir="$PWD"
 out_dir="${work_dir}/testoutput/$cycle/${mode}"
-in_dir="${work_dir}/testinput/"
+in_dir="${work_dir}/testinput/$cycle"
 mkdir -p -m770 ${out_dir} || { echo "Error creating output directory: ${out_dir}"; exit 1; }
 
 # ===============
