@@ -77,38 +77,34 @@ bufr:
           _272: goes-18 
 
 encoder:
-#  type: netcdf
+# type: netcdf
 
-#  dimensions:
+# dimensions:
 
   globals:
     - name: "platformCommonName"
       type: string
-      value: "Meteorological Operational Satellite"
+      value: "GOES"
 
     - name: "platformLongDescription"
       type: string
-      value: "EUMETSAT Polar System in sunsynchronous orbit"
-
-    - name: "source"
-      type: string
-      value: "MTYP 021-241 IASI 1C RADIANCES (VARIABLE CHNS) (METOP)"
-
-    - name: "sourceFiles"
-      type: string
-      value: "gdas.t00z.mtiasi.tm00.bufr_d"
-
-    - name: "datetimeReference"
-      type: string
-      value: "2021-08-01T00:00:00Z"
+      value: "Geostationary Operational Satellite"
 
     - name: "sensor"
       type: string
-      value: "IASI"
+      value: "Advanced Baseline Imager"
+
+    - name: "source"
+      type: string
+      value: "NCEP BUFR Dump for satellite derived atmospheric motion vectors (satwnd)"
+
+    - name: "providerFullName"
+      type: string
+      value: "National Environmental Satellite, Data, and Information Service"
 
     - name: "processingLevel"
       type: string
-      value: "Level-1C"
+      value: "Level-2"
 
     - name: "converter"
       type: string
