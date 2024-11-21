@@ -3,7 +3,7 @@ data types:
   - name: mhs_1b
     mapping: mhs_1b_mapping.yaml
     paths:
-        - b021/xx027
+      - b021/xx027
 
   - name: mhs_1c
     mapping: mhs_1c_mapping.yaml
@@ -37,5 +37,3 @@ data types:
       - b002/xx101
       - b002/xx102
       - b002/xx103
-        
-e
