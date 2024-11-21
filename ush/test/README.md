@@ -53,7 +53,7 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
 - Get the help page for usage
 
 ```
-      ./bufrioda.sh -h
+      bufrioda.sh -h
 
       <obsforge_dir> : root directory of obsForge build
       <wxflow_dir>   : root directory of wxflow build
@@ -67,7 +67,7 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
 - Run with default input parameters 
 
 ```
-      ./bufrioda.sh
+      bufrioda.sh
 ```
 
 - Run with user-defined input parameters 
@@ -77,16 +77,16 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
 
       wxflow_dir="/scratch1/NCEPDEV/da/Emily.Liu/EMC-wxflow/wxflow"
 
-      ./bufr2ioda.sh ${obsforge_dir} ${wxflow_dir} 2021080100 satwnd_amv_goes abi script_backend 4 
+      bufr2ioda.sh ${obsforge_dir} ${wxflow_dir} 2021080100 satwnd_amv_goes abi script_backend 4 
 ```
 
 -  Run with user-defined mode and number of processes
 
 ```
-     ./bufr2ioda.sh "" "" "" "" "" bufr2netcdf" 8 
+     bufr2ioda.sh "" "" "" "" "" bufr2netcdf" 8 
 
-     ./bufr2ioda.sh "" "" "" "" "" script2netcdf" 0 
+     bufr2ioda.sh "" "" "" "" "" script2netcdf" 0 
 
-     ./bufr2ioda.sh "" "" "" "" "" bufr_backend" 12 
+     bufr2ioda.sh "" "" "" "" "" bufr_backend" 12 
 
 ```
