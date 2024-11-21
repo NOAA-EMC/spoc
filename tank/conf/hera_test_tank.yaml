@@ -1,50 +1,27 @@
 
-source: /scratch1/NCEPDEV/stmp4/Emily.Liu/Tank_Bufr/ops/prod/dcom
-mapping dir: /scratch1/NCEPDEV/da/Ronald.McLaren/src/spoc/tank/mapping
-
 data types:
   - name: mhs_1b
     mapping: mhs_1b_mapping.yaml
-    operations:
-        - type: categorize
-          parameters:
-            shortcuts: [satellite id]
     paths:
         - b021/xx027
 
   - name: mhs_1c
     mapping: mhs_1c_mapping.yaml
-    operations:
-      - type: categorize
-        parameters:
-          shortcuts: [ satellite id ]
     paths:
       - b021/xx036
 
   - name: hirs_3
     mapping: hirs_3_mapping.yaml
-    operations:
-      - type: categorize
-        parameters:
-          shortcuts: [ satellite id ]
     paths:
       - b021/xx035
 
   - name: hirs_4
     mapping: hirs_4_mapping.yaml
-    operations:
-      - type: categorize
-        parameters:
-          shortcuts: [satellite id]
     paths:
       - b021/xx028
 
   - name: mtiasi
     mapping: mtiasi_mapping.yaml
-    operations:
-      - type: de-duplicate
-        parameters:
-          shortcuts: [satellite id]
     paths:
       - b021/xx239
 
@@ -61,3 +38,4 @@ data types:
       - b002/xx102
       - b002/xx103
         
+e
