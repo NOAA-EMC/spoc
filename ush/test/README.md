@@ -5,7 +5,7 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
 - Clone and build obsForge  
 
    ```       
-      git clone --recursive https://github.com/noaa-emc/obsForge -b feature/initial
+      git clone --recursive https://github.com/noaa-emc/obsForge
    
       cd ./obsForge/sorc/ioda
    
