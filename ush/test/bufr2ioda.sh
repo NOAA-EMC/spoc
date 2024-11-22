@@ -4,20 +4,18 @@
 # Get input arguments
 # ====================
 obsforge_dir="${1:-/scratch1/NCEPDEV/da/Emily.Liu/EMC-obsForge/obsForge}"
-wxflow_dir="${2:-/scratch1/NCEPDEV/da/Emily.Liu/EMC-wxflow/wxflow}"
-cycle="${3:-2021080100}"
-obstype="${4:-satwnd_amv_goes}"
-sensor="${5:-abi}"
-mode="${6:-script_backend}"
-nproc="${7:-4}"
+cycle="${2:-2021080100}"
+obstype="${3:-satwnd_amv_ahi}"
+sensor="${4:-ahi}"
+mode="${5:-script_backend}"
+nproc="${6:-4}"
 
 # ==========================
 # Function to display usage
 # ==========================
 usage() {
-    echo "Usage: $0 <obsforge_dir> <wxflow_dir> <cycle> <obstype> <sensor> <mode> <nproc>"
+    echo "Usage: $0 <obsforge_dir> <cycle> <obstype> <sensor> <mode> <nproc>"
     echo "  <obsforge_dir> : root directory of obsForge build"
-    echo "  <wxflow_dir>   : root directory of wxflow build"
     echo "  <cycle>        : cycle time (e.g., 2021080100)"
     echo "  <obstype>      : observation type to create (e.g., satwnd_amv_goes)"
     echo "  <sensor>       : sensor (e.g., abi)"
@@ -36,7 +34,7 @@ fi
 # =============================================
 # Check if all required arguments are provided
 # =============================================
-if [[ -z "$mode" || -z "$nproc" || -z "$sensor" || -z "$obstype" || -z "$cycle" || -z "${obsforge_dir}" || -z "${wxflow_dir}" ]]; then
+if [[ -z "$mode" || -z "$nproc" || -z "$sensor" || -z "$obstype" || -z "$cycle" || -z "${obsforge_dir}" ]]; then
     echo "Error: Missing one or more required arguments."
     usage
 fi
@@ -69,7 +67,6 @@ fi
 # Check if all checks pass
 # =========================
 echo "root directory of obsForge: $obsforge_dir"
-echo "root directory of wxflow: $wxflow_dir"
 echo "cycle: $cycle"
 echo "obstype: $obstype"
 echo "sensor: $sensor"
@@ -93,9 +90,10 @@ ulimit -a
 export OOPS_TRACE=1
 export OOPS_DEBUG=1
 
-# =====================
-# Set WXFLOW log level 
-# =====================
+# =======================================================
+# Set WXFLOW log level
+# Valid Log_LEVEL: DEBUG, INFO, WARNING, ERROR, CRITICAL
+# =======================================================
 export LOG_LEVEL=DEBUG
 
 # ===============================
@@ -119,7 +117,7 @@ export PYTHONPATH="${PYTHONPATH}:${obsforge_dir}/build/lib/python3.10"
 # ============
 # Set wxfloww 
 # ============
-export PYTHONPATH="${PYTHONPATH}:${wxflow_dir}/src"
+export PYTHONPATH="${PYTHONPATH}:${obsforge_dir}/sorc/wxflow/src"
 
 # ===========================
 # Configure SLUM environment
@@ -175,7 +173,8 @@ if [[ "$mode" == "bufr_backend" || "$mode" == "script_backend" ]]; then
       ${obsforge_dir}/build/bin/time_IodaIO.x ${ioda_config_yaml} || { echo "Error: time_IodaIO.x failed"; exit 1; }
    else
       echo Run time_IodaIO.x with MPI ${nproc} ...
-      srun -n $nproc  --mem 96G --time 00:30:00 ${obsforge_dir}/build/bin/time_IodaIO.x ${ioda_config_yaml} || { echo "Error: MPI time_IodaIO.x failed"; exit 1; }
+#     srun -n $nproc --mem 40G --time 00:30:00 ${obsforge_dir}/build/bin/time_IodaIO.x ${ioda_config_yaml} || { echo "Error: MPI time_IodaIO.x failed"; exit 1; }
+      srun -n $nproc --time 00:30:00 ${obsforge_dir}/build/bin/time_IodaIO.x ${ioda_config_yaml} || { echo "Error: MPI time_IodaIO.x failed"; exit 1; }
    fi
 # ================
 # Run bufr2netcdf  
@@ -186,7 +185,8 @@ elif [[ "$mode" == "bufr2netcdf" ]]; then
       ${obsforge_dir}/build/bin/bufr2netcdf.x "$input_file" "${mapping_file}" "$output_file" || { echo "Error: bufr2netcdf.x failed"; exit 1; }
    else
       echo Run bufr2netcdf with MPI ${nproc} ...
-      srun -n "$nproc" --time 00:30:00 --mem 96G ${obsforge_dir}/build/bin/bufr2netcdf.x "$input_file" "${mapping_file}" "$output_file" || { echo "Error: MPI bufr2netcdf.x failed"; exit 1; }
+      srun -n "$nproc" --time 00:30:00 ${obsforge_dir}/build/bin/bufr2netcdf.x "$input_file" "${mapping_file}" "$output_file" || { echo "Error: MPI bufr2netcdf.x failed"; exit 1; }
+#     srun -n "$nproc" --time 00:30:00 --mem 40G ${obsforge_dir}/build/bin/bufr2netcdf.x "$input_file" "${mapping_file}" "$output_file" || { echo "Error: MPI bufr2netcdf.x failed"; exit 1; }
    fi
 # ==================
 # Run script2netcdf  
@@ -197,7 +197,8 @@ elif [[ "$mode" == "script2netcdf" ]]; then
       python bufr2ioda_${obstype}.py -m "$mapping_file" -o "$output_file" -i "$input_file" || { echo "Error: Python script2netcdf failed"; exit 1; }
    else
       echo Run script2netcdf with MPI ${nproc} ...
-      srun -n "$nproc" --time 00:30:00 --mem 96G python bufr2ioda_${obstype}.py -m "$mapping_file" -o "$output_file" -i "$input_file" || { echo "Error: MPI Python script2netcdf failed"; exit 1; }
+      srun -n "$nproc" --time 00:30:00  python bufr2ioda_${obstype}.py -m "$mapping_file" -o "$output_file" -i "$input_file" || { echo "Error: MPI Python script2netcdf failed"; exit 1; }
+#     srun -n "$nproc" --time 00:30:00 --mem 40G python bufr2ioda_${obstype}.py -m "$mapping_file" -o "$output_file" -i "$input_file" || { echo "Error: MPI Python script2netcdf failed"; exit 1; }
    fi
 else
    echo Incorrect running mode ${mode} ... Valid modes are: bufr_backend, script_back, bufr2netcdf, or script2netcdf
