@@ -5,8 +5,8 @@
 # ====================
 obsforge_dir="${1:-/scratch1/NCEPDEV/da/Emily.Liu/EMC-obsForge/obsForge}"
 cycle="${2:-2021080100}"
-obstype="${3:-satwnd_amv_ahi}"
-sensor="${4:-ahi}"
+obstype="${3:-satwnd_amv_goes}"
+sensor="${4:-abi}"
 mode="${5:-script_backend}"
 nproc="${6:-4}"
 
@@ -173,8 +173,7 @@ if [[ "$mode" == "bufr_backend" || "$mode" == "script_backend" ]]; then
       ${obsforge_dir}/build/bin/time_IodaIO.x ${ioda_config_yaml} || { echo "Error: time_IodaIO.x failed"; exit 1; }
    else
       echo Run time_IodaIO.x with MPI ${nproc} ...
-#     srun -n $nproc --mem 40G --time 00:30:00 ${obsforge_dir}/build/bin/time_IodaIO.x ${ioda_config_yaml} || { echo "Error: MPI time_IodaIO.x failed"; exit 1; }
-      srun -n $nproc --time 00:30:00 ${obsforge_dir}/build/bin/time_IodaIO.x ${ioda_config_yaml} || { echo "Error: MPI time_IodaIO.x failed"; exit 1; }
+      srun -n $nproc --mem 96G --time 00:30:00 ${obsforge_dir}/build/bin/time_IodaIO.x ${ioda_config_yaml} || { echo "Error: MPI time_IodaIO.x failed"; exit 1; }
    fi
 # ================
 # Run bufr2netcdf  
@@ -185,8 +184,7 @@ elif [[ "$mode" == "bufr2netcdf" ]]; then
       ${obsforge_dir}/build/bin/bufr2netcdf.x "$input_file" "${mapping_file}" "$output_file" || { echo "Error: bufr2netcdf.x failed"; exit 1; }
    else
       echo Run bufr2netcdf with MPI ${nproc} ...
-      srun -n "$nproc" --time 00:30:00 ${obsforge_dir}/build/bin/bufr2netcdf.x "$input_file" "${mapping_file}" "$output_file" || { echo "Error: MPI bufr2netcdf.x failed"; exit 1; }
-#     srun -n "$nproc" --time 00:30:00 --mem 40G ${obsforge_dir}/build/bin/bufr2netcdf.x "$input_file" "${mapping_file}" "$output_file" || { echo "Error: MPI bufr2netcdf.x failed"; exit 1; }
+      srun -n "$nproc" --mem 96G --time 00:30:00 ${obsforge_dir}/build/bin/bufr2netcdf.x "$input_file" "${mapping_file}" "$output_file" || { echo "Error: MPI bufr2netcdf.x failed"; exit 1; }
    fi
 # ==================
 # Run script2netcdf  
@@ -197,8 +195,7 @@ elif [[ "$mode" == "script2netcdf" ]]; then
       python bufr2ioda_${obstype}.py -m "$mapping_file" -o "$output_file" -i "$input_file" || { echo "Error: Python script2netcdf failed"; exit 1; }
    else
       echo Run script2netcdf with MPI ${nproc} ...
-      srun -n "$nproc" --time 00:30:00  python bufr2ioda_${obstype}.py -m "$mapping_file" -o "$output_file" -i "$input_file" || { echo "Error: MPI Python script2netcdf failed"; exit 1; }
-#     srun -n "$nproc" --time 00:30:00 --mem 40G python bufr2ioda_${obstype}.py -m "$mapping_file" -o "$output_file" -i "$input_file" || { echo "Error: MPI Python script2netcdf failed"; exit 1; }
+      srun -n "$nproc" --mem 96G --time 00:30:00 python bufr2ioda_${obstype}.py -m "$mapping_file" -o "$output_file" -i "$input_file" || { echo "Error: MPI Python script2netcdf failed"; exit 1; }
    fi
 else
    echo Incorrect running mode ${mode} ... Valid modes are: bufr_backend, script_back, bufr2netcdf, or script2netcdf
