@@ -26,17 +26,10 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
       ./build.sh
    ```
 
-- Clone wxflow (no need to build)
-
-   ```
-      git clone https://github.com/NOAA-EMC/wxflow 
-   ```
-
 - Example: obsForge and wxflow builds on HERA
+  
    ```
       obsForge  /scratch1/NCEPDEV/da/Emily.Liu/EMC-obsForge/obsForge
-        
-      wxflow    /scratch1/NCEPDEV/da/Emily.Liu/EMC-wxflow/wxflow
    ```
 
 ## Elements should be in the working directory from SPOC
