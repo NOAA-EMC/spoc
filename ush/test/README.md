@@ -62,7 +62,6 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
       bufrioda.sh -h
 
       <obsforge_dir> : root directory of obsForge build
-      <wxflow_dir>   : root directory of wxflow build
       <cycle>        : cycle time (e.g., 2021080100)
       <obstype>      : observation type to create (e.g., satwnd_amv_goes)
       <sensor>       : sensor (e.g., abi)
@@ -81,18 +80,16 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
 ```
       obsforge_dir="/scratch1/NCEPDEV/da/Emily.Liu/EMC-obsForge/obsForge"
 
-      wxflow_dir="/scratch1/NCEPDEV/da/Emily.Liu/EMC-wxflow/wxflow"
-
-      bufr2ioda.sh ${obsforge_dir} ${wxflow_dir} 2021080100 satwnd_amv_goes abi script_backend 4 
+      bufr2ioda.sh ${obsforge_dir} 2021080100 satwnd_amv_goes abi script_backend 4 
 ```
 
 -  Run with user-defined mode and number of processes
 
 ```
-     bufr2ioda.sh "" "" "" "" "" bufr2netcdf" 8 
+     bufr2ioda.sh "" "" "" "" bufr2netcdf" 8 
 
-     bufr2ioda.sh "" "" "" "" "" script2netcdf" 0 
+     bufr2ioda.sh "" "" "" "" script2netcdf" 0 
 
-     bufr2ioda.sh "" "" "" "" "" bufr_backend" 12 
+     bufr2ioda.sh "" "" "" "" bufr_backend" 12 
 
 ```
