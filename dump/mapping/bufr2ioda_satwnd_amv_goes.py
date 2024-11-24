@@ -138,7 +138,7 @@ def _get_obs_type(swcm, chanfreq):
     Determine the observation type based on `swcm` and `chanfreq`.
 
     Parameters:
-        swcm (array-like): Switch mode values.
+        swcm (array-like): Satellite derived wind calculation method.
         chanfreq (array-like): Satellite channel center frequency (Hz).
 
     Returns:
