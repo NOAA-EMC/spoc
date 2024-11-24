@@ -15,6 +15,43 @@ log_level = os.getenv('LOG_LEVEL', 'INFO')
 logger = Logger('BUFR2IODA_satwnd_amv_goes.py', level=log_level, colored_log=False)
 
 def logging(comm, level, message):
+    """
+    Logs a message to the console or log file, based on the specified logging level.
+
+    This function ensures that logging is only performed by the root process (`rank 0`) 
+    in a distributed computing environment. The function maps the logging level to 
+    appropriate logger methods and defaults to the 'INFO' level if an invalid level is provided.
+
+    Parameters:
+        comm: object
+            The communicator object, typically from a distributed computing framework 
+            (e.g., MPI). It must have a `rank()` method to determine the process rank.
+        level: str
+            The logging level as a string. Supported levels are:
+                - 'DEBUG'
+                - 'INFO'
+                - 'WARNING'
+                - 'ERROR'
+                - 'CRITICAL'
+            If an invalid level is provided, a warning will be logged, and the level 
+            will default to 'INFO'.
+        message: str
+            The message to be logged.
+
+    Behavior:
+        - Logs messages only on the root process (`comm.rank() == 0`).
+        - Maps the provided logging level to a method of the logger object.
+        - Defaults to 'INFO' and logs a warning if an invalid logging level is given.
+        - Supports standard logging levels for granular control over log verbosity.
+
+    Example:
+        >>> logging(comm, 'DEBUG', 'This is a debug message.')
+        >>> logging(comm, 'ERROR', 'An error occurred!')
+
+    Notes:
+        - Ensure that a global `logger` object is configured before using this function.
+        - The `comm` object should conform to MPI-like conventions (e.g., `rank()` method).
+    """
 
     if comm.rank() == 0:
         # Define a dictionary to map levels to logger methods
