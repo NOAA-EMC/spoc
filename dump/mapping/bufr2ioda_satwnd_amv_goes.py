@@ -122,7 +122,7 @@ def compute_wind_components(wdir, wspd):
 
     Parameters:
         wdir (array-like): Wind direction in degrees (meteorological convention: 0° = North, 90° = East).
-        wspd (array-like): Wind speed.
+        wspd (array-like): Wind speed (m/s).
 
     Returns:
         tuple: U and V wind components as numpy arrays with dtype float32.
@@ -139,7 +139,7 @@ def _get_obs_type(swcm, chanfreq):
 
     Parameters:
         swcm (array-like): Switch mode values.
-        chanfreq (array-like): Channel frequency values (Hz).
+        chanfreq (array-like): Satellite channel center frequency (Hz).
 
     Returns:
         numpy.ndarray: Observation type array.
@@ -282,6 +282,7 @@ def create_obs_file(input_path, mapping_path, output_path):
         netcdfEncoder(description).encode(container, output_path) 
 
     logging(comm, 'INFO', f'Return the encoded data')
+
 
 if __name__ == '__main__':
 

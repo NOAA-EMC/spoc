@@ -92,7 +92,7 @@ encoder:
 
     - name: "sensor"
       type: string
-      value: "Advanced Baseline Imager"
+      value: "Advanced Baseline Imager - ABI"
 
     - name: "source"
       type: string

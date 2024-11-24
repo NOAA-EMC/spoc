@@ -5,10 +5,11 @@
 # ====================
 obsforge_dir="${1:-/scratch1/NCEPDEV/da/Emily.Liu/EMC-obsForge/obsForge}"
 cycle="${2:-2021080100}"
-obstype="${3:-satwnd_amv_goes}"
-sensor="${4:-abi}"
-mode="${5:-script_backend}"
-nproc="${6:-4}"
+bufrtype="${3:-satwnd}"
+obstype="${4:-satwnd_amv_goes}"
+sensor="${5:-abi}"
+mode="${6:-script_backend}"
+nproc="${7:-4}"
 
 # ==========================
 # Function to display usage
@@ -17,8 +18,9 @@ usage() {
     echo "Usage: $0 <obsforge_dir> <cycle> <obstype> <sensor> <mode> <nproc>"
     echo "  <obsforge_dir> : root directory of obsForge build"
     echo "  <cycle>        : cycle time (e.g., 2021080100)"
-    echo "  <obstype>      : observation type to create (e.g., satwnd_amv_goes)"
-    echo "  <sensor>       : sensor (e.g., abi)"
+    echo "  <bufrtype>     : bufr type to process (e.g., satwnd, atms)"
+    echo "  <obstype>      : observation type to create (e.g., satwnd_amv_goes, atms)"
+    echo "  <sensor>       : sensor (e.g., abi, atms)"
     echo "  <mode>         : mode of operation (e.g., bufr_backend, script_backend, bufr2netcdf, script2netcdf)"
     echo "  <nproc>        : number of processors (positive integer to run with MPI, or zero for serial execution)"
     exit 1
@@ -68,6 +70,7 @@ fi
 # =========================
 echo "root directory of obsForge: $obsforge_dir"
 echo "cycle: $cycle"
+echo "bufrtype: $bufrtype"
 echo "obstype: $obstype"
 echo "sensor: $sensor"
 echo "mode: $mode"
@@ -147,8 +150,8 @@ mkdir -p -m770 ${out_dir} || { echo "Error creating output directory: ${out_dir}
 # Set file paths
 # ===============
 mapping_file="${work_dir}/bufr2ioda_${obstype}_mapping.yaml"
-input_file="${in_dir}/gdas.t${h2}z.satwnd.tm00.bufr_d"
-output_file="${out_dir}/gdas.t${h2}z.satwnd_${sensor}_{splits/satId}.tm00.nc"
+input_file="${in_dir}/gdas.t${h2}z.${bufrtype}.tm00.bufr_d"
+output_file="${out_dir}/gdas.t${h2}z.${bufrtype}_${sensor}_{splits/satId}.tm00.nc"
 ioda_config_yaml="${work_dir}/bufr2ioda_${mode}_${obstype}.yaml"
 
 if [[ ! -f "$input_file" ]]; then
