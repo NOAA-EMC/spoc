@@ -26,7 +26,7 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
       ./build.sh
    ```
 
-- Example: obsForge and wxflow builds on HERA
+- Example: obsForge builds on HERA
   
    ```
       obsForge  /scratch1/NCEPDEV/da/Emily.Liu/EMC-obsForge/obsForge
@@ -56,9 +56,10 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
 
       <obsforge_dir> : root directory of obsForge build
       <cycle>        : cycle time (e.g., 2021080100)
+      <bufrtype>     : BUFR dump type to process (e.g., satwnd)
       <obstype>      : observation type to create (e.g., satwnd_amv_goes)
       <sensor>       : sensor (e.g., abi)
-      <mode>         : mode of operation (four valid modes: bufr_backend, script_backend, bufr2netcdf, script2netcdf)
+      <mode>         : mode of operation (four valid modes: bufr2netcdf, script2netcdf, bufr_backend, script_backend)
       <nproc>        : number of processors (must be a positive integer)
 ```
 
@@ -73,16 +74,17 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
 ```
       obsforge_dir="/scratch1/NCEPDEV/da/Emily.Liu/EMC-obsForge/obsForge"
 
-      bufr2ioda.sh ${obsforge_dir} 2021080100 satwnd_amv_goes abi script_backend 4 
+      bufr2ioda.sh ${obsforge_dir} 2021080100 satwnd satwnd_amv_goes abi script_backend 4 
 ```
 
 -  Run with user-defined mode and number of processes
 
 ```
-     bufr2ioda.sh "" "" "" "" bufr2netcdf" 8 
+     bufr2ioda.sh "" "" "" "" "" bufr2netcdf" 8 
 
-     bufr2ioda.sh "" "" "" "" script2netcdf" 0 
+     bufr2ioda.sh "" "" "" "" "" script2netcdf" 0 
 
-     bufr2ioda.sh "" "" "" "" bufr_backend" 12 
+     bufr2ioda.sh "" "" "" "" "" bufr_backend" 12 
 
+     bufr2ioda.sh "" "" "" "" "" script_backend" 4 
 ```

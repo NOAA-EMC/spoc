@@ -18,7 +18,7 @@ usage() {
     echo "Usage: $0 <obsforge_dir> <cycle> <obstype> <sensor> <mode> <nproc>"
     echo "  <obsforge_dir> : root directory of obsForge build"
     echo "  <cycle>        : cycle time (e.g., 2021080100)"
-    echo "  <bufrtype>     : bufr type to process (e.g., satwnd, atms)"
+    echo "  <bufrtype>     : BUFR dump type to process (e.g., satwnd, atms)"
     echo "  <obstype>      : observation type to create (e.g., satwnd_amv_goes, atms)"
     echo "  <sensor>       : sensor (e.g., abi, atms)"
     echo "  <mode>         : mode of operation (e.g., bufr_backend, script_backend, bufr2netcdf, script2netcdf)"
