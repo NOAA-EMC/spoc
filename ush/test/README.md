@@ -54,13 +54,14 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
 ```
       bufrioda.sh -h
 
-      <obsforge_dir> : root directory of obsForge build
-      <cycle>        : cycle time (e.g., 2021080100)
-      <bufrtype>     : BUFR dump type to process (e.g., satwnd)
-      <obstype>      : observation type to create (e.g., satwnd_amv_goes)
-      <sensor>       : sensor (e.g., abi)
-      <mode>         : mode of operation (four valid modes: bufr2netcdf, script2netcdf, bufr_backend, script_backend)
-      <nproc>        : number of processors (must be a positive integer)
+      <obsforge_dir>      : root directory of obsForge build
+      <cycle>             : cycle time (e.g., 2021080100)
+      <bufrtype>          : BUFR dump type to process (e.g., satwnd, atms, cris, sfcsno)
+      <obstype>           : observation type to create (e.g., satwnd_amv_goes, atms, cris, sfcsno)
+      <sensor>            : sensor (e.g., abi, atms); for non-satellite dta, sensor is usually obstype (e.g., sfcsno)
+      <split_by_category> : split the data into multiple files based on category (false or true)
+      <mode>              : mode of operation (e.g., bufr_backend, script_backend, bufr2netcdf, script2netcdf)
+      <nproc>             : number of processors (positive integer to run with MPI, or zero for serial execution)
 ```
 
 - Run with default input parameters 
@@ -74,17 +75,21 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
 ```
       obsforge_dir="/scratch1/NCEPDEV/da/Emily.Liu/EMC-obsForge/obsForge"
 
-      bufr2ioda.sh ${obsforge_dir} 2021080100 satwnd satwnd_amv_goes abi script_backend 4 
+      bufr2ioda.sh ${obsforge_dir} 2021080100 satwnd satwnd_amv_goes abi true script_backend 4 
+
+      bufr2ioda.sh ${obsforge_dir} 2021080100 sfcsno sfcsno sfcsno false script_backend 4 
+
+      bufr2ioda.sh ${obsforge_dir} 2021080100 atms atms atms true script_backend 4 
 ```
 
 -  Run with user-defined mode and number of processes
 
 ```
-     bufr2ioda.sh "" "" "" "" "" bufr2netcdf" 8 
+     bufr2ioda.sh "" "" "" "" "" "" bufr2netcdf" 8 
 
-     bufr2ioda.sh "" "" "" "" "" script2netcdf" 0 
+     bufr2ioda.sh "" "" "" "" "" "" script2netcdf" 0 
 
-     bufr2ioda.sh "" "" "" "" "" bufr_backend" 12 
+     bufr2ioda.sh "" "" "" "" "" "" bufr_backend" 12 
 
-     bufr2ioda.sh "" "" "" "" "" script_backend" 4 
+     bufr2ioda.sh "" "" "" "" "" "" script_backend" 4
 ```
