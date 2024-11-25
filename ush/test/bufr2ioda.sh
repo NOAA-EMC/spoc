@@ -8,21 +8,23 @@ cycle="${2:-2021080100}"
 bufrtype="${3:-satwnd}"
 obstype="${4:-satwnd_amv_goes}"
 sensor="${5:-abi}"
-mode="${6:-script_backend}"
-nproc="${7:-4}"
+split_by_category="${6:-true}"
+mode="${7:-script_backend}"
+nproc="${8:-4}"
 
 # ==========================
 # Function to display usage
 # ==========================
 usage() {
     echo "Usage: $0 <obsforge_dir> <cycle> <obstype> <sensor> <mode> <nproc>"
-    echo "  <obsforge_dir> : root directory of obsForge build"
-    echo "  <cycle>        : cycle time (e.g., 2021080100)"
-    echo "  <bufrtype>     : BUFR dump type to process (e.g., satwnd, atms)"
-    echo "  <obstype>      : observation type to create (e.g., satwnd_amv_goes, atms)"
-    echo "  <sensor>       : sensor (e.g., abi, atms)"
-    echo "  <mode>         : mode of operation (e.g., bufr_backend, script_backend, bufr2netcdf, script2netcdf)"
-    echo "  <nproc>        : number of processors (positive integer to run with MPI, or zero for serial execution)"
+    echo "  <obsforge_dir>      : root directory of obsForge build"
+    echo "  <cycle>             : cycle time (e.g., 2021080100)"
+    echo "  <bufrtype>          : BUFR dump type to process (e.g., satwnd, atms, cris, sfcsno)"
+    echo "  <obstype>           : observation type to create (e.g., satwnd_amv_goes, atms, cris, sfcsno)"
+    echo "  <sensor>            : sensor (e.g., abi, atms); for non-satellite dta, sensor is usually obstype (e.g., sfcsno)"
+    echo "  <split_by_category> : split the output file into multiple files based on category (false or true)"
+    echo "  <mode>              : mode of operation (e.g., bufr_backend, script_backend, bufr2netcdf, script2netcdf)"
+    echo "  <nproc>             : number of processors (positive integer to run with MPI, or zero for serial execution)"
     exit 1
 }
 
@@ -36,7 +38,7 @@ fi
 # =============================================
 # Check if all required arguments are provided
 # =============================================
-if [[ -z "$mode" || -z "$nproc" || -z "$sensor" || -z "$obstype" || -z "$cycle" || -z "${obsforge_dir}" ]]; then
+if [[ -z "$mode" || -z "$nproc" || -z "$sensor" || -z "${split_by_category}" || -z "$obstype" || -z "$cycle" || -z "${obsforge_dir}" ]]; then
     echo "Error: Missing one or more required arguments."
     usage
 fi
@@ -73,6 +75,7 @@ echo "cycle: $cycle"
 echo "bufrtype: $bufrtype"
 echo "obstype: $obstype"
 echo "sensor: $sensor"
+echo "split_by_category: ${split_by_category}"
 echo "mode: $mode"
 echo "number of processors: $nproc"
 
@@ -149,15 +152,20 @@ mkdir -p -m770 ${out_dir} || { echo "Error creating output directory: ${out_dir}
 # ===============
 # Set file paths
 # ===============
+ioda_config_yaml="${work_dir}/bufr2ioda_${mode}_${obstype}.yaml"
 mapping_file="${work_dir}/bufr2ioda_${obstype}_mapping.yaml"
 input_file="${in_dir}/gdas.t${h2}z.${bufrtype}.tm00.bufr_d"
-output_file="${out_dir}/gdas.t${h2}z.${bufrtype}_${sensor}_{splits/satId}.tm00.nc"
-ioda_config_yaml="${work_dir}/bufr2ioda_${mode}_${obstype}.yaml"
+if [[ "${split_by_category}" = "true" ]]; then
+   output_file="${out_dir}/gdas.t${h2}z.${bufrtype}_${sensor}_{splits/satId}.tm00.nc"
+else
+   output_file="${out_dir}/gdas.t${h2}z.${bufrtype}.tm00.nc"
+fi
 
 if [[ ! -f "$input_file" ]]; then
     echo "Error: Input file not found: $input_file"
     exit 1
 fi
+
 if [[ ! -f "$mapping_file" ]]; then
     echo "Error: mapping file not found: $mapping"
     exit 1
