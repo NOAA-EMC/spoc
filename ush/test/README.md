@@ -56,8 +56,8 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
 
       <obsforge_dir>      : root directory of obsForge build
       <cycle>             : cycle time (e.g., 2021080100)
-      <bufrtype>          : BUFR dump type to process (e.g., satwnd, atms, cris, sfcsno)
-      <obstype>           : observation type to create (e.g., satwnd_amv_goes, atms, cris, sfcsno)
+      <bufrtype>          : BUFR dump type to process (e.g., satwnd, atms, sfcsno)
+      <obstype>           : observation type to create (e.g., satwnd_amv_goes, atms, sfcsno)
       <sensor>            : sensor (e.g., abi, atms); for non-satellite dta, sensor is usually obstype (e.g., sfcsno)
       <split_by_category> : split the data into multiple files based on category (false or true)
       <mode>              : mode of operation (e.g., bufr_backend, script_backend, bufr2netcdf, script2netcdf)
