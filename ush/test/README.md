@@ -46,7 +46,7 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
    - testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d (copied from the global dump)
 
 - Processing shell script:
-   - bufr2ioda.sh 
+   - encodeBufr.sh 
 
 ## How to run the test shell script
 - Get the help page for usage
@@ -67,7 +67,7 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
 - Run with default input parameters 
 
 ```
-      bufrioda.sh
+      encodeBufr.sh
 ```
 
 - Run with user-defined input parameters 
@@ -75,21 +75,21 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
 ```
       obsforge_dir="/scratch1/NCEPDEV/da/Emily.Liu/EMC-obsForge/obsForge"
 
-      bufr2ioda.sh ${obsforge_dir} 2021080100 satwnd satwnd_amv_goes abi true script_backend 4 
+      encodeBufr.sh ${obsforge_dir} 2021080100 satwnd satwnd_amv_goes abi true script_backend 4 
 
-      bufr2ioda.sh ${obsforge_dir} 2021080100 sfcsno sfcsno sfcsno false script_backend 4 
+      encodeBufr.sh ${obsforge_dir} 2021080100 sfcsno sfcsno sfcsno false script_backend 4 
 
-      bufr2ioda.sh ${obsforge_dir} 2021080100 atms atms atms true script_backend 4 
+      encodeBufr.sh ${obsforge_dir} 2021080100 atms atms atms true script_backend 4 
 ```
 
 -  Run with user-defined mode and number of processes
 
 ```
-     bufr2ioda.sh "" "" "" "" "" "" bufr2netcdf" 8 
+     encodeBufr.sh "" "" "" "" "" "" bufr2netcdf" 8 
 
-     bufr2ioda.sh "" "" "" "" "" "" script2netcdf" 0 
+     encodeBufr.sh "" "" "" "" "" "" script2netcdf" 0 
 
-     bufr2ioda.sh "" "" "" "" "" "" bufr_backend" 12 
+     encodeBufr.sh "" "" "" "" "" "" bufr_backend" 12 
 
-     bufr2ioda.sh "" "" "" "" "" "" script_backend" 4
+     encodeBufr.sh "" "" "" "" "" "" script_backend" 4
 ```
