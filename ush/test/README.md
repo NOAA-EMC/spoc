@@ -15,7 +15,7 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
    
       git pull
    
-      git checkout feature/bufr_in_parallel_emily
+      git checkout feature/bufr_in_parallel
 
       cd ../spoc
 
