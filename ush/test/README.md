@@ -52,7 +52,7 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
 - Get the help page for usage
 
 ```
-      bufrioda.sh -h
+      encodeBufr.sh -h
 
       <obsforge_dir>      : root directory of obsForge build
       <cycle>             : cycle time (e.g., 2021080100)
