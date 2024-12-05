@@ -152,8 +152,8 @@ mkdir -p -m770 ${out_dir} || { echo "Error creating output directory: ${out_dir}
 # ===============
 # Set file paths
 # ===============
-ioda_config_yaml="${work_dir}/bufr2ioda_${mode}_prepbufr_${obstype}.yaml"
-mapping_file="${work_dir}/bufr2ioda_prepbufr_${obstype}_mapping.yaml"
+ioda_config_yaml="${work_dir}/bufr2ioda_${mode}_${obstype}.yaml"
+mapping_file="${work_dir}/bufr2ioda_${obstype}_mapping.yaml"
 #input_file="${in_dir}/gdas.t${h2}z.${bufrtype}.tm00.bufr_d"
 input_file="${in_dir}/gdas.t${h2}z.${bufrtype}.prepbufr"
 if [[ "${split_by_category}" = "true" ]]; then
@@ -204,10 +204,10 @@ elif [[ "$mode" == "bufr2netcdf" ]]; then
 elif [[ "$mode" == "script2netcdf" ]]; then
    if [[ "$nproc" == "0" ]]; then
       echo Run script2netcdf without MPI ...
-      python bufr2ioda_${obstype}_prepbufr.py -m "$mapping_file" -o "$output_file" -i "$input_file" || { echo "Error: Python script2netcdf failed"; exit 1; }
+      python bufr2ioda_${obstype}.py -m "$mapping_file" -o "$output_file" -i "$input_file" || { echo "Error: Python script2netcdf failed"; exit 1; }
    else
       echo Run script2netcdf with MPI ${nproc} ...
-      srun -n "$nproc" --mem 96G --time 00:30:00 python bufr2ioda_${obstype}_prepbufr.py -m "$mapping_file" -o "$output_file" -i "$input_file" || { echo "Error: MPI Python script2netcdf failed"; exit 1; }
+      srun -n "$nproc" --mem 96G --time 00:30:00 python bufr2ioda_${obstype}.py -m "$mapping_file" -o "$output_file" -i "$input_file" || { echo "Error: MPI Python script2netcdf failed"; exit 1; }
    fi
 else
    echo Incorrect running mode ${mode} ... Valid modes are: bufr_backend, script_back, bufr2netcdf, or script2netcdf
