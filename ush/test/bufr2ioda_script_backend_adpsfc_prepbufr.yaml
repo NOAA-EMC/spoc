@@ -15,7 +15,7 @@ observations:
         script file: "bufr2ioda_adpsfc_prepbufr.py"
         args:
           input_path: "/scratch1/NCEPDEV/da/Nicholas.Esposito/JEDI/obsForge_sfcshp_20241126/sorc/spoc/ush/test/testinput/2021080100/gdas.t00z.adpsfc.prepbufr"
-          mapping_path: "/scratch1/NCEPDEV/da/Nicholas.Esposito/JEDI/obsForge_sfcshp_20241126/sorc/spoc/ush/test/bufr2ioda_prepbufr_adpsfc_mapping.yaml"
+          mapping_path: "/scratch1/NCEPDEV/da/Nicholas.Esposito/JEDI/obsForge_sfcshp_20241126/sorc/spoc/ush/test/bufr2ioda_adpsfc_prepbufr_mapping.yaml"
           #category: "goes-16"
     obsdataout:
       engine:
