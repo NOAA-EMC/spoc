@@ -20,7 +20,7 @@ usage() {
     echo "  <obsforge_dir>      : root directory of obsForge build"
     echo "  <cycle>             : cycle time (e.g., 2021080100)"
     echo "  <bufrtype>          : BUFR dump type to process (e.g., satwnd, atms, cris, sfcsno)"
-    echo "  <obstype>           : observation type to create (e.g., satwnd_amv_goes, atms, cris, sfcsno)"
+    echo "  <obstype>           : observation type to create (e.g., satwnd_amv_goes, atms, cris, sfcsno )"
     echo "  <sensor>            : sensor (e.g., abi, atms); for non-satellite dta, sensor is usually obstype (e.g., sfcsno)"
     echo "  <split_by_category> : split the output file into multiple files based on category (false or true)"
     echo "  <mode>              : mode of operation (e.g., bufr_backend, script_backend, bufr2netcdf, script2netcdf)"
@@ -203,10 +203,10 @@ elif [[ "$mode" == "bufr2netcdf" ]]; then
 elif [[ "$mode" == "script2netcdf" ]]; then
    if [[ "$nproc" == "0" ]]; then
       echo Run script2netcdf without MPI ...
-      python bufr2ioda_${obstype}.py "$input_file" "$mapping_file" "$output_file" || { echo "Error: Python script2netcdf failed"; exit 1; }
+      python bufr2ioda_${obstype}.py "$input_file" "$mapping_file" "$output_file" || { echo "Error: Python script2netcdf failed"; python bufr2ioda_${obstype}.py --help; exit 1; }
    else
       echo Run script2netcdf with MPI ${nproc} ...
-      srun -n "$nproc" --mem 96G --time 00:30:00 python bufr2ioda_${obstype}.py "$input_file" "$mapping_file" "$output_file" || { echo "Error: MPI Python script2netcdf failed"; exit 1; }
+      srun -n "$nproc" --mem 96G --time 00:30:00 python bufr2ioda_${obstype}.py "$input_file" "$mapping_file" "$output_file" || { echo "Error: MPI Python script2netcdf failed"; python bufr2ioda_${obstype}.py --help; exit 1; }
    fi
 else
    echo Incorrect running mode ${mode} ... Valid modes are: bufr_backend, script_back, bufr2netcdf, or script2netcdf
