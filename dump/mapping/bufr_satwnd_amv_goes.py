@@ -5,8 +5,8 @@ import argparse
 import time
 import numpy as np
 import bufr
-from pyioda.ioda.Engines.Bufr import Encoder as iodaEncoder 
-from bufr.encoders.netcdf import Encoder as netcdfEncoder 
+from pyioda.ioda.Engines.Bufr import Encoder as iodaEncoder
+from bufr.encoders.netcdf import Encoder as netcdfEncoder
 from wxflow import Logger
 
 # Initialize Logger
@@ -14,17 +14,18 @@ from wxflow import Logger
 log_level = os.getenv('LOG_LEVEL', 'INFO')
 logger = Logger('BUFR2IODA_satwnd_amv_goes.py', level=log_level, colored_log=False)
 
+
 def logging(comm, level, message):
     """
     Logs a message to the console or log file, based on the specified logging level.
 
-    This function ensures that logging is only performed by the root process (`rank 0`) 
-    in a distributed computing environment. The function maps the logging level to 
+    This function ensures that logging is only performed by the root process (`rank 0`)
+    in a distributed computing environment. The function maps the logging level to
     appropriate logger methods and defaults to the 'INFO' level if an invalid level is provided.
 
     Parameters:
         comm: object
-            The communicator object, typically from a distributed computing framework 
+            The communicator object, typically from a distributed computing framework
             (e.g., MPI). It must have a `rank()` method to determine the process rank.
         level: str
             The logging level as a string. Supported levels are:
@@ -33,7 +34,7 @@ def logging(comm, level, message):
                 - 'WARNING'
                 - 'ERROR'
                 - 'CRITICAL'
-            If an invalid level is provided, a warning will be logged, and the level 
+            If an invalid level is provided, a warning will be logged, and the level
             will default to 'INFO'.
         message: str
             The message to be logged.
@@ -72,6 +73,7 @@ def logging(comm, level, message):
 
         # Call the logging method
         log_method(message)
+
 
 def _make_description(mapping_path, update=False):
     description = bufr.encoders.Description(mapping_path)
@@ -116,6 +118,7 @@ def _make_description(mapping_path, update=False):
 
     return description
 
+
 def compute_wind_components(wdir, wspd):
     """
     Compute the U and V wind components from wind direction and wind speed.
@@ -130,8 +133,9 @@ def compute_wind_components(wdir, wspd):
     wdir_rad = np.radians(wdir)  # Convert degrees to radians
     u = -wspd * np.sin(wdir_rad)
     v = -wspd * np.cos(wdir_rad)
-    
+
     return u.astype(np.float32), v.astype(np.float32)
+
 
 def _get_obs_type(swcm, chanfreq):
     """
@@ -164,6 +168,7 @@ def _get_obs_type(swcm, chanfreq):
 
     return obstype
 
+
 def _make_obs(comm, input_path, mapping_path):
 
     # Get container from mapping file first
@@ -175,7 +180,7 @@ def _make_obs(comm, input_path, mapping_path):
     logging(comm, 'DEBUG', f'category map =  {container.get_category_map()}')
 
     # Add new/derived data into container
-    for cat in container.all_sub_categories():  
+    for cat in container.all_sub_categories():
 
         logging(comm, 'DEBUG', f'category = {cat}')
 
@@ -193,7 +198,7 @@ def _make_obs(comm, input_path, mapping_path):
             container.add('variables/windNorthward', wob, paths, cat)
 
         else:
-            # Add new variables: ObsType/windEastward & ObsType/windNorthward 
+            # Add new variables: ObsType/windEastward & ObsType/windNorthward
             swcm = container.get('variables/windComputationMethod', cat)
             chanfreq = container.get('variables/sensorCentralFrequency', cat)
 
@@ -209,7 +214,7 @@ def _make_obs(comm, input_path, mapping_path):
             container.add('variables/obstype_uwind', obstype, paths, cat)
             container.add('variables/obstype_vwind', obstype, paths, cat)
 
-            # Add new variables: ObsValue/windEastward & ObsValue/windNorthward 
+            # Add new variables: ObsValue/windEastward & ObsValue/windNorthward
             wdir = container.get('variables/windDirection', cat)
             wspd = container.get('variables/windSpeed', cat)
 
@@ -231,6 +236,7 @@ def _make_obs(comm, input_path, mapping_path):
 
     return container
 
+
 def create_obs_group(input_path, mapping_path, category, env):
 
     comm = bufr.mpi.Comm(env["comm_name"])
@@ -250,7 +256,7 @@ def create_obs_group(input_path, mapping_path, category, env):
 
     container = _make_obs(comm, input_path, mapping_path)
 
-    # Gather data from all tasks into all tasks. Each task will have the complete record 
+    # Gather data from all tasks into all tasks. Each task will have the complete record
     logging(comm, 'INFO', f'Gather data from all tasks into all tasks')
     container.all_gather(comm)
 
@@ -269,6 +275,7 @@ def create_obs_group(input_path, mapping_path, category, env):
     logging(comm, 'INFO', f'Return the encoded data for {category}')
     return data
 
+
 def create_obs_file(input_path, mapping_path, output_path):
 
     comm = bufr.mpi.Comm("world")
@@ -279,7 +286,7 @@ def create_obs_file(input_path, mapping_path, output_path):
 
     # Encode the data
     if comm.rank() == 0:
-        netcdfEncoder(description).encode(container, output_path) 
+        netcdfEncoder(description).encode(container, output_path)
 
     logging(comm, 'INFO', f'Return the encoded data')
 
