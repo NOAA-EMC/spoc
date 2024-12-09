@@ -209,7 +209,7 @@ elif [[ "$mode" == "script2netcdf" ]]; then
       srun -n "$nproc" --mem 96G --time 00:30:00 python bufr_${obstype}.py "$input_file" "$mapping_file" "$output_file" || { echo "Error: MPI Python script2netcdf failed"; python bufr_${obstype}.py --help; exit 1; }
    fi
 else
-   echo Incorrect running mode ${mode} ... Valid modes are: bufr4backend, script_back, bufr2netcdf, or script2netcdf
+   echo Incorrect running mode ${mode} ... Valid modes are: bufr4backend, script4backend, bufr2netcdf, or script2netcdf
 fi
 
 
