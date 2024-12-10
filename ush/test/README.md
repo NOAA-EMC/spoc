@@ -35,13 +35,13 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
 ## Elements should be in the working directory from SPOC
 - Required input files:
   
-   - bufr2ioda_satwnd_amv_goes.py
+   - bufr_satwnd_amv_goes.py
      
-   - bufr2ioda_satwnd_amv_goes_mapping.yaml
+   - bufr_satwnd_amv_goes_mapping.yaml
      
-   - bufr2ioda_bufr_backend_satwnd_amv_goes.yaml
+   - bufr_bufr_backend_satwnd_amv_goes.yaml
      
-   - bufr2ioda_script_backend_satwnd_amv_goes.yaml
+   - bufr_script_backend_satwnd_amv_goes.yaml
      
    - testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d (copied from the global dump)
 
@@ -52,7 +52,7 @@ This is a prototype for testing BUFR to IODA conversion and is still evolving.
 - Get the help page for usage
 
 ```
-      bufrioda.sh -h
+      encodeBufr.sh -h
 
       <obsforge_dir>      : root directory of obsForge build
       <cycle>             : cycle time (e.g., 2021080100)
