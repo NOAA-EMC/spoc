@@ -104,33 +104,6 @@ def _make_description(mapping_path, update=False):
     return description
 
 
-#def Compute_dateTime(cycleTimeSinceEpoch, dhr):
-#    """
-#    Compute dateTime using the cycleTimeSinceEpoch and Cycle Time
-#        minus Cycle Time 
-#
-#    Parameters:
-#        cycleTimeSinceEpoch: Time of cycle in Epoch Time
-#        dhr: Observation Time Minus Cycle Time
-#
-#    Returns:
-#        Masked array of dateTime values
-#    """
-#
-#    int64_fill_value = np.int64(0)
-#
-#    dateTime = np.zeros(dhr.shape, dtype=np.int64)
-#    for i in range(len(dateTime)):
-#        if ma.is_masked(dhr[i]):
-#            continue
-#        else:
-#            dateTime[i] = np.int64(dhr[i]*3600) + cycleTimeSinceEpoch
-#
-#    dateTime = ma.array(dateTime)
-#    dateTime = ma.masked_values(dateTime, int64_fill_value)
-#
-#    return dateTime
-
 def _make_obs(comm, input_path, mapping_path):
     """
     Create the ioda adpsfc prepbufr observations:
@@ -214,16 +187,17 @@ if __name__ == '__main__':
     bufr.mpi.App(sys.argv)
     comm = bufr.mpi.Comm("world")
 
-    # Required input arguments
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-i', '--input', type=str, help='Input BUFR', required=True)
-    parser.add_argument('-m', '--mapping', type=str, help='BUFR2IODA Mapping File', required=True)
-    parser.add_argument('-o', '--output', type=str, help='Output NetCDF', required=True)
+    # Required input arguments as positional arguments
+    parser = argparse.ArgumentParser(description="Convert BUFR to NetCDF using a mapping file.")
+    parser.add_argument('input', type=str, help='Input BUFR file')
+    parser.add_argument('mapping', type=str, help='BUFR2IODA Mapping File')
+    parser.add_argument('output', type=str, help='Output NetCDF file')
 
     args = parser.parse_args()
-    mapping = args.mapping
     infile = args.input
+    mapping = args.mapping
     output = args.output
+
 
     create_obs_file(infile, mapping, output)
 
