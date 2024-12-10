@@ -127,25 +127,25 @@ encoder:
       value: "U.S. NOAA"
 
   variables:
-    - name: "ObsType/airTemperature"
-      source: variables/airTemperatureObservationType
-      longName: "Observation Type"
-
-#    - name: "ObsType/virtualTemperature"
-#      source: variables/virtualTemperatureObservationType
+#    - name: "ObsType/airTemperature"
+#      source: variables/airTemperatureObservationType
 #      longName: "Observation Type"
-
-    - name: "ObsType/specificHumidity"
-      source: variables/specificHumidityObservationType
-      longName: "Observation Type"
-
-    - name: "ObsType/windNorthward"
-      source: variables/windObservationType
-      longName: "Observation Type"
-
-    - name: "ObsType/windEastward"
-      source: variables/windObservationType
-      longName: "Observation Type"
+#
+##    - name: "ObsType/virtualTemperature"
+##      source: variables/virtualTemperatureObservationType
+##      longName: "Observation Type"
+#
+#    - name: "ObsType/specificHumidity"
+#      source: variables/specificHumidityObservationType
+#      longName: "Observation Type"
+#
+#    - name: "ObsType/windNorthward"
+#      source: variables/windObservationType
+#      longName: "Observation Type"
+#
+#    - name: "ObsType/windEastward"
+#      source: variables/windObservationType
+#      longName: "Observation Type"
 
     # MetaData
     - name: "MetaData/prepbufrDataLevelCategory"
@@ -201,9 +201,9 @@ encoder:
       longName: "Instantaneous Rate Altitue"
       units: "m s-1"
 
-    - name: "MetaData/sequenceNumber"
-      source: variables/sequenceNumber
-      longName: "Sequence Number"
+      #    - name: "MetaData/sequenceNumber"
+      #source: variables/sequenceNumber
+      #longName: "Sequence Number"
 
     #ObsValue
     - name: "ObsValue/airTemperature"
