@@ -204,10 +204,12 @@ elif [[ "$mode" == "bufr2netcdf" ]]; then
 elif [[ "$mode" == "script2netcdf" ]]; then
    if [[ "$nproc" == "0" ]]; then
       echo Run script2netcdf without MPI ...
-      python bufr_${obstype}.py -m "$mapping_file" -o "$output_file" -i "$input_file" || { echo "Error: Python script2netcdf failed"; exit 1; }
+      #python bufr_${obstype}.py -m "$mapping_file" -o "$output_file" -i "$input_file" || { echo "Error: Python script2netcdf failed"; exit 1; }
+      python bufr_${obstype}.py "$input_file" "$mapping_file" "$output_file" || { echo "Error: Python script2netcdf failed"; python bufr_${obstype}.py --help; exit 1; }
    else
       echo Run script2netcdf with MPI ${nproc} ...
-      srun -n "$nproc" --mem 96G --time 00:30:00 python bufr_${obstype}.py -m "$mapping_file" -o "$output_file" -i "$input_file" || { echo "Error: MPI Python script2netcdf failed"; exit 1; }
+      #srun -n "$nproc" --mem 96G --time 00:30:00 python bufr_${obstype}.py -m "$mapping_file" -o "$output_file" -i "$input_file" || { echo "Error: MPI Python script2netcdf failed"; exit 1; }
+      srun -n "$nproc" --mem 96G --time 00:30:00 python bufr_${obstype}.py "$input_file" "$mapping_file" "$output_file" || { echo "Error: MPI Python script2netcdf failed"; python bufr_${obstype}.py --help; exit 1; } 
    fi
 else
    echo Incorrect running mode ${mode} ... Valid modes are: bufr_backend, script_back, bufr2netcdf, or script2netcdf
