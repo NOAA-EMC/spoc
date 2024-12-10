@@ -6,7 +6,7 @@ time window:
 observations:
 - obs space:
     name: "AIRCFT"
-    simulated variables: ['stationPressure','airTemperature','virtualTemperature','specificHumidity','windNorthward','windEastward']
+    simulated variables: ['airTemperature','specificHumidity','windNorthward','windEastward']
     obsdatain:
       engine:
         type: bufr

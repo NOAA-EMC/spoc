@@ -175,11 +175,12 @@ def _make_obs(comm, input_path, mapping_path):
     lon[lon>180] -= 360
     lon = ma.round(lon, decimals=2)
 
+    logging(comm, 'DEBUG', f'Make an array of 0s for MetaData/sequenceNumber')
     print("Make an array of 0s for MetaData/sequenceNumber")
     sequenceNum = np.zeros(lon.shape, dtype=np.int32)
     logging(comm, 'DEBUG', f' sequenceNum min/max =  {sequenceNum.min()} {sequenceNum.max()}')
 
-    print("obstyp")
+    logging(comm, 'DEBUG', f'Compute Obstypes')
     ot = container.get('variables/observationType')
     ot_paths = container.get_paths('variables/observationType')
 
@@ -193,16 +194,16 @@ def _make_obs(comm, input_path, mapping_path):
     ot_specificHumidity = Compute_typ_other(ot, specificHumidity)
     ot_wind = Compute_typ_uv(ot, wind)
 
-    print(" Change IALR to 0.0 if masked for bias correction.")
-    ialr = container.get('variables/instantaneousAltitudeRate0')
-    ialr_paths = container.get_paths('variables/instantaneousAltitudeRate0')
+    logging(comm, 'DEBUG', f'Change IALR to 0.0 if masked for bias correction.')
+    ialr = container.get('variables/instantaneousAltitudeRate')
+    ialr_paths = container.get_paths('variables/instantaneousAltitudeRate')
     ialr2 = ma.array(ialr)
 
     ialr_bc = Compute_ialr_if_masked(ot, ialr2)
 
     logging(comm, 'DEBUG', f'Update variables in container')
     container.replace('variables/longitude', lon)
-    container.replace('variables/instantaneousAltitudeRate', ialr_bc, ot_paths)
+    container.replace('variables/instantaneousAltitudeRate', ialr_bc)#, ot_paths)
 
     logging(comm, 'DEBUG', f'Add variables to container')
     container.add('variables/sequenceNumber', sequenceNum, lon_paths)

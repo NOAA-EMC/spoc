@@ -40,7 +40,7 @@ bufr:
         - scale: 100
     temperatureEventCode:
       query: "*/PRSLEVLA/T___INFO/T__EVENT{1}/TPC"
-    instantaneousAltitudeRate0:
+    instantaneousAltitudeRate:
       query: "*/PRSLEVLA/IALR"
     aircraftFlightPhase:
       query: "*/PRSLEVLA/ACFT_SEQ{1}/POAF"
