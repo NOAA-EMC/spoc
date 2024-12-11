@@ -2,6 +2,7 @@
 import os
 import sys
 import bufr
+import argparse
 import copy
 import numpy as np
 import numpy.ma as ma
@@ -90,36 +91,36 @@ def _make_description(mapping_path, update=False):
                 'units': '1',
                 'longName': 'Sequence Number (Obs Subtype)',
             },
-            {
-                'name': 'QualityMarker/airTemperature',
-                'source': 'variables/sensibleTemperatureQualityMarker',
-                'units': '1',
-                'longName': 'Air Temperature Quality Marker',
-            },
+    #        {
+    #            'name': 'QualityMarker/airTemperature',
+    #            'source': 'variables/sensibleTemperatureQualityMarker',
+    #            'units': '1',
+    #            'longName': 'Air Temperature Quality Marker',
+    #        },
             {
                 'name': 'QualityMarker/virtualTemperature',
                 'source': 'variables/virtualTemperatureQualityMarker',
                 'units': '1',
                 'longName': 'Virtual Temperature Quality Marker',
             },
-            {
-                'name': 'ObsValue/airTemperature',
-                'source': 'variables/sensibleTemperatureObsValue',
-                'longName': 'Air Temperature',
-                'units': 'K',
-            },
+    #        {
+    #            'name': 'ObsValue/airTemperature',
+    #            'source': 'variables/sensibleTemperatureObsValue',
+    #            'longName': 'Air Temperature',
+    #            'units': 'K',
+    #        },
             {
                 'name': 'ObsValue/virtualTemperature',
                 'source': 'variables/virtualTemperatureObsValue',
                 'longName': 'Virtual Temperature',
                 'units': 'K',
             },
-            {
-                'name': 'ObsError/airTemperature',
-                'source': 'variables/sensibleTemperatureObsError',
-                'longName': 'Temperature Error',
-                'units': 'K',
-            },
+    #        {
+    #            'name': 'ObsError/airTemperature',
+    #            'source': 'variables/sensibleTemperatureObsError',
+    #            'longName': 'Temperature Error',
+    #            'units': 'K',
+    #        },
             {
                 'name': 'ObsError/virtualTemperature',
                 'source': 'variables/virtualTemperatureObsError',
@@ -179,47 +180,55 @@ def _make_obs(comm, input_path, mapping_path):
     lon[lon>180] -= 360
     lon = ma.round(lon, decimals=2)
 
-    print("Make an array of 0s for MetaData/sequenceNumber")
+    logging(comm, 'DEBUG', f'Do sequenceNumber (Obs SubType) calculation')
     typ = container.get('variables/observationType')
+    logging(comm, 'DEBUG', f'2Do sequenceNumber (Obs SubType) calculation')
     typ_paths = container.get_paths('variables/observationType')
+    logging(comm, 'DEBUG', f'3Do sequenceNumber (Obs SubType) calculation')
     t29 = container.get('variables/obssubtype')
+    logging(comm, 'DEBUG', f'4Do sequenceNumber (Obs SubType) calculation')
     t29_paths = container.get_paths('variables/obssubtype')
+    logging(comm, 'DEBUG', f'5Do sequenceNumber (Obs SubType) calculation')
     seqNum = Compute_sequenceNumber(typ, t29)
-    logging(comm, 'DEBUG', f' sequenceNummin/max =  {sequenceNum.min()} {sequenceNum.max()}')
+    logging(comm, 'DEBUG', f' sequenceNum min/max =  {seqNum.min()} {seqNum.max()}')
 
-    logging(comm, 'DEBUG', f'Update variables in container')
-    container.replace('variables/longitude', lon)
-
-    print(" Do tsen and tv calculation")
+    logging(comm, 'DEBUG', f'Do tsen and tv calculation')
     tpc = container.get('variables/temperatureEventCode')
     tob = container.get('variables/airTemperatureObsValue')
+    tob_paths = container.get_paths('variables/airTemperatureObsValue')
     tsen = np.full(tob.shape[0], tob.fill_value)
     tsen = np.where(((tpc >= 1) & (tpc < 8)), tob, tsen)
     tvo = np.full(tob.shape[0], tob.fill_value)
     tvo = np.where((tpc == 8), tob, tvo)
 
-    print(" Do tsen and tv QM calculations")
+    logging(comm, 'DEBUG', f'Do tsen and tv QM calculations')
     tobqm = container.get('variables/airTemperatureQualityMarker')
     tsenqm = np.full(tobqm.shape[0], tobqm.fill_value)
     tsenqm = np.where(((tpc >= 1) & (tpc < 8)), tobqm, tsenqm)
     tvoqm = np.full(tobqm.shape[0], tobqm.fill_value)
     tvoqm = np.where((tpc == 8), tobqm, tvoqm)
 
-    print(" Do tsen and tv ObsError calculations")
+    logging(comm, 'DEBUG', f'Do tsen and tv ObsError calculations')
     toboe = container.get('variables/airTemperatureObsError')
     tsenoe = np.full(toboe.shape[0], toboe.fill_value)
     tsenoe = np.where(((tpc >= 1) & (tpc < 8)), toboe, tsenoe)
     tvooe = np.full(toboe.shape[0], toboe.fill_value)
     tvooe = np.where((tpc == 8), toboe, tvooe)
 
+    logging(comm, 'DEBUG', f'Update variables in container')
+    container.replace('variables/longitude', lon)
+    container.replace('variables/airTemperatureObsValue', tsen)
+    container.replace('variables/airTemperatureQualityMarker', tsen)
+    container.replace('variables/airTemperatureObsError', tsen)
+
     logging(comm, 'DEBUG', f'Add variables to container')
-    container.add('variables/sequenceNumber', sequenceNum, typ_paths)
-    container.add('variables/sensibleTemperatureObsValue', tsen, otmct_paths)
-    container.add('variables/virtualTemperatureObsValue', tvo, otmct_paths)
-    container.add('variables/sensibleTemperatureQualityMarker', tsenqm, otmct_paths)
-    container.add('variables/virtualTemperatureQualityMarker', tvoqm, otmct_paths)
-    container.add('variables/sensibleTemperatureObsError', tsenoe, otmct_paths)
-    container.add('variables/virtualTemperatureObsError', tvooe, otmct_paths)
+    container.add('variables/sequenceNumber', seqNum, typ_paths)
+    #container.add('variables/sensibleTemperatureObsValue', tsen, tob_paths)
+    container.add('variables/virtualTemperatureObsValue', tvo, tob_paths)
+    #container.add('variables/sensibleTemperatureQualityMarker', tsenqm, tob_paths)
+    container.add('variables/virtualTemperatureQualityMarker', tvoqm, tob_paths)
+    #container.add('variables/sensibleTemperatureObsError', tsenoe, tob_paths)
+    container.add('variables/virtualTemperatureObsError', tvooe, tob_paths)
 
     # Check
     logging(comm, 'DEBUG', f'container list (updated): {container.list()}')
@@ -228,65 +237,65 @@ def _make_obs(comm, input_path, mapping_path):
 
 
 
-def create_obs_group(cycle_time,input_mapping,input_path):
-    CYCLE_TIME = cycle_time
-    YAML_PATH = input_mapping #"./iodatest_prepbufr_sfcshp_mapping.yaml"
-    INPUT_PATH = input_path
-    print(" CYCLE_TIME: ", CYCLE_TIME)
-
-    container = bufr.Parser(INPUT_PATH, YAML_PATH).parse()
-
-#    print(" Do DateTime calculation")
-#    otmct = container.get('variables/obsTimeMinusCycleTime') #dhr
-#    otmct_paths = container.get_paths('variables/obsTimeMinusCycleTime')
-#    otmct2 = np.array(otmct)
-#    cycleTimeSinceEpoch = np.int64(calendar.timegm(time.strptime(str(int(CYCLE_TIME)), '%Y%m%d%H')))
-#    dateTime = Compute_dateTime(cycleTimeSinceEpoch, otmct2)
-
-    print(" Do sequenceNumber (Obs SubType) calculation")
-    typ = container.get('variables/observationType')
-    typ_paths = container.get_paths('variables/observationType')
-    t29 = container.get('variables/obssubtype')
-    t29_paths = container.get_paths('variables/obssubtype')
-    seqNum = Compute_sequenceNumber(typ, t29)
-
-    print(" Do tsen and tv calculation")
-    tpc = container.get('variables/temperatureEventCode')
-    tob = container.get('variables/airTemperatureObsValue')
-    tsen = np.full(tob.shape[0], tob.fill_value)
-    tsen = np.where(((tpc >= 1) & (tpc < 8)), tob, tsen)
-    tvo = np.full(tob.shape[0], tob.fill_value)
-    tvo = np.where((tpc == 8), tob, tvo)
-
-    print(" Do tsen and tv QM calculations")
-    tobqm = container.get('variables/airTemperatureQualityMarker')
-    tsenqm = np.full(tobqm.shape[0], tobqm.fill_value)
-    tsenqm = np.where(((tpc >= 1) & (tpc < 8)), tobqm, tsenqm)
-    tvoqm = np.full(tobqm.shape[0], tobqm.fill_value)
-    tvoqm = np.where((tpc == 8), tobqm, tvoqm)
-
-    print(" Do tsen and tv ObsError calculations")
-    toboe = container.get('variables/airTemperatureObsError')
-    tsenoe = np.full(toboe.shape[0], toboe.fill_value)
-    tsenoe = np.where(((tpc >= 1) & (tpc < 8)), toboe, tsenoe)
-    tvooe = np.full(toboe.shape[0], toboe.fill_value)
-    tvooe = np.where((tpc == 8), toboe, tvooe)
-
-    print(" Add variables to container.")
-    container.add('variables/dateTime', dateTime, otmct_paths)
-    container.add('variables/sensibleTemperatureObsValue', tsen, otmct_paths)
-    container.add('variables/virtualTemperatureObsValue', tvo, otmct_paths)
-    container.add('variables/sensibleTemperatureQualityMarker', tsenqm, otmct_paths)
-    container.add('variables/virtualTemperatureQualityMarker', tvoqm, otmct_paths)
-    container.add('variables/sensibleTemperatureObsError', tsenoe, otmct_paths)
-    container.add('variables/virtualTemperatureObsError', tvooe, otmct_paths)
-    container.add('variables/sequenceNumber', seqNum, typ_paths)
-
-    description = bufr.encoders.Description(YAML_PATH)
-
-    print(" Add container and descriptions to dataset.")
-    dataset = next(iter(Encoder(description).encode(container).values()))
-    return dataset
+#def create_obs_group(cycle_time,input_mapping,input_path):
+#    CYCLE_TIME = cycle_time
+#    YAML_PATH = input_mapping #"./iodatest_prepbufr_sfcshp_mapping.yaml"
+#    INPUT_PATH = input_path
+#    print(" CYCLE_TIME: ", CYCLE_TIME)
+#
+#    container = bufr.Parser(INPUT_PATH, YAML_PATH).parse()
+#
+##    print(" Do DateTime calculation")
+##    lon = container.get('variables/obsTimeMinusCycleTime') #dhr
+##    lon_paths = container.get_paths('variables/obsTimeMinusCycleTime')
+##    lon2 = np.array(lon)
+##    cycleTimeSinceEpoch = np.int64(calendar.timegm(time.strptime(str(int(CYCLE_TIME)), '%Y%m%d%H')))
+##    dateTime = Compute_dateTime(cycleTimeSinceEpoch, lon2)
+#
+#    print(" Do sequenceNumber (Obs SubType) calculation")
+#    typ = container.get('variables/observationType')
+#    typ_paths = container.get_paths('variables/observationType')
+#    t29 = container.get('variables/obssubtype')
+#    t29_paths = container.get_paths('variables/obssubtype')
+#    seqNum = Compute_sequenceNumber(typ, t29)
+#
+#    print(" Do tsen and tv calculation")
+#    tpc = container.get('variables/temperatureEventCode')
+#    tob = container.get('variables/airTemperatureObsValue')
+#    tsen = np.full(tob.shape[0], tob.fill_value)
+#    tsen = np.where(((tpc >= 1) & (tpc < 8)), tob, tsen)
+#    tvo = np.full(tob.shape[0], tob.fill_value)
+#    tvo = np.where((tpc == 8), tob, tvo)
+#
+#    print(" Do tsen and tv QM calculations")
+#    tobqm = container.get('variables/airTemperatureQualityMarker')
+#    tsenqm = np.full(tobqm.shape[0], tobqm.fill_value)
+#    tsenqm = np.where(((tpc >= 1) & (tpc < 8)), tobqm, tsenqm)
+#    tvoqm = np.full(tobqm.shape[0], tobqm.fill_value)
+#    tvoqm = np.where((tpc == 8), tobqm, tvoqm)
+#
+#    print(" Do tsen and tv ObsError calculations")
+#    toboe = container.get('variables/airTemperatureObsError')
+#    tsenoe = np.full(toboe.shape[0], toboe.fill_value)
+#    tsenoe = np.where(((tpc >= 1) & (tpc < 8)), toboe, tsenoe)
+#    tvooe = np.full(toboe.shape[0], toboe.fill_value)
+#    tvooe = np.where((tpc == 8), toboe, tvooe)
+#
+#    print(" Add variables to container.")
+#    container.add('variables/dateTime', dateTime, lon_paths)
+#    container.add('variables/sensibleTemperatureObsValue', tsen, lon_paths)
+#    container.add('variables/virtualTemperatureObsValue', tvo, lon_paths)
+#    container.add('variables/sensibleTemperatureQualityMarker', tsenqm, lon_paths)
+#    container.add('variables/virtualTemperatureQualityMarker', tvoqm, lon_paths)
+#    container.add('variables/sensibleTemperatureObsError', tsenoe, lon_paths)
+#    container.add('variables/virtualTemperatureObsError', tvooe, lon_paths)
+#    container.add('variables/sequenceNumber', seqNum, typ_paths)
+#
+#    description = bufr.encoders.Description(YAML_PATH)
+#
+#    print(" Add container and descriptions to dataset.")
+#    dataset = next(iter(Encoder(description).encode(container).values()))
+#    return dataset
 
 def create_obs_group(input_path, mapping_path, env):
 
