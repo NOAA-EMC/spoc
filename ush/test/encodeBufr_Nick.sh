@@ -140,7 +140,7 @@ y4="${cycle:0:4}"
 m2="${cycle:4:2}"
 d2="${cycle:6:2}"
 h2="${cycle:8:2}"
-cycle_time="${y4}-${m2}-${d2}T${h2}:00:00Z"
+cycle_time="${cycle}"
 # ====================
 # Set directory paths
 # ====================
@@ -156,7 +156,6 @@ ioda_config_yaml="${work_dir}/bufr_${mode}_${obstype}.yaml"
 mapping_file="${work_dir}/bufr_${obstype}_mapping.yaml"
 #input_file="${in_dir}/gdas.t${h2}z.${bufrtype}.tm00.bufr_d"
 input_file="${in_dir}/gdas.t${h2}z.${bufrtype}.prepbufr"
-
 if [[ "${split_by_category}" = "true" ]]; then
    output_file="${out_dir}/gdas.t${h2}z.${bufrtype}_${sensor}_{splits/satId}.tm00.nc"
 else
@@ -194,6 +193,7 @@ if [[ "$mode" == "bufr_backend" || "$mode" == "script_backend" ]]; then
 elif [[ "$mode" == "bufr2netcdf" ]]; then
    if [[ "$nproc" == "0" ]]; then
       echo Run bufr2netcdf without MPI ...
+      echo NICK ${obsforge_dir}/build/bin/bufr2netcdf.x "$input_file" "${mapping_file}" "$output_file" 
       ${obsforge_dir}/build/bin/bufr2netcdf.x "$input_file" "${mapping_file}" "$output_file" || { echo "Error: bufr2netcdf.x failed"; exit 1; }
    else
       echo Run bufr2netcdf with MPI ${nproc} ...
