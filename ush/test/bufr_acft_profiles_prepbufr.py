@@ -18,21 +18,6 @@ from pyioda.ioda.Engines.Bufr import Encoder as iodaEncoder
 from bufr.encoders.netcdf import Encoder as netcdfEncoder
 from wxflow import Logger
 
-#def Compute_dateTime(cycleTimeSinceEpoch, dhr):
-#
-#    int64_fill_value = np.int64(0)
-#
-#    dateTime = np.zeros(dhr.shape, dtype=np.int64)
-#    for i in range(len(dateTime)):
-#        if ma.is_masked(dhr[i]):
-#            continue
-#        else:
-#            dateTime[i] = np.int64(dhr[i]*3600) + cycleTimeSinceEpoch
-#
-#    dateTime = ma.array(dateTime)
-#    dateTime = ma.masked_values(dateTime, int64_fill_value)
-#
-#    return dateTime
 
 # Initialize Logger
 # Get log level from the environment variable, default to 'INFO it not set
@@ -98,6 +83,61 @@ def logging(comm, level, message):
         # Call the logging method
         log_method(message)
 
+def Compute_dateTime(cycleTimeSinceEpoch, dhr):
+
+    int64_fill_value = np.int64(0)
+
+    dateTime = np.zeros(dhr.shape, dtype=np.int64)
+    for i in range(len(dateTime)):
+        if ma.is_masked(dhr[i]):
+            continue
+        else:
+            dateTime[i] = np.int64(dhr[i]*3600) + cycleTimeSinceEpoch
+
+    dateTime = ma.array(dateTime)
+    dateTime = ma.masked_values(dateTime, int64_fill_value)
+
+    return dateTime
+
+
+def Compute_typ_other(typ, var):
+
+    typ_var = copy.deepcopy(typ)
+    typ_var[(typ_var > 300) & (typ_var < 400)] -= 200
+    typ_var[(typ_var > 400) & (typ_var < 500)] -= 300
+    typ_var[(typ_var > 500) & (typ_var < 600)] -= 400
+
+    for i in range(len(typ_var)):
+        if ma.is_masked(var[i]):
+            typ_var[i] = typ_var.fill_value
+
+    return typ_var
+
+
+def Compute_typ_uv(typ, var):
+
+    typ_var = copy.deepcopy(typ)
+    typ_var[(typ_var > 300) & (typ_var < 400)] -= 100
+    typ_var[(typ_var > 400) & (typ_var < 500)] -= 200
+    typ_var[(typ_var > 500) & (typ_var < 600)] -= 300
+
+    for i in range(len(typ_var)):
+        if ma.is_masked(var[i]):
+            typ_var[i] = typ_var.fill_value
+
+    return typ_var
+
+
+def Compute_ialr_if_masked(typ, ialr):
+
+    ialr_bc = copy.deepcopy(ialr)
+    for i in range(len(ialr_bc)):
+        if ma.is_masked(ialr_bc[i]) and (typ[i] >= 330) and (typ[i] < 340):
+            ialr_bc[i] = float(0)
+
+    return ialr_bc
+
+
 def _make_description(mapping_path, update=False):
     description = bufr.encoders.Description(mapping_path)
 
@@ -148,7 +188,7 @@ def _make_description(mapping_path, update=False):
     return description
 
 
-def _make_obs(comm, input_path, mapping_path):
+def _make_obs(comm, input_path, mapping_path, cycle_time):
     """
     Create the ioda acft_profiles prepbufr observations:
     - reads values
@@ -162,6 +202,8 @@ def _make_obs(comm, input_path, mapping_path):
             The input bufr file
     mapping_path: str
             The input bufr2ioda mapping file
+    cycle_time: str
+            The cycle in YYYYMMDDHH format
     """
 
     # Get container from mapping file first
@@ -175,10 +217,18 @@ def _make_obs(comm, input_path, mapping_path):
     lon[lon>180] -= 360
     lon = ma.round(lon, decimals=2)
 
+    logging(comm, 'DEBUG', f'Do DateTime calculation')
+    otmct = container.get('variables/obsTimeMinusCycleTime')
+    otmct_paths = container.get_paths('variables/obsTimeMinusCycleTime')
+    otmct2 = np.array(otmct)
+    cycleTimeSinceEpoch = np.int64(calendar.timegm(time.strptime(str(int(cycle_time)), '%Y%m%d%H')))
+    dateTime = Compute_dateTime(cycleTimeSinceEpoch, otmct2)
+    logging(comm, 'DEBUG', f'dateTime min/max = {dateTime.min()} {dateTime.max()}')
+
+
     logging(comm, 'DEBUG', f'Make an array of 0s for MetaData/sequenceNumber')
-    print("Make an array of 0s for MetaData/sequenceNumber")
     sequenceNum = np.zeros(lon.shape, dtype=np.int32)
-    logging(comm, 'DEBUG', f' sequenceNum min/max =  {sequenceNum.min()} {sequenceNum.max()}')
+    logging(comm, 'DEBUG', f'sequenceNum min/max =  {sequenceNum.min()} {sequenceNum.max()}')
 
     logging(comm, 'DEBUG', f'Compute Obstypes')
     ot = container.get('variables/observationType')
@@ -220,108 +270,13 @@ def _make_obs(comm, input_path, mapping_path):
     return container
 
 
-
-def Compute_typ_other(typ, var):
-
-    typ_var = copy.deepcopy(typ)
-    typ_var[(typ_var > 300) & (typ_var < 400)] -= 200
-    typ_var[(typ_var > 400) & (typ_var < 500)] -= 300
-    typ_var[(typ_var > 500) & (typ_var < 600)] -= 400
-
-    for i in range(len(typ_var)):
-        if ma.is_masked(var[i]):
-            typ_var[i] = typ_var.fill_value
-
-    return typ_var
-
-
-def Compute_typ_uv(typ, var):
-
-    typ_var = copy.deepcopy(typ)
-    typ_var[(typ_var > 300) & (typ_var < 400)] -= 100
-    typ_var[(typ_var > 400) & (typ_var < 500)] -= 200
-    typ_var[(typ_var > 500) & (typ_var < 600)] -= 300
-
-    for i in range(len(typ_var)):
-        if ma.is_masked(var[i]):
-            typ_var[i] = typ_var.fill_value
-
-    return typ_var
-
-
-def Compute_ialr_if_masked(typ, ialr):
-
-    ialr_bc = copy.deepcopy(ialr)
-    for i in range(len(ialr_bc)):
-        if ma.is_masked(ialr_bc[i]) and (typ[i] >= 330) and (typ[i] < 340):
-            ialr_bc[i] = float(0)
-
-    return ialr_bc
-
-
-#def create_obs_group(cycle_time,input_mapping,input_path):
-#    CYCLE_TIME = round(cycle_time)
-#    YAML_PATH = input_mapping #"./iodatest_prepbufr_acft_profiles_mapping.yaml"
-#    INPUT_PATH = input_path
-#
-#    container = bufr.Parser(INPUT_PATH, YAML_PATH).parse()
-#
-##    print(" Do DateTime calculation")
-##    otmct = container.get('variables/obsTimeMinusCycleTime')
-##    otmct_paths = container.get_paths('variables/obsTimeMinusCycleTime')
-##    otmct2 = np.array(otmct)
-##    cycleTimeSinceEpoch = np.int64(calendar.timegm(time.strptime(str(CYCLE_TIME), '%Y%m%d%H')))
-##    dateTime = Compute_dateTime(cycleTimeSinceEpoch, otmct2)
-##
-##    container.add('variables/dateTime', dateTime, otmct_paths)
-#
-#    print(" Do ObsType calculation")
-#    ot = container.get('variables/observationType')
-#    ot_paths = container.get_paths('variables/observationType')
-#
-#    airTemperature = container.get('variables/airTemperatureObsValue')
-#    #virtualTemperature = container.get('variables/virtualTemperatureObsValue')
-#    specificHumidity = container.get('variables/specificHumidityObsValue')
-#    wind = container.get('variables/windNorthwardObsValue')
-#
-#    ot_airTemperature = Compute_typ_other(ot, airTemperature) 
-#    #ot_virtualTemperature = Compute_typ_other(ot, virtualTemperature)
-#    ot_specificHumidity = Compute_typ_other(ot, specificHumidity)
-#    ot_wind = Compute_typ_uv(ot, wind)
-#
-#    print(" Change IALR to 0.0 if masked for bias correction.")
-#    ialr = container.get('variables/instantaneousAltitudeRate0')
-#    ialr_paths = container.get_paths('variables/instantaneousAltitudeRate0')
-#    ialr2 = ma.array(ialr)
-#
-#    ialr_bc = Compute_ialr_if_masked(ot, ialr2)
-#
-#    print("Make an array of 0s for MetaData/sequenceNumber")
-#    sequenceNum = np.zeros(ot.shape, dtype=np.int32)
-#
-#    print(" Add new variables to container")
-#    container.add('variables/airTemperatureObservationType', ot_airTemperature, ot_paths)
-#    #container.add('variables/virtualTemperatureObservationType', ot_virtualTemperature, ot_paths)
-#    container.add('variables/specificHumidityObservationType', ot_specificHumidity, ot_paths)
-#    container.add('variables/windObservationType', ot_wind, ot_paths)
-#    container.add('variables/instantaneousAltitudeRate', ialr_bc, ot_paths) #ialr_paths)
-#    container.add('variables/sequenceNumber', sequenceNum, ot_paths)
-#
-#    description = bufr.encoders.Description(YAML_PATH)
-#
-#    print(" Add container and descriptions to dataset.")
-#    dataset = next(iter(Encoder(description).encode(container).values()))
-#    return dataset
-
-
-
-def create_obs_group(input_path, mapping_path, env):
+def create_obs_group(input_path, mapping_path, cycle_time, env):
 
     comm = bufr.mpi.Comm(env["comm_name"])
 
     logging(comm, 'INFO', f'Make description and make obs')
     description = _make_description(mapping_path, update=True)
-    container = _make_obs(comm, input_path, mapping_path)
+    container = _make_obs(comm, input_path, mapping_path, cycle_time)
 
     # Gather data from all tasks into all tasks. Each task will have the complete record
     logging(comm, 'INFO', f'Gather data from all tasks into all tasks')
@@ -334,10 +289,10 @@ def create_obs_group(input_path, mapping_path, env):
     return data
 
 
-def create_obs_file(input_path, mapping_path, output_path):
+def create_obs_file(input_path, mapping_path, output_path, cycle_time):
 
     comm = bufr.mpi.Comm("world")
-    container = _make_obs(comm, input_path, mapping_path)
+    container = _make_obs(comm, input_path, mapping_path, cycle_time)
     container.gather(comm)
 
     description = _make_description(mapping_path, update=True)
@@ -360,14 +315,15 @@ if __name__ == '__main__':
     parser.add_argument('input', type=str, help='Input BUFR file')
     parser.add_argument('mapping', type=str, help='BUFR2IODA Mapping File')
     parser.add_argument('output', type=str, help='Output NetCDF file')
+    parser.add_argument('cycle_time', type=str, help='cycle time in YYYYMMDDHH format')
 
     args = parser.parse_args()
     infile = args.input
     mapping = args.mapping
     output = args.output
+    cycle_time = args.cycle_time
 
-
-    create_obs_file(infile, mapping, output)
+    create_obs_file(infile, mapping, output, cycle_time)
 
     end_time = time.time()
     running_time = end_time - start_time
