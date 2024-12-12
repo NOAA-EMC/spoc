@@ -108,7 +108,7 @@ encoder:
 
     - name: "subsets"
       type: string
-      value: "AIRCFT AIRCAR"        
+      value: "AIRCFT AIRCAR"
 
     - name: "source"
       type: string
