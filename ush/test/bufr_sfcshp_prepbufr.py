@@ -91,42 +91,6 @@ def _make_description(mapping_path, update=False):
                 'units': '1',
                 'longName': 'Sequence Number (Obs Subtype)',
             },
-    #        {
-    #            'name': 'QualityMarker/airTemperature',
-    #            'source': 'variables/sensibleTemperatureQualityMarker',
-    #            'units': '1',
-    #            'longName': 'Air Temperature Quality Marker',
-    #        },
-    #        {
-    #            'name': 'QualityMarker/virtualTemperature',
-    #            'source': 'variables/virtualTemperatureQualityMarker',
-    #            'units': '1',
-    #            'longName': 'Virtual Temperature Quality Marker',
-    #        },
-    #        {
-    #            'name': 'ObsValue/airTemperature',
-    #            'source': 'variables/sensibleTemperatureObsValue',
-    #            'longName': 'Air Temperature',
-    #            'units': 'K',
-    #        },
-    #        {
-    #            'name': 'ObsValue/virtualTemperature',
-    #            'source': 'variables/virtualTemperatureObsValue',
-    #            'longName': 'Virtual Temperature',
-    #            'units': 'K',
-    #        },
-    #        {
-    #            'name': 'ObsError/airTemperature',
-    #            'source': 'variables/sensibleTemperatureObsError',
-    #            'longName': 'Temperature Error',
-    #            'units': 'K',
-    #        },
-    #        {
-    #            'name': 'ObsError/virtualTemperature',
-    #            'source': 'variables/virtualTemperatureObsError',
-    #            'longName': 'Temperature Error',
-    #            'units': 'K',
-    #        }
         ]
 
         # Loop through each variable and add it to the description
@@ -197,7 +161,7 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
     mapping_path: str
             The input bufr2ioda mapping file
     cycle_time: str
-            The cycle_time in 
+            The cycle in YYYYMMDDHH format
     """
 
     # Get container from mapping file first
@@ -215,7 +179,7 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
     otmct = container.get('variables/obsTimeMinusCycleTime')
     otmct_paths = container.get_paths('variables/obsTimeMinusCycleTime')
     otmct2 = np.array(otmct)
-    cycleTimeSinceEpoch = np.int64(calendar.timegm(time.strptime(str(int(CYCLE_TIME)), '%Y-%m-%dT%H:00:00Z')))
+    cycleTimeSinceEpoch = np.int64(calendar.timegm(time.strptime(str(int(cycle_time)), '%Y%m%d%H')))
     dateTime = Compute_dateTime(cycleTimeSinceEpoch, otmct2)
     logging(comm, 'DEBUG', f'dateTime min/max = {dateTime.min()} {dateTime.max()}')
 
@@ -262,12 +226,6 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
 
     logging(comm, 'DEBUG', f'Add variables to container')
     container.add('variables/sequenceNumber', seqNum, typ_paths)
-    #container.add('variables/sensibleTemperatureObsValue', tsen, tob_paths)
-    #container.add('variables/virtualTemperatureObsValue', tvo, tob_paths)
-    #container.add('variables/sensibleTemperatureQualityMarker', tsenqm, tob_paths)
-    #container.add('variables/virtualTemperatureQualityMarker', tvoqm, tob_paths)
-    #container.add('variables/sensibleTemperatureObsError', tsenoe, tob_paths)
-    #container.add('variables/virtualTemperatureObsError', tvooe, tob_paths)
 
     # Check
     logging(comm, 'DEBUG', f'container list (updated): {container.list()}')
@@ -275,68 +233,7 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
     return container
 
 
-
-#def create_obs_group(cycle_time,input_mapping,input_path):
-#    CYCLE_TIME = cycle_time
-#    YAML_PATH = input_mapping #"./iodatest_prepbufr_sfcshp_mapping.yaml"
-#    INPUT_PATH = input_path
-#    print(" CYCLE_TIME: ", CYCLE_TIME)
-#
-#    container = bufr.Parser(INPUT_PATH, YAML_PATH).parse()
-#
-##    print(" Do DateTime calculation")
-##    lon = container.get('variables/obsTimeMinusCycleTime') #dhr
-##    lon_paths = container.get_paths('variables/obsTimeMinusCycleTime')
-##    lon2 = np.array(lon)
-##    cycleTimeSinceEpoch = np.int64(calendar.timegm(time.strptime(str(int(CYCLE_TIME)), '%Y%m%d%H')))
-##    dateTime = Compute_dateTime(cycleTimeSinceEpoch, lon2)
-#
-#    print(" Do sequenceNumber (Obs SubType) calculation")
-#    typ = container.get('variables/observationType')
-#    typ_paths = container.get_paths('variables/observationType')
-#    t29 = container.get('variables/obssubtype')
-#    t29_paths = container.get_paths('variables/obssubtype')
-#    seqNum = Compute_sequenceNumber(typ, t29)
-#
-#    print(" Do tsen and tv calculation")
-#    tpc = container.get('variables/temperatureEventCode')
-#    tob = container.get('variables/airTemperatureObsValue')
-#    tsen = np.full(tob.shape[0], tob.fill_value)
-#    tsen = np.where(((tpc >= 1) & (tpc < 8)), tob, tsen)
-#    tvo = np.full(tob.shape[0], tob.fill_value)
-#    tvo = np.where((tpc == 8), tob, tvo)
-#
-#    print(" Do tsen and tv QM calculations")
-#    tobqm = container.get('variables/airTemperatureQualityMarker')
-#    tsenqm = np.full(tobqm.shape[0], tobqm.fill_value)
-#    tsenqm = np.where(((tpc >= 1) & (tpc < 8)), tobqm, tsenqm)
-#    tvoqm = np.full(tobqm.shape[0], tobqm.fill_value)
-#    tvoqm = np.where((tpc == 8), tobqm, tvoqm)
-#
-#    print(" Do tsen and tv ObsError calculations")
-#    toboe = container.get('variables/airTemperatureObsError')
-#    tsenoe = np.full(toboe.shape[0], toboe.fill_value)
-#    tsenoe = np.where(((tpc >= 1) & (tpc < 8)), toboe, tsenoe)
-#    tvooe = np.full(toboe.shape[0], toboe.fill_value)
-#    tvooe = np.where((tpc == 8), toboe, tvooe)
-#
-#    print(" Add variables to container.")
-#    container.add('variables/dateTime', dateTime, lon_paths)
-#    container.add('variables/sensibleTemperatureObsValue', tsen, lon_paths)
-#    container.add('variables/virtualTemperatureObsValue', tvo, lon_paths)
-#    container.add('variables/sensibleTemperatureQualityMarker', tsenqm, lon_paths)
-#    container.add('variables/virtualTemperatureQualityMarker', tvoqm, lon_paths)
-#    container.add('variables/sensibleTemperatureObsError', tsenoe, lon_paths)
-#    container.add('variables/virtualTemperatureObsError', tvooe, lon_paths)
-#    container.add('variables/sequenceNumber', seqNum, typ_paths)
-#
-#    description = bufr.encoders.Description(YAML_PATH)
-#
-#    print(" Add container and descriptions to dataset.")
-#    dataset = next(iter(Encoder(description).encode(container).values()))
-#    return dataset
-
-def create_obs_group(input_path, mapping_path, env):
+def create_obs_group(input_path, mapping_path, cycle_time, env):
 
     comm = bufr.mpi.Comm(env["comm_name"])
 
@@ -354,7 +251,7 @@ def create_obs_group(input_path, mapping_path, env):
     logging(comm, 'INFO', f'Return the encoded data.')
     return data
 
-def create_obs_file(input_path, mapping_path, output_path):
+def create_obs_file(input_path, mapping_path, output_path, cycle_time):
 
     comm = bufr.mpi.Comm("world")
     container = _make_obs(comm, input_path, mapping_path, cycle_time)
@@ -380,13 +277,15 @@ if __name__ == '__main__':
     parser.add_argument('input', type=str, help='Input BUFR file')
     parser.add_argument('mapping', type=str, help='BUFR2IODA Mapping File')
     parser.add_argument('output', type=str, help='Output NetCDF file')
+    parser.add_argument('cycle_time', type=str, help='cycle time in YYYYMMDDHH format')
 
     args = parser.parse_args()
     infile = args.input
     mapping = args.mapping
     output = args.output
+    cycle_time = args.cycle_time
 
-    create_obs_file(infile, mapping, output)
+    create_obs_file(infile, mapping, output, cycle_time)
 
     end_time = time.time()
     running_time = end_time - start_time
