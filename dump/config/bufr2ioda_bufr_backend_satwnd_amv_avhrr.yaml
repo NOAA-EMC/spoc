@@ -1,0 +1,130 @@
+time window:
+  begin: "2018-04-14T21:00:00Z"
+  end: "2023-12-15T03:00:00Z"
+
+observations:
+- obs space:
+    name: "satwind_avhrr-metop-1a"
+    simulated variables: [windDirection, windSpeed]
+    obsdatain:
+      engine:
+        type: bufr 
+        obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
+        mapping file: "./bufr2ioda_satwnd_amv_avhrr_mapping.yaml"
+        category: ["metop-1a"]
+        cache categories:            # optional
+          - ["metop-1a"]
+          - ["metop-1b"]
+          - ["metop-1c"]
+          - ["noaa-15"]
+          - ["noaa-18"]
+          - ["noaa-19"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.satwnd.avhrr_metop-1a.tm00.nc"
+
+- obs space:
+    name: "satwind_avhrr-metop-1b"
+    simulated variables: [windDirection, windSpeed]
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
+        mapping file: "./bufr2ioda_satwnd_amv_avhrr_mapping.yaml"
+        category: ["metop-1b"]
+        cache categories:            # optional
+          - ["metop-1a"]
+          - ["metop-1b"]
+          - ["metop-1c"]
+          - ["noaa-15"]
+          - ["noaa-18"]
+          - ["noaa-19"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.satwnd.avhrr_metop-1b.tm00.nc"
+
+- obs space:
+    name: "satwind_avhrr-metop-1c"
+    simulated variables: [windDirection, windSpeed]
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
+        mapping file: "./bufr2ioda_satwnd_amv_avhrr_mapping.yaml"
+        category: ["metop-1c"]
+        cache categories:            # optional
+          - ["metop-1a"]
+          - ["metop-1b"]
+          - ["metop-1c"]
+          - ["noaa-15"]
+          - ["noaa-18"]
+          - ["noaa-19"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.satwnd.avhrr_metop-1c.tm00.nc"
+
+- obs space:
+    name: "satwind_avhrr-noaa-15"
+    simulated variables: [windDirection, windSpeed]
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
+        mapping file: "./bufr2ioda_satwnd_amv_avhrr_mapping.yaml"
+        category: ["noaa-15"]
+        cache categories:            # optional
+          - ["metop-1a"]
+          - ["metop-1b"]
+          - ["metop-1c"]
+          - ["noaa-15"]
+          - ["noaa-18"]
+          - ["noaa-19"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.satwnd.avhrr_noaa-15.tm00.nc"
+
+- obs space:
+    name: "satwind_avhrr-noaa-18"
+    simulated variables: [windDirection, windSpeed]
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
+        mapping file: "./bufr2ioda_satwnd_amv_avhrr_mapping.yaml"
+        category: ["noaa-18"]
+        cache categories:            # optional
+          - ["metop-1a"]
+          - ["metop-1b"]
+          - ["metop-1c"]
+          - ["noaa-15"]
+          - ["noaa-18"]
+          - ["noaa-19"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.satwnd.avhrr_noaa-18.tm00.nc"
+
+- obs space:
+    name: "satwind_avhrr-noaa-19"
+    simulated variables: [windDirection, windSpeed]
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
+        mapping file: "./bufr2ioda_satwnd_amv_avhrr_mapping.yaml"
+        category: ["noaa-19"]
+        cache categories:            # optional
+          - ["metop-1a"]
+          - ["metop-1b"]
+          - ["metop-1c"]
+          - ["noaa-15"]
+          - ["noaa-18"]
+          - ["noaa-19"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.satwnd.avhrr_noaa-19.tm00.nc"
