@@ -97,36 +97,36 @@ def _make_description(mapping_path, update=False):
     #            'units': '1',
     #            'longName': 'Air Temperature Quality Marker',
     #        },
-            {
-                'name': 'QualityMarker/virtualTemperature',
-                'source': 'variables/virtualTemperatureQualityMarker',
-                'units': '1',
-                'longName': 'Virtual Temperature Quality Marker',
-            },
+    #        {
+    #            'name': 'QualityMarker/virtualTemperature',
+    #            'source': 'variables/virtualTemperatureQualityMarker',
+    #            'units': '1',
+    #            'longName': 'Virtual Temperature Quality Marker',
+    #        },
     #        {
     #            'name': 'ObsValue/airTemperature',
     #            'source': 'variables/sensibleTemperatureObsValue',
     #            'longName': 'Air Temperature',
     #            'units': 'K',
     #        },
-            {
-                'name': 'ObsValue/virtualTemperature',
-                'source': 'variables/virtualTemperatureObsValue',
-                'longName': 'Virtual Temperature',
-                'units': 'K',
-            },
+    #        {
+    #            'name': 'ObsValue/virtualTemperature',
+    #            'source': 'variables/virtualTemperatureObsValue',
+    #            'longName': 'Virtual Temperature',
+    #            'units': 'K',
+    #        },
     #        {
     #            'name': 'ObsError/airTemperature',
     #            'source': 'variables/sensibleTemperatureObsError',
     #            'longName': 'Temperature Error',
     #            'units': 'K',
     #        },
-            {
-                'name': 'ObsError/virtualTemperature',
-                'source': 'variables/virtualTemperatureObsError',
-                'longName': 'Temperature Error',
-                'units': 'K',
-            }
+    #        {
+    #            'name': 'ObsError/virtualTemperature',
+    #            'source': 'variables/virtualTemperatureObsError',
+    #            'longName': 'Temperature Error',
+    #            'units': 'K',
+    #        }
         ]
 
         # Loop through each variable and add it to the description
@@ -218,17 +218,20 @@ def _make_obs(comm, input_path, mapping_path):
     logging(comm, 'DEBUG', f'Update variables in container')
     container.replace('variables/longitude', lon)
     container.replace('variables/airTemperatureObsValue', tsen)
-    container.replace('variables/airTemperatureQualityMarker', tsen)
-    container.replace('variables/airTemperatureObsError', tsen)
+    container.replace('variables/airTemperatureQualityMarker', tsenqm)
+    container.replace('variables/airTemperatureObsError', tsenoe)
+    container.replace('variables/virtualTemperatureObsValue', tvo)
+    container.replace('variables/virtualTemperatureQualityMarker', tvoqm)
+    container.replace('variables/virtualTemperatureObsError', tvooe)
 
     logging(comm, 'DEBUG', f'Add variables to container')
     container.add('variables/sequenceNumber', seqNum, typ_paths)
     #container.add('variables/sensibleTemperatureObsValue', tsen, tob_paths)
-    container.add('variables/virtualTemperatureObsValue', tvo, tob_paths)
+    #container.add('variables/virtualTemperatureObsValue', tvo, tob_paths)
     #container.add('variables/sensibleTemperatureQualityMarker', tsenqm, tob_paths)
-    container.add('variables/virtualTemperatureQualityMarker', tvoqm, tob_paths)
+    #container.add('variables/virtualTemperatureQualityMarker', tvoqm, tob_paths)
     #container.add('variables/sensibleTemperatureObsError', tsenoe, tob_paths)
-    container.add('variables/virtualTemperatureObsError', tvooe, tob_paths)
+    #container.add('variables/virtualTemperatureObsError', tvooe, tob_paths)
 
     # Check
     logging(comm, 'DEBUG', f'container list (updated): {container.list()}')

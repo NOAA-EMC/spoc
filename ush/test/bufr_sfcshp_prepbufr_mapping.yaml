@@ -53,6 +53,10 @@ bufr:
       query: "*/T___INFO/T__EVENT{1}/TOB"
       transforms:
         - offset: 273.15
+    virtualTemperatureObsValue:
+      query: "*/T___INFO/T__EVENT{1}/TOB"
+      transforms:
+        - offset: 273.15
     specificHumidityObsValue:
       type: float
       query: "*/Q___INFO/Q__EVENT{1}/QOB"
@@ -74,6 +78,8 @@ bufr:
       query: "*/Z___INFO/Z__EVENT{1}/ZQM"`
     airTemperatureQualityMarker:
       query: "*/T___INFO/T__EVENT{1}/TQM"
+    virtualTemperatureQualityMarker:
+      query: "*/T___INFO/T__EVENT{1}/TQM"
     specificHumidityQualityMarker:
       query: "*/Q___INFO/Q__EVENT{1}/QQM"
     waterTemperatureQualityMarker:
@@ -89,6 +95,8 @@ bufr:
       transforms:
         - scale: 100
     airTemperatureObsError:
+      query: "*/T___INFO/T__BACKG/TOE"
+    virtualTemperatureObsError:
       query: "*/T___INFO/T__BACKG/TOE"
     relativeHumidityObsError:
       query: "*/Q___INFO/Q__BACKG/QOE"
@@ -146,9 +154,9 @@ encoder:
       source: variables/observationType
       longName: "airTemperature ObsType"
 
-      #- name: "ObsType/virtualTemperature"
-      #source: variables/observationType
-      #longName: "Virtual Temperature ObsType"
+    - name: "ObsType/virtualTemperature"
+      source: variables/observationType
+      longName: "Virtual Temperature ObsType"
 
     - name: "ObsType/specificHumidity"
       source: variables/observationType
@@ -231,10 +239,10 @@ encoder:
       longName: "Air Temperature"
       units: "K"
 
-      #- name: "ObsValue/virtualTemperature"
-      #source: variables/virtualTemperatureObsValue
-      #longName: "Virtual Temperature"
-      #units: "K"
+    - name: "ObsValue/virtualTemperature"
+      source: variables/virtualTemperatureObsValue
+      longName: "Virtual Temperature"
+      units: "K"
 
     - name: "ObsValue/specificHumidity"
       source: variables/specificHumidityObsValue
@@ -264,9 +272,9 @@ encoder:
       source: variables/airTemperatureQualityMarker
       longName: "Air Temperature Quality Marker"
 
-      #    - name: "QualityMarker/virtualTemperature"
-      #source: variables/virtualTemperatureQualityMarker
-      #longName: "Virtual Temperature Quality Marker"
+    - name: "QualityMarker/virtualTemperature"
+      source: variables/virtualTemperatureQualityMarker
+      longName: "Virtual Temperature Quality Marker"
 
     - name: "QualityMarker/specificHumidity"
       source: variables/specificHumidityQualityMarker
@@ -291,10 +299,10 @@ encoder:
       longName: "Temperature Error"
       units: "K"
 
-#    - name: "ObsError/virtualTemperature"
-#      source: variables/virtualTemperatureObsError
-#      longName: "Temperature Error"
-#      units: "K"
+    - name: "ObsError/virtualTemperature"
+      source: variables/virtualTemperatureObsError
+      longName: "Temperature Error"
+      units: "K"
 
     - name: "ObsError/relativeHumidity"
       source: variables/relativeHumidityObsError
