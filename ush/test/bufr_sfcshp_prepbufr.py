@@ -153,7 +153,36 @@ def Compute_sequenceNumber(typ, t29):
     return sequenceNumber
 
 
-def _make_obs(comm, input_path, mapping_path):
+def Compute_dateTime(cycleTimeSinceEpoch, dhr):
+    """
+    Compute dateTime using the cycleTimeSinceEpoch and Cycle Time
+        minus Cycle Time
+
+    Parameters:
+        cycleTimeSinceEpoch: Time of cycle in Epoch Time
+        dhr: Observation Time Minus Cycle Time
+
+    Returns:
+        Masked array of dateTime values
+    """
+
+    int64_fill_value = np.int64(0)
+
+    dateTime = np.zeros(dhr.shape, dtype=np.int64)
+    for i in range(len(dateTime)):
+        if ma.is_masked(dhr[i]):
+            continue
+        else:
+            dateTime[i] = np.int64(dhr[i]*3600) + cycleTimeSinceEpoch
+
+    dateTime = ma.array(dateTime)
+    dateTime = ma.masked_values(dateTime, int64_fill_value)
+
+    return dateTime
+
+
+
+def _make_obs(comm, input_path, mapping_path, cycle_time):
     """
     Create the ioda sfcshp prepbufr observations:
     - reads values 
@@ -167,6 +196,8 @@ def _make_obs(comm, input_path, mapping_path):
             The input bufr file
     mapping_path: str
             The input bufr2ioda mapping file
+    cycle_time: str
+            The cycle_time in 
     """
 
     # Get container from mapping file first
@@ -180,15 +211,19 @@ def _make_obs(comm, input_path, mapping_path):
     lon[lon>180] -= 360
     lon = ma.round(lon, decimals=2)
 
+    logging(comm, 'DEBUG', f'Do DateTime calculation')
+    otmct = container.get('variables/obsTimeMinusCycleTime')
+    otmct_paths = container.get_paths('variables/obsTimeMinusCycleTime')
+    otmct2 = np.array(otmct)
+    cycleTimeSinceEpoch = np.int64(calendar.timegm(time.strptime(str(int(CYCLE_TIME)), '%Y-%m-%dT%H:00:00Z')))
+    dateTime = Compute_dateTime(cycleTimeSinceEpoch, otmct2)
+    logging(comm, 'DEBUG', f'dateTime min/max = {dateTime.min()} {dateTime.max()}')
+
     logging(comm, 'DEBUG', f'Do sequenceNumber (Obs SubType) calculation')
     typ = container.get('variables/observationType')
-    logging(comm, 'DEBUG', f'2Do sequenceNumber (Obs SubType) calculation')
     typ_paths = container.get_paths('variables/observationType')
-    logging(comm, 'DEBUG', f'3Do sequenceNumber (Obs SubType) calculation')
     t29 = container.get('variables/obssubtype')
-    logging(comm, 'DEBUG', f'4Do sequenceNumber (Obs SubType) calculation')
     t29_paths = container.get_paths('variables/obssubtype')
-    logging(comm, 'DEBUG', f'5Do sequenceNumber (Obs SubType) calculation')
     seqNum = Compute_sequenceNumber(typ, t29)
     logging(comm, 'DEBUG', f' sequenceNum min/max =  {seqNum.min()} {seqNum.max()}')
 
@@ -217,6 +252,7 @@ def _make_obs(comm, input_path, mapping_path):
 
     logging(comm, 'DEBUG', f'Update variables in container')
     container.replace('variables/longitude', lon)
+    container.replace('variables/timestamp', dateTime)
     container.replace('variables/airTemperatureObsValue', tsen)
     container.replace('variables/airTemperatureQualityMarker', tsenqm)
     container.replace('variables/airTemperatureObsError', tsenoe)
@@ -306,7 +342,7 @@ def create_obs_group(input_path, mapping_path, env):
 
     logging(comm, 'INFO', f'Make description and make obs')
     description = _make_description(mapping_path, update=True)
-    container = _make_obs(comm, input_path, mapping_path)
+    container = _make_obs(comm, input_path, mapping_path, cycle_time)
 
     # Gather data from all tasks into all tasks. Each task will have the complete record
     logging(comm, 'INFO', f'Gather data from all tasks into all tasks')
@@ -321,7 +357,7 @@ def create_obs_group(input_path, mapping_path, env):
 def create_obs_file(input_path, mapping_path, output_path):
 
     comm = bufr.mpi.Comm("world")
-    container = _make_obs(comm, input_path, mapping_path)
+    container = _make_obs(comm, input_path, mapping_path, cycle_time)
     container.gather(comm)
 
     description = _make_description(mapping_path, update=True)

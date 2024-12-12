@@ -16,7 +16,7 @@ observations:
         args:
           input_path: "/scratch1/NCEPDEV/da/Nicholas.Esposito/JEDI/obsForge_sfcshp_20241126/sorc/spoc/ush/test/testinput/2021080100/gdas.t00z.sfcshp.prepbufr"
           mapping_path: "/scratch1/NCEPDEV/da/Nicholas.Esposito/JEDI/obsForge_sfcshp_20241126/sorc/spoc/ush/test/bufr_sfcshp_prepbufr_mapping.yaml"
-          #category: "goes-16"
+          cycle_time: "2021-08-01T00:00:00Z"
     obsdataout:
       engine:
         type: H5File
