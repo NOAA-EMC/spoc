@@ -19,6 +19,34 @@ from wxflow import Logger
 log_level = os.getenv('LOG_LEVEL', 'INFO')
 logger = Logger('BUFR2IODA_adpsfc_prepbufr.py', level=log_level, colored_log=False)
 
+def Compute_dateTime(cycleTimeSinceEpoch, dhr):
+    """
+    Compute dateTime using the cycleTimeSinceEpoch and Cycle Time
+        minus Cycle Time
+
+    Parameters:
+        cycleTimeSinceEpoch: Time of cycle in Epoch Time
+        dhr: Observation Time Minus Cycle Time
+
+    Returns:
+        Masked array of dateTime values
+    """
+
+    int64_fill_value = np.int64(0)
+
+    dateTime = np.zeros(dhr.shape, dtype=np.int64)
+    for i in range(len(dateTime)):
+        if ma.is_masked(dhr[i]):
+            continue
+        else:
+            dateTime[i] = np.int64(dhr[i]*3600) + cycleTimeSinceEpoch
+
+    dateTime = ma.array(dateTime)
+    dateTime = ma.masked_values(dateTime, int64_fill_value)
+
+    return dateTime
+
+
 def logging(comm, level, message):
     """
     Logs a message to the console or log file, based on the specified logging level.
@@ -104,7 +132,7 @@ def _make_description(mapping_path, update=False):
     return description
 
 
-def _make_obs(comm, input_path, mapping_path):
+def _make_obs(comm, input_path, mapping_path, cycle_time):
     """
     Create the ioda adpsfc prepbufr observations:
     - reads values 
@@ -118,6 +146,8 @@ def _make_obs(comm, input_path, mapping_path):
             The input bufr file
     mapping_path: str
             The input bufr2ioda mapping file
+    cycle_time: str
+            The cycle in YYYYMMDDHH format
     """
 
     # Get container from mapping file first
@@ -131,12 +161,21 @@ def _make_obs(comm, input_path, mapping_path):
     lon[lon>180] -= 360
     lon = ma.round(lon, decimals=2)
 
+    logging(comm, 'DEBUG', f'Do DateTime calculation')
+    otmct = container.get('variables/obsTimeMinusCycleTime')
+    otmct_paths = container.get_paths('variables/obsTimeMinusCycleTime')
+    otmct2 = np.array(otmct)
+    cycleTimeSinceEpoch = np.int64(calendar.timegm(time.strptime(str(int(cycle_time)), '%Y%m%d%H')))
+    dateTime = Compute_dateTime(cycleTimeSinceEpoch, otmct2)
+    logging(comm, 'DEBUG', f'dateTime min/max = {dateTime.min()} {dateTime.max()}')
+
     print("Make an array of 0s for MetaData/sequenceNumber")
     sequenceNum = np.zeros(lon.shape, dtype=np.int32)
     logging(comm, 'DEBUG', f' sequenceNummin/max =  {sequenceNum.min()} {sequenceNum.max()}')
 
     logging(comm, 'DEBUG', f'Update variables in container')
     container.replace('variables/longitude', lon)
+    container.replace('variables/timestamp', dateTime)
 
     logging(comm, 'DEBUG', f'Add variables to container')
     container.add('variables/sequenceNumber', sequenceNum, lon_paths)
@@ -147,13 +186,13 @@ def _make_obs(comm, input_path, mapping_path):
     return container
 
 
-def create_obs_group(input_path, mapping_path, env):
+def create_obs_group(input_path, mapping_path, cycle_time, env):
 
     comm = bufr.mpi.Comm(env["comm_name"])
 
     logging(comm, 'INFO', f'Make description and make obs')
     description = _make_description(mapping_path, update=True)
-    container = _make_obs(comm, input_path, mapping_path)
+    container = _make_obs(comm, input_path, mapping_path, cycle_time)
 
     # Gather data from all tasks into all tasks. Each task will have the complete record 
     logging(comm, 'INFO', f'Gather data from all tasks into all tasks')
@@ -166,10 +205,10 @@ def create_obs_group(input_path, mapping_path, env):
     return data
 
 
-def create_obs_file(input_path, mapping_path, output_path):
+def create_obs_file(input_path, mapping_path, output_path, cycle_time):
 
     comm = bufr.mpi.Comm("world")
-    container = _make_obs(comm, input_path, mapping_path)
+    container = _make_obs(comm, input_path, mapping_path, cycle_time)
     container.gather(comm)
 
     description = _make_description(mapping_path, update=True)
@@ -192,14 +231,15 @@ if __name__ == '__main__':
     parser.add_argument('input', type=str, help='Input BUFR file')
     parser.add_argument('mapping', type=str, help='BUFR2IODA Mapping File')
     parser.add_argument('output', type=str, help='Output NetCDF file')
+    parser.add_argument('cycle_time', type=str, help='cycle time in YYYYMMDDHH format')
 
     args = parser.parse_args()
     infile = args.input
     mapping = args.mapping
     output = args.output
+    cycle_time = args.cycle_time
 
-
-    create_obs_file(infile, mapping, output)
+    create_obs_file(infile, mapping, output, cycle_time)
 
     end_time = time.time()
     running_time = end_time - start_time
