@@ -1,0 +1,25 @@
+time window:
+  begin: "2018-04-14T21:00:00Z"
+  end: "2023-12-15T03:00:00Z"
+  bound to include: begin
+
+observations:
+- obs space:
+    name: "sondes"
+    simulated variables: [airTemperature, virtualTemperature, windEastward, windNorthward, specificHumidity]
+    obsdatain:
+      engine:
+        type: script 
+        script file: "./bufr_adpupa_prepbufr.py"
+        args:
+          input_path: "./testinput/2021080100/gdas.t00z.adpupa_prepbufr.tm00.bufr_d"
+          mapping_path: "./bufr_adpupa_prepbufr_mapping.yaml"
+          cycle_time: "2021080100"
+    obsgrouping:
+      group variables: ["stationIdentification"]
+      sort variable: "pressure"
+      sort order: "descending"
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2021080100/script_backend/gdas.t00z.adpupa_prepbufr.tm00.bufr_d.nc"
