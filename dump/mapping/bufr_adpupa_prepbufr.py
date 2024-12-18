@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 import os
 import sys
-sys.path.append('/scratch1/NCEPDEV/da/Praveen.Singh/HERA/bufr-query/build/lib')
-sys.path.append('/scratch1/NCEPDEV/da/Praveen.Singh/HERA/bufr-query/build/lib/python3.10')
-sys.path.append('/scratch1/NCEPDEV/da/Praveen.Singh/HERA/bufr-query/build/lib/python3.10/site-packages')
-sys.path.append('/scratch1/NCEPDEV/da/Praveen.Singh/HERA/bufr-query/build/lib/python3.10/site-packages/bufr')
 import bufr
 import argparse
 import copy
@@ -84,21 +80,20 @@ def logging(comm, level, message):
         log_method(message)
 
 
-#def Compute_dateTime(cycleTimeSinceEpoch, hrdr):
-#
-#    int64_fill_value = np.int64(0)
-#
-#    dateTime = np.zeros(hrdr.shape, dtype=np.int64)
-#    for i in range(len(dateTime)):
-#        if ma.is_masked(hrdr[i]):
-#            continue
-#        else:
-#            dateTime[i] = np.int64(hrdr[i]*3600) + cycleTimeSinceEpoch
-#
-#    dateTime = ma.array(dateTime)
-#    dateTime = ma.masked_values(dateTime, int64_fill_value)
-#
-#    return dateTime
+def Compute_dateTime(cycleTimeSinceEpoch, hrdr):
+
+    int64_fill_value = np.int64(0)
+    dateTime = np.zeros(hrdr.shape, dtype=np.int64)
+    for i in range(len(dateTime)):
+        if ma.is_masked(hrdr[i]):
+            continue
+        else:
+            dateTime[i] = np.int64(hrdr[i]*3600) + cycleTimeSinceEpoch
+
+    dateTime = ma.array(dateTime)
+    dateTime = ma.masked_values(dateTime, int64_fill_value)
+
+    return dateTime
 
 
 def Mask_typ_for_var(typ, var):
@@ -161,7 +156,14 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
     logging(comm, 'DEBUG', f'container list (original): {container.list()}')
     logging(comm, 'DEBUG', f'prepbufrDataLevelCategory')
     cat = container.get('variables/prepbufrDataLevelCategory')
- 
+
+    logging(comm, 'DEBUG', f'Do DateTime calculation')
+    hrdr = container.get('variables/obsTimeMinusCycleTime')
+    hrdr_paths = container.get_paths('variables/obsTimeMinusCycleTime')
+    cycleTimeSinceEpoch = np.int64(calendar.timegm(time.strptime(str(int(cycle_time)), '%Y%m%d%H')))
+    dateTime = Compute_dateTime(cycleTimeSinceEpoch, hrdr)
+    logging(comm, 'DEBUG', f'dateTime min/max = {dateTime.min()} {dateTime.max()}')
+
     logging(comm, 'DEBUG', f'Change longitude range from [0,360] to [-180,180]')
     lon = container.get('variables/longitude')
     lon_paths = container.get_paths('variables/longitude')
