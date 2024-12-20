@@ -106,19 +106,21 @@ export LOG_LEVEL=DEBUG
 # Load obsForge required modules 
 # ===============================
 module use ${obsforge_dir}/modulefiles
-module load obsforge/hera.intel || { echo "Error loading obsforge module"; exit 1; }
+module load obsforge/hercules.intel || { echo "Error loading obsforge module"; exit 1; }
 module list
 
 # ==============================
 # Set bufr-query python library
 # ==============================
 export LD_LIBRARY_PATH="${obsforge_dir}/build/lib:${LD_LIBRARY_PATH}"
-export PYTHONPATH="${PYTHONPATH}:${obsforge_dir}/build/lib/python3.10/site-packages"
+#export PYTHONPATH="${PYTHONPATH}:${obsforge_dir}/build/lib/python3.10/site-packages"
+export PYTHONPATH="${PYTHONPATH}:${obsforge_dir}/build/lib/python3.7/site-packages"
 
 # ========================
 # Set ioda python library
 # =========================
-export PYTHONPATH="${PYTHONPATH}:${obsforge_dir}/build/lib/python3.10"
+#export PYTHONPATH="${PYTHONPATH}:${obsforge_dir}/build/lib/python3.10"
+export PYTHONPATH="${PYTHONPATH}:${obsforge_dir}/build/lib/python3.7"
 
 # ============
 # Set wxfloww 

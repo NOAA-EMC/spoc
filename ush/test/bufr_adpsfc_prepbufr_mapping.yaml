@@ -126,7 +126,7 @@ encoder:
       source: variables/longitude
       longName: "Longitude"
       units: "degree_east"
-      range: [0, 360]
+      #range: [0, 360]
 
       #    - name: "MetaData/sequenceNumber"
       #source: variables/sequenceNumber
