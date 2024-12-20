@@ -7,7 +7,13 @@ bufr:
   group_by_variable: prepbufrDataLevelCategory
   variables:
     # ObsType
-    observationType:
+    airTemperatureObservationType:
+      query: "*/TYP"
+    #virtualTemperatureObservationType:
+    #  query: "*/TYP"
+    specificHumidityObservationType:
+      query: "*/TYP"
+    windObservationType:
       query: "*/TYP"
 
     # MetaData
@@ -69,6 +75,8 @@ bufr:
       query: "*/PRSLEVLA/P___INFO/P__EVENT{1}/PQM"
     airTemperatureQualityMarker:
       query: "*/PRSLEVLA/T___INFO/T__EVENT{1}/TQM"
+    #virtualTemperatureQualityMarker:
+    #  query: "*/PRSLEVLA/T___INFO/T__EVENT{1}/TQM"
     specificHumidityQualityMarker:
       query: "*/PRSLEVLA/Q___INFO/Q__EVENT{1}/QQM"
     windEastwardQualityMarker:
@@ -79,6 +87,8 @@ bufr:
     #ObsError
     airTemperatureObsError:
       query: "*/PRSLEVLA/T___INFO/T__BACKG/TOE"
+    #virtualTemperatureObsError:
+    #  query: "*/PRSLEVLA/T___INFO/T__BACKG/TOE"
     specificHumidityObsError:
       query: "*/PRSLEVLA/Q___INFO/Q__BACKG/QOE"
       type: float
@@ -127,25 +137,25 @@ encoder:
       value: "U.S. NOAA"
 
   variables:
-#    - name: "ObsType/airTemperature"
-#      source: variables/airTemperatureObservationType
-#      longName: "Observation Type"
-#
+    - name: "ObsType/airTemperature"
+      source: variables/airTemperatureObservationType
+      longName: "Observation Type"
+
 ##    - name: "ObsType/virtualTemperature"
-##      source: variables/virtualTemperatureObservationType
+##      source: variables/otherTemperatureObservationType
 ##      longName: "Observation Type"
 #
-#    - name: "ObsType/specificHumidity"
-#      source: variables/specificHumidityObservationType
-#      longName: "Observation Type"
-#
-#    - name: "ObsType/windNorthward"
-#      source: variables/windObservationType
-#      longName: "Observation Type"
-#
-#    - name: "ObsType/windEastward"
-#      source: variables/windObservationType
-#      longName: "Observation Type"
+    - name: "ObsType/specificHumidity"
+      source: variables/specificHumidityObservationType
+      longName: "Observation Type"
+
+    - name: "ObsType/windNorthward"
+      source: variables/windObservationType
+      longName: "Observation Type"
+
+    - name: "ObsType/windEastward"
+      source: variables/windObservationType
+      longName: "Observation Type"
 
     # MetaData
     - name: "MetaData/prepbufrDataLevelCategory"
@@ -170,7 +180,7 @@ encoder:
       source: variables/longitude
       longName: "Longitude"
       units: "degree_east"
-      range: [0, 360]
+      #range: [0, 360]
 
     - name: "MetaData/dateTime"
       source: variables/timestamp
@@ -234,7 +244,11 @@ encoder:
     #QualityMarker
     - name: "QualityMarker/airTemperature"
       source: variables/airTemperatureQualityMarker
-      longName: "Temperature Quality Marker"
+      longName: "Air Temperature Quality Marker"
+
+#    - name: "QualityMarker/virtualTemperature"
+#      source: variables/virtualTemperatureQualityMarker
+#      longName: "Virtual Temperature Quality Marker"
 
     - name: "QualityMarker/specificHumidity"
       source: variables/specificHumidityQualityMarker
@@ -251,8 +265,13 @@ encoder:
     #ObsError
     - name: "ObsError/airTemperature"
       source: variables/airTemperatureObsError
-      longName: "Temperature Error"
+      longName: "Air Temperature Error"
       units: "K"
+
+#    - name: "ObsError/virtualTemperature"
+#      source: variables/virtualTemperatureObsError
+#      longName: "Virtual Temperature Error"
+#      units: "K"
 
     - name: "ObsError/specificHumidity"
       source: variables/specificHumidityObsError

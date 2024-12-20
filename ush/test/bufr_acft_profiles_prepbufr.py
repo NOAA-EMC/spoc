@@ -150,30 +150,30 @@ def _make_description(mapping_path, update=False):
                 'units': '1',
                 'longName': 'Sequence Number (Obs Subtype)',
             },
-            {
-                'name': 'ObsType/airTemperature',
-                'source': 'variables/airTemperatureObservationType',
-                'units': '1',
-                'longName': 'Observation Type',
-            },
-            {
-                'name': 'ObsType/specificHumidity',
-                'source': 'variables/specificHumidityObservationType',
-                'units': '1',
-                'longName': 'Observation Type',
-            },
-            {
-                'name': 'ObsType/windNorthward',
-                'source': 'variables/windObservationType',
-                'units': '1',
-                'longName': 'Observation Type',
-            },
-            {
-                'name': 'ObsType/windEastward',
-                'source': 'variables/windObservationType',
-                'units': '1',
-                'longName': 'Observation Type',
-            }
+#            {
+#                'name': 'ObsType/airTemperature',
+#                'source': 'variables/airTemperatureObservationType',
+#                'units': '1',
+#                'longName': 'Observation Type',
+#            },
+#            {
+#                'name': 'ObsType/specificHumidity',
+#                'source': 'variables/specificHumidityObservationType',
+#                'units': '1',
+#                'longName': 'Observation Type',
+#            },
+#            {
+#                'name': 'ObsType/windNorthward',
+#                'source': 'variables/windObservationType',
+#                'units': '1',
+#                'longName': 'Observation Type',
+#            },
+#            {
+#                'name': 'ObsType/windEastward',
+#                'source': 'variables/windObservationType',
+#                'units': '1',
+#                'longName': 'Observation Type',
+#            }
         ]
 
         # Loop through each variable and add it to the description
@@ -231,38 +231,39 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
     logging(comm, 'DEBUG', f'sequenceNum min/max =  {sequenceNum.min()} {sequenceNum.max()}')
 
     logging(comm, 'DEBUG', f'Compute Obstypes')
-    ot = container.get('variables/observationType')
-    ot_paths = container.get_paths('variables/observationType')
+    t_ot = container.get('variables/airTemperatureObservationType')
+    #tv_ot = container.get('variables/virtualTemperatureObservationType')
+    q_ot = container.get('variables/specificHumidityObservationType')
+    uv_ot = container.get('variables/windObservationType')
+    ot_paths = container.get_paths('variables/airTemperatureObservationType')
 
     airTemperature = container.get('variables/airTemperatureObsValue')
     #virtualTemperature = container.get('variables/virtualTemperatureObsValue')
     specificHumidity = container.get('variables/specificHumidityObsValue')
     wind = container.get('variables/windNorthwardObsValue')
 
-    ot_airTemperature = Compute_typ_other(ot, airTemperature)
-    #ot_virtualTemperature = Compute_typ_other(ot, virtualTemperature)
-    ot_specificHumidity = Compute_typ_other(ot, specificHumidity)
-    ot_wind = Compute_typ_uv(ot, wind)
+    ot_airTemperature = Compute_typ_other(t_ot, airTemperature)
+    #ot_virtualTemperature = Compute_typ_other(tv_ot, virtualTemperature)
+    ot_specificHumidity = Compute_typ_other(q_ot, specificHumidity)
+    ot_wind = Compute_typ_uv(uv_ot, wind)
 
     logging(comm, 'DEBUG', f'Change IALR to 0.0 if masked for bias correction.')
     ialr = container.get('variables/instantaneousAltitudeRate')
     ialr_paths = container.get_paths('variables/instantaneousAltitudeRate')
     ialr2 = ma.array(ialr)
 
-    ialr_bc = Compute_ialr_if_masked(ot, ialr2)
+    ialr_bc = Compute_ialr_if_masked(uv_ot, ialr2)
 
     logging(comm, 'DEBUG', f'Update variables in container')
     container.replace('variables/longitude', lon)
     container.replace('variables/instantaneousAltitudeRate', ialr_bc)#, ot_paths)
+    container.replace('variables/airTemperatureObservationType', ot_airTemperature)
+    #container.replace('variables/virtualTemperatureObservationType', ot_virtualTemperature)
+    container.replace('variables/specificHumidityObservationType', ot_specificHumidity)
+    container.replace('variables/windObservationType', ot_wind)
 
     logging(comm, 'DEBUG', f'Add variables to container')
     container.add('variables/sequenceNumber', sequenceNum, lon_paths)
-    container.add('variables/airTemperatureObservationType', ot_airTemperature, ot_paths)
-    #container.add('variables/virtualTemperatureObservationType', ot_virtualTemperature, ot_paths)
-    container.add('variables/specificHumidityObservationType', ot_specificHumidity, ot_paths)
-    container.add('variables/windObservationType', ot_wind, ot_paths)
-    #container.add('variables/instantaneousAltitudeRate', ialr_bc, ot_paths)
-
 
     # Check
     logging(comm, 'DEBUG', f'container list (updated): {container.list()}')
