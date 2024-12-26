@@ -10,6 +10,12 @@ bufr:
       query: "*/TYP"
 
     # MetaData
+    timestamp:
+      timeoffset:
+        timeOffset: "*/DHR"
+        transforms:
+          - scale: 3600
+        referenceTime: "2021-08-01T00:00:00Z"
     prepbufrDataLevelCategory:
       query: "*/CAT"
     obsTimeMinusCycleTime:
@@ -106,7 +112,7 @@ encoder:
       longName: "Prepbufr Data Level Category"
 
     - name: "MetaData/dateTime"
-      source: variables/dateTime
+      source: variables/timestamp 
       units: 'seconds since 1970-01-01T00:00:00Z'
       longName: 'dateTime'
 
@@ -120,11 +126,11 @@ encoder:
       source: variables/longitude
       longName: "Longitude"
       units: "degree_east"
-      range: [0, 360]
+      #range: [0, 360]
 
-    - name: "MetaData/sequenceNumber"
-      source: variables/sequenceNumber
-      longName: "Sequence Number (Obs Subtype)"
+      #    - name: "MetaData/sequenceNumber"
+      #source: variables/sequenceNumber
+      #longName: "Sequence Number (Obs Subtype)"
 
     - name: "MetaData/stationIdentification"
       source: variables/stationIdentification
