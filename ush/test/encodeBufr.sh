@@ -9,7 +9,7 @@ bufrtype="${3:-satwnd}"
 obstype="${4:-satwnd_amv_goes}"
 sensor="${5:-abi}"
 split_by_category="${6:-true}"
-mode="${7:-script_backend}"
+mode="${7:-script4backend}"
 nproc="${8:-4}"
 
 # ==========================
@@ -23,7 +23,7 @@ usage() {
     echo "  <obstype>           : observation type to create (e.g., satwnd_amv_goes, atms, cris, sfcsno )"
     echo "  <sensor>            : sensor (e.g., abi, atms); for non-satellite dta, sensor is usually obstype (e.g., sfcsno)"
     echo "  <split_by_category> : split the output file into multiple files based on category (false or true)"
-    echo "  <mode>              : mode of operation (e.g., bufr_backend, script_backend, bufr2netcdf, script2netcdf)"
+    echo "  <mode>              : mode of operation (e.g., bufr4backend, script4backend, bufr2netcdf, script2netcdf)"
     echo "  <nproc>             : number of processors (positive integer to run with MPI, or zero for serial execution)"
     exit 1
 }
@@ -54,8 +54,8 @@ fi
 # ==============
 # Validate mode
 # ==============
-if [[ "$mode" != "bufr_backend" && "$mode" != "script_backend" && "$mode" != "bufr2netcdf"  && "$mode" != "script2netcdf" ]]; then
-    echo "Error: Invalid mode '$mode'. Expected 'bufr_backend' or 'script_backend' or 'bufr2netcdf' or 'script2netcdf'."
+if [[ "$mode" != "bufr4backend" && "$mode" != "script4backend" && "$mode" != "bufr2netcdf"  && "$mode" != "script2netcdf" ]]; then
+    echo "Error: Invalid mode '$mode'. Expected 'bufr4backend' or 'script4backend' or 'bufr2netcdf' or 'script2netcdf'."
     usage
 fi
 
@@ -174,7 +174,7 @@ fi
 # =============================
 # Run ioda bufr/script backend
 # =============================
-if [[ "$mode" == "bufr_backend" || "$mode" == "script_backend" ]]; then
+if [[ "$mode" == "bufr4backend" || "$mode" == "script4backend" ]]; then
    if [[ ! -f "$ioda_config_yaml" ]]; then
       echo "Error: ioda configuration file not found: $ioda_config_yaml"
       exit 1
@@ -209,5 +209,5 @@ elif [[ "$mode" == "script2netcdf" ]]; then
       srun -n "$nproc" --mem 96G --time 00:30:00 python bufr_${obstype}.py "$input_file" "$mapping_file" "$output_file" || { echo "Error: MPI Python script2netcdf failed"; python bufr_${obstype}.py --help; exit 1; }
    fi
 else
-   echo Incorrect running mode ${mode} ... Valid modes are: bufr_backend, script_back, bufr2netcdf, or script2netcdf
+   echo Incorrect running mode ${mode} ... Valid modes are: bufr4backend, script_back, bufr2netcdf, or script2netcdf
 fi

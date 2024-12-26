@@ -14,12 +14,10 @@ observations:
         type: script
         script file: "bufr_acft_profiles_prepbufr.py"
         args:
-          #input_path: "/scratch1/NCEPDEV/da/Nicholas.Esposito/JEDI/obsForge_sfcshp_20241126/sorc/spoc/ush/test/testinput/2021080100/gdas.t00z.acft_profiles.prepbufr"
-          input_path: "testinput/2021080100/gdas.t00z.acft_profiles.prepbufr"
-          #mapping_path: "/scratch1/NCEPDEV/da/Nicholas.Esposito/JEDI/obsForge_sfcshp_20241126/sorc/spoc/ush/test/bufr_acft_profiles_prepbufr_mapping.yaml"
+          input_path: "testinput/2021080100/gdas.t00z.acft_profiles.tm00.prepbufr"
           mapping_path: "./bufr_acft_profiles_prepbufr_mapping.yaml"
           cycle_time: "2021080100"
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/script_backend/gdas.t00z.acft_profiles.prepbufr.nc"
+        obsfile: "./testoutput/2021080100/script4backend/gdas.t00z.acft_profiles_prepbufr.tm00_mpi0.nc"
