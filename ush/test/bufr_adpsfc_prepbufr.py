@@ -169,7 +169,7 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
     dateTime = Compute_dateTime(cycleTimeSinceEpoch, otmct2)
     logging(comm, 'DEBUG', f'dateTime min/max = {dateTime.min()} {dateTime.max()}')
 
-    print("Make an array of 0s for MetaData/sequenceNumber")
+    logging(comm, 'DEBUG', f'Make an array of 0s for MetaData/sequenceNumber')
     sequenceNum = np.zeros(lon.shape, dtype=np.int32)
     logging(comm, 'DEBUG', f' sequenceNummin/max =  {sequenceNum.min()} {sequenceNum.max()}')
 

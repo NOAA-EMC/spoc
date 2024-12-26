@@ -16,4 +16,4 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.adpsfc_prepbufr.tm00.nc"
+        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.adpsfc_prepbufr.tm00_mpi4.nc"

@@ -14,10 +14,10 @@ observations:
         type: script
         script file: "bufr_adpsfc_prepbufr.py"
         args:
-          input_path: "./testinput/2021080100/gdas.t00z.adpsfc.tm00.prepbufr"
+          input_path: "testinput/2021080100/gdas.t00z.adpsfc.tm00.prepbufr"
           mapping_path: "./bufr_adpsfc_prepbufr_mapping.yaml"
           cycle_time: "2021080100"
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/script_backend/gdas.t00z.adpsfc_prepbufr.tm00.nc"
+        obsfile: "./testoutput/2021080100/script_backend/gdas.t00z.adpsfc_prepbufr.tm00_mpi4.nc"
