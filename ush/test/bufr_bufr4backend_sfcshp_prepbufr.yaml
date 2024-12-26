@@ -10,9 +10,9 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2021080100/gdas.t00z.sfcshp.prepbufr"
+        obsfile: "./testinput/2021080100/gdas.t00z.sfcshp.tm00.prepbufr"
         mapping file: "./bufr_sfcshp_prepbufr_mapping.yaml"
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.sfcshp.prepbufr.nc"
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.sfcshp_prepbufr.tm00.nc"
