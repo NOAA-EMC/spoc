@@ -106,19 +106,21 @@ export LOG_LEVEL=DEBUG
 # Load obsForge required modules 
 # ===============================
 module use ${obsforge_dir}/modulefiles
-module load obsforge/hera.intel || { echo "Error loading obsforge module"; exit 1; }
+module load obsforge/hercules.intel || { echo "Error loading obsforge module"; exit 1; }
 module list
 
 # ==============================
 # Set bufr-query python library
 # ==============================
 export LD_LIBRARY_PATH="${obsforge_dir}/build/lib:${LD_LIBRARY_PATH}"
-export PYTHONPATH="${PYTHONPATH}:${obsforge_dir}/build/lib/python3.10/site-packages"
+#export PYTHONPATH="${PYTHONPATH}:${obsforge_dir}/build/lib/python3.10/site-packages"
+export PYTHONPATH="${PYTHONPATH}:${obsforge_dir}/build/lib/python3.7/site-packages"
 
 # ========================
 # Set ioda python library
 # =========================
-export PYTHONPATH="${PYTHONPATH}:${obsforge_dir}/build/lib/python3.10"
+#export PYTHONPATH="${PYTHONPATH}:${obsforge_dir}/build/lib/python3.10"
+export PYTHONPATH="${PYTHONPATH}:${obsforge_dir}/build/lib/python3.7"
 
 # ============
 # Set wxfloww 
@@ -140,7 +142,7 @@ y4="${cycle:0:4}"
 m2="${cycle:4:2}"
 d2="${cycle:6:2}"
 h2="${cycle:8:2}"
-
+cycle_time="${cycle}"
 # ====================
 # Set directory paths
 # ====================
@@ -152,13 +154,15 @@ mkdir -p -m770 ${out_dir} || { echo "Error creating output directory: ${out_dir}
 # ===============
 # Set file paths
 # ===============
-ioda_config_yaml="${work_dir}/bufr_${mode}_${obstype}.yaml"
+ioda_config_yaml="${work_dir}/bufr_${mode}_${obstype}_mpi${nproc}.yaml"
 mapping_file="${work_dir}/bufr_${obstype}_mapping.yaml"
-input_file="${in_dir}/gdas.t${h2}z.${bufrtype}.tm00.bufr_d"
+#input_file="${in_dir}/gdas.t${h2}z.${bufrtype}.tm00.bufr_d"
+input_file="${in_dir}/gdas.t${h2}z.${bufrtype}.tm00.prepbufr"
+input_file="${in_dir}/gdas.t${h2}z.prepbufr.${bufrtype}"
 if [[ "${split_by_category}" = "true" ]]; then
-   output_file="${out_dir}/gdas.t${h2}z.${bufrtype}.${sensor}_{splits/satId}.tm00.nc"
+   output_file="${out_dir}/gdas.t${h2}z.${bufrtype}_${sensor}_{splits/satId}.tm00.nc"
 else
-   output_file="${out_dir}/gdas.t${h2}z.${bufrtype}.tm00.nc"
+   output_file="${out_dir}/gdas.t${h2}z.${bufrtype}_prepbufr.tm00_mpi${nproc}.nc"
 fi
 
 if [[ ! -f "$input_file" ]]; then
@@ -192,6 +196,7 @@ if [[ "$mode" == "bufr4backend" || "$mode" == "script4backend" ]]; then
 elif [[ "$mode" == "bufr2netcdf" ]]; then
    if [[ "$nproc" == "0" ]]; then
       echo Run bufr2netcdf without MPI ...
+      echo NICK ${obsforge_dir}/build/bin/bufr2netcdf.x "$input_file" "${mapping_file}" "$output_file" 
       ${obsforge_dir}/build/bin/bufr2netcdf.x "$input_file" "${mapping_file}" "$output_file" || { echo "Error: bufr2netcdf.x failed"; exit 1; }
    else
       echo Run bufr2netcdf with MPI ${nproc} ...
@@ -203,11 +208,15 @@ elif [[ "$mode" == "bufr2netcdf" ]]; then
 elif [[ "$mode" == "script2netcdf" ]]; then
    if [[ "$nproc" == "0" ]]; then
       echo Run script2netcdf without MPI ...
-      python bufr_${obstype}.py "$input_file" "$mapping_file" "$output_file" || { echo "Error: Python script2netcdf failed"; python bufr_${obstype}.py --help; exit 1; }
+      #python bufr_${obstype}.py -m "$mapping_file" -o "$output_file" -i "$input_file" || { echo "Error: Python script2netcdf failed"; exit 1; }
+      python bufr_${obstype}.py "$input_file" "$mapping_file" "$output_file" "$cycle_time" || { echo "Error: Python script2netcdf failed"; python bufr_${obstype}.py --help; exit 1; }
    else
       echo Run script2netcdf with MPI ${nproc} ...
-      srun -n "$nproc" --mem 96G --time 00:30:00 python bufr_${obstype}.py "$input_file" "$mapping_file" "$output_file" || { echo "Error: MPI Python script2netcdf failed"; python bufr_${obstype}.py --help; exit 1; }
+      #srun -n "$nproc" --mem 96G --time 00:30:00 python bufr_${obstype}.py -m "$mapping_file" -o "$output_file" -i "$input_file" || { echo "Error: MPI Python script2netcdf failed"; exit 1; }
+      srun -n "$nproc" --mem 96G --time 00:30:00 python bufr_${obstype}.py "$input_file" "$mapping_file" "$output_file" "$cycle_time" || { echo "Error: MPI Python script2netcdf failed"; python bufr_${obstype}.py --help; exit 1; } 
    fi
 else
-   echo Incorrect running mode ${mode} ... Valid modes are: bufr4backend, script_back, bufr2netcdf, or script2netcdf
+   echo Incorrect running mode ${mode} ... Valid modes are: bufr4backend, script4backend, bufr2netcdf, or script2netcdf
 fi
+
+
