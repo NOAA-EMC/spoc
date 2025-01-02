@@ -4,6 +4,9 @@
 # which can be obtained at http://www.apache.org/licenses/LICENSE-2.0.
 
 bufr:
+  subsets:
+    - SFCSHP
+
   variables:
     # ObsType
     observationType:
@@ -111,11 +114,11 @@ bufr:
 
 encoder:
   globals:
-    - name: "data_format"
+    - name: "dataOriginalFormatSpec"
       type: string
       value: "prepbufr"
 
-    - name: "subsets"
+    - name: "platforms"
       type: string
       value: "SFCSHP"        
 
@@ -123,17 +126,13 @@ encoder:
       type: string
       value: "prepBUFR"
 
-    - name: "data_type"
-      type: string
-      value: "SFCSHP"
-
-    - name: "data_description"
+    - name: "description"
       type: string
       value: "SFCSHP_prepbufr"
 
-    - name: "data_provider"
+    - name: "dataProviderOrigin"
       type: string
-      value: "U.S. NOAA"
+      value: "U.S. NOAA NCEP"
 
   variables:
 

@@ -185,7 +185,8 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
     otmct2 = np.array(otmct)
     cycleTimeSinceEpoch = np.int64(calendar.timegm(time.strptime(str(int(cycle_time)), '%Y%m%d%H')))
     dateTime = Compute_dateTime(cycleTimeSinceEpoch, otmct2)
-    logging(comm, 'DEBUG', f'dateTime min/max = {dateTime.min()} {dateTime.max()}')
+    min_dateTime_ge_zero = min(x for x in dateTime if x >= 0)
+    logging(comm, 'DEBUG', f'dateTime min/max = {min_dateTime_ge_zero} {dateTime.max()}')
 
     logging(comm, 'DEBUG', f'Do sequenceNumber (Obs SubType) calculation')
     typ = container.get('variables/observationType')
