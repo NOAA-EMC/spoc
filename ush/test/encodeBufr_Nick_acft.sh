@@ -154,15 +154,20 @@ mkdir -p -m770 ${out_dir} || { echo "Error creating output directory: ${out_dir}
 # ===============
 # Set file paths
 # ===============
-ioda_config_yaml="${work_dir}/bufr_${mode}_${obstype}_mpi${nproc}.yaml"
 mapping_file="${work_dir}/bufr_${obstype}_mapping.yaml"
 #input_file="${in_dir}/gdas.t${h2}z.${bufrtype}.tm00.bufr_d"
-input_file="${in_dir}/gdas.t${h2}z.${bufrtype}.tm00.prepbufr"
+#input_file="${in_dir}/gdas.t${h2}z.${bufrtype}.tm00.prepbufr"
 input_file="${in_dir}/gdas.t${h2}z.prepbufr.${bufrtype}"
 if [[ "${split_by_category}" = "true" ]]; then
    output_file="${out_dir}/gdas.t${h2}z.${bufrtype}_${sensor}_{splits/satId}.tm00.nc"
 else
-   output_file="${out_dir}/gdas.t${h2}z.${bufrtype}_prepbufr.tm00_mpi${nproc}.nc"
+   if [[ ${nproc} -ge 2 ]] ; then
+      ioda_config_yaml="${work_dir}/bufr_${mode}_${obstype}_mpi${nproc}.yaml"
+      output_file="${out_dir}/gdas.t${h2}z.${bufrtype}_prepbufr.tm00_mpi${nproc}.nc"
+   else
+      ioda_config_yaml="${work_dir}/bufr_${mode}_${obstype}.yaml"
+      output_file="${out_dir}/gdas.t${h2}z.${bufrtype}_prepbufr.tm00.nc"
+   fi
 fi
 
 if [[ ! -f "$input_file" ]]; then

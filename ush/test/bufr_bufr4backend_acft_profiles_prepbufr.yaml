@@ -10,7 +10,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2021080100/gdas.t00z.acft_profiles.tm00.prepbufr"
+        obsfile: "./testinput/2021080100/gdas.t00z.prepbufr.acft_profiles"
         mapping file: "./bufr_acft_profiles_prepbufr_mapping.yaml"
     obsdataout:
       engine:

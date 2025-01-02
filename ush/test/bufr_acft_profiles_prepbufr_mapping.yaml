@@ -4,6 +4,10 @@
 # which can be obtained at http://www.apache.org/licenses/LICENSE-2.0.
 
 bufr:
+  subsets:
+    - AIRCFT 
+    - AIRCAR
+
   group_by_variable: prepbufrDataLevelCategory
   variables:
     # ObsType
@@ -112,11 +116,11 @@ encoder:
       path: "*/PRSLEVLA/W___INFO/W__EVENT"
 
   globals:
-    - name: "data_format"
+    - name: "dataOriginalFormatSpec"
       type: string
       value: "prepbufr"
 
-    - name: "subsets"
+    - name: "platforms"
       type: string
       value: "AIRCFT AIRCAR"
 
@@ -124,17 +128,13 @@ encoder:
       type: string
       value: "prepBUFR"
 
-    - name: "data_type"
-      type: string
-      value: "AIRCFT AIRCAR"
-
-    - name: "data_description"
+    - name: "description"
       type: string
       value: "acft_profiles_prepbufr"
 
-    - name: "data_provider"
+    - name: "dataProviderOrigin"
       type: string
-      value: "U.S. NOAA"
+      value: "U.S. NOAA NCEP"
 
   variables:
     - name: "ObsType/airTemperature"

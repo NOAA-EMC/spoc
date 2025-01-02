@@ -14,7 +14,7 @@ observations:
         type: script
         script file: "bufr_acft_profiles_prepbufr.py"
         args:
-          input_path: "testinput/2021080100/gdas.t00z.acft_profiles.tm00.prepbufr"
+          input_path: "testinput/2021080100/gdas.t00z.prepbufr.acft_profiles"
           mapping_path: "./bufr_acft_profiles_prepbufr_mapping.yaml"
           cycle_time: "2021080100"
     obsdataout:
