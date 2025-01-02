@@ -12,7 +12,6 @@ observations:
         type: bufr
         obsfile: "./testinput/2021080100/gdas.t00z.prepbufr"
         mapping file: "./bufr_adpsfc_prepbufr_mapping.yaml"
-        #    category: ["goes-16"]
     obsdataout:
       engine:
         type: H5File
