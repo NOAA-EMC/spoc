@@ -1,5 +1,5 @@
 ## Test bufr_query mapping, Python converter script, and ioda configuration YAML in obsForge
-This is a prototype for testing BUFR to NETCDF/IODA conversion and is still evolving.
+This is a prototype for testing BUFR to NETCDF and other formats (IODA, ZARR, ...etc.) conversion and is still evolving.
 
 ## Prerequisite
 - Clone and build obsForge  

@@ -11,12 +11,24 @@ bufr:
         day: "*/DAYS[1]"
         hour: "*/HOUR[1]"
         minute: "*/MINU[1]"
+
+    dataReceiptTime:
+      datetime:
+        year: "[*/RCYR, */RCPTIM{1}/RCYR]"
+        month: "[*/RCMO, */RCPTIM{1}/RCMO]"
+        day: "[*/RCDY, */RCPTIM{1}/RCDY]"
+        hour: "[*/RCHR, */RCPTIM{1}/RCHR]"
+        minute: "[*/RCMI, */RCPTIM{1}/RCMI]"
+
     latitude:
       query: "[*/CLAT, */CLATH]"
+
     longitude:
       query: "[*/CLON, */CLONH]"
+
     stationIdentification:
       query: "*/RPID"
+
     stationElevation:
       query: "[*/SELV, */HSMSL]"
       type: float
@@ -24,8 +36,7 @@ bufr:
     # ObsValue
     totalSnowDepth:
       query: "[*/SNWSQ1/TOSD, */MTRMSC/TOSD, */STGDSNDM/TOSD]"
-      transforms:
-        - scale: 1000.0
+
     groundState:
       query: "[*/GRDSQ1/SOGR, */STGDSNDM/SOGR]"
 
@@ -37,6 +48,11 @@ encoder:
       coordinates: "longitude latitude"        
       source: variables/timestamp
       longName: "Datetime"
+      units: "seconds since 1970-01-01T00:00:00Z"
+
+    - name: "MetaData/dataReceiptTime"
+      source: variables/dataReceiptTime
+      longName: "Observation Receipt Time"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
@@ -57,6 +73,7 @@ encoder:
       coordinates: "longitude latitude"
       source: variables/stationElevation
       longName: "Height of Station"
+      units: "m"
 
     - name: "MetaData/stationIdentification"
       coordinates: "longitude latitude"
@@ -69,7 +86,7 @@ encoder:
       coordinates: "longitude latitude"
       source: variables/totalSnowDepth
       longName: "Total Snow Depth"
-      units: "mm"
+      units: "m"
 
     - name: "ObsValue/groundState"
       coordinates: "longitude latitude"
