@@ -10,7 +10,7 @@ observations:
       engine:
         type: bufr 
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr2ioda_satwnd_amv_viirs_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_viirs_mapping.yaml"
         category: ["npp"]
         cache categories:            # optional
           - ["npp"]
@@ -19,7 +19,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.satwnd.viirs_npp.tm00.nc"
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.satwnd.viirs_npp.tm00.nc"
 
 - obs space:
     name: "satwind_viirs-n20"
@@ -28,7 +28,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr2ioda_satwnd_amv_viirs_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_viirs_mapping.yaml"
         category: ["n20"]
         cache categories:            # optional
           - ["npp"]
@@ -37,7 +37,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.satwnd.viirs_n20.tm00.nc"
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.satwnd.viirs_n20.tm00.nc"
 
 - obs space:
     name: "satwind_viirs-n21"
@@ -46,7 +46,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr2ioda_satwnd_amv_viirs_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_viirs_mapping.yaml"
         category: ["n21"]
         cache categories:            # optional
           - ["npp"]
@@ -55,4 +55,4 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.satwnd.viirs_n21.tm00.nc"
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.satwnd.viirs_n21.tm00.nc"

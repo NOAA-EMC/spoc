@@ -10,12 +10,12 @@ observations:
       engine:
         type: bufr 
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr2ioda_satwnd_amv_leogeo_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_leogeo_mapping.yaml"
         category: ["multi"]
         cache categories:            # optional
           - ["multi"]
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.satwnd.leogeo_multi.tm00.nc"
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.satwnd.leogeo_multi.tm00.nc"
 

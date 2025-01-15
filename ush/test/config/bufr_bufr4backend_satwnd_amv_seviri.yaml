@@ -10,7 +10,7 @@ observations:
       engine:
         type: bufr 
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr2ioda_satwnd_amv_seviri_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_seviri_mapping.yaml"
         category: ["m8"]
         cache categories:            # optional
           - ["m8"]
@@ -20,7 +20,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.satwnd.seviri_m8.tm00.nc"
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.satwnd.seviri_m8.tm00.nc"
 
 - obs space:
     name: "satwind_seviri-m9"
@@ -29,7 +29,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr2ioda_satwnd_amv_seviri_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_seviri_mapping.yaml"
         category: ["m9"]
         cache categories:            # optional
           - ["m8"]
@@ -39,7 +39,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.satwnd.seviri_m9.tm00.nc"
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.satwnd.seviri_m9.tm00.nc"
 
 - obs space:
     name: "satwind_seviri-m10"
@@ -48,7 +48,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr2ioda_satwnd_amv_seviri_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_seviri_mapping.yaml"
         category: ["m10"]
         cache categories:            # optional
           - ["m8"]
@@ -58,7 +58,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.satwnd.seviri_m10.tm00.nc"
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.satwnd.seviri_m10.tm00.nc"
 
 - obs space:
     name: "satwind_seviri-m11"
@@ -67,7 +67,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr2ioda_satwnd_amv_seviri_mapping.yaml"
+        mapping file: "./bufroda_satwnd_amv_seviri_mapping.yaml"
         category: ["m11"]
         cache categories:            # optional
           - ["m8"]
@@ -77,4 +77,4 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.satwnd.seviri_m11.tm00.nc"
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.satwnd.seviri_m11.tm00.nc"

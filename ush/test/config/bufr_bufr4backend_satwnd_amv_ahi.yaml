@@ -10,7 +10,7 @@ observations:
       engine:
         type: bufr 
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr2ioda_satwnd_amv_ahi_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_ahi_mapping.yaml"
         category: ["h8"]
         cache categories:            # optional
           - ["h8"]
@@ -18,7 +18,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.satwnd.ahi_h8.tm00.nc"
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.satwnd.ahi_h8.tm00.nc"
 
 - obs space:
     name: "satwind_ahi-h9"
@@ -27,7 +27,7 @@ observations:
       engine:
         type: bufr 
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr2ioda_satwnd_amv_ahi_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_ahi_mapping.yaml"
         category: ["h9"]
         cache categories:            # optional
           - ["h8"]
@@ -35,4 +35,4 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.satwnd.ahi_h9.tm00.nc"
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.satwnd.ahi_h9.tm00.nc"
