@@ -2,10 +2,6 @@
 import os
 import sys
 import argparse
-#sys.path.append('/work2/noaa/da/nesposito/backend_20240701/bufr_query/build/lib/python3.10')
-#sys.path.append('/work2/noaa/da/nesposito/backend_20240701/ioda-bundle/build/lib/python3.10')
-#sys.path.append('/work2/noaa/da/nesposito/backend_20240701/ioda-bundle/build/lib/python3.10/pyioda')
-#sys.path.append('/work2/noaa/da/nesposito/backend_20240701/ioda-bundle/build/lib/python3.10/pyiodaconv')
 import bufr
 import copy
 import numpy as np
@@ -94,9 +90,6 @@ def Compute_dateTime(cycleTimeSinceEpoch, dhr):
         else:
             dateTime[i] = np.int64(dhr[i]*3600) + cycleTimeSinceEpoch
 
-    dateTime = ma.array(dateTime)
-    dateTime = ma.masked_values(dateTime, int64_fill_value)
-
     return dateTime
 
 
@@ -138,8 +131,10 @@ def Compute_ialr_if_masked(typ, ialr):
     return ialr_bc
 
 
-def _make_description(mapping_path, update=False):
+def _make_description(mapping_path, cycle_time, update=False):
     description = bufr.encoders.Description(mapping_path)
+
+    ReferenceTime = np.int64(calendar.timegm(time.strptime(str(int(cycle_time)), '%Y%m%d%H')))
 
     if update:
         # Define the variables to be added in a list of dictionaries
@@ -150,30 +145,6 @@ def _make_description(mapping_path, update=False):
                 'units': '1',
                 'longName': 'Sequence Number (Obs Subtype)',
             },
-#            {
-#                'name': 'ObsType/airTemperature',
-#                'source': 'variables/airTemperatureObservationType',
-#                'units': '1',
-#                'longName': 'Observation Type',
-#            },
-#            {
-#                'name': 'ObsType/specificHumidity',
-#                'source': 'variables/specificHumidityObservationType',
-#                'units': '1',
-#                'longName': 'Observation Type',
-#            },
-#            {
-#                'name': 'ObsType/windNorthward',
-#                'source': 'variables/windObservationType',
-#                'units': '1',
-#                'longName': 'Observation Type',
-#            },
-#            {
-#                'name': 'ObsType/windEastward',
-#                'source': 'variables/windObservationType',
-#                'units': '1',
-#                'longName': 'Observation Type',
-#            }
         ]
 
         # Loop through each variable and add it to the description
@@ -184,6 +155,8 @@ def _make_description(mapping_path, update=False):
                 units=var['units'],
                 longName=var['longName']
             )
+
+        description.add_global(name='datetimeReference', value=str(ReferenceTime))
 
     return description
 
@@ -223,8 +196,8 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
     otmct2 = np.array(otmct)
     cycleTimeSinceEpoch = np.int64(calendar.timegm(time.strptime(str(int(cycle_time)), '%Y%m%d%H')))
     dateTime = Compute_dateTime(cycleTimeSinceEpoch, otmct2)
-    logging(comm, 'DEBUG', f'dateTime min/max = {dateTime.min()} {dateTime.max()}')
-
+    min_dateTime_ge_zero = min(x for x in dateTime if x > -1)
+    logging(comm, 'DEBUG', f'dateTime min/max = {min_dateTime_ge_zero} {dateTime.max()}')
 
     logging(comm, 'DEBUG', f'Make an array of 0s for MetaData/sequenceNumber')
     sequenceNum = np.zeros(lon.shape, dtype=np.int32)
@@ -276,7 +249,7 @@ def create_obs_group(input_path, mapping_path, cycle_time, env):
     comm = bufr.mpi.Comm(env["comm_name"])
 
     logging(comm, 'INFO', f'Make description and make obs')
-    description = _make_description(mapping_path, update=True)
+    description = _make_description(mapping_path, cycle_time, update=True)
     container = _make_obs(comm, input_path, mapping_path, cycle_time)
 
     # Gather data from all tasks into all tasks. Each task will have the complete record
@@ -296,7 +269,7 @@ def create_obs_file(input_path, mapping_path, output_path, cycle_time):
     container = _make_obs(comm, input_path, mapping_path, cycle_time)
     container.gather(comm)
 
-    description = _make_description(mapping_path, update=True)
+    description = _make_description(mapping_path, cycle_time, update=True)
 
     # Encode the data
     if comm.rank() == 0:
