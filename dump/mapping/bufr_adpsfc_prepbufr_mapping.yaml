@@ -4,6 +4,9 @@
 # which can be obtained at http://www.apache.org/licenses/LICENSE-2.0.
 
 bufr:
+  subsets:
+    -  ADPSFC
+
   variables:
     # ObsType
     observationType:
@@ -66,11 +69,11 @@ bufr:
 encoder:
 
   globals:
-    - name: "data_format"
+    - name: "dataOriginalFormatSpec"
       type: string
       value: "prepbufr"
 
-    - name: "subsets"
+    - name: "platforms"
       type: string
       value: "ADPSFC"        
 
@@ -78,15 +81,11 @@ encoder:
       type: string
       value: "prepBUFR"
 
-    - name: "data_type"
-      type: string
-      value: "ADPSFC"
-
-    - name: "data_description"
+    - name: "description"
       type: string
       value: "ADPSFC_prepbufr"
 
-    - name: "data_provider"
+    - name: "dataProviderOrigin"
       type: string
       value: "U.S. NOAA"
 
