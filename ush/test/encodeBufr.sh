@@ -211,3 +211,5 @@ elif [[ "$mode" == "script2netcdf" ]]; then
 else
    echo Incorrect running mode ${mode} ... Valid modes are: bufr4backend, script4backend, bufr2netcdf, or script2netcdf
 fi
+
+
