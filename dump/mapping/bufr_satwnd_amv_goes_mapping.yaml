@@ -168,7 +168,7 @@ encoder:
     - name: "MetaData/expectedError"
       source: variables/expectedError
       longName: "Expected Error"
-      units: "m/s"
+      units: "m s-1"
 
     - name: "MetaData/coefficientOfVariation"
       source: variables/coefficientOfVariation
@@ -194,5 +194,5 @@ encoder:
 
     - name: "ObsValue/windSpeed"
       source: variables/windSpeed
-      longName: "Wind Direction"
-      units: "m/s"
+      longName: "Wind Speed"
+      units: "m s-1"

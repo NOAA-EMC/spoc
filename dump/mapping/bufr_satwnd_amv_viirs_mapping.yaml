@@ -153,5 +153,5 @@ encoder:
 
     - name: "ObsValue/windSpeed"
       source: variables/windSpeed
-      longName: "Wind Direction"
-      units: "m/s"
+      longName: "Wind Speed"
+      units: "m s-1"

@@ -57,13 +57,13 @@ def _make_description(mapping_path, update=False):
             {
                 'name': 'ObsValue/windEastward',
                 'source': 'variables/windEastward',
-                'units': 'm/s',
+                'units': 'm s-1',
                 'longName': 'Eastward Wind Component',
             },
             {
                 'name': 'ObsValue/windNorthward',
                 'source': 'variables/windNorthward',
-                'units': 'm/s',
+                'units': 'm s-1',
                 'longName': 'Northward Wind Component',
             },
             # MetaData/windGeneratingApplication will be inferred from variables/generatingApplication

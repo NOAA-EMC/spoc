@@ -96,13 +96,13 @@ def _make_description(mapping_path, update=False):
             {
                 'name': 'ObsValue/windEastward',
                 'source': 'variables/windEastward',
-                'units': 'm/s',
+                'units': 'm s-1',
                 'longName': 'Eastward Wind Component',
             },
             {
                 'name': 'ObsValue/windNorthward',
                 'source': 'variables/windNorthward',
-                'units': 'm/s',
+                'units': 'm s-1',
                 'longName': 'Northward Wind Component',
             },
         ]
@@ -301,7 +301,7 @@ if __name__ == '__main__':
     # Required input arguments as positional arguments
     parser = argparse.ArgumentParser(description="Convert BUFR to NetCDF using a mapping file.")
     parser.add_argument('input', type=str, help='Input BUFR file')
-    parser.add_argument('mapping', type=str, help='BUFR2IODA Mapping File')
+    parser.add_argument(apping', type=str, help='BUFR2IODA Mapping File')
     parser.add_argument('output', type=str, help='Output NetCDF file')
 
     args = parser.parse_args()
