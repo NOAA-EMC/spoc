@@ -1,10 +1,8 @@
 bufr:
   subsets:
-    - NC005030
-    - NC005031
-    - NC005032
-    - NC005034
-    - NC005039
+    - NC005044
+    - NC005045
+    - NC005046
 
   variables:
     # MetaData
@@ -17,19 +15,11 @@ bufr:
         minute: "*/MINU"
         second: "*/SECO"
 
-    dataReceiptTime:
-      datetime:
-        year: "*/RCYR"
-        month: "*/RCMO"
-        day: "*/RCDY"
-        hour: "*/RCHR"
-        minute: "*/RCMI"
-
     latitude:
-      query: "*/CLATH"
+      query: "*/CLAT"
 
     longitude:
-      query: "*/CLONH"
+      query: "*/CLON"
 
     satelliteId:
       query: "*/SAID"
@@ -41,31 +31,23 @@ bufr:
       query: "*/SCCF"
 
     pressure:
-      query: "*/PRLC[1]"
+      query: "*/PRLC"
 
     # Processing Center
     dataProviderOrigin:
-      query: '*/OGCE[1]'
+      query: '*/OGCE'
+    
+    # Generating Application - contains multiple types
+    generatingApplication:
+      query: '*/QCPRMS[1]/GNAP'
 
-    # Quality Information - Quality Indicator  
-    qualityInformationWithoutForecast:
-      query: '*/AMVQIC{2}/PCCF'
-
-    # Quality Information - Expected Error  
-    expectedError:
-      query: '*/AMVQIC{4}/PCCF'
-
-    # Derived Motion Wind (DMW) Intermediate Vectors - Coefficient of Variation
-    coefficientOfVariation:
-      query: '*/AMVIVR{1}/CVWD'
+    # Quality Information - contains multiple types
+    qualityInformation:
+      query: '*/QCPRMS[1]/PCCF'
 
     # Wind Retrieval Method Information - Computation 
     windComputationMethod:
       query: '*/SWCM'
-
-    # Wind Retrieval Method Information - Hight Assignment 
-    windHeightAssignMethod:
-      query: '*/EHAM'
 
     # ObsValue - Wind Direction
     windDirection:
@@ -80,9 +62,8 @@ bufr:
       category:
         variable: satelliteId
         map:
-          _270: goes-16 
-          _271: goes-17 
-          _272: goes-18 
+          _173: h8 
+          _174: h9  
 
 encoder:
 # type: netcdf
@@ -92,7 +73,7 @@ encoder:
   globals:
     - name: "platformCommonName"
       type: string
-      value: "GOES"
+      value: "Himawari"
 
     - name: "platformLongDescription"
       type: string
@@ -100,7 +81,7 @@ encoder:
 
     - name: "sensor"
       type: string
-      value: "Advanced Baseline Imager - ABI"
+      value: "Advanced Himawari Imager"
 
     - name: "source"
       type: string
@@ -108,7 +89,7 @@ encoder:
 
     - name: "providerFullName"
       type: string
-      value: "National Environmental Satellite, Data, and Information Service"
+      value: "Japan Meteorological Agency"
 
     - name: "processingLevel"
       type: string
@@ -119,15 +100,11 @@ encoder:
       value: "BUFR"
 
   variables:
+
     # MetaData 
     - name: "MetaData/dateTime"
       source: variables/timestamp
-      longName: "Observation Time"
-      units: "seconds since 1970-01-01T00:00:00Z"
-
-    - name: "MetaData/dataReceiptTime"
-      source: variables/dataReceiptTime
-      longName: "Observation Receipt Time"
+      longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
@@ -161,26 +138,9 @@ encoder:
       source: variables/dataProviderOrigin
       longName: "Identification of Originating/Generating Center"
 
-    - name: "MetaData/qualityInformationWithoutForecast"
-      source: variables/qualityInformationWithoutForecast
-      longName: "Quality Information Without Forecast"
-
-    - name: "MetaData/expectedError"
-      source: variables/expectedError
-      longName: "Expected Error"
-      units: "m s-1"
-
-    - name: "MetaData/coefficientOfVariation"
-      source: variables/coefficientOfVariation
-      longName: "Coefficient of Variation"
-
     - name: "MetaData/windComputationMethod"
       source: variables/windComputationMethod
       longName: "Satellite-derived Wind Computation Method"
-
-    - name: "MetaData/windHeightAssignMethod"
-      source: variables/windHeightAssignMethod
-      longName: "Wind Height Assignment Method"
 
     - name: "MetaData/pressure"
       source: variables/pressure

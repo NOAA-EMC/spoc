@@ -1,10 +1,7 @@
 bufr:
   subsets:
-    - NC005030
-    - NC005031
-    - NC005032
-    - NC005034
-    - NC005039
+    - NC005080
+    - NC005081
 
   variables:
     # MetaData
@@ -17,19 +14,13 @@ bufr:
         minute: "*/MINU"
         second: "*/SECO"
 
-    dataReceiptTime:
-      datetime:
-        year: "*/RCYR"
-        month: "*/RCMO"
-        day: "*/RCDY"
-        hour: "*/RCHR"
-        minute: "*/RCMI"
-
     latitude:
-      query: "*/CLATH"
+      # [NESDIS, EUMETSAT]
+      query: "[*/CLAT, */CLATH]"
 
     longitude:
-      query: "*/CLONH"
+      # [NESDIS, EUMETSAT]
+      query: "[*/CLON, */CLONH]"
 
     satelliteId:
       query: "*/SAID"
@@ -41,31 +32,27 @@ bufr:
       query: "*/SCCF"
 
     pressure:
-      query: "*/PRLC[1]"
+      # [NESDIS, EUMETSAT]
+      query: "[*/PRLC, */PRLC[1]]"
 
     # Processing Center
     dataProviderOrigin:
-      query: '*/OGCE[1]'
+      # [EUMETSAT, NESDIS] - ordered to provide unique search term first
+      query: "[*/OGCE[1], */OGCE]"
+    
+    # Generating Application - contains multiple types
+    generatingApplication:
+      # [NESDIS, EUMETSAT]
+      query: "[*/GQCPRMS/GNAP, */AMVQIC/GNAPS]"
 
-    # Quality Information - Quality Indicator  
-    qualityInformationWithoutForecast:
-      query: '*/AMVQIC{2}/PCCF'
-
-    # Quality Information - Expected Error  
-    expectedError:
-      query: '*/AMVQIC{4}/PCCF'
-
-    # Derived Motion Wind (DMW) Intermediate Vectors - Coefficient of Variation
-    coefficientOfVariation:
-      query: '*/AMVIVR{1}/CVWD'
+    # Quality Information - contains multiple types
+    qualityInformation:
+      # [NESDIS, EUMETSAT]
+      query: "[*/GQCPRMS/PCCF, */AMVQIC/PCCF]"
 
     # Wind Retrieval Method Information - Computation 
     windComputationMethod:
       query: '*/SWCM'
-
-    # Wind Retrieval Method Information - Hight Assignment 
-    windHeightAssignMethod:
-      query: '*/EHAM'
 
     # ObsValue - Wind Direction
     windDirection:
@@ -80,9 +67,12 @@ bufr:
       category:
         variable: satelliteId
         map:
-          _270: goes-16 
-          _271: goes-17 
-          _272: goes-18 
+          _3: metop-1b
+          _4: metop-1a
+          _5: metop-1c
+          _206: noaa-15
+          _209: noaa-18
+          _223: noaa-19
 
 encoder:
 # type: netcdf
@@ -92,15 +82,15 @@ encoder:
   globals:
     - name: "platformCommonName"
       type: string
-      value: "GOES"
+      value: "EUMETSAT: METOP, NESDIS: NOAA"
 
     - name: "platformLongDescription"
       type: string
-      value: "Geostationary Operational Satellite"
+      value: "Low-Earth Orbiting Operational Satellite"
 
     - name: "sensor"
       type: string
-      value: "Advanced Baseline Imager - ABI"
+      value: "Advanced Very High Resolution Radiometer"
 
     - name: "source"
       type: string
@@ -108,7 +98,7 @@ encoder:
 
     - name: "providerFullName"
       type: string
-      value: "National Environmental Satellite, Data, and Information Service"
+      value: "EUMETSAT: European Organisation for the Exploitation of Meteorological Satellites, NESDIS: National Environmental Satellite, Data, and Information Service"
 
     - name: "processingLevel"
       type: string
@@ -119,15 +109,11 @@ encoder:
       value: "BUFR"
 
   variables:
+
     # MetaData 
     - name: "MetaData/dateTime"
       source: variables/timestamp
-      longName: "Observation Time"
-      units: "seconds since 1970-01-01T00:00:00Z"
-
-    - name: "MetaData/dataReceiptTime"
-      source: variables/dataReceiptTime
-      longName: "Observation Receipt Time"
+      longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
@@ -161,26 +147,9 @@ encoder:
       source: variables/dataProviderOrigin
       longName: "Identification of Originating/Generating Center"
 
-    - name: "MetaData/qualityInformationWithoutForecast"
-      source: variables/qualityInformationWithoutForecast
-      longName: "Quality Information Without Forecast"
-
-    - name: "MetaData/expectedError"
-      source: variables/expectedError
-      longName: "Expected Error"
-      units: "m s-1"
-
-    - name: "MetaData/coefficientOfVariation"
-      source: variables/coefficientOfVariation
-      longName: "Coefficient of Variation"
-
     - name: "MetaData/windComputationMethod"
       source: variables/windComputationMethod
       longName: "Satellite-derived Wind Computation Method"
-
-    - name: "MetaData/windHeightAssignMethod"
-      source: variables/windHeightAssignMethod
-      longName: "Wind Height Assignment Method"
 
     - name: "MetaData/pressure"
       source: variables/pressure
