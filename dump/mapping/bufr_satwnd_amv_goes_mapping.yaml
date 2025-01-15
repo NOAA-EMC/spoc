@@ -17,6 +17,14 @@ bufr:
         minute: "*/MINU"
         second: "*/SECO"
 
+    dataReceiptTime:
+      datetime:
+        year: "*/RCYR"
+        month: "*/RCMO"
+        day: "*/RCDY"
+        hour: "*/RCHR"
+        minute: "*/RCMI"
+
     latitude:
       query: "*/CLATH"
 
@@ -114,7 +122,12 @@ encoder:
     # MetaData 
     - name: "MetaData/dateTime"
       source: variables/timestamp
-      longName: "Datetime"
+      longName: "Observation Time"
+      units: "seconds since 1970-01-01T00:00:00Z"
+
+    - name: "MetaData/dataReceiptTime"
+      source: variables/dataReceiptTime
+      longName: "Observation Receipt Time"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"

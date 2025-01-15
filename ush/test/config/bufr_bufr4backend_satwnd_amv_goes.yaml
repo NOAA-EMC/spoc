@@ -1,6 +1,7 @@
 time window:
   begin: "2018-04-14T21:00:00Z"
   end: "2023-12-15T03:00:00Z"
+  bound to include: begin
 
 observations:
 - obs space:
@@ -19,7 +20,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.satwnd.abi_goes-16.tm00.nc"
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.satwnd.abi_goes-16.tm00.nc"
 
 - obs space:
     name: "satwind_goes-17"
@@ -37,7 +38,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.satwnd.abi_goes-17.tm00.nc"
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.satwnd.abi_goes-17.tm00.nc"
 
 - obs space:
     name: "satwind_goes-18"
@@ -55,4 +56,4 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/bufr_backend/gdas.t00z.satwnd.abi_goes-18.tm00.nc"
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.satwnd.abi_goes-18.tm00.nc"
