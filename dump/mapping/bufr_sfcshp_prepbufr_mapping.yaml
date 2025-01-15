@@ -78,7 +78,7 @@ bufr:
     stationElevationQualityMarker:
       query: "*/Z___INFO/Z__EVENT{1}/ZQM"
     heightQualityMarker:
-      query: "*/Z___INFO/Z__EVENT{1}/ZQM"`
+      query: "*/Z___INFO/Z__EVENT{1}/ZQM"
     airTemperatureQualityMarker:
       query: "*/T___INFO/T__EVENT{1}/TQM"
     virtualTemperatureQualityMarker:
