@@ -16,7 +16,7 @@ observations:
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
           mapping_path: "./bufr_satwnd_amv_goes_mapping.yaml"
-          category: ["goes-16"]
+          category: "goes-16"
     obsdataout:
       engine:
         type: H5File
@@ -34,7 +34,7 @@ observations:
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
           mapping_path: "./bufr_satwnd_amv_goes_mapping.yaml"
-          category: ["goes-17"]
+          category: "goes-17"
     obsdataout:
       engine:
         type: H5File
@@ -52,7 +52,7 @@ observations:
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
           mapping_path: "./bufr_satwnd_amv_goes_mapping.yaml"
-          category: ["goes-18"]
+          category: "goes-18"
     obsdataout:
       engine:
         type: H5File

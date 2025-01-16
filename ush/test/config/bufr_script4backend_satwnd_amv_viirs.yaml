@@ -15,7 +15,7 @@ observations:
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
           mapping_path: "./bufr_satwnd_amv_viirs_mapping.yaml"
-          category: ["npp"]
+          category: "npp"
     obsdataout:
       engine:
         type: H5File
@@ -33,7 +33,7 @@ observations:
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
           mapping_path: "./bufr_satwnd_amv_viirs_mapping.yaml"
-          category: ["n20"]
+          category: "n20"
     obsdataout:
       engine:
         type: H5File
@@ -51,7 +51,7 @@ observations:
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
           mapping_path: "./bufr_satwnd_amv_viirs_mapping.yaml"
-          category: ["n21"]
+          category: "n21"
     obsdataout:
       engine:
         type: H5File
