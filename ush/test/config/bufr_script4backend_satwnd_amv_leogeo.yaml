@@ -15,7 +15,7 @@ observations:
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
           mapping_path: "./bufr_satwnd_amv_leogeo_mapping.yaml"
-          category: "multi"
+          category: ["multi"]
     obsdataout:
       engine:
         type: H5File

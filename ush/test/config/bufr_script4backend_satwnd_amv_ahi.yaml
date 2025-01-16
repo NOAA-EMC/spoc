@@ -15,7 +15,7 @@ observations:
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
           mapping_path: "./bufr_satwnd_amv_ahi_mapping.yaml"
-          category: "h8"
+          category: ["h8"]
     obsdataout:
       engine:
         type: H5File
@@ -33,7 +33,7 @@ observations:
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
           mapping_path: "./bufr_satwnd_amv_ahi_mapping.yaml"
-          category: "h9"
+          category: ["h9"]
     obsdataout:
       engine:
         type: H5File
