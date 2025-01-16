@@ -112,7 +112,7 @@ def compute_wind_components(wdir, wspd):
     
     return u.astype(np.float32), v.astype(np.float32)
 
-def _get_QualityInformation_and_GeneratingApplication(comm, gnap2D, pccf2D, satID):
+def _get_quality_information_and_generating_application(comm, gnap2D, pccf2D, satID):
     # For METOP-A/B/C AVHRR data (satID 3,4,5), qi w/o forecast (qifn) is
     # packaged in same vector of qi with ga = 5 (QI without forecast), and EE
     # is packaged in same vector of qi with ga=7 (Estimated Error (EE) in m/s
@@ -268,7 +268,7 @@ def _make_obs(comm, input_path, mapping_path):
             gnap2D = container.get('variables/generatingApplication', cat)
             pccf2D = container.get('variables/qualityInformation', cat)
 
-            gnap, qifn = _get_QualityInformation_and_GeneratingApplication(comm, gnap2D, pccf2D, satID)
+            gnap, qifn = _get_quality_information_and_generating_application(comm, gnap2D, pccf2D, satID)
 
             logging(comm, 'DEBUG', f'gnap min/max = {gnap.min()} {gnap.max()}')
             logging(comm, 'DEBUG', f'qifn min/max = {qifn.min()} {qifn.max()}')
