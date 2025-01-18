@@ -315,15 +315,15 @@ if __name__ == '__main__':
     bufr.mpi.App(sys.argv)
     comm = bufr.mpi.Comm("world")
 
-    # Required input arguments
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-i', '--input', type=str, help='Input BUFR', required=True)
-    parser.add_argument('-m', '--mapping', type=str, help='BUFR2IODA Mapping File', required=True)
-    parser.add_argument('-o', '--output', type=str, help='Output NetCDF', required=True)
+    # Required input arguments as positional arguments
+    parser = argparse.ArgumentParser(description="Convert BUFR to NetCDF using a mapping file.")
+    parser.add_argument('input', type=str, help='Input BUFR file')
+    parser.add_argument('mapping', type=str, help='BUFR2IODA Mapping File')
+    parser.add_argument('output', type=str, help='Output NetCDF file')
 
     args = parser.parse_args()
-    mapping = args.mapping
     infile = args.input
+    mapping = args.mapping
     output = args.output
 
     create_obs_file(infile, mapping, output)
@@ -331,3 +331,5 @@ if __name__ == '__main__':
     end_time = time.time()
     running_time = end_time - start_time
     logging(comm, 'INFO', f'Total running time: {running_time}')
+                                                                                                                316,19        Bot
+
