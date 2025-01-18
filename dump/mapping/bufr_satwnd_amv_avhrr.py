@@ -141,9 +141,9 @@ def _get_quality_information_and_generating_application(comm, gnap2D, pccf2D, sa
         # dataset. In that case, we need to actually set findQI=1 and findEE=4 here.
         # Let's do a preliminary check to see if any gnap2D values match findQI. If not, let's
         # automatically switch to findQI=1, findEE=4 and presume pre-2023 EUMETSAT AVHRR format
-#       if np.any(np.isin(gnap2D, [findQI])) == False:
-#       if np.any(np.isin(gnap2D, [findQI])) is False:
-        if not (np.any(np.isin(gnap2D, [findQI]))):
+#       if np.any(np.isin(gnap2D, [findQI])) == False:   # This is original from Brett
+#       if np.any(np.isin(gnap2D, [findQI])) is False:   # This is suggested by coding norm (does not work)
+        if not (np.any(np.isin(gnap2D, [findQI]))):      # This si suggested by coding nomr (wodked!)
             logging(comm, 'DEBUG', f'NO GNAP VALUE OF {findQI} EXISTS FOR EUMETSAT AVHRR DATASET, PRESUMING PRE-2023 FORMATTING')
             findQI = 1
             findEE = 4
