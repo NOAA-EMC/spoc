@@ -10,10 +10,10 @@ observations:
     obsdatain:
       engine:
         type: script
-        script file: "bufr2ioda_sfcsno.py"
+        script file: "bufr_sfcsno.py"
         args:
           input_path: "./testinput/2021080100/gdas.t00z.sfcsno.tm00.bufr_d"
-          mapping_path: "./bufr2ioda_sfcsno_mapping.yaml"
+          mapping_path: "./bufr_sfcsno_mapping.yaml"
     obsdataout:
       engine:
         type: H5File
