@@ -12,10 +12,10 @@ observations:
     obsdatain:
       engine:
         type: script 
-        script file: "bufr_satwnd_amv_goes.py"
+        script file: "bufr_satwnd_amv_abi.py"
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-          mapping_path: "./bufr_satwnd_amv_goes_mapping.yaml"
+          mapping_path: "./bufr_satwnd_amv_abi_mapping.yaml"
           category: "goes-16"
     obsdataout:
       engine:
@@ -30,10 +30,10 @@ observations:
     obsdatain:
       engine:
         type: script 
-        script file: "bufr_satwnd_amv_goes.py"
+        script file: "bufr_satwnd_amv_abi.py"
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-          mapping_path: "./bufr_satwnd_amv_goes_mapping.yaml"
+          mapping_path: "./bufr_satwnd_amv_abi_mapping.yaml"
           category: "goes-17"
     obsdataout:
       engine:
@@ -48,10 +48,10 @@ observations:
     obsdatain:
       engine:
         type: script 
-        script file: "bufr_satwnd_amv_goes.py"
+        script file: "bufr_satwnd_amv_abi.py"
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-          mapping_path: "./bufr_satwnd_amv_goes_mapping.yaml"
+          mapping_path: "./bufr_satwnd_amv_abi_mapping.yaml"
           category: "goes-18"
     obsdataout:
       engine:
