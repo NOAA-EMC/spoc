@@ -33,13 +33,13 @@ Creat a working directory (e.g. work_dir)
 
 - Required input files in ./work_dir:
   
-   - bufr_satwnd_amv_goes.py (copied /spoc/dump/mapping)
+   - bufr_satwnd_amv_abi.py (copied /spoc/dump/mapping)
      
-   - bufr_satwnd_amv_goes_mapping.yaml (copied from /spoc/dump/mapping)
+   - bufr_satwnd_amv_abi_mapping.yaml (copied from /spoc/dump/mapping)
      
-   - bufr_bufr4backend_satwnd_amv_goes.yaml (copied from /spoc/ush/test/config)
+   - bufr_bufr4backend_satwnd_amv_abi.yaml (copied from /spoc/ush/test/config)
      
-   - bufr_script4backend_satwnd_amv_goes.yaml (copied from /spoc/ush/test/config)
+   - bufr_script4backend_satwnd_amv_abi.yaml (copied from /spoc/ush/test/config)
      
    - /testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d (copied from the global dump)
 
@@ -55,7 +55,7 @@ Creat a working directory (e.g. work_dir)
       <obsforge_dir>      : root directory of obsForge build
       <cycle>             : cycle time (e.g., 2021080100)
       <bufrtype>          : BUFR dump type to process (e.g., satwnd, atms, sfcsno)
-      <obstype>           : observation type to create (e.g., satwnd_amv_goes, atms, sfcsno)
+      <obstype>           : observation type to create (e.g., satwnd_amv_abi, atms, sfcsno)
       <sensor>            : sensor (e.g., abi, atms); for non-satellite dta, sensor is usually obstype (e.g., sfcsno)
       <split_by_category> : split the data into multiple files based on category (false or true)
       <mode>              : mode of operation (e.g., bufr4backend, script4backend, bufr2netcdf, script2netcdf)
@@ -73,7 +73,7 @@ Creat a working directory (e.g. work_dir)
 ```
       obsforge_dir="/scratch1/NCEPDEV/da/Emily.Liu/EMC-obsForge/obsForge"
 
-      encodeBufr.sh ${obsforge_dir} 2021080100 satwnd satwnd_amv_goes abi true script4backend 4 
+      encodeBufr.sh ${obsforge_dir} 2021080100 satwnd satwnd_amv_abi abi true script4backend 4 
 
       encodeBufr.sh ${obsforge_dir} 2021080100 sfcsno sfcsno sfcsno false script4backend 4 
 
