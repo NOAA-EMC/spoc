@@ -79,6 +79,7 @@ def logging(comm, level, message):
         # Call the logging method
         log_method(message)
 
+
 def _make_description(mapping_path, cycle_time, update=False):
     description = bufr.encoders.Description(mapping_path)
 
@@ -109,7 +110,18 @@ def _make_description(mapping_path, cycle_time, update=False):
     return description
 
 
-def Compute_sequenceNumber(typ, t29):
+def _compute_sequence_number(typ, t29):
+    """
+    Compute sequenceNumber
+
+    Parameters:
+        typ: observation Type (obsType)
+        t29: data dump report type
+
+    Returns:
+        Masked array of sequenceNumber values
+    """
+
     sequenceNumber = np.zeros(typ.shape, dtype=np.int32)
     for i in range(len(typ)):
         if (typ[i] == 180 or typ[i] == 280):
@@ -121,7 +133,7 @@ def Compute_sequenceNumber(typ, t29):
     return sequenceNumber
 
 
-def Compute_dateTime(cycleTimeSinceEpoch, dhr):
+def _compute_dateTime(cycleTimeSinceEpoch, dhr):
     """
     Compute dateTime using the cycleTimeSinceEpoch and Cycle Time
         minus Cycle Time
@@ -153,13 +165,13 @@ def Compute_dateTime(cycleTimeSinceEpoch, dhr):
 def _make_obs(comm, input_path, mapping_path, cycle_time):
     """
     Create the ioda sfcshp prepbufr observations:
-    - reads values 
-    - adds sequenceNum 
+    - reads values
+    - adds sequenceNum
 
     Parameters
     ----------
     comm: object
-            The communicator object (e.g., MPI) 
+            The communicator object (e.g., MPI)
     input_path: str
             The input bufr file
     mapping_path: str
@@ -184,7 +196,7 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
     otmct_paths = container.get_paths('variables/obsTimeMinusCycleTime')
     otmct2 = np.array(otmct)
     cycleTimeSinceEpoch = np.int64(calendar.timegm(time.strptime(str(int(cycle_time)), '%Y%m%d%H')))
-    dateTime = Compute_dateTime(cycleTimeSinceEpoch, otmct2)
+    dateTime = _compute_dateTime(cycleTimeSinceEpoch, otmct2)
     min_dateTime_ge_zero = min(x for x in dateTime if x >= 0)
     logging(comm, 'DEBUG', f'dateTime min/max = {min_dateTime_ge_zero} {dateTime.max()}')
 
@@ -193,7 +205,7 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
     typ_paths = container.get_paths('variables/observationType')
     t29 = container.get('variables/obssubtype')
     t29_paths = container.get_paths('variables/obssubtype')
-    seqNum = Compute_sequenceNumber(typ, t29)
+    seqNum = _compute_sequence_number(typ, t29)
     logging(comm, 'DEBUG', f' sequenceNum min/max =  {seqNum.min()} {seqNum.max()}')
 
     logging(comm, 'DEBUG', f'Do tsen and tv calculation')
@@ -255,6 +267,7 @@ def create_obs_group(input_path, mapping_path, cycle_time, env):
 
     logging(comm, 'INFO', f'Return the encoded data.')
     return data
+
 
 def create_obs_file(input_path, mapping_path, output_path, cycle_time):
 
