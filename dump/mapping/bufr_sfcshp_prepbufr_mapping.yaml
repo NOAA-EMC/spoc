@@ -120,7 +120,7 @@ encoder:
 
     - name: "platforms"
       type: string
-      value: "SFCSHP"        
+      value: "SFCSHP"
 
     - name: "source"
       type: string
