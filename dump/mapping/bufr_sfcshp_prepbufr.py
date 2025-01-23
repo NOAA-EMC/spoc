@@ -133,7 +133,7 @@ def _compute_sequence_number(typ, t29):
     return sequenceNumber
 
 
-def _compute_dateTime(cycleTimeSinceEpoch, dhr):
+def _compute_datetime(cycleTimeSinceEpoch, dhr):
     """
     Compute dateTime using the cycleTimeSinceEpoch and Cycle Time
         minus Cycle Time
@@ -196,7 +196,7 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
     otmct_paths = container.get_paths('variables/obsTimeMinusCycleTime')
     otmct2 = np.array(otmct)
     cycleTimeSinceEpoch = np.int64(calendar.timegm(time.strptime(str(int(cycle_time)), '%Y%m%d%H')))
-    dateTime = _compute_dateTime(cycleTimeSinceEpoch, otmct2)
+    dateTime = _compute_datetime(cycleTimeSinceEpoch, otmct2)
     min_dateTime_ge_zero = min(x for x in dateTime if x >= 0)
     logging(comm, 'DEBUG', f'dateTime min/max = {min_dateTime_ge_zero} {dateTime.max()}')
 
