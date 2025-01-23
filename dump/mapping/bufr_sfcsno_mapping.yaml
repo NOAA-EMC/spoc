@@ -36,6 +36,8 @@ bufr:
     # ObsValue
     totalSnowDepth:
       query: "[*/SNWSQ1/TOSD, */MTRMSC/TOSD, */STGDSNDM/TOSD]"
+      transforms:
+        - scale: 1000.0
 
     groundState:
       query: "[*/GRDSQ1/SOGR, */STGDSNDM/SOGR]"
@@ -86,7 +88,7 @@ encoder:
       coordinates: "longitude latitude"
       source: variables/totalSnowDepth
       longName: "Total Snow Depth"
-      units: "m"
+      units: "mm"
 
     - name: "ObsValue/groundState"
       coordinates: "longitude latitude"
