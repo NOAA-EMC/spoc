@@ -79,7 +79,16 @@ def logging(comm, level, message):
         # Call the logging method
         log_method(message)
 
-def Compute_dateTime(cycleTimeSinceEpoch, dhr):
+def _compute_datetime(cycleTimeSinceEpoch, dhr):
+    """
+     Compute dateTime using the cycleTimeSinceEpoch and Cycle Time
+         minus Cycle Time
+     Parameters:
+         cycleTimeSinceEpoch: Time of cycle in Epoch Time
+         dhr: Observation Time Minus Cycle Time
+     Returns:
+         Masked array of dateTime values
+     """
 
     int64_fill_value = np.int64(0)
 
@@ -93,7 +102,15 @@ def Compute_dateTime(cycleTimeSinceEpoch, dhr):
     return dateTime
 
 
-def Compute_typ_other(typ, var):
+def _compute_typ_other(typ, var):
+    """
+    Compute datatype if the variable is not wind.
+    Parameters:
+        typ: datatype
+        var: obsValue variable
+    Returns:
+        Masked array of the new datatype
+    """
 
     typ_var = copy.deepcopy(typ)
     typ_var[(typ_var > 300) & (typ_var < 400)] -= 200
@@ -107,7 +124,15 @@ def Compute_typ_other(typ, var):
     return typ_var
 
 
-def Compute_typ_uv(typ, var):
+def _compute_typ_uv(typ, var):
+    """
+    Compute datatype if the variable is wind.
+    Parameters:
+        typ: datatype
+        var: obsValue variable
+    Returns:
+        Masked array of the new datatype
+    """
 
     typ_var = copy.deepcopy(typ)
     typ_var[(typ_var > 300) & (typ_var < 400)] -= 100
@@ -121,7 +146,15 @@ def Compute_typ_uv(typ, var):
     return typ_var
 
 
-def Compute_ialr_if_masked(typ, ialr):
+def _compute_ialr_if_masked(typ, ialr):
+    """
+    Compute instantaneousAltitudeRate (IALR) if it is masked.
+    Parameters:
+        typ: datatype
+        ialr: instantaneousAltitudeRate
+    Returns:
+        Masked array of the updated instantaneousAltitudeRate
+    """
 
     ialr_bc = copy.deepcopy(ialr)
     for i in range(len(ialr_bc)):
@@ -195,7 +228,7 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
     otmct_paths = container.get_paths('variables/obsTimeMinusCycleTime')
     otmct2 = np.array(otmct)
     cycleTimeSinceEpoch = np.int64(calendar.timegm(time.strptime(str(int(cycle_time)), '%Y%m%d%H')))
-    dateTime = Compute_dateTime(cycleTimeSinceEpoch, otmct2)
+    dateTime = _compute_datetime(cycleTimeSinceEpoch, otmct2)
     min_dateTime_ge_zero = min(x for x in dateTime if x > -1)
     logging(comm, 'DEBUG', f'dateTime min/max = {min_dateTime_ge_zero} {dateTime.max()}')
 
@@ -215,17 +248,17 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
     specificHumidity = container.get('variables/specificHumidityObsValue')
     wind = container.get('variables/windNorthwardObsValue')
 
-    ot_airTemperature = Compute_typ_other(t_ot, airTemperature)
-    #ot_virtualTemperature = Compute_typ_other(tv_ot, virtualTemperature)
-    ot_specificHumidity = Compute_typ_other(q_ot, specificHumidity)
-    ot_wind = Compute_typ_uv(uv_ot, wind)
+    ot_airTemperature = _compute_typ_other(t_ot, airTemperature)
+    #ot_virtualTemperature = _compute_typ_other(tv_ot, virtualTemperature)
+    ot_specificHumidity = _compute_typ_other(q_ot, specificHumidity)
+    ot_wind = _compute_typ_uv(uv_ot, wind)
 
     logging(comm, 'DEBUG', f'Change IALR to 0.0 if masked for bias correction.')
     ialr = container.get('variables/instantaneousAltitudeRate')
     ialr_paths = container.get_paths('variables/instantaneousAltitudeRate')
     ialr2 = ma.array(ialr)
 
-    ialr_bc = Compute_ialr_if_masked(uv_ot, ialr2)
+    ialr_bc = _compute_ialr_if_masked(uv_ot, ialr2)
 
     logging(comm, 'DEBUG', f'Update variables in container')
     container.replace('variables/longitude', lon)

@@ -5,7 +5,7 @@
 
 bufr:
   subsets:
-    - AIRCFT 
+    - AIRCFT
     - AIRCAR
 
   group_by_variable: prepbufrDataLevelCategory
@@ -43,7 +43,7 @@ bufr:
       query: "*/PRSLEVLA/Z___INFO/Z__EVENT{1}/ZOB"
     stationElevationMetaData:
       query: "*/ELV"
-      type: float 
+      type: float
     pressureMetaData:
       query: "*/PRSLEVLA/P___INFO/P__EVENT{1}/POB"
       transforms:
@@ -73,26 +73,26 @@ bufr:
       query: "*/PRSLEVLA/W___INFO/W__EVENT{1}/UOB"
     windNorthwardObsValue:
       query: "*/PRSLEVLA/W___INFO/W__EVENT{1}/VOB"
- 
+
     #QualityMarker
     pressureQualityMarker:
       query: "*/PRSLEVLA/P___INFO/P__EVENT{1}/PQM"
     airTemperatureQualityMarker:
       query: "*/PRSLEVLA/T___INFO/T__EVENT{1}/TQM"
-    #virtualTemperatureQualityMarker:
-    #  query: "*/PRSLEVLA/T___INFO/T__EVENT{1}/TQM"
+#    virtualTemperatureQualityMarker:
+#      query: "*/PRSLEVLA/T___INFO/T__EVENT{1}/TQM"
     specificHumidityQualityMarker:
       query: "*/PRSLEVLA/Q___INFO/Q__EVENT{1}/QQM"
     windEastwardQualityMarker:
       query: "*/PRSLEVLA/W___INFO/W__EVENT{1}/WQM"
     windNorthwardQualityMarker:
       query: "*/PRSLEVLA/W___INFO/W__EVENT{1}/WQM"
- 
+
     #ObsError
     airTemperatureObsError:
       query: "*/PRSLEVLA/T___INFO/T__BACKG/TOE"
-    #virtualTemperatureObsError:
-    #  query: "*/PRSLEVLA/T___INFO/T__BACKG/TOE"
+#    virtualTemperatureObsError:
+#      query: "*/PRSLEVLA/T___INFO/T__BACKG/TOE"
     specificHumidityObsError:
       query: "*/PRSLEVLA/Q___INFO/Q__BACKG/QOE"
       type: float
@@ -141,10 +141,10 @@ encoder:
       source: variables/airTemperatureObservationType
       longName: "Observation Type"
 
-##    - name: "ObsType/virtualTemperature"
-##      source: variables/otherTemperatureObservationType
-##      longName: "Observation Type"
-#
+#    - name: "ObsType/virtualTemperature"
+#      source: variables/otherTemperatureObservationType
+#      longName: "Observation Type"
+
     - name: "ObsType/specificHumidity"
       source: variables/specificHumidityObservationType
       longName: "Observation Type"
@@ -180,7 +180,7 @@ encoder:
       source: variables/longitude
       longName: "Longitude"
       units: "degree_east"
-      #range: [0, 360]
+#      range: [0, 360]
 
     - name: "MetaData/dateTime"
       source: variables/timestamp
@@ -211,9 +211,9 @@ encoder:
       longName: "Instantaneous Rate Altitue"
       units: "m s-1"
 
-      #    - name: "MetaData/sequenceNumber"
-      #source: variables/sequenceNumber
-      #longName: "Sequence Number"
+#    - name: "MetaData/sequenceNumber"
+#      source: variables/sequenceNumber
+#      longName: "Sequence Number"
 
     #ObsValue
     - name: "ObsValue/airTemperature"
