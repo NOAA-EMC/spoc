@@ -17,7 +17,7 @@ from wxflow import Logger
 # Initialize Logger
 # Get log level from the environment variable, default to 'INFO it not set
 log_level = os.getenv('LOG_LEVEL', 'INFO')
-logger = Logger('BUFR2IODA_adpsfc_prepbufr.py', level=log_level, colored_log=False)
+logger = Logger('bufr_adpsfc_prepbufr.py', level=log_level, colored_log=False)
 
 def logging(comm, level, message):
     """
