@@ -105,7 +105,7 @@ def _make_description(mapping_path, cycle_time, update=False):
                 longName=var['longName']
             )
 
-        description.add_global(name='Reference_time', value=str(ReferenceTime))
+        #description.add_global(name='Reference_time', value=str(ReferenceTime))
 
     return description
 
