@@ -16,7 +16,7 @@ INVALID = R1000
 # Far-Infrared Absolute Spectrophotometer (FIRAS)"Astrophysical Journal, vol 512, pp 511-520
 TSPACE = 2.7253
 
-nc_dir = '../../dump/aux'
+nc_dir = './aux'
 
 
 class ACCoeff:
