@@ -1,0 +1,20 @@
+time window:
+  begin: "2018-04-14T21:00:00Z"
+  end: "2023-12-15T03:00:00Z"
+  bound to include: begin
+
+observations:
+- obs space:
+    name: "sfcsno_snow"
+    simulated variables: [totalSnowDepth]
+    obsdatain:
+      engine:
+        type: script
+        script file: "bufr_sfcsno.py"
+        args:
+          input_path: "./testinput/2021080100/gdas.t00z.sfcsno.tm00.bufr_d"
+          mapping_path: "./bufr_sfcsno_mapping.yaml"
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2021080100/script4backend/gdas.t00z.sfcsno.tm00.nc"

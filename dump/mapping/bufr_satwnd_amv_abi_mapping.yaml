@@ -17,6 +17,14 @@ bufr:
         minute: "*/MINU"
         second: "*/SECO"
 
+    dataReceiptTime:
+      datetime:
+        year: "*/RCYR"
+        month: "*/RCMO"
+        day: "*/RCDY"
+        hour: "*/RCHR"
+        minute: "*/RCMI"
+
     latitude:
       query: "*/CLATH"
 
@@ -114,7 +122,12 @@ encoder:
     # MetaData 
     - name: "MetaData/dateTime"
       source: variables/timestamp
-      longName: "Datetime"
+      longName: "Observation Time"
+      units: "seconds since 1970-01-01T00:00:00Z"
+
+    - name: "MetaData/dataReceiptTime"
+      source: variables/dataReceiptTime
+      longName: "Observation Receipt Time"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
@@ -155,7 +168,7 @@ encoder:
     - name: "MetaData/expectedError"
       source: variables/expectedError
       longName: "Expected Error"
-      units: "m/s"
+      units: "m s-1"
 
     - name: "MetaData/coefficientOfVariation"
       source: variables/coefficientOfVariation
@@ -181,5 +194,5 @@ encoder:
 
     - name: "ObsValue/windSpeed"
       source: variables/windSpeed
-      longName: "Wind Direction"
-      units: "m/s"
+      longName: "Wind Speed"
+      units: "m s-1"
