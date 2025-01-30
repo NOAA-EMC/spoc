@@ -132,7 +132,7 @@ def _make_description(mapping_path, cycle_time, update=False):
                 longName=var['longName']
             )
 
-        description.add_global(name='datetimeReference', value=str(ReferenceTime))
+        #description.add_global(name='datetimeReference', value=str(ReferenceTime))
 
     return description
 
@@ -165,6 +165,7 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
     lon_paths = container.get_paths('variables/longitude')
     lon[lon>180] -= 360
     lon = ma.round(lon, decimals=2)
+    logging(comm, 'DEBUG', f'longitude max and min are {lon.max()}, {lon.min()}')
 
     logging(comm, 'DEBUG', f'Do DateTime calculation')
     otmct = container.get('variables/obsTimeMinusCycleTime')
@@ -209,6 +210,7 @@ def create_obs_group(input_path, mapping_path, cycle_time, env):
     data = next(iter(iodaEncoder(description).encode(container).values()))
 
     logging(comm, 'INFO', f'Return the encoded data.')
+
     return data
 
 
