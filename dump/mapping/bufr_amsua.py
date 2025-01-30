@@ -101,7 +101,7 @@ class ACCoeff:
         self.a_sp = self.a_space * TSPACE
 
 
-def remove_ant_corr(i, ac, ifov, t):
+def _remove_ant_corr(i, ac, ifov, t):
     # AC:             Structure containing the antenna correction coefficients for the sensor of interest.
     # iFOV:           The FOV index for a scanline of the sensor of interest.
     # T:              On input, this argument contains the brightness
@@ -111,7 +111,7 @@ def remove_ant_corr(i, ac, ifov, t):
     return t
 
 
-def apply_ant_corr(i, ac, ifov, t):
+def _apply_ant_corr(i, ac, ifov, t):
     # t:              on input, this argument contains the antenna temperatures for the sensor channels.
     t = (t - ac.a_sp[i, ifov]) / ac.a_ep[i, ifov]
     t[(ifov < 1) | (ifov > ac.n_fovs)] = [INVALID]
@@ -123,7 +123,7 @@ def _make_description(yaml_path):
     return description
 
 
-def apply_corr(comm, sat_id, ta, ifov):
+def _apply_corr(comm, sat_id, ta, ifov):
     ac = ACCoeff(nc_dir, sat_id=sat_id)
     if sat_id not in ['n15', 'n16']:
         # Convert antenna temperature to brightness temperature
@@ -132,15 +132,15 @@ def apply_corr(comm, sat_id, ta, ifov):
             logging(comm, f'inside loop for allpy ta to tb: i = {i}', level=DEBUG)
             x = ta[:, i]
             if YAML_NORMAL:
-                x = apply_ant_corr(i, ac, ifov, x)
+                x = _apply_ant_corr(i, ac, ifov, x)
             else:
-                x = remove_ant_corr(i, ac, ifov, x)
+                x = _remove_ant_corr(i, ac, ifov, x)
             x[x >= R1000] = R1000000
             ta[:, i] = x
     return ta
 
 
-def re_map_variable(comm, container):
+def _re_map_variable(comm, container):
     # read_bufrtovs.f90
     # antcorr_application.f90
     # search the keyword “ta2tb” for details
@@ -150,7 +150,7 @@ def re_map_variable(comm, container):
         ta = container.get('variables/brightnessTemperature', sat_id)
         if ta.shape[0]:
             ifov = container.get('variables/fieldOfViewNumber', sat_id)
-            tb = apply_corr(comm, sat_id[0], ta, ifov)
+            tb = _apply_corr(comm, sat_id[0], ta, ifov)
             container.replace('variables/brightnessTemperature', tb, sat_id)
 
 
@@ -167,7 +167,7 @@ def _make_obs(comm, input_path, yaml_path):
     return cache, container
 
 
-def mark_one_data(comm, cache, input_path, yaml_path, category, container=None):
+def _mark_one_data(comm, cache, input_path, yaml_path, category, container=None):
     if cache:
         logging(comm, f'The cache existed get data container from it')
         bufr.DataCache.mark_finished(input_path, yaml_path, [category])
@@ -185,15 +185,15 @@ def create_obs_group(input_path1, input_path2, yaml_1b, yaml_es, category, env):
     cache_1, container_1 = _make_obs(comm, input_path1, yaml_es)
     cache_2, container_2 = _make_obs(comm, input_path2, yaml_1b)
 
-    re_map_variable(container_2)
+    _re_map_variable(comm, container_2)
 
     container = container_1
     container.append(container_2)
 
     logging(comm, 'Container append done')
     data = Encoder(_make_description(yaml_es)).encode(container)[(category,)]
-    mark_one_data(comm, cache_1, input_path1, yaml_es, category, container=container_1)
-    mark_one_data(comm, cache_2, input_path2, yaml_1b, category, container=container_2)
+    _mark_one_data(comm, cache_1, input_path1, yaml_es, category, container=container_1)
+    _mark_one_data(comm, cache_2, input_path2, yaml_1b, category, container=container_2)
     return data
 
 
@@ -206,7 +206,7 @@ def create_obs_file(input_path1, input_path2, yaml_1b, yaml_es, output_path):
     cache_1, container_1 = _make_obs(comm, input_path1, yaml_es)
     cache_2, container_2 = _make_obs(comm, input_path2, yaml_1b)
 
-    re_map_variable(container_2)
+    _re_map_variable(comm, container_2)
 
     container = container_1
     container.append(container_2)
