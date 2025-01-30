@@ -190,6 +190,7 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
     lon_paths = container.get_paths('variables/longitude')
     lon[lon>180] -= 360
     lon = ma.round(lon, decimals=2)
+    logging(comm, 'DEBUG', f'longitude new max/min: ${lon.max()}, ${lon.min()}')
 
     logging(comm, 'DEBUG', f'Do DateTime calculation')
     otmct = container.get('variables/obsTimeMinusCycleTime')
