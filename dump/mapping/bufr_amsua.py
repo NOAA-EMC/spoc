@@ -13,12 +13,11 @@ INFO = 'INFO'
 DEBUG = 'DEBUG'
 
 YAML_NORMAL = False  # current as normal need remap for path2/1bama
-R1000 = 1000.0
-R1000000 = 1000000.0
-INVALID = R1000
+INVALID = 1000.0
+
 # Cosmic background temperature. Taken from Mather,J.C. et. al., 1999, "Calibrator Design for the COBE
 # Far-Infrared Absolute Spectrophotometer (FIRAS)"Astrophysical Journal, vol 512, pp 511-520
-TSPACE = 2.7253
+COSMIC_BACKGROUND_TEMP = 2.7253
 
 nc_dir = './aux'
 
@@ -98,7 +97,7 @@ class ACCoeff:
         self.a_platform = nc_file.variables['A_platform'][:]
         self.a_space = nc_file.variables['A_space'][:]
         self.a_ep = self.a_earth + self.a_platform
-        self.a_sp = self.a_space * TSPACE
+        self.a_sp = self.a_space * COSMIC_BACKGROUND_TEMP
 
 
 def _remove_ant_corr(i, ac, ifov, t):
@@ -135,7 +134,7 @@ def _apply_corr(comm, sat_id, ta, ifov):
                 x = _apply_ant_corr(i, ac, ifov, x)
             else:
                 x = _remove_ant_corr(i, ac, ifov, x)
-            x[x >= R1000] = R1000000
+            x[x >= INVALID] = INVALID
             ta[:, i] = x
     return ta
 
