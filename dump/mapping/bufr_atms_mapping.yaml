@@ -56,7 +56,7 @@ bufr:
       remappedBrightnessTemperature:
         fieldOfViewNumber: "*/FOVN"
         sensorChannelNumber: "*/ATMSCH/CHNM"
-        brightnessTemperature: "*/ATMSCH/TMANT"
+        brightnessTemperature: "*/ATMSCH/TMBR"
         obsTime:
           year: "*/YEAR"
           month: "*/MNTH"
