@@ -80,7 +80,7 @@ def logging(comm, level, message):
         log_method(message)
 
 
-def Compute_dateTime(cycleTimeSinceEpoch, hrdr):
+def _compute_datetime(cycleTimeSinceEpoch, hrdr):
 
     int64_fill_value = np.int64(0)
     dateTime = np.zeros(hrdr.shape, dtype=np.int64)
@@ -96,7 +96,7 @@ def Compute_dateTime(cycleTimeSinceEpoch, hrdr):
     return dateTime
 
 
-def Mask_typ_for_var(typ, var):
+def _mask_typ_for_var(typ, var):
 
     typ_var = copy.deepcopy(typ)
     for i in range(len(typ_var)):
@@ -109,7 +109,7 @@ def Mask_typ_for_var(typ, var):
 def _make_description(mapping_path, cycle_time, update=False):
     description = bufr.encoders.Description(mapping_path)
 
-    ReferenceTime = np.int64(calendar.timegm(time.strptime(str(int(cycle_time)), '%Y%m%d%H')))
+    reference_time = np.int64(calendar.timegm(time.strptime(str(int(cycle_time)), '%Y%m%d%H')))
 
     if update:
         # Define the variables to be added in a list of dictionaries
@@ -131,7 +131,7 @@ def _make_description(mapping_path, cycle_time, update=False):
                 longName=var['longName']
             )
 
-        description.add_global(name='datetimeReference', value=str(ReferenceTime))
+        description.add_global(name='datetimeReference', value=str(reference_time))
 
     return description
 
@@ -163,30 +163,30 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
 
     logging(comm, 'DEBUG', f'Do DateTime calculation')
     hrdr = container.get('variables/obsTimeMinusCycleTime')
-    hrdr_paths = container.get_paths('variables/obsTimeMinusCycleTime')
+    #hrdr_paths = container.get_paths('variables/obsTimeMinusCycleTime')
     cycleTimeSinceEpoch = np.int64(calendar.timegm(time.strptime(str(int(cycle_time)), '%Y%m%d%H')))
-    dateTime = Compute_dateTime(cycleTimeSinceEpoch, hrdr)
+    dateTime = _compute_datetime(cycleTimeSinceEpoch, hrdr)
     logging(comm, 'DEBUG', f'dateTime min/max = {dateTime.min()} {dateTime.max()}')
 
     logging(comm, 'DEBUG', f'Change longitude range from [0,360] to [-180,180]')
     lon = container.get('variables/longitude')
-    lon_paths = container.get_paths('variables/longitude')
+    #lon_paths = container.get_paths('variables/longitude')
     lon[lon>180] -= 360
 
     logging(comm, 'DEBUG', f'observationType')
     typ = container.get('variables/observationType')
-    typ_paths = container.get_paths('variables/observationType')
+    #typ_paths = container.get_paths('variables/observationType')
 
     logging(comm, 'DEBUG', f'Do ps calculation')
     pob = container.get('variables/pressure')
-    pob_paths = container.get_paths('variables/pressure')
+    #pob_paths = container.get_paths('variables/pressure')
     ps = np.full(pob.shape[0], pob.fill_value)
     ps = np.where(cat == 0, pob, ps)
 
     logging(comm, 'DEBUG', f'Do tsen and tv calculation')
     tpc = container.get('variables/temperatureEventProgramCode')
     tob = container.get('variables/airTemperature')
-    tob_paths = container.get_paths('variables/airTemperature')
+    #tob_paths = container.get_paths('variables/airTemperature')
     tsen = np.full(tob.shape[0], tob.fill_value)
     tsen = np.where(((tpc >= 1) & (tpc < 8)), tob, tsen)
     tvo = np.full(tob.shape[0], tob.fill_value)

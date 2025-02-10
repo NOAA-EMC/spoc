@@ -136,26 +136,25 @@ encoder:
   type: netcdf
 
   globals:
-    - name: "data_format"
+    - name: "dataOriginalFormatSpec"
       type: string
       value: "prepbufr"
 
-    - name: "data_type"
+    - name: "platforms"
       type: string
       value: "ADPUPA"
 
-    - name: "subsets"
+    - name: "source"
       type: string
-      value: "ADPUPA"
+      value: "prepBUFR"
 
-    - name: "data_provider"
-      type: string
-      value: "U.S. NOAA"
-
-    - name: "data_description"
+    - name: "description"
       type: string
       value: "UPPER-AIR (RAOB, PIBAL, RECCO, DROPS) REPORTS"
 
+    - name: "dataProviderOrigin"
+      type: string
+      value: "U.S. NOAA NCEP"
 
   variables:
     # Observation Type: stationPressure
@@ -369,3 +368,4 @@ encoder:
     - name: "ObsError/specificHumidity"
       source: variables/specificHumidityError
       longName: "Specific Humidity Error"
+      units: "kg kg-1"
