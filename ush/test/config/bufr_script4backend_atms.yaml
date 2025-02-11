@@ -1,6 +1,7 @@
 time window:
   begin: "2018-04-14T21:00:00Z"
   end: "2023-12-15T03:00:00Z"
+  bound to include: begin
 
 observations:
   - obs space:
@@ -9,7 +10,7 @@ observations:
       obsdatain:
         engine:
           type: script
-          script file: "bufr_atms.py"
+          script file: "./bufr_atms.py"
           args:
             input_path: "./testinput/2021080100/gdas.t00z.atms.tm00.bufr_d"
             mapping_path: "./bufr_atms_mapping.yaml"
@@ -25,7 +26,7 @@ observations:
       obsdatain:
         engine:
           type: script
-          script file: "bufr_atms.py"
+          script file: "./bufr_atms.py"
           args:
             input_path: "./testinput/2021080100/gdas.t00z.atms.tm00.bufr_d"
             mapping_path: "./bufr_atms_mapping.yaml"
@@ -41,7 +42,7 @@ observations:
       obsdatain:
         engine:
           type: script
-          script file: "bufr_atms.py"
+          script file: "./bufr_atms.py"
           args:
             input_path: "./testinput/2021080100/gdas.t00z.atms.tm00.bufr_d"
             mapping_path: "./bufr_atms_mapping.yaml"
