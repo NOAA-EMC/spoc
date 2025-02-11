@@ -217,7 +217,7 @@ def create_obs_file(input_path1, input_path2, yaml_1b, yaml_es, output_path):
     if comm.rank() == 0:
         netcdfEncoder(description).encode(container, output_path)
 
-    logging(comm, 'INFO', f'Return the encoded data')
+    logging(comm, f'Return the encoded data')
 
 
 if __name__ == '__main__':

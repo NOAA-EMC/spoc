@@ -128,7 +128,7 @@ encoder:
     coordinates: longitude latitude Channel
     longName: Brightness Temperature
     name: ObsValue/brightnessTemperature
-    range: [100. 500]
+    range: [100, 500]
     source: variables/brightnessTemperature
     units: K
 
