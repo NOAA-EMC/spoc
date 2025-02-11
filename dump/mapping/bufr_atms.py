@@ -14,6 +14,7 @@ from wxflow import Logger
 log_level = os.getenv('LOG_LEVEL', 'INFO')
 logger = Logger('BUFR_atms.py', level=log_level, colored_log=False)
 
+
 def logging(comm, level, message):
     """
     Logs a message to the console or log file, based on the specified logging level.
@@ -73,11 +74,13 @@ def logging(comm, level, message):
         # Call the logging method
         log_method(message)
 
+
 def _make_description(mapping_path, update=False):
 
     description = bufr.encoders.Description(mapping_path)
 
     return description
+
 
 def _make_obs(comm, input_path, mapping_path):
 
@@ -103,6 +106,7 @@ def _make_obs(comm, input_path, mapping_path):
     logging(comm, 'DEBUG', f'all_sub_categories {container.all_sub_categories()}')
 
     return container
+
 
 def create_obs_group(input_path, mapping_path, category, env):
 
@@ -141,6 +145,7 @@ def create_obs_group(input_path, mapping_path, category, env):
 
     logging(comm, 'INFO', f'Return the encoded data for {category}')
     return data
+
 
 def create_obs_file(input_path, mapping_path, output_path):
 
