@@ -85,15 +85,6 @@ encoder:
   globals:
     - name: "platformCommonName"
       type: string
-      value: "ATMS"
-
-    - name: "platformLongDescription"
-      type: string
-      value: "MTYP 021-203 ATMS ATENNA/BRIGHTNESS TEMPERATURE DATA"
-
-  globals:
-    - name: "platformCommonName"
-      type: string
       value: "JPSS"
 
     - name: "platformLongDescription"
@@ -106,7 +97,7 @@ encoder:
 
     - name: "source"
       type: string
-      value: "NCEP BUFR Dump for ATMS brightness temperature data (atms/atmsdb/esatms)"
+      value: "NCEP BUFR Dump for ATMS brightness temperature data (atms normal feed)"
 
     - name: "providerFullName"
       type: string
