@@ -184,12 +184,14 @@ def create_obs_group(input_path1, input_path2, yaml_1b, yaml_es, category, env):
     cache_1, container_1 = _make_obs(comm, input_path1, yaml_es)
     cache_2, container_2 = _make_obs(comm, input_path2, yaml_1b)
 
-    _re_map_variable(comm, container_2)
-
     container = container_1
-    container.append(container_2)
 
-    logging(comm, 'Container append done')
+    if not cache_2:
+        logging(comm, f'No chahe, remap and append it')
+        _re_map_variable(comm, container_2)
+        container.append(container_2)
+        logging(comm, 'Container append done')
+
     data = Encoder(_make_description(yaml_es)).encode(container)[(category,)]
     _mark_one_data(comm, cache_1, input_path1, yaml_es, category, container=container_1)
     _mark_one_data(comm, cache_2, input_path2, yaml_1b, category, container=container_2)
