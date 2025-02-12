@@ -5,8 +5,8 @@ import argparse
 import time
 import numpy as np
 import bufr
-from pyioda.ioda.Engines.Bufr import Encoder as iodaEncoder 
-from bufr.encoders.netcdf import Encoder as netcdfEncoder 
+from pyioda.ioda.Engines.Bufr import Encoder as iodaEncoder
+from bufr.encoders.netcdf import Encoder as netcdfEncoder
 from wxflow import Logger
 
 # Initialize Logger
@@ -19,13 +19,13 @@ def logging(comm, level, message):
     """
     Logs a message to the console or log file, based on the specified logging level.
 
-    This function ensures that logging is only performed by the root process (`rank 0`) 
-    in a distributed computing environment. The function maps the logging level to 
+    This function ensures that logging is only performed by the root process (`rank 0`)
+    in a distributed computing environment. The function maps the logging level to
     appropriate logger methods and defaults to the 'INFO' level if an invalid level is provided.
 
     Parameters:
         comm: object
-            The communicator object, typically from a distributed computing framework 
+            The communicator object, typically from a distributed computing framework
             (e.g., MPI). It must have a `rank()` method to determine the process rank.
         level: str
             The logging level as a string. Supported levels are:
@@ -34,7 +34,7 @@ def logging(comm, level, message):
                 - 'WARNING'
                 - 'ERROR'
                 - 'CRITICAL'
-            If an invalid level is provided, a warning will be logged, and the level 
+            If an invalid level is provided, a warning will be logged, and the level
             will default to 'INFO'.
         message: str
             The message to be logged.
@@ -93,7 +93,7 @@ def _make_obs(comm, input_path, mapping_path):
     logging(comm, 'DEBUG', f'category map =  {container.get_category_map()}')
 
     # Add new/derived data into container
-    for cat in container.all_sub_categories():  
+    for cat in container.all_sub_categories():
 
         logging(comm, 'DEBUG', f'category = {cat}')
 
@@ -127,7 +127,7 @@ def create_obs_group(input_path, mapping_path, category, env):
 
     container = _make_obs(comm, input_path, mapping_path)
 
-    # Gather data from all tasks into all tasks. Each task will have the complete record 
+    # Gather data from all tasks into all tasks. Each task will have the complete record
     logging(comm, 'INFO', f'Gather data from all tasks into all tasks')
     container.all_gather(comm)
 
@@ -157,7 +157,7 @@ def create_obs_file(input_path, mapping_path, output_path):
 
     # Encode the data
     if comm.rank() == 0:
-        netcdfEncoder(description).encode(container, output_path) 
+        netcdfEncoder(description).encode(container, output_path)
 
     logging(comm, 'INFO', f'Return the encoded data')
 
