@@ -131,7 +131,7 @@ def _make_description(mapping_path, cycle_time, update=False):
                 longName=var['longName']
             )
 
-        description.add_global(name='datetimeReference', value=str(reference_time))
+        #description.add_global(name='datetimeReference', value=str(reference_time))
 
     return description
 
@@ -171,6 +171,7 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
 
     logging(comm, 'DEBUG', f'Change longitude range from [0,360] to [-180,180]')
     lon = container.get('variables/longitude')
+    lon_paths = container.get_paths('variables/longitude')
     lon[lon>180] -= 360
 
     logging(comm, 'DEBUG', f'Make an array of 0s for MetaData/sequenceNumber')
