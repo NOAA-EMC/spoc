@@ -19,6 +19,7 @@ from wxflow import Logger
 log_level = os.getenv('LOG_LEVEL', 'INFO')
 logger = Logger('bufr_adpsfc_prepbufr.py', level=log_level, colored_log=False)
 
+
 def logging(comm, level, message):
     """
     Logs a message to the console or log file, based on the specified logging level.
@@ -132,7 +133,7 @@ def _make_description(mapping_path, cycle_time, update=False):
                 longName=var['longName']
             )
 
-        #description.add_global(name='datetimeReference', value=str(ReferenceTime))
+        # description.add_global(name='datetimeReference', value=str(ReferenceTime))
 
     return description
 
@@ -163,7 +164,7 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
     logging(comm, 'DEBUG', f'Change longitude range from [0,360] to [-180,180]')
     lon = container.get('variables/longitude')
     lon_paths = container.get_paths('variables/longitude')
-    lon[lon>180] -= 360
+    lon[lon > 180] -= 360
     lon = ma.round(lon, decimals=2)
     logging(comm, 'DEBUG', f'longitude max and min are {lon.max()}, {lon.min()}')
 
