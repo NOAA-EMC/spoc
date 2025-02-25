@@ -1,10 +1,11 @@
 time window:
   begin: "2018-04-14T21:00:00Z"
   end: "2023-12-15T03:00:00Z"
+  bound to include: begin
 
 observations:
 - obs space:
-    name: "iasi_metop-a"
+    name: "mtiasi_metop-a"
 #    observed variables: [radiance]
 #    simulated variables: [brightnessTemperature]
 #    derived variables: [brightnessTemperature]
@@ -12,8 +13,8 @@ observations:
     obsdatain:
       engine:
         type: bufr 
-        obsfile: "./testinput/2021080100/gdas.t00z.iasi.tm00.bufr_d"
-        mapping file: "./bufr_iasi_mapping.yaml"
+        obsfile: "./testinput/2021080100/gdas.t00z.mtiasi.tm00.bufr_d"
+        mapping file: "./bufr_mtiasi_mapping.yaml"
         category: ["metop-a"]
         cache categories:            # optional
           - ["metop-a"]
@@ -22,10 +23,10 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.iasi_metop-a.tm00.nc"
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.mtiasi_metop-a.tm00.nc"
 
 - obs space:
-    name: "iasi_metop-b"
+    name: "mtiasi_metop-b"
 #    observed variables: [radiance]
 #    simulated variables: [brightnessTemperature]
 #    derived variables: [brightnessTemperature]
@@ -33,8 +34,8 @@ observations:
     obsdatain:
       engine:
         type: bufr 
-        obsfile: "./testinput/2021080100/gdas.t00z.iasi.tm00.bufr_d"
-        mapping file: "./bufr_iasi_mapping.yaml"
+        obsfile: "./testinput/2021080100/gdas.t00z.mtiasi.tm00.bufr_d"
+        mapping file: "./bufr_mtiasi_mapping.yaml"
         category: ["metop-b"]
         cache categories:            # optional
           - ["metop-b"]
@@ -43,10 +44,10 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.iasi_metop-b.tm00.nc"
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.mtiasi_metop-b.tm00.nc"
 
 - obs space:
-    name: "iasi_metop-c"
+    name: "mtiasi_metop-c"
 #    observed variables: [radiance]
 #    simulated variables: [brightnessTemperature]
 #    derived variables: [brightnessTemperature]
@@ -54,8 +55,8 @@ observations:
     obsdatain:
       engine:
         type: bufr 
-        obsfile: "./testinput/2021080100/gdas.t00z.iasi.tm00.bufr_d"
-        mapping file: "./bufr_iasi_mapping.yaml"
+        obsfile: "./testinput/2021080100/gdas.t00z.mtiasi.tm00.bufr_d"
+        mapping file: "./bufr_mtiasi_mapping.yaml"
         category: ["metop-c"]
         cache categories:            # optional
           - ["metop-a"]
@@ -64,4 +65,4 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.iasi_metop-c.tm00.nc"
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.mtiasi_metop-c.tm00.nc"
