@@ -5,20 +5,13 @@ import argparse
 import time
 import numpy as np
 
-from wxflow import Logger
-
 import bufr
-from bufr.obs_builder.logger import logging
 from builders.satwnd_amv_obs_builder import SatWndAmvObsBuilder
-
-
-log_level = os.getenv('LOG_LEVEL', 'INFO')
-logger = Logger('BUFR2IODA_satwnd_amv_avhrr.py', level=log_level, colored_log=False)
 
 
 class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
     def __init__(self, input_path, mapping_path):
-        super().__init__(input_path, mapping_path)
+        super().__init__(input_path, mapping_path, log_name=os.path.basename(__file__))
 
     def _make_description(self):
         description = bufr.encoders.Description(self.mapping_path)
@@ -68,7 +61,7 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
 
         return description
 
-    def _get_QualityInformation_and_GeneratingApplication(self, comm, gnap2D, pccf2D, satID):
+    def _get_QualityInformation_and_GeneratingApplication(self, gnap2D, pccf2D, satID):
         # For METOP-A/B/C AVHRR data (satID 3,4,5), qi w/o forecast (qifn) is
         # packaged in same vector of qi with ga = 5 (QI without forecast), and EE
         # is packaged in same vector of qi with ga=7 (Estimated Error (EE) in m/s
@@ -99,16 +92,16 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
                 findQI = 1
                 findEE = 4
         else:
-            logging(comm, 'DEBUG', f'satID set not found (all satID values follow):')
+            self.log.debug(f'satID set not found (all satID values follow):')
             for sid in np.unique(satID):
-                logging(comm, 'DEBUG', f'satID: {sid}')
-        logging(comm, 'DEBUG', f'BTH: findQI={findQI}')
+                self.log.debug(f'satID: {sid}')
+        self.log.debug(f'BTH: findQI={findQI}')
         # 1. Find dimension-sizes of ga and qi (should be the same!)
         gDim1, gDim2 = np.shape(gnap2D)
         qDim1, qDim2 = np.shape(pccf2D)
-        logging(comm, 'INFO', f'Generating Application and Quality Information SEARCH:')
-        logging(comm, 'DEBUG', f'Dimension size of GNAP ({gDim1},{gDim2})')
-        logging(comm, 'DEBUG', f'Dimension size of PCCF ({qDim1},{qDim2})')
+        self.log.info(f'Generating Application and Quality Information SEARCH:')
+        self.log.debug(f'Dimension size of GNAP ({gDim1},{gDim2})')
+        self.log.debug(f'Dimension size of PCCF ({qDim1},{qDim2})')
         # 2. Initialize gnap and qifn as None, and search for dimension of
         #    ga with values of findQI. If the same column exists for qi, assign
         #    gnap to ga[:,i] and qifn to qi[:,i], else raise warning that no
@@ -118,11 +111,11 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
         for i in range(gDim2):
             if np.unique(gnap2D[:, i].squeeze()) == findQI:
                 if i <= qDim2:
-                    logging(comm, 'INFO', f'GNAP/PCCF found for column {i}')
+                    self.log.info(f'GNAP/PCCF found for column {i}')
                     gnap = gnap2D[:, i].squeeze()
                     qifn = pccf2D[:, i].squeeze()
                 else:
-                    logging(comm, 'INFO', f'ERROR: GNAP column {i} outside of PCCF dimension {qDim2}')
+                    self.log.info(f'ERROR: GNAP column {i} outside of PCCF dimension {qDim2}')
         if (gnap is None) & (qifn is None):
             raise ValueError(f'GNAP == {findQI} NOT FOUND OR OUT OF PCCF DIMENSION-RANGE, WILL FAIL!')
         # If EE is needed, key search on np.unique(gnap2D[:,i].squeeze()) == findEE instead
@@ -155,23 +148,22 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
         return obstype.astype(np.int32)
 
     def _make_obs(self, comm):
-
         # Get container from mapping file first
-        logging(comm, 'INFO', 'Get container from bufr')
+        self.log.info('Get container from bufr')
         container = bufr.Parser(self.input_path, self.mapping_path).parse(comm)
 
-        logging(comm, 'DEBUG', f'container list (original): {container.list()}')
-        logging(comm, 'DEBUG', f'all_sub_categories =  {container.all_sub_categories()}')
-        logging(comm, 'DEBUG', f'category map =  {container.get_category_map()}')
+        self.log.debug(f'container list (original): {container.list()}')
+        self.log.debug(f'all_sub_categories =  {container.all_sub_categories()}')
+        self.log.debug(f'category map =  {container.get_category_map()}')
 
         # Add new/derived data into container
         for cat in container.all_sub_categories():
 
-            logging(comm, 'DEBUG', f'category = {cat}')
+            self.log.debug(f'category = {cat}')
 
             satid = container.get('satelliteId', cat)
             if satid.size == 0:
-                logging(comm, 'WARNING', f'category {cat[0]} does not exist in input file')
+                self.log.warning(f'category {cat[0]} does not exist in input file')
                 paths = container.get_paths('windComputationMethod', cat)
                 obstype = container.get('windComputationMethod', cat)
                 container.add('obstype_uwind', obstype, paths, cat)
@@ -192,13 +184,13 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
                 swcm = container.get('windComputationMethod', cat)
                 chanfreq = container.get('sensorCentralFrequency', cat)
 
-                logging(comm, 'DEBUG', f'swcm min/max = {swcm.min()} {swcm.max()}')
-                logging(comm, 'DEBUG', f'chanfreq min/max = {chanfreq.min()} {chanfreq.max()}')
+                self.log.debug(f'swcm min/max = {swcm.min()} {swcm.max()}')
+                self.log.debug('chanfreq min/max = {chanfreq.min()} {chanfreq.max()}')
 
                 obstype = self._get_obs_type(swcm)
 
-                logging(comm, 'DEBUG', f'obstype = {obstype}')
-                logging(comm, 'DEBUG', f'obstype min/max =  {obstype.min()} {obstype.max()}')
+                self.log.debug(f'obstype = {obstype}')
+                self.log.debug(f'obstype min/max =  {obstype.min()} {obstype.max()}')
 
                 paths = container.get_paths('windComputationMethod', cat)
                 container.add('obstype_uwind', obstype, paths, cat)
@@ -208,13 +200,13 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
                 wdir = container.get('windDirection', cat)
                 wspd = container.get('windSpeed', cat)
 
-                logging(comm, 'DEBUG', f'wdir min/max = {wdir.min()} {wdir.max()}')
-                logging(comm, 'DEBUG', f'wspd min/max = {wspd.min()} {wspd.max()}')
+                self.log.debug(f'wdir min/max = {wdir.min()} {wdir.max()}')
+                self.log.debug(f'wspd min/max = {wspd.min()} {wspd.max()}')
 
                 uob, vob = self.compute_wind_components(wdir, wspd)
 
-                logging(comm, 'DEBUG', f'uob min/max = {uob.min()} {uob.max()}')
-                logging(comm, 'DEBUG', f'vob min/max = {vob.min()} {vob.max()}')
+                self.log.debug(f'uob min/max = {uob.min()} {uob.max()}')
+                self.log.debug(f'vob min/max = {vob.min()} {vob.max()}')
 
                 paths = container.get_paths('windSpeed', cat)
                 container.add('windEastward', uob, paths, cat)
@@ -225,18 +217,18 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
                 gnap2D = container.get('generatingApplication', cat)
                 pccf2D = container.get('qualityInformation', cat)
 
-                gnap, qifn = self._get_QualityInformation_and_GeneratingApplication(comm, gnap2D, pccf2D, satID)
+                gnap, qifn = self._get_QualityInformation_and_GeneratingApplication(gnap2D, pccf2D, satID)
 
-                logging(comm, 'DEBUG', f'gnap min/max = {gnap.min()} {gnap.max()}')
-                logging(comm, 'DEBUG', f'qifn min/max = {qifn.min()} {qifn.max()}')
+                self.log.debug(f'gnap min/max = {gnap.min()} {gnap.max()}')
+                self.log.debug(f'qifn min/max = {qifn.min()} {qifn.max()}')
 
                 paths = container.get_paths('windComputationMethod', cat)
                 container.add('windGeneratingApplication', gnap, paths, cat)
                 container.add('qualityInformationWithoutForecast', qifn, paths, cat)
 
         # Check
-        logging(comm, 'DEBUG', f'container list (updated): {container.list()}')
-        logging(comm, 'DEBUG', f'all_sub_categories {container.all_sub_categories()}')
+        self.log.debug(f'container list (updated): {container.list()}')
+        self.log.debug('all_sub_categories {container.all_sub_categories()}')
 
         return container
 
@@ -252,6 +244,8 @@ def create_obs_file(input_path, mapping_path, output_path, type='netcdf', append
 
 
 if __name__ == '__main__':
+    from bufr.obs_builder import Logger
+
     start_time = time.time()
 
     bufr.mpi.App(sys.argv)
@@ -268,4 +262,4 @@ if __name__ == '__main__':
 
     end_time = time.time()
     running_time = end_time - start_time
-    logging(comm, 'INFO', f'Total running time: {running_time}')
+    Logger(os.path.basename(__file__), comm=comm).info(f'Total running time: {running_time}')

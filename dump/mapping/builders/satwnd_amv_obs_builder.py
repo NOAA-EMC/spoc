@@ -1,10 +1,11 @@
+import os
 import numpy as np
 
 from bufr.obs_builder import ObsBuilder
 
 class SatWndAmvObsBuilder(ObsBuilder):
-    def __init__(self, input_path, mapping_path):
-        super().__init__(input_path, mapping_path)
+    def __init__(self, input_path, mapping_path, log_name=os.path.basename(__file__)):
+        super().__init__(input_path, mapping_path, log_name=log_name)
 
     def compute_wind_components(self, wdir, wspd):
         """
