@@ -6,7 +6,7 @@ import numpy as np
 import bufr
 from bufr.obs_builder import add_main_functions
 
-from builders.satwnd_amv_obs_builder import SatWndAmvObsBuilder
+from bufr_satwnd_amv_obs_builder import SatWndAmvObsBuilder
 
 
 class SatWndAmvAbiObsBuilder(SatWndAmvObsBuilder):
