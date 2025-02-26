@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-import sys
+
 import os
-import argparse
-import time
 import numpy as np
 
 import bufr
+from bufr.obs_builder import add_main_functions
+
 from builders.satwnd_amv_obs_builder import SatWndAmvObsBuilder
 
 
@@ -13,55 +13,43 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
     def __init__(self, input_path, mapping_path):
         super().__init__(input_path, mapping_path, log_name=os.path.basename(__file__))
 
+    # Override implementations for methods from the ObsBuilder class
     def _make_description(self):
         description = bufr.encoders.Description(self.mapping_path)
 
-        description.add_variables([
-            {
-                'name': 'ObsType/windEastward',
-                'source': 'obstype_uwind',
-                'units': '1',
-                'longName': 'Observation Type based on Satellite-derived Wind Computation Method and Spectral Band',
-            },
-            {
-                'name': 'ObsType/windNorthward',
-                'source': 'obstype_vwind',
-                'units': '1',
-                'longName': 'Observation Type based on Satellite-derived Wind Computation Method and Spectral Band',
-            },
-            {
-                'name': 'ObsValue/windEastward',
-                'source': 'windEastward',
-                'units': 'm s-1',
-                'longName': 'Eastward Wind Component',
-            },
-            {
-                'name': 'ObsValue/windNorthward',
-                'source': 'windNorthward',
-                'units': 'm s-1',
-                'longName': 'Northward Wind Component',
-            },
-            # MetaData/windGeneratingApplication will be inferred from generatingApplication
-            # following a search for the proper generatingApplication column
-            {
-                'name': 'MetaData/windGeneratingApplication',
-                'source': 'windGeneratingApplication',
-                'units': '1',
-                'longName': 'Wind Generating Application',
-            },
-            # MetaData/qualityInformationWithoutForecast will be inferred from qualityInformation
-            # following a search for the proper generatingApplication column
-            {
-                'name': 'MetaData/qualityInformationWithoutForecast',
-                'source': 'qualityInformationWithoutForecast',
-                'units': 'percent',
-                'longName': 'Quality Information Without Forecast',
-            }
-        ])
+        self._add_wind_descriptions(description)
+        self._add_quality_info_and_gen_app_descriptions(description)
 
         return description
 
-    def _get_QualityInformation_and_GeneratingApplication(self, gnap2D, pccf2D, satID):
+    def _make_obs(self, comm):
+        # Get container from mapping file first
+        self.log.info('Get container from bufr')
+        container = bufr.Parser(self.input_path, self.mapping_path).parse(comm)
+
+        self.log.debug(f'container list (original): {container.list()}')
+        self.log.debug(f'all_sub_categories =  {container.all_sub_categories()}')
+        self.log.debug(f'category map =  {container.get_category_map()}')
+
+        # Add new/derived data into container
+        for cat in container.all_sub_categories():
+            self.log.debug(f'category = {cat}')
+
+            satId = container.get('satelliteId', cat)
+            if not satId:
+                self.log.warning(f'category {cat[0]} does not exist in input file')
+
+            self._add_wind_obs(container, cat)
+            self._add_gen_info_and_quality_info(container, cat)
+
+        # Check
+        self.log.debug(f'container list (updated): {container.list()}')
+        self.log.debug('all_sub_categories {container.all_sub_categories()}')
+
+        return container
+
+    # Override methods from SatWndAmvObsBuilder
+    def _get_quality_info_and_gen_app(self, gnap2D, pccf2D, satID):
         # For METOP-A/B/C AVHRR data (satID 3,4,5), qi w/o forecast (qifn) is
         # packaged in same vector of qi with ga = 5 (QI without forecast), and EE
         # is packaged in same vector of qi with ga=7 (Estimated Error (EE) in m/s
@@ -147,119 +135,5 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
 
         return obstype.astype(np.int32)
 
-    def _make_obs(self, comm):
-        # Get container from mapping file first
-        self.log.info('Get container from bufr')
-        container = bufr.Parser(self.input_path, self.mapping_path).parse(comm)
-
-        self.log.debug(f'container list (original): {container.list()}')
-        self.log.debug(f'all_sub_categories =  {container.all_sub_categories()}')
-        self.log.debug(f'category map =  {container.get_category_map()}')
-
-        # Add new/derived data into container
-        for cat in container.all_sub_categories():
-
-            self.log.debug(f'category = {cat}')
-
-            satid = container.get('satelliteId', cat)
-            if satid.size == 0:
-                self.log.warning(f'category {cat[0]} does not exist in input file')
-                paths = container.get_paths('windComputationMethod', cat)
-                obstype = container.get('windComputationMethod', cat)
-                container.add('obstype_uwind', obstype, paths, cat)
-                container.add('obstype_vwind', obstype, paths, cat)
-
-                paths = container.get_paths('windSpeed', cat)
-                wob = container.get('windSpeed', cat)
-                container.add('windEastward', wob, paths, cat)
-                container.add('windNorthward', wob, paths, cat)
-
-                paths = container.get_paths('windComputationMethod', cat)
-                dummy = container.get('windSpeed', cat)
-                container.add('windGeneratingApplication', dummy, paths, cat)
-                container.add('qualityInformationWithoutForecast', dummy, paths, cat)
-
-            else:
-                # Add new variables: ObsType/windEastward & ObsType/windNorthward
-                swcm = container.get('windComputationMethod', cat)
-                chanfreq = container.get('sensorCentralFrequency', cat)
-
-                self.log.debug(f'swcm min/max = {swcm.min()} {swcm.max()}')
-                self.log.debug('chanfreq min/max = {chanfreq.min()} {chanfreq.max()}')
-
-                obstype = self._get_obs_type(swcm)
-
-                self.log.debug(f'obstype = {obstype}')
-                self.log.debug(f'obstype min/max =  {obstype.min()} {obstype.max()}')
-
-                paths = container.get_paths('windComputationMethod', cat)
-                container.add('obstype_uwind', obstype, paths, cat)
-                container.add('obstype_vwind', obstype, paths, cat)
-
-                # Add new variables: ObsValue/windEastward & ObsValue/windNorthward
-                wdir = container.get('windDirection', cat)
-                wspd = container.get('windSpeed', cat)
-
-                self.log.debug(f'wdir min/max = {wdir.min()} {wdir.max()}')
-                self.log.debug(f'wspd min/max = {wspd.min()} {wspd.max()}')
-
-                uob, vob = self.compute_wind_components(wdir, wspd)
-
-                self.log.debug(f'uob min/max = {uob.min()} {uob.max()}')
-                self.log.debug(f'vob min/max = {vob.min()} {vob.max()}')
-
-                paths = container.get_paths('windSpeed', cat)
-                container.add('windEastward', uob, paths, cat)
-                container.add('windNorthward', vob, paths, cat)
-
-                # Add new variables: MetaData/windGeneratingApplication and qualityInformationWithoutForecast
-                satID = container.get('satelliteId', cat)
-                gnap2D = container.get('generatingApplication', cat)
-                pccf2D = container.get('qualityInformation', cat)
-
-                gnap, qifn = self._get_QualityInformation_and_GeneratingApplication(gnap2D, pccf2D, satID)
-
-                self.log.debug(f'gnap min/max = {gnap.min()} {gnap.max()}')
-                self.log.debug(f'qifn min/max = {qifn.min()} {qifn.max()}')
-
-                paths = container.get_paths('windComputationMethod', cat)
-                container.add('windGeneratingApplication', gnap, paths, cat)
-                container.add('qualityInformationWithoutForecast', qifn, paths, cat)
-
-        # Check
-        self.log.debug(f'container list (updated): {container.list()}')
-        self.log.debug('all_sub_categories {container.all_sub_categories()}')
-
-        return container
-
-
-def create_obs_group(input_path, mapping_path, category, env):
-    obs_builder = SatWndAmvAvhrrObsBuilder(input_path, mapping_path)
-    obs_builder.create_obs_group(category, env)
-
-
-def create_obs_file(input_path, mapping_path, output_path, type='netcdf', append=False):
-    obs_builder = SatWndAmvAvhrrObsBuilder(input_path, mapping_path)
-    return obs_builder.create_obs_file(output_path, type, append)
-
-
-if __name__ == '__main__':
-    from bufr.obs_builder import Logger
-
-    start_time = time.time()
-
-    bufr.mpi.App(sys.argv)
-    comm = bufr.mpi.Comm("world")
-
-    # Required input arguments
-    parser = argparse.ArgumentParser()
-    parser.add_argument('input', type=str, help='Input BUFR')
-    parser.add_argument('mapping', type=str, help='BUFR2IODA Mapping File')
-    parser.add_argument('output', type=str, help='Output NetCDF')
-
-    args = parser.parse_args()
-    create_obs_file(args.input, args.mapping, args.output)
-
-    end_time = time.time()
-    running_time = end_time - start_time
-    Logger(os.path.basename(__file__), comm=comm).info(f'Total running time: {running_time}')
+# Add main functions create_obs_file and create_obs_group
+add_main_functions(SatWndAmvAvhrrObsBuilder)
