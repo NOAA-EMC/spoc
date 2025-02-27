@@ -1,0 +1,68 @@
+time window:
+  begin: "2018-04-14T21:00:00Z"
+  end: "2023-12-15T03:00:00Z"
+  bound to include: begin
+
+observations:
+- obs space:
+    name: "crisf4_npp"
+#    observed variables: [radiance]
+#    simulated variables: [brightnessTemperature]
+#    derived variables: [brightnessTemperature]
+    simulated variables: [radiance]
+    obsdatain:
+      engine:
+        type: bufr 
+        obsfile: "./testinput/2021080100/gdas.t00z.crisf4.tm00.bufr_d"
+        mapping file: "./bufr_crisf4_mapping.yaml"
+        category: ["npp"]
+        cache categories:            # optional
+          - ["npp"]
+          - ["n20"]
+          - ["n21"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.crisf4_npp.tm00.nc"
+
+- obs space:
+    name: "crisf4_n20"
+#    observed variables: [radiance]
+#    simulated variables: [brightnessTemperature]
+#    derived variables: [brightnessTemperature]
+    simulated variables: [radiance]
+    obsdatain:
+      engine:
+        type: bufr 
+        obsfile: "./testinput/2021080100/gdas.t00z.crisf4.tm00.bufr_d"
+        mapping file: "./bufr_crisf4_mapping.yaml"
+        category: ["n20"]
+        cache categories:            # optional
+          - ["npp"]
+          - ["n20"]
+          - ["n21"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.crisf4_n20.tm00.nc"
+
+- obs space:
+    name: "crisf4_n21"
+#    observed variables: [radiance]
+#    simulated variables: [brightnessTemperature]
+#    derived variables: [brightnessTemperature]
+    simulated variables: [radiance]
+    obsdatain:
+      engine:
+        type: bufr 
+        obsfile: "./testinput/2021080100/gdas.t00z.crisf4.tm00.bufr_d"
+        mapping file: "./bufr_crisf4_mapping.yaml"
+        category: ["n21"]
+        cache categories:            # optional
+          - ["npp"]
+          - ["n20"]
+          - ["n21"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.crisf4_n21.tm00.nc"
