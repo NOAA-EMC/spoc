@@ -1,0 +1,59 @@
+time window:
+  begin: "2018-04-14T21:00:00Z"
+  end: "2023-12-15T03:00:00Z"
+  bound to include: begin
+
+observations:
+- obs space:
+    name: "ssmisu_f16"
+    simulated variables: ['brightnessTemperature']
+    obsdatain:
+      engine:
+        type: bufr 
+        obsfile: "./testinput/2021080100/gdas.t00z.ssmisu.tm00.bufr_d"
+        mapping file: "./bufr_ssmisu_mapping.yaml"
+        category: ["f16"]            # optional (needed if the BUFR mapping defines splits)
+        cache categories:            # optional
+          - ["f16"]
+          - ["f17"]
+          - ["f18"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2021080100/script4backend/gdas.t00z.ssmisu_f16.tm00.nc"
+
+- obs space:
+    name: "ssmisu_f17"
+    simulated variables: ['brightnessTemperature']
+    obsdatain:
+      engine:
+        type: bufr 
+        obsfile: "./testinput/2021080100/gdas.t00z.ssmisu.tm00.bufr_d"
+        mapping file: "./bufr_ssmisu_mapping.yaml"
+        category: ["f17"]            # optional (needed if the BUFR mapping defines splits)
+        cache categories:            # optional
+          - ["f16"]
+          - ["f17"]
+          - ["f18"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2021080100/script4backend/gdas.t00z.ssmisu_f17.tm00.nc"
+
+- obs space:
+    name: "ssmisu_f18"
+    simulated variables: ['brightnessTemperature']
+    obsdatain:
+      engine:
+        type: bufr 
+        obsfile: "./testinput/2021080100/gdas.t00z.ssmisu.tm00.bufr_d"
+        mapping file: "./bufr_ssmisu_mapping.yaml"
+        category: ["f18"]
+        cache categories:
+          - ["f16"]
+          - ["f17"]
+          - ["f18"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2021080100/script4backend/gdas.t00z.ssmisu_f18.tm00.nc"
