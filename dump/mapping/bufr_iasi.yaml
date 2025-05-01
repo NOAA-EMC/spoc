@@ -92,12 +92,6 @@ encoder:
       source: variables/sensorChannelNumber
       path: "*/IASICHN"
 
-    - name: Cluster 
-      path: "*/IASIL1CS"
-
-    - name: Band 
-      path: "*/IASIL1CB"
-
   globals:
     - name: "platformCommonName"
       type: string

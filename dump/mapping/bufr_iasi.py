@@ -6,8 +6,7 @@ import numpy.ma as ma
 import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions
 
-
-MAPPING_PATH = map_path('bufr_mtiasi.yaml')
+MAPPING_PATH = map_path('bufr_iasi.yaml')
 
 class BufrMtiasiObsBuilder(ObsBuilder):
     def __init__(self):
@@ -28,10 +27,10 @@ class BufrMtiasiObsBuilder(ObsBuilder):
     
             self.log.debug(f'category = {cat}')
     
-            satid = container.get('variables/satelliteId', cat)
-            if satid.size == 0:
-                logging(comm, 'WARNING', f'category {cat[0]} does not exist in input file')
-    
+            satId = container.get('satelliteId', cat)
+            if not np.any(satId):
+                self.log.warning(f'category {cat[0]} does not exist in input file')
+
         # Check
         self.log.debug(f'container list (updated): {container.list()}')
         self.log.debug(f'all_sub_categories {container.all_sub_categories()}')
