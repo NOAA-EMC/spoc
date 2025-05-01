@@ -6,6 +6,10 @@ import numpy.ma as ma
 import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions
 
+def map_path(map_file_name):
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(script_dir, map_file_name)
+
 MAPPING_PATH = map_path('bufr_iasi.yaml')
 
 class BufrIasiObsBuilder(ObsBuilder):
@@ -16,7 +20,7 @@ class BufrIasiObsBuilder(ObsBuilder):
     def make_obs(self, comm, input_path):
         # Get container from mapping file first
         self.log.info('Get container from bufr')
-        container = bufr.Parser(input_path, mapping_path).parse(comm)
+        container = super().make_obs(comm, input_path)
     
         self.log.debug(f'container list (original): {container.list()}')
         self.log.debug(f'all_sub_categories =  {container.all_sub_categories()}')
