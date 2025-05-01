@@ -8,7 +8,7 @@ from bufr.obs_builder import ObsBuilder, add_main_functions
 
 MAPPING_PATH = map_path('bufr_iasi.yaml')
 
-class BufrMtiasiObsBuilder(ObsBuilder):
+class BufrIasiObsBuilder(ObsBuilder):
     def __init__(self):
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
         
@@ -37,4 +37,4 @@ class BufrMtiasiObsBuilder(ObsBuilder):
     
         return container
 
-add_main_functions(BufrMtiasiObsBuilder)
+add_main_functions(BufrIasiObsBuilder)
