@@ -7,12 +7,15 @@ import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions
 
 
+def map_path(map_file_name):
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(script_dir, map_file_name)
+
 MAPPING_PATH = map_path('bufr_atms.yaml')
 
 class BufrAtmsObsBuilder(ObsBuilder):
     def __init__(self):
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
-
 
     def make_obs(self, comm, input_path):
         # Get container from mapping file first
@@ -28,10 +31,10 @@ class BufrAtmsObsBuilder(ObsBuilder):
     
             self.log.debug(f'category = {cat}')
 
-            satid = container.get('satelliteId', cat)
-            if satid.size == 0:
-                logging(comm, 'WARNING', f'category {cat[0]} does not exist in input file')
-    
+            satId = container.get('satelliteId', cat)
+            if not np.any(satId):
+                self.log.warning(f'category {cat[0]} does not exist in input file')
+
         # Check
         self.log.debug(f'container list (updated): {container.list()}')
         self.log.debug(f'all_sub_categories {container.all_sub_categories()}')
