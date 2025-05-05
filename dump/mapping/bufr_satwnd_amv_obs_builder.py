@@ -11,6 +11,7 @@ def map_path(map_file_name):
     script_dir = os.path.dirname(os.path.abspath(__file__))
     return os.path.join(script_dir, map_file_name)
 
+
 class SatWndAmvObsBuilder(ObsBuilder):
     def __init__(self, mapping_path, log_name=os.path.basename(__file__)):
         super().__init__(mapping_path, log_name=log_name)
@@ -89,7 +90,6 @@ class SatWndAmvObsBuilder(ObsBuilder):
                 'units': '1',
                 'longName': 'Quality Information Without Forecast',
             }])
-
 
     # Methods that are used to extend the obs data container
     def _add_wind_obs(self, container, cat):
@@ -204,8 +204,8 @@ class SatWndAmvObsBuilder(ObsBuilder):
         gDim1, gDim2 = np.shape(gnap2D)
         qDim1, qDim2 = np.shape(pccf2D)
         self.log.info('Generating Application and Quality Information SEARCH')
-        self.log.debug( f'Dimension size of GNAP ({gDim1},{gDim2})')
-        self.log.debug( f'Dimension size of PCCF ({qDim1},{qDim2})')
+        self.log.debug(f'Dimension size of GNAP ({gDim1},{gDim2})')
+        self.log.debug(f'Dimension size of PCCF ({qDim1},{qDim2})')
 
         # 2. Initialize gnap and qifn as None, and search for dimension of
         #    ga with values of 5. If the same column exists for qi, assign

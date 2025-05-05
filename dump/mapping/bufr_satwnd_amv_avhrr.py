@@ -10,10 +10,10 @@ from bufr_satwnd_amv_obs_builder import SatWndAmvObsBuilder, map_path
 
 MAPPING_PATH = map_path('bufr_satwnd_amv_avhrr.yaml')
 
+
 class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
     def __init__(self):
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
-
 
     def make_obs(self, comm, input_path):
         # Get container from mapping file first
@@ -25,13 +25,11 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
 
         return container
 
-
     def _make_description(self):
         description = super()._make_description()
         self._add_quality_info_and_gen_app_descriptions(description)
 
         return description
-
 
     def _get_obs_type(self, swcm, chan_freq):
         obstype = swcm.copy()
@@ -43,7 +41,6 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
             raise ValueError("Error: Unassigned ObsType found ... ")
 
         return obstype.astype(np.int32)
-
 
     def _add_avhrr_quality_info_and_gen_app(self, container, cat):
         # Add new variables: MetaData/windGeneratingApplication and qualityInformationWithoutForecast
@@ -66,7 +63,6 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
         paths = container.get_paths('windComputationMethod', cat)
         container.add('windGeneratingApplication', gnap, paths, cat)
         container.add('qualityInformationWithoutForecast', qifn, paths, cat)
-
 
     def _get_avhrr_quality_info_and_gen_app(self, gnap2D, pccf2D, satID):
         # For METOP-A/B/C AVHRR data (satID 3,4,5), qi w/o forecast (qifn) is
@@ -93,9 +89,10 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
             # dataset. In that case, we need to actually set findQI=1 and findEE=4 here.
             # Let's do a preliminary check to see if any gnap2D values match findQI. If not, let's
             # automatically switch to findQI=1, findEE=4 and presume pre-2023 EUMETSAT AVHRR format
-            if np.any(np.isin(gnap2D, [findQI])) == False:
+#           if np.any(np.isin(gnap2D, [findQI])) == False:
+            if np.any(np.isin(gnap2D, [findQI])) is False:
                 self.log.debug(
-                        f'NO GNAP VALUE OF {findQI} EXISTS FOR EUMETSAT AVHRR DATASET, PRESUMING PRE-2023 FORMATTING')
+                    f'NO GNAP VALUE OF {findQI} EXISTS FOR EUMETSAT AVHRR DATASET, PRESUMING PRE-2023 FORMATTING')
                 findQI = 1
                 findEE = 4
         else:

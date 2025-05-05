@@ -10,6 +10,7 @@ from bufr_satwnd_amv_obs_builder import SatWndAmvObsBuilder, map_path
 
 MAPPING_PATH = map_path('bufr_satwnd_amv_leogeo.yaml')
 
+
 class SatWndAmvLeogeoObsBuilder(SatWndAmvObsBuilder):
     def __init__(self):
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
@@ -24,5 +25,6 @@ class SatWndAmvLeogeoObsBuilder(SatWndAmvObsBuilder):
             raise ValueError("Error: Unassigned ObsType found ... ")
 
         return obstype
+
 
 add_main_functions(SatWndAmvLeogeoObsBuilder)

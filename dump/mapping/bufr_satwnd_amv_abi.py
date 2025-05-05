@@ -10,10 +10,10 @@ from bufr_satwnd_amv_obs_builder import SatWndAmvObsBuilder, map_path
 
 MAPPING_PATH = map_path('bufr_satwnd_amv_abi.yaml')
 
+
 class SatWndAmvAbiObsBuilder(SatWndAmvObsBuilder):
     def __init__(self):
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
-
 
     def _get_obs_type(self, swcm, chanfreq):
         obstype = swcm.copy()

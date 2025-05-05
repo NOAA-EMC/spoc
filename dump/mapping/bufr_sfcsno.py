@@ -9,6 +9,7 @@ from bufr.obs_builder import ObsBuilder, add_main_functions
 
 MAPPING_PATH = map_path('bufr_sfcsno.yaml')
 
+
 class BufrSfcsnoObsBuilder(ObsBuilder):
     def __init__(self):
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
@@ -31,5 +32,6 @@ class BufrSfcsnoObsBuilder(ObsBuilder):
         container.apply_mask(~snod.mask)
 
         return container
+
 
 add_main_functions(BufrSfcsnoObsBuilder)

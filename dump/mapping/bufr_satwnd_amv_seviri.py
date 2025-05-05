@@ -10,6 +10,7 @@ from bufr_satwnd_amv_obs_builder import SatWndAmvObsBuilder, map_path
 
 MAPPING_PATH = map_path('bufr_satwnd_amv_seviri.yaml')
 
+
 class SatWndAmvSeviriObsBuilder(SatWndAmvObsBuilder):
     def __init__(self):
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
@@ -27,6 +28,7 @@ class SatWndAmvSeviriObsBuilder(SatWndAmvObsBuilder):
             raise ValueError("Error: Unassigned ObsType found ... ")
 
         return obstype
+
 
 # Add main functions create_obs_file and create_obs_group
 add_main_functions(SatWndAmvSeviriObsBuilder)
