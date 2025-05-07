@@ -41,7 +41,7 @@ bufr:
 
     # Quality Information Without Forecast
     qualityInformationWithoutForecast:
-      query: '*/LGRSQ4[1]/PCCF'
+      query: '*/LGRSQ4[1]{1}/PCCF'
 
     # Wind Retrieval Method Information - Computation 
     windComputationMethod:
@@ -143,7 +143,7 @@ encoder:
       source: variables/windGeneratingApplication
       longName: "Wind Generating Application"
 
-    - name: "MetaData/qualityInformationWithoutForecast"
+    - name: "MetaData/qiWithoutForecast"
       source: variables/qualityInformationWithoutForecast
       longName: "Quality Information Without Forecast"
 

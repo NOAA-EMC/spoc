@@ -161,7 +161,7 @@ encoder:
       source: variables/dataProviderOrigin
       longName: "Identification of Originating/Generating Center"
 
-    - name: "MetaData/qualityInformationWithoutForecast"
+    - name: "MetaData/qiWithoutForecast"
       source: variables/qualityInformationWithoutForecast
       longName: "Quality Information Without Forecast"
 

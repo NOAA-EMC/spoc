@@ -21,7 +21,7 @@ class SatWndAmvModisObsBuilder(SatWndAmvObsBuilder):
 
         # Add new/derived data into container
         for cat in container.all_sub_categories():
-            self._add_quality_info_and_gen_app_obs(FIND_QI, container, cat)
+            self._add_quality_info_and_gen_app(FIND_QI, container, cat)
 
         return container
 
