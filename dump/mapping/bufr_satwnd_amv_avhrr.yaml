@@ -67,12 +67,12 @@ bufr:
       category:
         variable: satelliteId
         map:
-          _3: metop-1b
-          _4: metop-1a
-          _5: metop-1c
-          _206: noaa-15
-          _209: noaa-18
-          _223: noaa-19
+          _3: metop-b
+          _4: metop-a
+          _5: metop-c
+          _206: n15
+          _209: n18
+          _223: n19
 
 encoder:
 # type: netcdf

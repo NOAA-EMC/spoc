@@ -89,8 +89,8 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
             # dataset. In that case, we need to actually set findQI=1 and findEE=4 here.
             # Let's do a preliminary check to see if any gnap2D values match findQI. If not, let's
             # automatically switch to findQI=1, findEE=4 and presume pre-2023 EUMETSAT AVHRR format
-#           if np.any(np.isin(gnap2D, [findQI])) == False:
-            if np.any(np.isin(gnap2D, [findQI])) is False:
+            if np.any(np.isin(gnap2D, [findQI])) == False:
+#           if np.any(np.isin(gnap2D, [findQI])) is False:
                 self.log.debug(
                     f'NO GNAP VALUE OF {findQI} EXISTS FOR EUMETSAT AVHRR DATASET, PRESUMING PRE-2023 FORMATTING')
                 findQI = 1

@@ -85,7 +85,7 @@ class SatWndAmvObsBuilder(ObsBuilder):
                 'longName': 'Wind Generating Application',
             },
             {
-                'name': 'MetaData/qualityInformationWithoutForecast',
+                'name': 'MetaData/qiWithoutForecast',
                 'source': 'qualityInformationWithoutForecast',
                 'units': '1',
                 'longName': 'Quality Information Without Forecast',
@@ -139,7 +139,7 @@ class SatWndAmvObsBuilder(ObsBuilder):
         container.add('windNorthward', vob, paths, cat)
 
     def _add_quality_info_and_gen_app(self, findQi, container, cat):
-        # Add new variables: MetaData/windGeneratingApplication and qualityInformationWithoutForecast
+        # Add new variables: MetaData/windGeneratingApplication and qiWithoutForecast
         gnap2D = container.get('generatingApplication', cat)
         pccf2D = container.get('qualityInformation', cat)
         satId = container.get('satelliteId', cat)
@@ -151,7 +151,7 @@ class SatWndAmvObsBuilder(ObsBuilder):
             container.add('qualityInformationWithoutForecast', dummy, paths, cat)
             return
 
-        gnap, qifn = self._get_quality_info_and_gen_app(findQi, gnap2D, pccf2D, satId)
+        gnap, qifn = self._get_quality_info_and_gen_app(findQi, gnap2D, pccf2D)
 
         self.log.debug(f'gnap min/max = {gnap.min()} {gnap.max()}')
         self.log.debug(f'qifn min/max = {qifn.min()} {qifn.max()}')
@@ -204,8 +204,8 @@ class SatWndAmvObsBuilder(ObsBuilder):
         gDim1, gDim2 = np.shape(gnap2D)
         qDim1, qDim2 = np.shape(pccf2D)
         self.log.info('Generating Application and Quality Information SEARCH')
-        self.log.debug(f'Dimension size of GNAP ({gDim1},{gDim2})')
-        self.log.debug(f'Dimension size of PCCF ({qDim1},{qDim2})')
+        self.log.debug( f'Dimension size of GNAP ({gDim1},{gDim2})')
+        self.log.debug( f'Dimension size of PCCF ({qDim1},{qDim2})')
 
         # 2. Initialize gnap and qifn as None, and search for dimension of
         #    ga with values of 5. If the same column exists for qi, assign
@@ -214,7 +214,7 @@ class SatWndAmvObsBuilder(ObsBuilder):
         gnap = None
         qifn = None
         for i in range(gDim2):
-            if np.unique(gnap2D[:, i].squeeze()) == find_qi:
+            if np.unique(gnap2D[:, i].squeeze()) == findQi:
                 if i <= qDim2:
                     self.log.info(f'GNAP/PCCF found for column {i}')
                     gnap = gnap2D[:, i].squeeze()
