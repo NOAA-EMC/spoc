@@ -204,8 +204,8 @@ class SatWndAmvObsBuilder(ObsBuilder):
         gDim1, gDim2 = np.shape(gnap2D)
         qDim1, qDim2 = np.shape(pccf2D)
         self.log.info('Generating Application and Quality Information SEARCH')
-        self.log.debug( f'Dimension size of GNAP ({gDim1},{gDim2})')
-        self.log.debug( f'Dimension size of PCCF ({qDim1},{qDim2})')
+        self.log.debug(f'Dimension size of GNAP ({gDim1},{gDim2})')
+        self.log.debug(f'Dimension size of PCCF ({qDim1},{qDim2})')
 
         # 2. Initialize gnap and qifn as None, and search for dimension of
         #    ga with values of 5. If the same column exists for qi, assign
