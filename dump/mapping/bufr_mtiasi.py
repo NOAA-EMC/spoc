@@ -12,7 +12,7 @@ from wxflow import Logger
 # Initialize Logger
 # Get log level from the environment variable, default to 'INFO it not set
 log_level = os.getenv('LOG_LEVEL', 'INFO')
-logger = Logger('BUFR2IODA_sfcsno.py', level=log_level, colored_log=False)
+logger = Logger('BUFR2IODA_iasi.py', level=log_level, colored_log=False)
 
 
 def logging(comm, level, message):
@@ -75,17 +75,6 @@ def logging(comm, level, message):
         log_method(message)
 
 
-def _mask_container(container, mask):
-
-    new_container = bufr.DataContainer()
-    for var_name in container.list():
-        var = container.get(var_name)
-        paths = container.get_paths(var_name)
-        new_container.add(var_name, var[mask], paths)
-
-    return new_container
-
-
 def _make_description(mapping_path, update=False):
 
     description = bufr.encoders.Description(mapping_path)
@@ -94,59 +83,67 @@ def _make_description(mapping_path, update=False):
 
 
 def _make_obs(comm, input_path, mapping_path):
-    """
-    Create the ioda snow depth observations:
-    - reads state of ground (sogr) and snow depth (snod)
-    - applys sogr conditions to the missing snod values
-    - removes the filled/missing snow values and creates the masked container
-
-    Parameters
-    ----------
-    comm: object
-            The communicator object (e.g., MPI)
-    input_path: str
-            The input bufr file
-    mapping_path: str
-            The input bufr2ioda mapping file
-    """
 
     # Get container from mapping file first
     logging(comm, 'INFO', 'Get container from bufr')
     container = bufr.Parser(input_path, mapping_path).parse(comm)
 
     logging(comm, 'DEBUG', f'container list (original): {container.list()}')
+    logging(comm, 'DEBUG', f'all_sub_categories =  {container.all_sub_categories()}')
+    logging(comm, 'DEBUG', f'category map =  {container.get_category_map()}')
 
     # Add new/derived data into container
-    sogr = container.get('variables/groundState')
-    snod = container.get('variables/totalSnowDepth')
-    snod[(sogr <= 11.0) & snod.mask] = 0.0
-    snod[(sogr == 15.0) & snod.mask] = 0.0
-    snod.mask = (snod < 0.0) | snod.mask
-    container.replace('variables/totalSnowDepth', snod)
-    snod_upd = container.get('variables/totalSnowDepth')
+    for cat in container.all_sub_categories():
 
-    masked_container = _mask_container(container, (~snod.mask))
+        logging(comm, 'DEBUG', f'category = {cat}')
 
-    return masked_container
+        satid = container.get('variables/satelliteId', cat)
+        if satid.size == 0:
+            logging(comm, 'WARNING', f'category {cat[0]} does not exist in input file')
+
+    # Check
+    logging(comm, 'DEBUG', f'container list (updated): {container.list()}')
+    logging(comm, 'DEBUG', f'all_sub_categories {container.all_sub_categories()}')
+
+    return container
 
 
-def create_obs_group(input_path, mapping_path, env):
+def create_obs_group(input_path, mapping_path, category, env):
 
     comm = bufr.mpi.Comm(env["comm_name"])
 
     description = _make_description(mapping_path, update=False)
+
+    # Check the cache for the data and return it if it exists
+    logging(comm, 'DEBUG', f'Check if bufr.DataCache exists? {bufr.DataCache.has(input_path, mapping_path)}')
+    if bufr.DataCache.has(input_path, mapping_path):
+        container = bufr.DataCache.get(input_path, mapping_path)
+        logging(comm, 'INFO', f'Encode {category} from cache')
+        data = iodaEncoder(description).encode(container)[(category,)]
+        logging(comm, 'INFO', f'Mark {category} as finished in the cache')
+        bufr.DataCache.mark_finished(input_path, mapping_path, [category])
+        logging(comm, 'INFO', f'Return the encoded data for {category}')
+        return data
+
     container = _make_obs(comm, input_path, mapping_path)
 
     # Gather data from all tasks into all tasks. Each task will have the complete record
     logging(comm, 'INFO', f'Gather data from all tasks into all tasks')
     container.all_gather(comm)
 
+    logging(comm, 'INFO', f'Add container to cache')
+    # Add the container to the cache
+    bufr.DataCache.add(input_path, mapping_path, container.all_sub_categories(), container)
+
     # Encode the data
-    logging(comm, 'INFO', f'Encode data')
-    data = next(iter(iodaEncoder(mapping_path).encode(container).values()))
+    logging(comm, 'INFO', f'Encode {category}')
+    data = iodaEncoder(description).encode(container)[(category,)]
 
-    logging(comm, 'INFO', f'Return the encoded data')
+    logging(comm, 'INFO', f'Mark {category} as finished in the cache')
+    # Mark the data as finished in the cache
+    bufr.DataCache.mark_finished(input_path, mapping_path, [category])
 
+    logging(comm, 'INFO', f'Return the encoded data for {category}')
     return data
 
 

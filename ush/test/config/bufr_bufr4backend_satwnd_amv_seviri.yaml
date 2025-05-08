@@ -67,7 +67,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufroda_satwnd_amv_seviri_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_seviri_mapping.yaml"
         category: ["m11"]
         cache categories:            # optional
           - ["m8"]

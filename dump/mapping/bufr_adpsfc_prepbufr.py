@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
-import sys
 import os
-import argparse
-import time
-import numpy as np
+import sys
 import bufr
+import argparse
+import copy
+import numpy as np
+import numpy.ma as ma
+import math
+import calendar
+import time
+from datetime import datetime
 from pyioda.ioda.Engines.Bufr import Encoder as iodaEncoder
 from bufr.encoders.netcdf import Encoder as netcdfEncoder
 from wxflow import Logger
@@ -12,7 +17,7 @@ from wxflow import Logger
 # Initialize Logger
 # Get log level from the environment variable, default to 'INFO it not set
 log_level = os.getenv('LOG_LEVEL', 'INFO')
-logger = Logger('BUFR2IODA_sfcsno.py', level=log_level, colored_log=False)
+logger = Logger('bufr_adpsfc_prepbufr.py', level=log_level, colored_log=False)
 
 
 def logging(comm, level, message):
@@ -75,30 +80,69 @@ def logging(comm, level, message):
         log_method(message)
 
 
-def _mask_container(container, mask):
+def _compute_datetime(cycleTimeSinceEpoch, dhr):
+    """
+    Compute dateTime using the cycleTimeSinceEpoch and Cycle Time
+        minus Cycle Time
 
-    new_container = bufr.DataContainer()
-    for var_name in container.list():
-        var = container.get(var_name)
-        paths = container.get_paths(var_name)
-        new_container.add(var_name, var[mask], paths)
+    Parameters:
+        cycleTimeSinceEpoch: Time of cycle in Epoch Time
+        dhr: Observation Time Minus Cycle Time
 
-    return new_container
+    Returns:
+        Masked array of dateTime values
+    """
+
+    int64_fill_value = np.int64(0)
+
+    dateTime = np.zeros(dhr.shape, dtype=np.int64)
+    for i in range(len(dateTime)):
+        if ma.is_masked(dhr[i]):
+            continue
+        else:
+            dateTime[i] = np.int64(dhr[i]*3600) + cycleTimeSinceEpoch
+
+    dateTime = ma.array(dateTime)
+    dateTime = ma.masked_values(dateTime, int64_fill_value)
+
+    return dateTime
 
 
-def _make_description(mapping_path, update=False):
-
+def _make_description(mapping_path, cycle_time, update=False):
     description = bufr.encoders.Description(mapping_path)
+
+    ReferenceTime = np.int64(calendar.timegm(time.strptime(str(int(cycle_time)), '%Y%m%d%H')))
+
+    if update:
+        # Define the variables to be added in a list of dictionaries
+        variables = [
+            {
+                'name': 'MetaData/sequenceNumber',
+                'source': 'variables/sequenceNumber',
+                'units': '1',
+                'longName': 'Sequence Number (Obs Subtype)',
+            }
+        ]
+
+        # Loop through each variable and add it to the description
+        for var in variables:
+            description.add_variable(
+                name=var['name'],
+                source=var['source'],
+                units=var['units'],
+                longName=var['longName']
+            )
+
+        # description.add_global(name='datetimeReference', value=str(ReferenceTime))
 
     return description
 
 
-def _make_obs(comm, input_path, mapping_path):
+def _make_obs(comm, input_path, mapping_path, cycle_time):
     """
-    Create the ioda snow depth observations:
-    - reads state of ground (sogr) and snow depth (snod)
-    - applys sogr conditions to the missing snod values
-    - removes the filled/missing snow values and creates the masked container
+    Create the ioda adpsfc prepbufr observations:
+    - reads values
+    - adds sequenceNum
 
     Parameters
     ----------
@@ -108,6 +152,8 @@ def _make_obs(comm, input_path, mapping_path):
             The input bufr file
     mapping_path: str
             The input bufr2ioda mapping file
+    cycle_time: str
+            The cycle in YYYYMMDDHH format
     """
 
     # Get container from mapping file first
@@ -115,48 +161,67 @@ def _make_obs(comm, input_path, mapping_path):
     container = bufr.Parser(input_path, mapping_path).parse(comm)
 
     logging(comm, 'DEBUG', f'container list (original): {container.list()}')
+    logging(comm, 'DEBUG', f'Change longitude range from [0,360] to [-180,180]')
+    lon = container.get('variables/longitude')
+    lon_paths = container.get_paths('variables/longitude')
+    lon[lon > 180] -= 360
+    lon = ma.round(lon, decimals=2)
+    logging(comm, 'DEBUG', f'longitude max and min are {lon.max()}, {lon.min()}')
 
-    # Add new/derived data into container
-    sogr = container.get('variables/groundState')
-    snod = container.get('variables/totalSnowDepth')
-    snod[(sogr <= 11.0) & snod.mask] = 0.0
-    snod[(sogr == 15.0) & snod.mask] = 0.0
-    snod.mask = (snod < 0.0) | snod.mask
-    container.replace('variables/totalSnowDepth', snod)
-    snod_upd = container.get('variables/totalSnowDepth')
+    logging(comm, 'DEBUG', f'Do DateTime calculation')
+    otmct = container.get('variables/obsTimeMinusCycleTime')
+    otmct_paths = container.get_paths('variables/obsTimeMinusCycleTime')
+    otmct2 = np.array(otmct)
+    cycleTimeSinceEpoch = np.int64(calendar.timegm(time.strptime(str(int(cycle_time)), '%Y%m%d%H')))
+    dateTime = _compute_datetime(cycleTimeSinceEpoch, otmct2)
+    min_dateTime_ge_zero = min(x for x in dateTime if x > -1)
+    logging(comm, 'DEBUG', f'dateTime min/max = {min_dateTime_ge_zero} {dateTime.max()}')
 
-    masked_container = _mask_container(container, (~snod.mask))
+    logging(comm, 'DEBUG', f'Make an array of 0s for MetaData/sequenceNumber')
+    sequenceNum = np.zeros(lon.shape, dtype=np.int32)
+    logging(comm, 'DEBUG', f' sequenceNummin/max =  {sequenceNum.min()} {sequenceNum.max()}')
 
-    return masked_container
+    logging(comm, 'DEBUG', f'Update variables in container')
+    container.replace('variables/longitude', lon)
+    container.replace('variables/timestamp', dateTime)
+
+    logging(comm, 'DEBUG', f'Add variables to container')
+    container.add('variables/sequenceNumber', sequenceNum, lon_paths)
+
+    # Check
+    logging(comm, 'DEBUG', f'container list (updated): {container.list()}')
+
+    return container
 
 
-def create_obs_group(input_path, mapping_path, env):
+def create_obs_group(input_path, mapping_path, cycle_time, env):
 
     comm = bufr.mpi.Comm(env["comm_name"])
 
-    description = _make_description(mapping_path, update=False)
-    container = _make_obs(comm, input_path, mapping_path)
+    logging(comm, 'INFO', f'Make description and make obs')
+
+    container = _make_obs(comm, input_path, mapping_path, cycle_time)
+    description = _make_description(mapping_path, cycle_time, update=True)
 
     # Gather data from all tasks into all tasks. Each task will have the complete record
     logging(comm, 'INFO', f'Gather data from all tasks into all tasks')
     container.all_gather(comm)
 
-    # Encode the data
-    logging(comm, 'INFO', f'Encode data')
-    data = next(iter(iodaEncoder(mapping_path).encode(container).values()))
+    logging(comm, 'INFO', f'Encode the data')
+    data = next(iter(iodaEncoder(description).encode(container).values()))
 
-    logging(comm, 'INFO', f'Return the encoded data')
+    logging(comm, 'INFO', f'Return the encoded data.')
 
     return data
 
 
-def create_obs_file(input_path, mapping_path, output_path):
+def create_obs_file(input_path, mapping_path, output_path, cycle_time):
 
     comm = bufr.mpi.Comm("world")
-    container = _make_obs(comm, input_path, mapping_path)
+    container = _make_obs(comm, input_path, mapping_path, cycle_time)
     container.gather(comm)
 
-    description = _make_description(mapping_path, update=False)
+    description = _make_description(mapping_path, cycle_time, update=True)
 
     # Encode the data
     if comm.rank() == 0:
@@ -166,7 +231,6 @@ def create_obs_file(input_path, mapping_path, output_path):
 
 
 if __name__ == '__main__':
-
     start_time = time.time()
 
     bufr.mpi.App(sys.argv)
@@ -177,13 +241,15 @@ if __name__ == '__main__':
     parser.add_argument('input', type=str, help='Input BUFR file')
     parser.add_argument('mapping', type=str, help='BUFR2IODA Mapping File')
     parser.add_argument('output', type=str, help='Output NetCDF file')
+    parser.add_argument('cycle_time', type=str, help='cycle time in YYYYMMDDHH format')
 
     args = parser.parse_args()
-    mapping = args.mapping
     infile = args.input
+    mapping = args.mapping
     output = args.output
+    cycle_time = args.cycle_time
 
-    create_obs_file(infile, mapping, output)
+    create_obs_file(infile, mapping, output, cycle_time)
 
     end_time = time.time()
     running_time = end_time - start_time

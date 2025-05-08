@@ -5,14 +5,15 @@ import argparse
 import time
 import numpy as np
 import bufr
-from pyioda.ioda.Engines.Bufr import Encoder as iodaEncoder 
-from bufr.encoders.netcdf import Encoder as netcdfEncoder 
+from pyioda.ioda.Engines.Bufr import Encoder as iodaEncoder
+from bufr.encoders.netcdf import Encoder as netcdfEncoder
 from wxflow import Logger
 
 # Initialize Logger
 # Get log level from the environment variable, default to 'INFO it not set
 log_level = os.getenv('LOG_LEVEL', 'INFO')
 logger = Logger('BUFR2IODA_satwnd_amv_avhrr.py', level=log_level, colored_log=False)
+
 
 def logging(comm, level, message):
 
@@ -35,6 +36,7 @@ def logging(comm, level, message):
 
         # Call the logging method
         log_method(message)
+
 
 def _make_description(mapping_path, update=False):
     description = bufr.encoders.Description(mapping_path)
@@ -95,6 +97,7 @@ def _make_description(mapping_path, update=False):
 
     return description
 
+
 def compute_wind_components(wdir, wspd):
     """
     Compute the U and V wind components from wind direction and wind speed.
@@ -109,10 +112,11 @@ def compute_wind_components(wdir, wspd):
     wdir_rad = np.radians(wdir)  # Convert degrees to radians
     u = -wspd * np.sin(wdir_rad)
     v = -wspd * np.cos(wdir_rad)
-    
+
     return u.astype(np.float32), v.astype(np.float32)
 
-def _get_QualityInformation_and_GeneratingApplication(comm, gnap2D, pccf2D, satID):
+
+def _get_quality_information_and_generating_application(comm, gnap2D, pccf2D, satID):
     # For METOP-A/B/C AVHRR data (satID 3,4,5), qi w/o forecast (qifn) is
     # packaged in same vector of qi with ga = 5 (QI without forecast), and EE
     # is packaged in same vector of qi with ga=7 (Estimated Error (EE) in m/s
@@ -126,10 +130,10 @@ def _get_QualityInformation_and_GeneratingApplication(comm, gnap2D, pccf2D, satI
     #
     # Must conduct a search and extract the correct vector for gnap and qi
     # 0. Define the appropriate QI and EE search values, based on satID
-    if np.all(np.isin(satID, [206,209,223])):  # NESDIS AVHRR set
+    if np.all(np.isin(satID, [206, 209, 223])):  # NESDIS AVHRR set
         findQI = 1
         findEE = 4
-    elif np.all(np.isin(satID, [3,4,5])):  # EUMETSAT AVHRR set
+    elif np.all(np.isin(satID, [3, 4, 5])):  # EUMETSAT AVHRR set
         findQI = 5
         findEE = 7
         # There is a catch: prior to 2023 AVHRR winds from EUMETSAT were formatted in the same
@@ -137,14 +141,14 @@ def _get_QualityInformation_and_GeneratingApplication(comm, gnap2D, pccf2D, satI
         # dataset. In that case, we need to actually set findQI=1 and findEE=4 here.
         # Let's do a preliminary check to see if any gnap2D values match findQI. If not, let's
         # automatically switch to findQI=1, findEE=4 and presume pre-2023 EUMETSAT AVHRR format
-        if np.any(np.isin(gnap2D, [findQI])) == False:
+        if not (np.any(np.isin(gnap2D, [findQI]))):
             logging(comm, 'DEBUG', f'NO GNAP VALUE OF {findQI} EXISTS FOR EUMETSAT AVHRR DATASET, PRESUMING PRE-2023 FORMATTING')
             findQI = 1
             findEE = 4
     else:
         logging(comm, 'DEBUG', f'satID set not found (all satID values follow):')
         for sid in np.unique(satID):
-          logging(comm, 'DEBUG', f'satID: {sid}')
+            logging(comm, 'DEBUG', f'satID: {sid}')
     logging(comm, 'DEBUG', f'BTH: findQI={findQI}')
     # 1. Find dimension-sizes of ga and qi (should be the same!)
     gDim1, gDim2 = np.shape(gnap2D)
@@ -170,7 +174,8 @@ def _get_QualityInformation_and_GeneratingApplication(comm, gnap2D, pccf2D, satI
         raise ValueError(f'GNAP == {findQI} NOT FOUND OR OUT OF PCCF DIMENSION-RANGE, WILL FAIL!')
     # If EE is needed, key search on np.unique(gnap2D[:,i].squeeze()) == findEE instead
     # NOTE: Make sure to return np.float32 or np.int32 types as appropriate!!!
-    return gnap.astype(np.int32), qifn.astype(np.int32) 
+    return gnap.astype(np.int32), qifn.astype(np.int32)
+
 
 def _get_obs_type(swcm):
     """
@@ -197,6 +202,7 @@ def _get_obs_type(swcm):
 
     return obstype.astype(np.int32)
 
+
 def _make_obs(comm, input_path, mapping_path):
 
     # Get container from mapping file first
@@ -208,7 +214,7 @@ def _make_obs(comm, input_path, mapping_path):
     logging(comm, 'DEBUG', f'category map =  {container.get_category_map()}')
 
     # Add new/derived data into container
-    for cat in container.all_sub_categories():  
+    for cat in container.all_sub_categories():
 
         logging(comm, 'DEBUG', f'category = {cat}')
 
@@ -229,9 +235,9 @@ def _make_obs(comm, input_path, mapping_path):
             dummy = container.get('variables/windSpeed', cat)
             container.add('variables/windGeneratingApplication', dummy, paths, cat)
             container.add('variables/qualityInformationWithoutForecast', dummy, paths, cat)
-            
+
         else:
-            # Add new variables: ObsType/windEastward & ObsType/windNorthward 
+            # Add new variables: ObsType/windEastward & ObsType/windNorthward
             swcm = container.get('variables/windComputationMethod', cat)
             chanfreq = container.get('variables/sensorCentralFrequency', cat)
 
@@ -247,7 +253,7 @@ def _make_obs(comm, input_path, mapping_path):
             container.add('variables/obstype_uwind', obstype, paths, cat)
             container.add('variables/obstype_vwind', obstype, paths, cat)
 
-            # Add new variables: ObsValue/windEastward & ObsValue/windNorthward 
+            # Add new variables: ObsValue/windEastward & ObsValue/windNorthward
             wdir = container.get('variables/windDirection', cat)
             wspd = container.get('variables/windSpeed', cat)
 
@@ -268,7 +274,7 @@ def _make_obs(comm, input_path, mapping_path):
             gnap2D = container.get('variables/generatingApplication', cat)
             pccf2D = container.get('variables/qualityInformation', cat)
 
-            gnap, qifn = _get_QualityInformation_and_GeneratingApplication(comm, gnap2D, pccf2D, satID)
+            gnap, qifn = _get_quality_information_and_generating_application(comm, gnap2D, pccf2D, satID)
 
             logging(comm, 'DEBUG', f'gnap min/max = {gnap.min()} {gnap.max()}')
             logging(comm, 'DEBUG', f'qifn min/max = {qifn.min()} {qifn.max()}')
@@ -282,6 +288,7 @@ def _make_obs(comm, input_path, mapping_path):
     logging(comm, 'DEBUG', f'all_sub_categories {container.all_sub_categories()}')
 
     return container
+
 
 def create_obs_group(input_path, mapping_path, category, env):
 
@@ -302,7 +309,7 @@ def create_obs_group(input_path, mapping_path, category, env):
 
     container = _make_obs(comm, input_path, mapping_path)
 
-    # Gather data from all tasks into all tasks. Each task will have the complete record 
+    # Gather data from all tasks into all tasks. Each task will have the complete record
     logging(comm, 'INFO', f'Gather data from all tasks into all tasks')
     container.all_gather(comm)
 
@@ -321,6 +328,7 @@ def create_obs_group(input_path, mapping_path, category, env):
     logging(comm, 'INFO', f'Return the encoded data for {category}')
     return data
 
+
 def create_obs_file(input_path, mapping_path, output_path):
 
     comm = bufr.mpi.Comm("world")
@@ -331,9 +339,10 @@ def create_obs_file(input_path, mapping_path, output_path):
 
     # Encode the data
     if comm.rank() == 0:
-        netcdfEncoder(description).encode(container, output_path) 
+        netcdfEncoder(description).encode(container, output_path)
 
     logging(comm, 'INFO', f'Return the encoded data')
+
 
 if __name__ == '__main__':
 
@@ -342,19 +351,19 @@ if __name__ == '__main__':
     bufr.mpi.App(sys.argv)
     comm = bufr.mpi.Comm("world")
 
-    # Required input arguments
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-i', '--input', type=str, help='Input BUFR', required=True)
-    parser.add_argument('-m', '--mapping', type=str, help='BUFR2IODA Mapping File', required=True)
-    parser.add_argument('-o', '--output', type=str, help='Output NetCDF', required=True)
+    # Required input arguments as positional arguments
+    parser = argparse.ArgumentParser(description="Convert BUFR to NetCDF using a mapping file.")
+    parser.add_argument('input', type=str, help='Input BUFR file')
+    parser.add_argument('mapping', type=str, help='BUFR2IODA Mapping File')
+    parser.add_argument('output', type=str, help='Output NetCDF file')
 
     args = parser.parse_args()
-    mapping = args.mapping
     infile = args.input
+    mapping = args.mapping
     output = args.output
-    
+
     create_obs_file(infile, mapping, output)
-    
+
     end_time = time.time()
     running_time = end_time - start_time
     logging(comm, 'INFO', f'Total running time: {running_time}')
