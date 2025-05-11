@@ -121,13 +121,13 @@ class BufrSsmisObsBuilder(ObsBuilder):
                 'name': 'MetaData/solarZenithAngle',
                 'source': 'solarZenithAngle',
                 'units': 'degree',
-                'longName': 'Solar Zenith Angle)',
+                'longName': 'Solar Zenith Angle',
             },
             {
                 'name': 'MetaData/solarAzimuthAngle',
                 'source': 'solarAzimuthAngle',
                 'units': 'degree',
-                'longName': 'Solar Azimuth Angle)',
+                'longName': 'Solar Azimuth Angle',
             }])
 
 
