@@ -19,17 +19,32 @@ def map_path(map_file_name):
 
 def get_default_nprocs(default=8):
     """
-    Determine number of processes to use from SOLAR_ANGLE_NPROCS, SLURM_CPUS_PER_TASK, or fallback.
+    Determine number of processes to use from CPUS_PER_TASK, SLURM_CPUS_PER_TASK, or fallback.
+
+    SLURM_CPUS_PER_TASK - auto-detected from slurm 
+    CPU_PER_TASK - input from user 
+
+    Examples from command line:
+    1. Run with 1 slurm task and reserve 12 CPU cores for this one task
+       In Python, this will spawn 12 worker processes via multiprocessing.Pool
+       (SLURM_CPUS_PER_TASK = 12)
+
+       srun -n 1 --cpus_per_tasks=12 python bufr_ssmis.py
+
+    2, Run without slurm and tell Python to spawn 12 worker processes via myltiprocessing.Pool 
+
+       export CPUS_PER_TASKS=12
+       python bufr_ssmis.py
 
     :param default: Fallback default if nothing is found.
     :type default: int
     :returns: Number of processes to use.
     :rtype: int
     """
-    env_nprocs = os.getenv("SOLAR_ANGLE_NPROCS")
+    env_nprocs = os.getenv("CPUS_PER_TASK")
     slurm_nprocs = os.environ.get("SLURM_CPUS_PER_TASK")
 
-    print(f"SOLAR_ANGLE_NPROCS={env_nprocs}, SLURM_CPUS_PER_TASK={slurm_nprocs}")
+    print(f"CPUS_PER_TASK={env_nprocs}, SLURM_CPUS_PER_TASK={slurm_nprocs}")
 
     try:
         return int(env_nprocs or slurm_nprocs or default)
@@ -186,10 +201,8 @@ class BufrSsmisObsBuilder(ObsBuilder):
             nprocs = get_default_nprocs()
 
         args_list = list(zip(latitudes, longitudes, unix_times))
-#       nprocs = nprocs or cpu_count()
 
         self.log.debug(f'Using {nprocs} processes to compute solar angles.')
-        self.log.debug(f'Using {cpu_count()} processes to compute solar angles.')
 
         with Pool(nprocs) as pool:
             results = pool.starmap(compute_solar_angles, args_list)
