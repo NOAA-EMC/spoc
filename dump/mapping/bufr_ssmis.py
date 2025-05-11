@@ -86,8 +86,6 @@ class BufrSsmisObsBuilder(ObsBuilder):
         self.log.info('Get container from bufr')
         container = super().make_obs(comm, input_path)
     
-        self.log.debug(f'comm rank : {comm.rank()}')
-        self.log.debug(f'comm size : {comm.size()}')
         self.log.debug(f'container list (original): {container.list()}')
         self.log.debug(f'all_sub_categories =  {container.all_sub_categories()}')
         self.log.debug(f'category map =  {container.get_category_map()}')
