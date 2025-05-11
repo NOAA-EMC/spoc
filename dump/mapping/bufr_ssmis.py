@@ -9,7 +9,6 @@ from multiprocessing import Pool, cpu_count
 
 import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions
-from bufr.obs_builder import ObsBuilder, add_main_functions
 
 
 def map_path(map_file_name):
