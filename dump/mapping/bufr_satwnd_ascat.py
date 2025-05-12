@@ -127,14 +127,13 @@ class BufrAscatObsBuilder(ObsBuilder):
         """
 
         description = super()._make_description()
-        self._add_wind_components_descriptions(description)
-        self._add_obs_type_descriptions(description)
+        self._add_new_variable_descriptions(description)
 
         return description
 
-    def _add_wind_components_descriptions(self, description):
+    def _add_new_variable_descriptions(self, description):
         """
-        Adds metadata descriptions for wind components to the container.
+        Adds metadata descriptions for new variables to the container.
 
         Args:
             description: Metadata container for descriptions.
@@ -152,17 +151,7 @@ class BufrAscatObsBuilder(ObsBuilder):
                 'source': 'windNorthward',
                 'units': 'm s-1',
                 'longName': '10-meter V-Wind Component',
-            }])
-
-    def _add_obs_type_descriptions(self, description):
-        """
-        Adds metadata descriptions for observation types to the container.
-
-        Args:
-            description: Metadata container for descriptions.
-        """
-
-        description.add_variables([
+            },
             {
                 'name': 'ObsType/windEastward',
                 'source': 'obstype_windEastward',
