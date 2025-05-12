@@ -101,6 +101,7 @@ class BufrSsmisObsBuilder(ObsBuilder):
     def __init__(self):
         """
         Initialize the BufrSsmisObsBuilder class.
+
         Inherits from ObsBuilder and sets up the mapping path and logger.
         """
 
