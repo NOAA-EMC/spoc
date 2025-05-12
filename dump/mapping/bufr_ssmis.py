@@ -155,36 +155,13 @@ class BufrSsmisObsBuilder(ObsBuilder):
         """
 
         description = super()._make_description()
-        self._add_solar_angles_descriptions(description)
-        self._add_satellite_ascend_descend_orbit_descriptions(description)
+        self._add_new_variable_descriptions(description)
 
         return description
 
-    def _add_solar_angles_descriptions(self, description):
+    def _add_new_variable_descriptions(self, description):
         """
-        Add solar angle descriptions to the observation metadata.
-
-        :param description: Observation description container.
-        :type description: Description
-        """
-
-        description.add_variables([
-            {
-                'name': 'MetaData/solarZenithAngle',
-                'source': 'solarZenithAngle',
-                'units': 'degree',
-                'longName': 'Solar Zenith Angle',
-            },
-            {
-                'name': 'MetaData/solarAzimuthAngle',
-                'source': 'solarAzimuthAngle',
-                'units': 'degree',
-                'longName': 'Solar Azimuth Angle',
-            }])
-
-    def _add_satellite_ascend_descend_orbit_descriptions(self, description):
-        """
-        Add satellite orbit descriptions to the observation metadata.
+        Add solar angle and orbit flag descriptions to the observation metadata.
 
         :param description: Observation description container.
         :type description: Description
@@ -196,6 +173,18 @@ class BufrSsmisObsBuilder(ObsBuilder):
                 'source': 'satelliteAscendingFlag',
                 'units': '1',
                 'longName': 'Satellite Ascending/Descending Orbit Flag (Ascend:1; Descend:-1)',
+            },
+            {
+                'name': 'MetaData/solarZenithAngle',
+                'source': 'solarZenithAngle',
+                'units': 'degree',
+                'longName': 'Solar Zenith Angle',
+            },
+            {
+                'name': 'MetaData/solarAzimuthAngle',
+                'source': 'solarAzimuthAngle',
+                'units': 'degree',
+                'longName': 'Solar Azimuth Angle',
             }])
 
     def _add_satellite_ascend_descent_orbit(self, container, category):
