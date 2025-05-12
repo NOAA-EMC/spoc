@@ -12,6 +12,15 @@ from bufr.obs_builder import ObsBuilder, add_main_functions
 
 
 def map_path(map_file_name):
+    """
+    Get the absolute path to a mapping file.
+
+    :param map_file_name: Name of the mapping file.
+    :type map_file_name: str
+    :return: Absolute path to the mapping file.
+    :rtype: str
+    """
+
     script_dir = os.path.dirname(os.path.abspath(__file__))
     return os.path.join(script_dir, map_file_name)
 
@@ -90,6 +99,11 @@ class BufrSsmisObsBuilder(ObsBuilder):
     """
 
     def __init__(self):
+        """
+        Initialize the BufrSsmisObsBuilder class.
+        Inherits from ObsBuilder and sets up the mapping path and logger.
+        """
+
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
 
     def make_obs(self, comm, input_path):
@@ -132,6 +146,13 @@ class BufrSsmisObsBuilder(ObsBuilder):
         return container
 
     def _make_description(self):
+        """
+        Create a description of the observations.
+
+        :return: Observation description.
+        :rtype: Description
+        """
+
         description = super()._make_description()
         self._add_solar_angles_descriptions(description)
         self._add_satellite_ascend_descend_orbit_descriptions(description)
@@ -139,6 +160,13 @@ class BufrSsmisObsBuilder(ObsBuilder):
         return description
 
     def _add_solar_angles_descriptions(self, description):
+        """
+        Add solar angle descriptions to the observation metadata.
+
+        :param description: Observation description container.
+        :type description: Description
+        """
+
         description.add_variables([
             {
                 'name': 'MetaData/solarZenithAngle',
@@ -154,6 +182,13 @@ class BufrSsmisObsBuilder(ObsBuilder):
             }])
 
     def _add_satellite_ascend_descend_orbit_descriptions(self, description):
+        """
+        Add satellite orbit descriptions to the observation metadata.
+
+        :param description: Observation description container.
+        :type description: Description
+        """
+
         description.add_variables([
             {
                 'name': 'MetaData/satelliteAscendingFlag',
@@ -274,4 +309,5 @@ class BufrSsmisObsBuilder(ObsBuilder):
         container.add('solarAzimuthAngle', azimuth_angles, paths, category)
 
 
+# Add main functions create_obs_file or create_obs_group
 add_main_functions(BufrSsmisObsBuilder)
