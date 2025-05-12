@@ -20,17 +20,17 @@ def get_default_nprocs(default=8):
     """
     Determine number of processes to use from CPUS_PER_TASK, SLURM_CPUS_PER_TASK, or fallback.
 
-    SLURM_CPUS_PER_TASK - auto-detected from slurm 
-    CPU_PER_TASK - input from user 
+    SLURM_CPUS_PER_TASK - auto-detected from slurm
+    CPU_PER_TASK - input from user
 
     Examples from command line:
-    1. Run with 1 slurm task and reserve 12 CPU cores for this one task
-       In Python, this will spawn 12 worker processes via multiprocessing.Pool
+    1. Run with 1 slurm task and reserve 12 CPU cores for this one task.
+       In Python, this will spawn 12 worker processes via multiprocessing.Pool.
        (SLURM_CPUS_PER_TASK = 12)
 
        srun -n 1 --cpus_per_tasks=12 python bufr_ssmis.py
 
-    2. Run without slurm and tell Python to spawn 12 worker processes via myltiprocessing.Pool 
+    2. Run without slurm and tell Python to spawn 12 worker processes via myltiprocessing.Pool.
 
        export CPUS_PER_TASKS=12
        python bufr_ssmis.py
@@ -84,27 +84,27 @@ class BufrSsmisObsBuilder(ObsBuilder):
         # Get container from mapping file first
         self.log.info('Get container from bufr')
         container = super().make_obs(comm, input_path)
-    
+
         self.log.debug(f'container list (original): {container.list()}')
         self.log.debug(f'all_sub_categories =  {container.all_sub_categories()}')
         self.log.debug(f'category map =  {container.get_category_map()}')
-    
+
         # Add new/derived data into container
         for cat in container.all_sub_categories():
-    
+
             self.log.debug(f'category = {cat}')
 
             satId = container.get('satelliteId', cat)
             if not np.any(satId):
                 self.log.warning(f'category {cat[0]} does not exist in input file')
 
-            self._add_solar_angles(container, cat) 
-            self._add_satellite_ascend_descent_orbit(container, cat) 
+            self._add_solar_angles(container, cat)
+            self._add_satellite_ascend_descent_orbit(container, cat)
 
         # Check
         self.log.debug(f'container list (updated): {container.list()}')
         self.log.debug(f'all_sub_categories {container.all_sub_categories()}')
-    
+
         return container
 
     def _make_description(self):
@@ -113,7 +113,6 @@ class BufrSsmisObsBuilder(ObsBuilder):
         self._add_satellite_ascend_descend_orbit_descriptions(description)
 
         return description
-
 
     def _add_solar_angles_descriptions(self, description):
         description.add_variables([
@@ -130,7 +129,6 @@ class BufrSsmisObsBuilder(ObsBuilder):
                 'longName': 'Solar Azimuth Angle',
             }])
 
-
     def _add_satellite_ascend_descend_orbit_descriptions(self, description):
         description.add_variables([
             {
@@ -139,7 +137,6 @@ class BufrSsmisObsBuilder(ObsBuilder):
                 'units': '1',
                 'longName': 'Satellite Ascending/Descending Orbit Flag (Ascend:1; Descend:-1)',
             }])
-
 
     def _add_satellite_ascend_descent_orbit(self, container, category):
         """
@@ -158,11 +155,11 @@ class BufrSsmisObsBuilder(ObsBuilder):
 
         # Get data from container
         # ephemeris data - latitude values in order of time
-        first_lat = container.get('latitude1',category)
+        first_lat = container.get('latitude1', category)
         self.log.debug(f'first_lat min/max = {first_lat.min()} {first_lat.max()}')
-        second_lat = container.get('latitude2',category)
+        second_lat = container.get('latitude2', category)
         self.log.debug(f'second_lat min/max = {second_lat.min()} {second_lat.max()}')
-        fovn = container.get('fieldOfViewNumber',category)
+        fovn = container.get('fieldOfViewNumber', category)
         self.log.debug(f'fovn min/max = {fovn.min()} {fovn.max()}')
 
         # Determine ascending/descending mode
@@ -174,7 +171,6 @@ class BufrSsmisObsBuilder(ObsBuilder):
         paths = container.get_paths('fieldOfViewNumber', category)
         self.log.debug(f'paths = {paths}')
         container.add('satelliteAscendingFlag', orbit, paths, category)
-
 
     def _compute_solar_angles_parallel(self, latitudes, longitudes, unix_times, nprocs=None):
         """
@@ -204,14 +200,13 @@ class BufrSsmisObsBuilder(ObsBuilder):
         self.log.debug(f'Using {nprocs} processes to compute solar angles --- done')
         zenith_angles, azimuth_angles = zip(*results)
         zenith_angles = np.array(zenith_angles)
-        azimuth_angles = np.array(azimuth_angles) 
+        azimuth_angles = np.array(azimuth_angles)
 
         return zenith_angles, azimuth_angles
 
-
     def _add_solar_angles(self, container, category):
         """
-        Compute and add solar zenith and azimuth angles to container 
+        Compute and add solar zenith and azimuth angles to container
         """
 
         satId = container.get('satelliteId', category)
@@ -222,7 +217,7 @@ class BufrSsmisObsBuilder(ObsBuilder):
             container.add('solarAzimuthAngle', dummy, paths, category)
             return
 
-        # Prepare input arrays 
+        # Prepare input arrays
         unix_times = container.get('timestamp', category)
         latitudes = container.get('latitude', category)
         longitudes = container.get('longitude', category)
