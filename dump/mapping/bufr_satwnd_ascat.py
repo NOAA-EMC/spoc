@@ -12,11 +12,35 @@ MAPPING_PATH = map_path('bufr_satwnd_ascat.yaml')
 
 
 class BufrAscatObsBuilder(ObsBuilder):
+    """
+    A class to build satellite wind observations for ASCAT data.
+
+    Attributes:
+        _wind_helper (SatWndAmvObsBuilder): Helper class for computing wind components.
+    """
+
     def __init__(self):
+        """
+        Initializes the BufrAscatObsBuilder.
+
+        Inherits from ObsBuilder and sets up the mapping path and logger.
+        """
+
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
         self._wind_helper = SatWndAmvObsBuilder(MAPPING_PATH)
 
     def make_obs(self, comm, input_path):
+        """
+        Generates observation data for a given input file.
+
+        Args:
+            comm: Communication handler for parallel processing.
+            input_path (str): Path to the input file.
+
+        Returns:
+            container: The processed observation container.
+        """
+
         # Get container from mapping file first
         self.log.info('Get container from bufr')
         container = super().make_obs(comm, input_path)
@@ -70,6 +94,17 @@ class BufrAscatObsBuilder(ObsBuilder):
         return container
 
     def _get_obs_type(self, container, category):
+        """
+        Retrieves the observation type for wind components.
+
+        Args:
+            container: The observation container.
+            category: The observation category.
+
+        Returns:
+            np.ndarray: Array containing observation types for the category.
+        """
+
         satId = container.get('satelliteId', category)
 
         if not satId.size:
@@ -84,6 +119,13 @@ class BufrAscatObsBuilder(ObsBuilder):
         return obstype
 
     def _make_description(self):
+        """
+        Constructs metadata descriptions for observations.
+
+        Returns:
+            description: Metadata descriptions for the observation variables.
+        """
+
         description = super()._make_description()
         self._add_wind_components_descriptions(description)
         self._add_obs_type_descriptions(description)
@@ -91,6 +133,13 @@ class BufrAscatObsBuilder(ObsBuilder):
         return description
 
     def _add_wind_components_descriptions(self, description):
+        """
+        Adds metadata descriptions for wind components to the container.
+
+        Args:
+            description: Metadata container for descriptions.
+        """
+
         description.add_variables([
             {
                 'name': 'ObsValue/windEastward',
@@ -106,6 +155,13 @@ class BufrAscatObsBuilder(ObsBuilder):
             }])
 
     def _add_obs_type_descriptions(self, description):
+        """
+        Adds metadata descriptions for observation types to the container.
+
+        Args:
+            description: Metadata container for descriptions.
+        """
+
         description.add_variables([
             {
                 'name': 'ObsType/windEastward',
