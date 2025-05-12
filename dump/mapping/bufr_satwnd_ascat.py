@@ -177,5 +177,5 @@ class BufrAscatObsBuilder(ObsBuilder):
             }])
 
 
-# Add main functions create_obs_file and create_obs_group
+# Add main functions create_obs_file or create_obs_group
 add_main_functions(BufrAscatObsBuilder)
