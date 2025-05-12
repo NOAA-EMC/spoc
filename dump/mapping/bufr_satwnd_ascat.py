@@ -33,7 +33,7 @@ class BufrAscatObsBuilder(ObsBuilder):
             satId = container.get('satelliteId', cat)
             if not np.any(satId):
                 self.log.warning(f'category {cat[0]} does not exist in input file')
-
+    
                 paths = container.get_paths('windSpeedAt10M', cat)
                 dummy = container.get('windSpeedAt10M', cat)
                 container.add('windEastward', dummy, paths, cat)
@@ -43,7 +43,7 @@ class BufrAscatObsBuilder(ObsBuilder):
                 dummy = container.get('satelliteId', cat)
                 container.add('obstype_windEastward', dummy, paths, cat)
                 container.add('obstype_windNorthward', dummy, paths, cat)
-                continue
+                continue 
 
             wdir = container.get('windDirectionAt10M', cat)
             wspd = container.get('windSpeedAt10M', cat)
@@ -58,7 +58,7 @@ class BufrAscatObsBuilder(ObsBuilder):
             container.add('windEastward', uob, paths, cat)
             container.add('windNorthward', vob, paths, cat)
 
-            obstype = self._make_obs_type(container, cat)
+            obstype = self._get_obs_type(container, cat)
             paths = container.get_paths('satelliteId', cat)
             container.add('obstype_windEastward', obstype, paths, cat)
             container.add('obstype_windNorthward', obstype, paths, cat)
@@ -69,7 +69,7 @@ class BufrAscatObsBuilder(ObsBuilder):
 
         return container
 
-    def _make_obs_type(self, container, category):
+    def _get_obs_type(self, container, category):
         satId = container.get('satelliteId', category)
 
         if not satId.size:
@@ -78,10 +78,11 @@ class BufrAscatObsBuilder(ObsBuilder):
             container.add('obstype_windEastward', dummy, paths, cat)
             container.add('obstype_windNorthward', dummy, paths, cat)
             return
-
-        obstype = np.full_like(satId, 290)
+     
+        obstype = np.full_like(satId, 290) 
 
         return obstype
+
 
     def _make_description(self):
         description = super()._make_description()
@@ -89,6 +90,7 @@ class BufrAscatObsBuilder(ObsBuilder):
         self._add_obs_type_descriptions(description)
 
         return description
+
 
     def _add_wind_components_descriptions(self, description):
         description.add_variables([
@@ -104,6 +106,7 @@ class BufrAscatObsBuilder(ObsBuilder):
                 'units': 'm s-1',
                 'longName': '10-meter V-Wind Component',
             }])
+
 
     def _add_obs_type_descriptions(self, description):
         description.add_variables([
