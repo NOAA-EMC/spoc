@@ -18,29 +18,28 @@ def map_path(map_file_name):
 
 def get_default_nprocs(default=8):
     """
-    Determine number of processes to use from CPUS_PER_TASK, SLURM_CPUS_PER_TASK, or fallback.
+    Determine the number of processes to use.
 
-    SLURM_CPUS_PER_TASK - auto-detected from slurm
-    CPU_PER_TASK - input from user
+    The number of processes is determined from the environment variables
+    `CPUS_PER_TASK`, `SLURM_CPUS_PER_TASK`, or falls back to the default value.
 
     Examples from command line:
-    1. Run with 1 slurm task and reserve 12 CPU cores for this one task.
-       In Python, this will spawn 12 worker processes via multiprocessing.Pool.
-       (SLURM_CPUS_PER_TASK = 12)
+        1. Run with 1 slurm task and reserve 12 CPU cores for this one task.
+           In Python, this will spawn 12 worker processes via multiprocessing.Pool.
+           (SLURM_CPUS_PER_TASK = 12)
+           ``srun -n 1 --cpus_per_tasks=12 python bufr_ssmis.py``
 
-       srun -n 1 --cpus_per_tasks=12 python bufr_ssmis.py
+        2. Run without slurm and tell Python to spawn 12 worker processes.
+           ``export CPUS_PER_TASKS=12``
+           ``python bufr_ssmis.py``
 
-    2. Run without slurm and tell Python to spawn 12 worker processes via myltiprocessing.Pool.
+    :param default: Fallback default if nothing is found. Default is 8.
+    :type default: int
 
-       export CPUS_PER_TASKS=12
-       python bufr_ssmis.py
-
-    Parameters:
-        default: Fallback default if nothing is found.
-
-    Returns:
-        Number of processes to use.
+    :return: Number of processes to use.
+    :rtype: int
     """
+
     env_nprocs = os.getenv("CPUS_PER_TASK")
     slurm_nprocs = os.environ.get("SLURM_CPUS_PER_TASK")
 
@@ -57,12 +56,15 @@ def compute_solar_angles(lat, lon, unix_time):
     """
     Compute solar zenith and azimuth angles for a single point.
 
-    Parameters:
-        lat: Latitude in degrees.
-        lon: Longitude in degrees.
-        unix_time: Unix timestamp (seconds since 1970-01-01T00:00:00Z).
-    Returns:
-        tuple: zenith angle, azimuth angle
+    :param lat: Latitude in degrees.
+    :type lat: float
+    :param lon: Longitude in degrees.
+    :type lon: float
+    :param unix_time: Unix timestamp (seconds since 1970-01-01T00:00:00Z).
+    :type unix_time: int
+
+    :return: A tuple containing zenith angle and azimuth angle.
+    :rtype: tuple(float, float)
     """
 
     dt = datetime.fromtimestamp(int(unix_time), tz=timezone.utc)
@@ -77,10 +79,32 @@ MAPPING_PATH = map_path('bufr_ssmis.yaml')
 
 
 class BufrSsmisObsBuilder(ObsBuilder):
+    """
+    Class for building observations from SSMIS BUFR data.
+
+    This class extends `ObsBuilder` to include specific logic for processing
+    SSMIS data such as solar angles and satellite ascending/descending orbits.
+
+    :param mapping_path: Path to the mapping file.
+    :type mapping_path: str
+    """
+
     def __init__(self):
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
 
     def make_obs(self, comm, input_path):
+        """
+        Generate observations from BUFR data.
+
+        :param comm: MPI communicator for parallel processing.
+        :type comm: MPI.Comm
+        :param input_path: Path to the input BUFR file.
+        :type input_path: str
+
+        :return: Container with generated observations.
+        :rtype: Container
+        """
+
         # Get container from mapping file first
         self.log.info('Get container from bufr')
         container = super().make_obs(comm, input_path)
@@ -140,9 +164,12 @@ class BufrSsmisObsBuilder(ObsBuilder):
 
     def _add_satellite_ascend_descent_orbit(self, container, category):
         """
-        Determine satellite orbit type (ascending or descending) based on latitude changes
-        if latitude increases, this is ascending orbit and the orbit type is set to 1
-        if latitude decreases, this is descending orbit and the orbit type is set to -1
+        Determine satellite orbit type (ascending or descending) based on latitude changes.
+
+        :param container: Observation data container.
+        :type container: Container
+        :param category: Data category to process.
+        :type category: str
         """
 
         satId = container.get('satelliteId', category)
@@ -176,13 +203,17 @@ class BufrSsmisObsBuilder(ObsBuilder):
         """
         Compute solar zenith and azimuth angles in parallel using multiprocessing.
 
-        Parameters:
-            latitudes: Array of latitudes in degrees.
-            longitudes: Array of longitudes in degrees.
-            unix_times: Array of Unix timestamps (seconds since 1970-01-01T00:00:00Z).
-            nprocs: Number of processes to use. Defaults to the number of CPU cores.
+        :param latitudes: Array of latitudes in degrees.
+        :type latitudes: numpy.ndarray
+        :param longitudes: Array of longitudes in degrees.
+        :type longitudes: numpy.ndarray
+        :param unix_times: Array of Unix timestamps (seconds since 1970-01-01T00:00:00Z).
+        :type unix_times: numpy.ndarray
+        :param nprocs: Number of processes to use. Defaults to the number of CPU cores.
+        :type nprocs: int, optional
 
-        Returns: Two arrays: zenith angles and azimuth angles.
+        :return: Two arrays: zenith angles and azimuth angles.
+        :rtype: tuple(numpy.ndarray, numpy.ndarray)
         """
 
         assert len(latitudes) == len(longitudes) == len(unix_times), "Input arrays must be the same length"
@@ -206,7 +237,12 @@ class BufrSsmisObsBuilder(ObsBuilder):
 
     def _add_solar_angles(self, container, category):
         """
-        Compute and add solar zenith and azimuth angles to container
+        Compute and add solar zenith and azimuth angles to the observation container.
+
+        :param container: Observation data container.
+        :type container: Container
+        :param category: Data category to process.
+        :type category: str
         """
 
         satId = container.get('satelliteId', category)
