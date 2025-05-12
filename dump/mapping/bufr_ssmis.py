@@ -30,15 +30,16 @@ def get_default_nprocs(default=8):
 
        srun -n 1 --cpus_per_tasks=12 python bufr_ssmis.py
 
-    2, Run without slurm and tell Python to spawn 12 worker processes via myltiprocessing.Pool 
+    2. Run without slurm and tell Python to spawn 12 worker processes via myltiprocessing.Pool 
 
        export CPUS_PER_TASKS=12
        python bufr_ssmis.py
 
-    :param default: Fallback default if nothing is found.
-    :type default: int
-    :returns: Number of processes to use.
-    :rtype: int
+    Parameters:
+        default: Fallback default if nothing is found.
+
+    Returns:
+        Number of processes to use.
     """
     env_nprocs = os.getenv("CPUS_PER_TASK")
     slurm_nprocs = os.environ.get("SLURM_CPUS_PER_TASK")
@@ -56,20 +57,19 @@ def compute_solar_angles(lat, lon, unix_time):
     """
     Compute solar zenith and azimuth angles for a single point.
 
-    :param lat: Latitude in degrees.
-    :type lat: float
-    :param lon: Longitude in degrees.
-    :type lon: float
-    :param unix_time: Unix timestamp (seconds since 1970-01-01T00:00:00Z).
-    :type unix_time: int64
-
-    :returns: A tuple of (zenith angle, azimuth angle).
-    :rtype: tuple of float
+    Parameters:
+        lat: Latitude in degrees.
+        lon: Longitude in degrees.
+        unix_time: Unix timestamp (seconds since 1970-01-01T00:00:00Z).
+    Returns:
+        tuple: zenith angle, azimuth angle
     """
+
     dt = datetime.fromtimestamp(int(unix_time), tz=timezone.utc)
     altitude = get_altitude(lat, lon, dt)
     azimuth = get_azimuth(lat, lon, dt)
     zenith = 90.0 - altitude
+
     return zenith, azimuth
 
 
@@ -143,10 +143,9 @@ class BufrSsmisObsBuilder(ObsBuilder):
 
     def _add_satellite_ascend_descent_orbit(self, container, category):
         """
-        Determines if the satellite is in ascending or descending mode based on latitude changes.
-
-        :param ephemeris_data: List of dictionaries with 'latitude' values in order of time.
-        :return: "Ascending" if latitude increases, "Descending" if latitude decreases.
+        Determine satellite orbit type (ascending or descending) based on latitude changes
+        if latitude increases, this is ascending orbit and the orbit type is set to 1
+        if latitude decreases, this is descending orbit and the orbit type is set to -1
         """
 
         satId = container.get('satelliteId', category)
@@ -158,6 +157,7 @@ class BufrSsmisObsBuilder(ObsBuilder):
             return
 
         # Get data from container
+        # ephemeris data - latitude values in order of time
         first_lat = container.get('latitude1',category)
         self.log.debug(f'first_lat min/max = {first_lat.min()} {first_lat.max()}')
         second_lat = container.get('latitude2',category)
@@ -180,18 +180,15 @@ class BufrSsmisObsBuilder(ObsBuilder):
         """
         Compute solar zenith and azimuth angles in parallel using multiprocessing.
 
-        :param latitudes: Array of latitudes in degrees.
-        :type latitudes: numpy.ndarray
-        :param longitudes: Array of longitudes in degrees.
-        :type longitudes: numpy.ndarray
-        :param unix_times: Array of Unix timestamps (seconds since 1970-01-01T00:00:00Z).
-        :type unix_times: numpy.ndarray
-        :param nprocs: Number of processes to use. Defaults to the number of CPU cores.
-        :type nprocs: int, optional
+        Parameters:
+            latitudes: Array of latitudes in degrees.
+            longitudes: Array of longitudes in degrees.
+            unix_times: Array of Unix timestamps (seconds since 1970-01-01T00:00:00Z).
+            nprocs: Number of processes to use. Defaults to the number of CPU cores.
 
-        :returns: Two arrays: zenith angles and azimuth angles.
-        :rtype: tuple of numpy.ndarray
+        Returns: Two arrays: zenith angles and azimuth angles.
         """
+
         assert len(latitudes) == len(longitudes) == len(unix_times), "Input arrays must be the same length"
 
         if nprocs is None:
@@ -208,10 +205,14 @@ class BufrSsmisObsBuilder(ObsBuilder):
         zenith_angles, azimuth_angles = zip(*results)
         zenith_angles = np.array(zenith_angles)
         azimuth_angles = np.array(azimuth_angles) 
+
         return zenith_angles, azimuth_angles
 
 
     def _add_solar_angles(self, container, category):
+        """
+        Compute and add solar zenith and azimuth angles to container 
+        """
 
         satId = container.get('satelliteId', category)
         if not satId.size:
@@ -229,14 +230,17 @@ class BufrSsmisObsBuilder(ObsBuilder):
         self.log.debug(f'longitudes min/max = {longitudes.min()} {longitudes.max()}')
         self.log.debug(f'unix_times min/max = {unix_times.min()} {unix_times.max()}')
 
+        # Calculate solar angles
         zenith_angles, azimuth_angles = self._compute_solar_angles_parallel(latitudes, longitudes, unix_times)
 
         self.log.debug(f'zenith_angles min/max = {zenith_angles.min()} {zenith_angles.max()}')
         self.log.debug(f'azimuth_angles min/max = {azimuth_angles.min()} {azimuth_angles.max()}')
 
+        # Add solar angles to contained
         paths = container.get_paths('latitude', category)
         self.log.debug(f'paths = {paths}')
         container.add('solarZenithAngle', zenith_angles, paths, category)
         container.add('solarAzimuthAngle', azimuth_angles, paths, category)
+
 
 add_main_functions(BufrSsmisObsBuilder)
