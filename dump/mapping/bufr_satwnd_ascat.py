@@ -4,8 +4,8 @@ import os
 import numpy as np
 
 import bufr
-from bufr.obs_builder import ObsBuilder, add_main_functions
-from bufr_satwnd_amv_obs_builder import SatWndAmvObsBuilder, map_path
+from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
+from bufr.transforms.wind import compute_wind_components 
 
 
 MAPPING_PATH = map_path('bufr_satwnd_ascat.yaml')
@@ -13,33 +13,17 @@ MAPPING_PATH = map_path('bufr_satwnd_ascat.yaml')
 
 class BufrAscatObsBuilder(ObsBuilder):
     """
-    A class to build satellite wind observations for ASCAT data.
+    A builder class to generate satellite wind observations from ASCAT BUFR input.
 
-    Attributes:
-        _wind_helper (SatWndAmvObsBuilder): Helper class for computing wind components.
+    Inherits from :class:`bufr.obs_builder.ObsBuilder` and uses a mapping file to 
+    extract wind speed and direction, compute wind vector components, and attach 
+    observation metadata.
     """
 
     def __init__(self):
-        """
-        Initializes the BufrAscatObsBuilder.
-
-        Inherits from ObsBuilder and sets up the mapping path and logger.
-        """
-
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
-        self._wind_helper = SatWndAmvObsBuilder(MAPPING_PATH)
 
     def make_obs(self, comm, input_path):
-        """
-        Generates observation data for a given input file.
-
-        Args:
-            comm: Communication handler for parallel processing.
-            input_path (str): Path to the input file.
-
-        Returns:
-            container: The processed observation container.
-        """
 
         # Get container from mapping file first
         self.log.info('Get container from bufr')
@@ -74,7 +58,7 @@ class BufrAscatObsBuilder(ObsBuilder):
             self.log.debug(f'wdir min/max = {wdir.min()} {wdir.max()}')
             self.log.debug(f'wspd min/max = {wspd.min()} {wspd.max()}')
 
-            uob, vob = self._wind_helper._compute_wind_components(wdir, wspd)
+            uob, vob = compute_wind_components(wspd, wdir)
             self.log.debug(f'uob min/max = {uob.min()} {uob.max()}')
             self.log.debug(f'vob min/max = {vob.min()} {vob.max()}')
 
@@ -95,14 +79,15 @@ class BufrAscatObsBuilder(ObsBuilder):
 
     def _get_obs_type(self, container, category):
         """
-        Retrieves the observation type for wind components.
+        Retrieve observation type values for wind components.
 
-        Args:
-            container: The observation container.
-            category: The observation category.
+        :param container: Observation container from BUFR input.
+        :type container: bufr.DataContainer
+        :param category: Subcategory identifier (e.g., sensor/platform group).
+        :type category: tuple
 
-        Returns:
-            np.ndarray: Array containing observation types for the category.
+        :returns: Array filled with observation type (290) for the given category.
+        :rtype: numpy.ndarray
         """
 
         satId = container.get('satelliteId', category)
@@ -119,26 +104,12 @@ class BufrAscatObsBuilder(ObsBuilder):
         return obstype
 
     def _make_description(self):
-        """
-        Constructs metadata descriptions for observations.
-
-        Returns:
-            description: Metadata descriptions for the observation variables.
-        """
-
         description = super()._make_description()
         self._add_new_variable_descriptions(description)
 
         return description
 
     def _add_new_variable_descriptions(self, description):
-        """
-        Adds metadata descriptions for new variables to the container.
-
-        Args:
-            description: Metadata container for descriptions.
-        """
-
         description.add_variables([
             {
                 'name': 'ObsValue/windEastward',
@@ -152,7 +123,7 @@ class BufrAscatObsBuilder(ObsBuilder):
                 'units': 'm s-1',
                 'longName': '10-meter V-Wind Component',
             },
-            {
+                        {
                 'name': 'ObsType/windEastward',
                 'source': 'obstype_windEastward',
                 'units': '1',
