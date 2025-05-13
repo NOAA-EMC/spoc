@@ -5,7 +5,7 @@ import numpy as np
 
 import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
-from bufr.transforms.wind import compute_wind_components 
+from bufr.transforms.wind import compute_wind_components
 
 
 MAPPING_PATH = map_path('bufr_satwnd_ascat.yaml')
@@ -15,8 +15,8 @@ class BufrAscatObsBuilder(ObsBuilder):
     """
     A builder class to generate satellite wind observations from ASCAT BUFR input.
 
-    Inherits from :class:`bufr.obs_builder.ObsBuilder` and uses a mapping file to 
-    extract wind speed and direction, compute wind vector components, and attach 
+    Inherits from :class:`bufr.obs_builder.ObsBuilder` and uses a mapping file to
+    extract wind speed and direction, compute wind vector components, and attach
     observation metadata.
     """
 
@@ -123,7 +123,7 @@ class BufrAscatObsBuilder(ObsBuilder):
                 'units': 'm s-1',
                 'longName': '10-meter V-Wind Component',
             },
-                        {
+            {
                 'name': 'ObsType/windEastward',
                 'source': 'obstype_windEastward',
                 'units': '1',
