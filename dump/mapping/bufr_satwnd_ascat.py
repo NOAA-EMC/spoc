@@ -5,7 +5,7 @@ import numpy as np
 
 import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
-from bufr.transforms.wind import compute_wind_components
+from bufr.transforms import compute_wind_components
 
 
 MAPPING_PATH = map_path('bufr_satwnd_ascat.yaml')
