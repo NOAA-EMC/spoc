@@ -5,8 +5,8 @@ import numpy.ma as ma
 from multiprocessing import Pool, cpu_count
 
 import bufr
-from bufr.obs_builder import ObsBuilder, add_main_functions, map_path, get_default_nprocs
-from bufr.transforms.geometry import compute_solar_angles
+from bufr.obs_builder import ObsBuilder, add_main_functions, map_path, nprocs_per_task
+from bufr.transforms import compute_solar_angles
 
 
 MAPPING_PATH = map_path('bufr_ssmis.yaml')
@@ -138,7 +138,7 @@ class BufrSsmisObsBuilder(ObsBuilder):
         assert len(latitudes) == len(longitudes) == len(unix_times), "Input arrays must be the same length"
 
         if nprocs is None:
-            nprocs = get_default_nprocs()
+            nprocs = nprocs_per_task()
 
         args_list = list(zip(latitudes, longitudes, unix_times))
 
