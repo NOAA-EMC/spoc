@@ -5,11 +5,7 @@ import numpy as np
 
 import bufr
 from bufr.obs_builder import ObsBuilder
-
-
-def map_path(map_file_name):
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    return os.path.join(script_dir, map_file_name)
+from bufr.transforms import compute_wind_components 
 
 
 class SatWndAmvObsBuilder(ObsBuilder):
@@ -129,7 +125,7 @@ class SatWndAmvObsBuilder(ObsBuilder):
         self.log.debug(f'wdir min/max = {wdir.min()} {wdir.max()}')
         self.log.debug(f'wspd min/max = {wspd.min()} {wspd.max()}')
 
-        uob, vob = self._compute_wind_components(wdir, wspd)
+        uob, vob = compute_wind_components(wspd, wdir)
 
         self.log.debug(f'uob min/max = {uob.min()} {uob.max()}')
         self.log.debug(f'vob min/max = {vob.min()} {vob.max()}')
@@ -178,23 +174,6 @@ class SatWndAmvObsBuilder(ObsBuilder):
         raise NotImplementedError('Method _get_obs_type must be implemented in derived classes')
 
     # Private methods
-    def _compute_wind_components(self, wdir, wspd):
-        """
-        Compute the U and V wind components from wind direction and wind speed.
-
-        Parameters:
-            wdir (array-like): Wind direction in degrees (meteorological convention: 0° = North, 90° = East).
-            wspd (array-like): Wind speed.
-
-        Returns:
-            tuple: U and V wind components as numpy arrays with dtype float32.
-        """
-        wdir_rad = np.radians(wdir)  # Convert degrees to radians
-        u = -wspd * np.sin(wdir_rad)
-        v = -wspd * np.cos(wdir_rad)
-
-        return u.astype(np.float32), v.astype(np.float32)
-
     def _get_quality_info_and_gen_app(self, findQi, gnap2D, pccf2D):
         # For NOAA VIIRS data, qi w/o forecast (qifn) is packaged in same
         # vector of qi with ga = 5 (EUMETSAT QI without forecast). Must
@@ -204,8 +183,8 @@ class SatWndAmvObsBuilder(ObsBuilder):
         gDim1, gDim2 = np.shape(gnap2D)
         qDim1, qDim2 = np.shape(pccf2D)
         self.log.info('Generating Application and Quality Information SEARCH')
-        self.log.debug(f'Dimension size of GNAP ({gDim1},{gDim2})')
-        self.log.debug(f'Dimension size of PCCF ({qDim1},{qDim2})')
+        self.log.debug( f'Dimension size of GNAP ({gDim1},{gDim2})')
+        self.log.debug( f'Dimension size of PCCF ({qDim1},{qDim2})')
 
         # 2. Initialize gnap and qifn as None, and search for dimension of
         #    ga with values of 5. If the same column exists for qi, assign
