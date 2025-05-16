@@ -4,8 +4,8 @@ import os
 import numpy as np
 
 import bufr
-from bufr.obs_builder import ObsBuilder
-from bufr.transforms import compute_wind_components 
+from bufr.obs_builder import ObsBuilder, add_dummy_variable
+from bufr.transforms import compute_wind_components
 
 
 class SatWndAmvObsBuilder(ObsBuilder):
@@ -26,14 +26,14 @@ class SatWndAmvObsBuilder(ObsBuilder):
             self.log.debug(f'category = {cat}')
 
             satId = container.get('satelliteId', cat)
-            if not np.any(satId):
+            if not satId.size:
                 self.log.warning(f'category {cat[0]} does not exist in input file')
 
             self._add_wind_obs(container, cat)
 
         # Check
         self.log.debug(f'container list (updated): {container.list()}')
-        self.log.debug('all_sub_categories {container.all_sub_categories()}')
+        self.log.debug(f'all_sub_categories {container.all_sub_categories()}')
 
         return container
 
@@ -70,6 +70,17 @@ class SatWndAmvObsBuilder(ObsBuilder):
                 'source': 'windNorthward',
                 'units': 'm s-1',
                 'longName': 'Northward Wind Component',
+            },
+            {
+                'name': 'MetaData/height',
+                'source': 'height',
+                'units': 'm',
+                'longName': 'Height of Observation',
+            },
+            {
+                'name': 'MetaData/stationElevation',
+                'source': 'stationElevation',
+                'units': 'm',
             }])
 
     def _add_quality_info_and_gen_app_descriptions(self, description):
@@ -89,24 +100,22 @@ class SatWndAmvObsBuilder(ObsBuilder):
 
     # Methods that are used to extend the obs data container
     def _add_wind_obs(self, container, cat):
-        # Add new variables: ObsType/windEastward & ObsType/windNorthward
-        swcm = container.get('windComputationMethod', cat)
-        chanfreq = container.get('sensorCentralFrequency', cat)
 
-        if swcm.size == 0:
+        satId = container.get('satelliteId', cat)
+        if not satId.size:
             self.log.warning(f'category {cat[0]} does not exist in input file')
-            paths = container.get_paths('variables/windComputationMethod', cat)
-            obstype = container.get('variables/windComputationMethod', cat)
-            container.add('variables/obstype_uwind', obstype, paths, cat)
-            container.add('variables/obstype_vwind', obstype, paths, cat)
-
-            paths = container.get_paths('variables/windSpeed', cat)
-            wob = container.get('variables/windSpeed', cat)
-            container.add('variables/windEastward', wob, paths, cat)
-            container.add('variables/windNorthward', wob, paths, cat)
+            add_dummy_variable(container, 'obstype_uwind', cat, 'windComputationMethod')
+            add_dummy_variable(container, 'obstype_vwind', cat, 'windComputationMethod')
+            add_dummy_variable(container, 'windEastward', cat, 'windSpeed')
+            add_dummy_variable(container, 'windNorthward', cat, 'windSpeed')
+            add_dummy_variable(container, 'height', cat, 'pressure')
+            add_dummy_variable(container, 'stationElevation', cat, 'pressure')
             return
 
-        # self.log.debug(f'swcm min/max = {swcm.min()} {swcm.max()}')
+        # Add new ObsType variables: ObsType/windEastward & ObsType/windNorthward
+        swcm = container.get('windComputationMethod', cat)
+        chanfreq = container.get('sensorCentralFrequency', cat)
+        self.log.debug(f'swcm min/max = {swcm.min()} {swcm.max()}')
         self.log.debug('chanfreq min/max = {chanfreq.min()} {chanfreq.max()}')
 
         obstype = self._get_obs_type(swcm, chanfreq)
@@ -118,7 +127,7 @@ class SatWndAmvObsBuilder(ObsBuilder):
         container.add('obstype_uwind', obstype, paths, cat)
         container.add('obstype_vwind', obstype, paths, cat)
 
-        # Add new variables: ObsValue/windEastward & ObsValue/windNorthward
+        # Add new ObsValue variables: ObsValue/windEastward & ObsValue/windNorthward
         wdir = container.get('windDirection', cat)
         wspd = container.get('windSpeed', cat)
 
@@ -134,6 +143,15 @@ class SatWndAmvObsBuilder(ObsBuilder):
         container.add('windEastward', uob, paths, cat)
         container.add('windNorthward', vob, paths, cat)
 
+        # Add new MetaData variables: MetaData/height & MetaData/stationElevation
+        pressure = container.get("pressure", cat)
+        height = np.full_like(pressure, fill_value=pressure.fill_value, dtype=np.float32)
+        stnelev = np.full_like(pressure, fill_value=pressure.fill_value, dtype=np.float32)
+
+        paths = container.get_paths('pressure', cat)
+        container.add('height', height, paths, cat)
+        container.add('stationElevation', stnelev, paths, cat)
+
     def _add_quality_info_and_gen_app(self, findQi, container, cat):
         # Add new variables: MetaData/windGeneratingApplication and qiWithoutForecast
         gnap2D = container.get('generatingApplication', cat)
@@ -141,10 +159,8 @@ class SatWndAmvObsBuilder(ObsBuilder):
         satId = container.get('satelliteId', cat)
 
         if not satId.size:
-            paths = container.get_paths('windComputationMethod', cat)
-            dummy = container.get('windSpeed', cat)
-            container.add('windGeneratingApplication', dummy, paths, cat)
-            container.add('qualityInformationWithoutForecast', dummy, paths, cat)
+            add_dummy_variable(container, 'windGeneratingApplication', cat, 'windComputationMethod')
+            add_dummy_variable(container, 'qualityInformationWithoutForecast', cat, 'windSpeed')
             return
 
         gnap, qifn = self._get_quality_info_and_gen_app(findQi, gnap2D, pccf2D)
@@ -183,8 +199,8 @@ class SatWndAmvObsBuilder(ObsBuilder):
         gDim1, gDim2 = np.shape(gnap2D)
         qDim1, qDim2 = np.shape(pccf2D)
         self.log.info('Generating Application and Quality Information SEARCH')
-        self.log.debug( f'Dimension size of GNAP ({gDim1},{gDim2})')
-        self.log.debug( f'Dimension size of PCCF ({qDim1},{qDim2})')
+        self.log.debug(f'Dimension size of GNAP ({gDim1},{gDim2})')
+        self.log.debug(f'Dimension size of PCCF ({qDim1},{qDim2})')
 
         # 2. Initialize gnap and qifn as None, and search for dimension of
         #    ga with values of 5. If the same column exists for qi, assign
@@ -201,7 +217,7 @@ class SatWndAmvObsBuilder(ObsBuilder):
                 else:
                     self.log.info(f'ERROR: GNAP column {i} outside of PCCF dimension {qDim2}')
         if (gnap is None) & (qifn is None):
-            raise ValueError(f'GNAP == {findQI} NOT FOUND OR OUT OF PCCF DIMENSION-RANGE, WILL FAIL!')
+            raise ValueError(f'GNAP == {findQi} NOT FOUND OR OUT OF PCCF DIMENSION-RANGE, WILL FAIL!')
         # If EE is needed, key search on np.unique(gnap2D[:,i].squeeze()) == 7 instead
         # NOTE: Make sure to return np.float32 or np.int32 types as appropriate!!!
         return gnap.astype(np.int32), qifn.astype(np.int32)
