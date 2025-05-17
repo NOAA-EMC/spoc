@@ -30,10 +30,12 @@ bufr:
 
     sensorCentralFrequency:
       query: "*/SCCF"
+      type: float
 
     pressure:
       # [NESDIS, EUMETSAT]
       query: "[*/PRLC, */PRLC[1]]"
+      type: float
 
     # Processing Center
     dataProviderOrigin:
@@ -49,6 +51,7 @@ bufr:
     qualityInformation:
       # [NESDIS, EUMETSAT]
       query: "[*/GQCPRMS/PCCF, */AMVQIC/PCCF]"
+      type: float
 
     # Wind Retrieval Method Information - Computation 
     windComputationMethod:
@@ -57,6 +60,7 @@ bufr:
     # ObsValue - Wind Direction
     windDirection:
       query: '*/WDIR'
+      type: float
 
     # ObsValue - Wind Speed
     windSpeed:
@@ -75,10 +79,6 @@ bufr:
           _223: n19
 
 encoder:
-# type: netcdf
-
-# dimensions:
-
   globals:
     - name: "platformCommonName"
       type: string

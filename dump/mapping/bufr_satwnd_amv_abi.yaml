@@ -165,6 +165,7 @@ encoder:
     - name: "MetaData/qiWithoutForecast"
       source: variables/qualityInformationWithoutForecast
       longName: "Quality Information Without Forecast"
+      units: "percent"
 
     - name: "MetaData/expectedError"
       source: variables/expectedError

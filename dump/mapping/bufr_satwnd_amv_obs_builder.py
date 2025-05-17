@@ -5,7 +5,7 @@ import numpy as np
 
 import bufr
 from bufr.obs_builder import ObsBuilder, add_dummy_variable
-from bufr.transforms import compute_wind_components
+from bufr.transforms import compute_wind_components 
 
 
 class SatWndAmvObsBuilder(ObsBuilder):
@@ -81,6 +81,7 @@ class SatWndAmvObsBuilder(ObsBuilder):
                 'name': 'MetaData/stationElevation',
                 'source': 'stationElevation',
                 'units': 'm',
+                'longName': 'Station Elevation',
             }])
 
     def _add_quality_info_and_gen_app_descriptions(self, description):
@@ -94,7 +95,7 @@ class SatWndAmvObsBuilder(ObsBuilder):
             {
                 'name': 'MetaData/qiWithoutForecast',
                 'source': 'qualityInformationWithoutForecast',
-                'units': '1',
+                'units': 'percent',
                 'longName': 'Quality Information Without Forecast',
             }])
 
@@ -102,7 +103,7 @@ class SatWndAmvObsBuilder(ObsBuilder):
     def _add_wind_obs(self, container, cat):
 
         satId = container.get('satelliteId', cat)
-        if not satId.size:
+        if not satId.size: 
             self.log.warning(f'category {cat[0]} does not exist in input file')
             add_dummy_variable(container, 'obstype_uwind', cat, 'windComputationMethod')
             add_dummy_variable(container, 'obstype_vwind', cat, 'windComputationMethod')
@@ -152,6 +153,7 @@ class SatWndAmvObsBuilder(ObsBuilder):
         container.add('height', height, paths, cat)
         container.add('stationElevation', stnelev, paths, cat)
 
+
     def _add_quality_info_and_gen_app(self, findQi, container, cat):
         # Add new variables: MetaData/windGeneratingApplication and qiWithoutForecast
         gnap2D = container.get('generatingApplication', cat)
@@ -164,13 +166,14 @@ class SatWndAmvObsBuilder(ObsBuilder):
             return
 
         gnap, qifn = self._get_quality_info_and_gen_app(findQi, gnap2D, pccf2D)
-
         self.log.debug(f'gnap min/max = {gnap.min()} {gnap.max()}')
         self.log.debug(f'qifn min/max = {qifn.min()} {qifn.max()}')
 
         paths = container.get_paths('windComputationMethod', cat)
         container.add('windGeneratingApplication', gnap, paths, cat)
+        paths = container.get_paths('windSpeed', cat)
         container.add('qualityInformationWithoutForecast', qifn, paths, cat)
+
 
     def _get_obs_type(self, swcm, chan_freq=0):
         """
@@ -199,8 +202,8 @@ class SatWndAmvObsBuilder(ObsBuilder):
         gDim1, gDim2 = np.shape(gnap2D)
         qDim1, qDim2 = np.shape(pccf2D)
         self.log.info('Generating Application and Quality Information SEARCH')
-        self.log.debug(f'Dimension size of GNAP ({gDim1},{gDim2})')
-        self.log.debug(f'Dimension size of PCCF ({qDim1},{qDim2})')
+        self.log.debug( f'Dimension size of GNAP ({gDim1},{gDim2})')
+        self.log.debug( f'Dimension size of PCCF ({qDim1},{qDim2})')
 
         # 2. Initialize gnap and qifn as None, and search for dimension of
         #    ga with values of 5. If the same column exists for qi, assign
@@ -209,15 +212,14 @@ class SatWndAmvObsBuilder(ObsBuilder):
         gnap = None
         qifn = None
         for i in range(gDim2):
-            if np.unique(gnap2D[:, i].squeeze()) == findQi:
-                if i <= qDim2:
+            if np.all(np.unique(gnap2D[:, i]) == findQi):
+                if i < qDim2:
                     self.log.info(f'GNAP/PCCF found for column {i}')
-                    gnap = gnap2D[:, i].squeeze()
-                    qifn = pccf2D[:, i].squeeze()
+                    gnap = gnap2D[:, i].copy()
+                    qifn = pccf2D[:, i].copy()
                 else:
                     self.log.info(f'ERROR: GNAP column {i} outside of PCCF dimension {qDim2}')
         if (gnap is None) & (qifn is None):
             raise ValueError(f'GNAP == {findQi} NOT FOUND OR OUT OF PCCF DIMENSION-RANGE, WILL FAIL!')
         # If EE is needed, key search on np.unique(gnap2D[:,i].squeeze()) == 7 instead
-        # NOTE: Make sure to return np.float32 or np.int32 types as appropriate!!!
-        return gnap.astype(np.int32), qifn.astype(np.int32)
+        return gnap, qifn

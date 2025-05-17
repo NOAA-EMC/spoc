@@ -29,9 +29,11 @@ bufr:
 
     sensorCentralFrequency:
       query: "*/SCCF"
+      type: float
 
     pressure:
       query: "*/PRLC[1]"
+      type: float
 
     # Processing Center
     dataProviderOrigin:
@@ -44,6 +46,7 @@ bufr:
     # Quality Information Without Forecast
     qualityInformationWithoutForecast:
       query: '*/AMVQIC{2}/PCCF'
+      type: float
 
     # Wind Retrieval Method Information - Computation 
     windComputationMethod:
@@ -52,6 +55,7 @@ bufr:
     # ObsValue - Wind Direction
     windDirection:
       query: '*/WDIR'
+      type: float
 
     # ObsValue - Wind Speed
     windSpeed:
@@ -151,6 +155,7 @@ encoder:
     - name: "MetaData/qiWithoutForecast"
       source: variables/qualityInformationWithoutForecast
       longName: "Quality Information Without Forecast"
+      units: "percent"
 
     - name: "MetaData/pressure"
       source: variables/pressure
