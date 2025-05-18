@@ -4,7 +4,7 @@ import os
 import numpy as np
 
 import bufr
-from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
+from bufr.obs_builder import ObsBuilder, add_main_functions, map_path, add_dummy_variable
 from bufr.transforms import compute_wind_components
 
 
@@ -42,34 +42,7 @@ class BufrAscatObsBuilder(ObsBuilder):
             if not np.any(satId):
                 self.log.warning(f'category {cat[0]} does not exist in input file')
 
-                paths = container.get_paths('windSpeedAt10M', cat)
-                dummy = container.get('windSpeedAt10M', cat)
-                container.add('windEastward', dummy, paths, cat)
-                container.add('windNorthward', dummy, paths, cat)
-
-                paths = container.get_paths('satelliteId', cat)
-                dummy = container.get('satelliteId', cat)
-                container.add('obstype_windEastward', dummy, paths, cat)
-                container.add('obstype_windNorthward', dummy, paths, cat)
-                continue
-
-            wdir = container.get('windDirectionAt10M', cat)
-            wspd = container.get('windSpeedAt10M', cat)
-            self.log.debug(f'wdir min/max = {wdir.min()} {wdir.max()}')
-            self.log.debug(f'wspd min/max = {wspd.min()} {wspd.max()}')
-
-            uob, vob = compute_wind_components(wspd, wdir)
-            self.log.debug(f'uob min/max = {uob.min()} {uob.max()}')
-            self.log.debug(f'vob min/max = {vob.min()} {vob.max()}')
-
-            paths = container.get_paths('windSpeedAt10M', cat)
-            container.add('windEastward', uob, paths, cat)
-            container.add('windNorthward', vob, paths, cat)
-
-            obstype = self._get_obs_type(container, cat)
-            paths = container.get_paths('satelliteId', cat)
-            container.add('obstype_windEastward', obstype, paths, cat)
-            container.add('obstype_windNorthward', obstype, paths, cat)
+            self._add_wind_obs(container, cat)
 
         # Check
         self.log.debug(f'container list (updated): {container.list()}')
@@ -93,10 +66,8 @@ class BufrAscatObsBuilder(ObsBuilder):
         satId = container.get('satelliteId', category)
 
         if not satId.size:
-            paths = container.get_paths('satelliteId', cat)
-            dummy = container.get('satelliteId', cat)
-            container.add('obstype_windEastward', dummy, paths, cat)
-            container.add('obstype_windNorthward', dummy, paths, cat)
+            add_dummy_variable(container, 'obstype_windEastward', cat, 'satelliteId')
+            add_dummy_variable(container, 'obstype_windNorthward', cat, 'satelliteId')
             return
 
         obstype = np.full_like(satId, 290)
@@ -105,11 +76,11 @@ class BufrAscatObsBuilder(ObsBuilder):
 
     def _make_description(self):
         description = super()._make_description()
-        self._add_new_variable_descriptions(description)
+        self._add_variable_descriptions(description)
 
         return description
 
-    def _add_new_variable_descriptions(self, description):
+    def _add_variable_descriptions(self, description):
         description.add_variables([
             {
                 'name': 'ObsValue/windEastward',
@@ -134,7 +105,63 @@ class BufrAscatObsBuilder(ObsBuilder):
                 'source': 'obstype_windNorthward',
                 'units': '1',
                 'longName': 'Observation Type for Wind Components',
+            },
+            {
+                'name': 'MetaData/height',
+                'source': 'height',
+                'units': 'm',
+                'longName': 'Height of Observation',
+            },
+            {
+                'name': 'MetaData/stationElevation',
+                'source': 'stationElevation',
+                'units': 'm',
+                'longName': 'Station Elevation',
             }])
+
+    # Methods that are used to extend the obs data container
+    def _add_wind_obs(self, container, cat):
+
+        satId = container.get('satelliteId', cat)
+        if not satId.size:
+            self.log.warning(f'category {cat[0]} does not exist in input file')
+            add_dummy_variable(container, 'obstype_windEastward', cat, 'satelliteId')
+            add_dummy_variable(container, 'obstype_windNorthward', cat, 'satelliteId')
+            add_dummy_variable(container, 'windEastward', cat, 'windSpeedAt10M')
+            add_dummy_variable(container, 'windNorthward', cat, 'windSpeedAt10M')
+            add_dummy_variable(container, 'height', cat, 'latitude')
+            add_dummy_variable(container, 'stationElevation', cat, 'latitude')
+            return
+
+        # Add new ObsValue variables : ObsValue/windEastward & ObsValue/windNorthward 
+        wdir = container.get('windDirectionAt10M', cat)
+        wspd = container.get('windSpeedAt10M', cat)
+        self.log.debug(f'wdir min/max = {wdir.min()} {wdir.max()}')
+        self.log.debug(f'wspd min/max = {wspd.min()} {wspd.max()}')
+
+        uob, vob = compute_wind_components(wspd, wdir)
+        self.log.debug(f'uob min/max = {uob.min()} {uob.max()}')
+        self.log.debug(f'vob min/max = {vob.min()} {vob.max()}')
+
+        paths = container.get_paths('windSpeedAt10M', cat)
+        container.add('windEastward', uob, paths, cat)
+        container.add('windNorthward', vob, paths, cat)
+
+        # Add new ObsType variables : ObsType/windEastward & ObsType/windNorthward 
+        obstype = self._get_obs_type(container, cat)
+
+        paths = container.get_paths('satelliteId', cat)
+        container.add('obstype_windEastward', obstype, paths, cat)
+        container.add('obstype_windNorthward', obstype, paths, cat)
+
+        # Add new MetaData variables: MetaData/height & MetaData/stationElevation
+        latitude = container.get("latitude", cat)
+        height = np.full_like(latitude, fill_value=latitude.fill_value, dtype=np.float32)
+        stnelev = np.full_like(latitude, fill_value=latitude.fill_value, dtype=np.float32)
+
+        paths = container.get_paths('latitude', cat)
+        container.add('height', height, paths, cat)
+        container.add('stationElevation', stnelev, paths, cat)
 
 
 # Add main functions create_obs_file or create_obs_group
