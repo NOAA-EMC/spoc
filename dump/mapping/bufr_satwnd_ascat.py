@@ -133,7 +133,7 @@ class BufrAscatObsBuilder(ObsBuilder):
             add_dummy_variable(container, 'stationElevation', cat, 'latitude')
             return
 
-        # Add new ObsValue variables : ObsValue/windEastward & ObsValue/windNorthward 
+        # Add new ObsValue variables : ObsValue/windEastward & ObsValue/windNorthward
         wdir = container.get('windDirectionAt10M', cat)
         wspd = container.get('windSpeedAt10M', cat)
         self.log.debug(f'wdir min/max = {wdir.min()} {wdir.max()}')
@@ -147,7 +147,7 @@ class BufrAscatObsBuilder(ObsBuilder):
         container.add('windEastward', uob, paths, cat)
         container.add('windNorthward', vob, paths, cat)
 
-        # Add new ObsType variables : ObsType/windEastward & ObsType/windNorthward 
+        # Add new ObsType variables : ObsType/windEastward & ObsType/windNorthward
         obstype = self._get_obs_type(container, cat)
 
         paths = container.get_paths('satelliteId', cat)
