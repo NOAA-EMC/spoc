@@ -5,7 +5,8 @@ import numpy.ma as ma
 from multiprocessing import Pool, cpu_count
 
 import bufr
-from bufr.obs_builder import ObsBuilder, add_main_functions, map_path, nprocs_per_task
+from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
+from bufr.obs_builder import nprocs_per_task, add_dummy_variable
 from bufr.transforms import compute_solar_angles
 
 
@@ -94,9 +95,7 @@ class BufrSsmisObsBuilder(ObsBuilder):
         satId = container.get('satelliteId', category)
 
         if not satId.size:
-            paths = container.get_paths('fieldOfViewNumber', category)
-            dummy = container.get('fieldOfViewNumber', category)
-            container.add('satelliteAscendingFlag', dummy, paths, category)
+            add_dummy_variable(container, 'satelliteAscendingFlag', category, 'fieldOfViewNumber')
             return
 
         # Get data from container
@@ -166,10 +165,8 @@ class BufrSsmisObsBuilder(ObsBuilder):
 
         satId = container.get('satelliteId', category)
         if not satId.size:
-            paths = container.get_paths('latitude', category)
-            dummy = container.get('latitude', category)
-            container.add('solarZenithAngle', dummy, paths, category)
-            container.add('solarAzimuthAngle', dummy, paths, category)
+            add_dummy_variable(container, 'solarZenithAngle', category, 'latitude')
+            add_dummy_variable(container, 'solarAzimuthAngle', category, 'latitude')
             return
 
         # Prepare input arrays
