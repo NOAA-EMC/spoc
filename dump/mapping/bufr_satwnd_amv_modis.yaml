@@ -69,10 +69,6 @@ bufr:
           _784: aqua
 
 encoder:
-# type: netcdf
-
-# dimensions:
-
   globals:
     - name: "platformCommonName"
       type: string
