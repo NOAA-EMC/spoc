@@ -79,8 +79,6 @@ bufr:
           _226: n21
 
 encoder:
-  type: netcdf
-
   dimensions:
     - name: Channel
       source: variables/sensorChannelNumber
