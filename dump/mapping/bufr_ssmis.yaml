@@ -79,19 +79,12 @@ bufr:
           _286: f18
 
 encoder:
+  type: netcdf
+
   dimensions:
     - name: Channel
       source: variables/sensorChannelNumber  
       path: "*/SSMISCHN"
-  
-  globals:
-    - name: "platformCommonName"
-      type: string
-      value: "SSMIS-DMSP18"
-  
-    - name: "platformLongDescription"
-      type: string
-      value: "MTYP 021-201 DMSP SSM/IS Tb (UNIFIED PRE-PROCESSOR)"
   
   globals:
     - name: "platformCommonName"
