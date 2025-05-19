@@ -79,7 +79,7 @@ bufr:
           _226: n21
 
 encoder:
-#  type: netcdf
+  type: netcdf
 
   dimensions:
     - name: Channel
