@@ -151,7 +151,7 @@ class BufrSsmisObsBuilder(ObsBuilder):
         zenith_angles = np.array(zenith_angles)
         azimuth_angles = np.array(azimuth_angles)
 
-        return zenith_angles, azimuth_angles
+        return zenith_angles.astype(np.float32), azimuth_angles.astype(np.float32)
 
     def _add_solar_angles(self, container, category):
         """
