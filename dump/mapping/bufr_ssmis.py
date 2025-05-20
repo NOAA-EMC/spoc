@@ -46,7 +46,7 @@ class BufrSsmisObsBuilder(ObsBuilder):
             if not np.any(satId):
                 self.log.warning(f'category {cat[0]} does not exist in input file')
 
-            self._add_solar_angles(container, cat)
+            self._add_sensor_zenith_and_solar_angles(container, cat)
             self._add_satellite_ascend_descent_orbit(container, cat)
 
         # Check
@@ -66,8 +66,19 @@ class BufrSsmisObsBuilder(ObsBuilder):
             {
                 'name': 'MetaData/satelliteAscendingFlag',
                 'source': 'satelliteAscendingFlag',
-                'units': '1',
                 'longName': 'Satellite Ascending/Descending Orbit Flag (Ascend:1; Descend:-1)',
+            },
+            {
+                'name': 'MetaData/sensorZenithAngle',
+                'source': 'sensorZenithAngle',
+                'units': 'degree',
+                'longName': 'Sensor Zenith Angle',
+            },
+            {
+                'name': 'MetaData/sensorAzimuthAngle',
+                'source': 'sensorAzimuthAngle',
+                'units': 'degree',
+                'longName': 'Sensor Azimuth Angle',
             },
             {
                 'name': 'MetaData/solarZenithAngle',
@@ -153,7 +164,7 @@ class BufrSsmisObsBuilder(ObsBuilder):
 
         return zenith_angles.astype(np.float32), azimuth_angles.astype(np.float32)
 
-    def _add_solar_angles(self, container, category):
+    def _add_sensor_zenith_and_solar_angles(self, container, category):
         """
         Compute and add solar zenith and azimuth angles to the observation container.
 
@@ -167,6 +178,8 @@ class BufrSsmisObsBuilder(ObsBuilder):
         if not satId.size:
             add_dummy_variable(container, 'solarZenithAngle', category, 'latitude')
             add_dummy_variable(container, 'solarAzimuthAngle', category, 'latitude')
+            add_dummy_variable(container, 'sensorZenithAngle', category, 'latitude')
+            add_dummy_variable(container, 'sensorAzimuthAngle', category, 'latitude')
             return
 
         # Prepare input arrays
@@ -183,11 +196,17 @@ class BufrSsmisObsBuilder(ObsBuilder):
         self.log.debug(f'zenith_angles min/max = {zenith_angles.min()} {zenith_angles.max()}')
         self.log.debug(f'azimuth_angles min/max = {azimuth_angles.min()} {azimuth_angles.max()}')
 
-        # Add solar angles to contained
+        # Add solar angles
         paths = container.get_paths('latitude', category)
         self.log.debug(f'paths = {paths}')
         container.add('solarZenithAngle', zenith_angles, paths, category)
         container.add('solarAzimuthAngle', azimuth_angles, paths, category)
+
+        # Add sensor angles
+        sensor_zenith = np.full_like(latitudes, 53.0)
+        sensor_azimuth = np.full_like(latitudes, latitudes.fill_value)
+        container.add('sensorZenithAngle', sensor_zenith, paths, category)
+        container.add('sensorAzimuthAngle', sensor_azimuth, paths, category)
 
 
 # Add main functions create_obs_file or create_obs_group
