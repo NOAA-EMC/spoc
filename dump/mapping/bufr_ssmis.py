@@ -2,20 +2,19 @@
 import os
 import numpy as np
 import numpy.ma as ma
-from multiprocessing import Pool, cpu_count
 
 import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
 from bufr.obs_builder import nprocs_per_task, add_dummy_variable
-from bufr.transforms import compute_solar_angles
-
+from bufr.transforms import compute_solar_angles 
+from datetime import datetime
 
 MAPPING_PATH = map_path('bufr_ssmis.yaml')
 
 
 class BufrSsmisObsBuilder(ObsBuilder):
     """
-    Class for building observations from SSMIS BUFR data.
+    Class for building observations from ssmis BUFR data.
 
     This class extends `ObsBuilder` to include specific logic for processing
     SSMIS data such as solar angles and satellite ascending/descending orbits.
@@ -128,42 +127,6 @@ class BufrSsmisObsBuilder(ObsBuilder):
         self.log.debug(f'paths = {paths}')
         container.add('satelliteAscendingFlag', orbit, paths, category)
 
-    def _compute_solar_angles_parallel(self, latitudes, longitudes, unix_times, nprocs=None):
-        """
-        Compute solar zenith and azimuth angles in parallel using multiprocessing.
-
-        :param latitudes: Array of latitudes in degrees.
-        :type latitudes: numpy.ndarray
-        :param longitudes: Array of longitudes in degrees.
-        :type longitudes: numpy.ndarray
-        :param unix_times: Array of Unix timestamps (seconds since 1970-01-01T00:00:00Z).
-        :type unix_times: numpy.ndarray
-        :param nprocs: Number of processes to use. Defaults to the number of CPU cores.
-        :type nprocs: int, optional
-
-        :return: Two arrays: zenith angles and azimuth angles.
-        :rtype: tuple(numpy.ndarray, numpy.ndarray)
-        """
-
-        assert len(latitudes) == len(longitudes) == len(unix_times), "Input arrays must be the same length"
-
-        if nprocs is None:
-            nprocs = nprocs_per_task()
-
-        args_list = list(zip(latitudes, longitudes, unix_times))
-
-        self.log.debug(f'Using {nprocs} processes to compute solar angles.')
-
-        with Pool(nprocs) as pool:
-            results = pool.starmap(compute_solar_angles, args_list)
-
-        self.log.debug(f'Using {nprocs} processes to compute solar angles --- done')
-        zenith_angles, azimuth_angles = zip(*results)
-        zenith_angles = np.array(zenith_angles)
-        azimuth_angles = np.array(azimuth_angles)
-
-        return zenith_angles.astype(np.float32), azimuth_angles.astype(np.float32)
-
     def _add_sensor_zenith_and_solar_angles(self, container, category):
         """
         Compute and add solar zenith and azimuth angles to the observation container.
@@ -191,7 +154,7 @@ class BufrSsmisObsBuilder(ObsBuilder):
         self.log.debug(f'unix_times min/max = {unix_times.min()} {unix_times.max()}')
 
         # Calculate solar angles
-        zenith_angles, azimuth_angles = self._compute_solar_angles_parallel(latitudes, longitudes, unix_times)
+        zenith_angles, azimuth_angles = compute_solar_angles(latitudes, longitudes, unix_times)
 
         self.log.debug(f'zenith_angles min/max = {zenith_angles.min()} {zenith_angles.max()}')
         self.log.debug(f'azimuth_angles min/max = {azimuth_angles.min()} {azimuth_angles.max()}')
