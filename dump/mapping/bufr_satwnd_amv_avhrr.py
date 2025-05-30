@@ -49,8 +49,14 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
         satId = container.get('satelliteId', cat)
 
         if not satId.size:
-            add_dummy_variable(container, 'windGeneratingApplication', cat, 'windComputationMethod')
-            add_dummy_variable(container, 'qualityInformationWithoutForecast', cat, 'windSpeed')
+
+            dummy_mappings = [
+                ('windGeneratingApplication', 'windComputationMethod'),
+                ('qualityInformationWithoutForecast', 'windSpeed')
+            ]
+            for target_var, source_var in dummy_mappings:
+                add_dummy_variable(container, target_var, cat, source_var)
+
             return
 
         gnap, qifn = self._get_avhrr_quality_info_and_gen_app(gnap2D, pccf2D, satId)

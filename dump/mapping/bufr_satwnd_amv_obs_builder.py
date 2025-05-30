@@ -30,6 +30,7 @@ class SatWndAmvObsBuilder(ObsBuilder):
                 self.log.warning(f'category {cat[0]} does not exist in input file')
 
             self._add_wind_obs(container, cat)
+            self._add_metadata(container, cat)
 
         # Check
         self.log.debug(f'container list (updated): {container.list()}')
@@ -41,6 +42,8 @@ class SatWndAmvObsBuilder(ObsBuilder):
     def _make_description(self):
         description = super()._make_description()
         self._add_wind_descriptions(description)
+        self._add_metadata_descriptions(description)
+        self._remove_descriptions(description)
 
         return description
 
@@ -50,13 +53,11 @@ class SatWndAmvObsBuilder(ObsBuilder):
             {
                 'name': 'ObsType/windEastward',
                 'source': 'obstype_uwind',
-                'units': '1',
                 'longName': 'Observation Type based on Satellite-derived Wind Computation Method and Spectral Band',
             },
             {
                 'name': 'ObsType/windNorthward',
                 'source': 'obstype_vwind',
-                'units': '1',
                 'longName': 'Observation Type based on Satellite-derived Wind Computation Method and Spectral Band',
             },
             {
@@ -70,7 +71,10 @@ class SatWndAmvObsBuilder(ObsBuilder):
                 'source': 'windNorthward',
                 'units': 'm s-1',
                 'longName': 'Northward Wind Component',
-            },
+            }])
+
+    def _add_metadata_descriptions(self, description):
+        description.add_variables([
             {
                 'name': 'MetaData/height',
                 'source': 'height',
@@ -84,12 +88,15 @@ class SatWndAmvObsBuilder(ObsBuilder):
                 'longName': 'Station Elevation',
             }])
 
+    def _remove_descriptions(self, description):
+        description.remove_variable('ObsValue/windDirection')
+        description.remove_variable('ObsValue/windSpeed')
+
     def _add_quality_info_and_gen_app_descriptions(self, description):
         description.add_variables([
             {
                 'name': 'MetaData/windGeneratingApplication',
                 'source': 'windGeneratingApplication',
-                'units': '1',
                 'longName': 'Wind Generating Application',
             },
             {
@@ -101,16 +108,19 @@ class SatWndAmvObsBuilder(ObsBuilder):
 
     # Methods that are used to extend the obs data container
     def _add_wind_obs(self, container, cat):
-
         satId = container.get('satelliteId', cat)
         if not satId.size:
             self.log.warning(f'category {cat[0]} does not exist in input file')
-            add_dummy_variable(container, 'obstype_uwind', cat, 'windComputationMethod')
-            add_dummy_variable(container, 'obstype_vwind', cat, 'windComputationMethod')
-            add_dummy_variable(container, 'windEastward', cat, 'windSpeed')
-            add_dummy_variable(container, 'windNorthward', cat, 'windSpeed')
-            add_dummy_variable(container, 'height', cat, 'pressure')
-            add_dummy_variable(container, 'stationElevation', cat, 'pressure')
+
+            dummy_mappings = [
+                ('obstype_uwind', 'satelliteId'),
+                ('obstype_vwind', 'satelliteId'),
+                ('windEastward', 'windSpeed'),
+                ('windNorthward', 'windSpeed')
+            ]
+            for target_var, source_var in dummy_mappings:
+                add_dummy_variable(container, target_var, cat, source_var)
+
             return
 
         # Add new ObsType variables: ObsType/windEastward & ObsType/windNorthward
@@ -144,6 +154,20 @@ class SatWndAmvObsBuilder(ObsBuilder):
         container.add('windEastward', uob, paths, cat)
         container.add('windNorthward', vob, paths, cat)
 
+    def _add_metadata(self, container, cat):
+        satId = container.get('satelliteId', cat)
+        if not satId.size:
+            self.log.warning(f'category {cat[0]} does not exist in input file')
+
+            dummy_mappings = [
+                ('height', 'pressure'),
+                ('stationElevation', 'pressure')
+            ]
+            for target_var, source_var in dummy_mappings:
+                add_dummy_variable(container, target_var, cat, source_var)
+
+            return
+
         # Add new MetaData variables: MetaData/height & MetaData/stationElevation
         pressure = container.get("pressure", cat)
         height = np.full_like(pressure, fill_value=pressure.fill_value, dtype=np.float32)
@@ -160,8 +184,14 @@ class SatWndAmvObsBuilder(ObsBuilder):
         satId = container.get('satelliteId', cat)
 
         if not satId.size:
-            add_dummy_variable(container, 'windGeneratingApplication', cat, 'windComputationMethod')
-            add_dummy_variable(container, 'qualityInformationWithoutForecast', cat, 'windSpeed')
+
+            dummy_mappings = [
+                ('windGeneratingApplication', 'windComputationMethod'),
+                ('qualityInformationWithoutForecast', 'windSpeed')
+            ]
+            for target_var, source_var in dummy_mappings:
+                add_dummy_variable(container, target_var, cat, source_var)
+
             return
 
         gnap, qifn = self._get_quality_info_and_gen_app(findQi, gnap2D, pccf2D)
