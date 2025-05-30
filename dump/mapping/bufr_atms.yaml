@@ -19,14 +19,12 @@ bufr:
     satelliteId:
       query: "*/SAID"
 
-    satelliteInstrument:
-      query: "*/SIID"
-
     fieldOfViewNumber:
       query: "*/FOVN"
 
     heightOfStation:
       query: "*/HMSL"
+      type: float
 
     solarZenithAngle:
       query: "*/SOZA"
@@ -75,14 +73,16 @@ bufr:
           _226: n21
 
 encoder:
-# type: netcdf
-
   dimensions:
     - name: Channel
       source: variables/sensorChannelNumber
       path: "*/ATMSCH"
 
   globals:
+    - name: "description"
+      type: string
+      value: "ATMS Level-1B data processed using FFT-based beam convolution to standardize all channels to a common 3°×3° spatial resolution"
+
     - name: "platformCommonName"
       type: string
       value: "JPSS"
@@ -91,17 +91,21 @@ encoder:
       type: string
       value: "Joint Polar Satellite System"
 
-    - name: "sensor"
+    - name: "sensorCommonName"
       type: string
-      value: "Advanced Baseline Imager (ATMS)"
+      value: "ATMS"
+
+    - name: "sensorLongDescription"
+      type: string
+      value: "Advanced Baseline Imager (ATMS) - 22 channels including the 54 and 183 GHz bands; cross-track scanning"
 
     - name: "source"
       type: string
-      value: "NCEP BUFR Dump for ATMS brightness temperature data (atms normal feed)"
+      value: "U.S. National Weather Service, National Centres for Environmental Prediction (NCEP))"
 
-    - name: "providerFullName"
+    - name: "sourceFiles"
       type: string
-      value: "National Environmental Satellite, Data, and Information Service"
+      value: "NCEP BUFR Dump - atms NC021203 Normal Feed"
 
     - name: "processingLevel"
       type: string
@@ -109,7 +113,7 @@ encoder:
 
     - name: "converter"
       type: string
-      value: "BUFR"
+      value: "bufr-query"
 
   variables:
     # MetaData
@@ -132,10 +136,6 @@ encoder:
     - name: "MetaData/satelliteIdentifier"
       source: variables/satelliteId
       longName: "Satellite Identifier"
-
-    - name: "MetaData/satelliteInstrument"
-      source: variables/satelliteInstrument
-      longName: "Satellite Instrument"
 
     - name: "MetaData/sensorScanPosition"
       source: variables/fieldOfViewNumber

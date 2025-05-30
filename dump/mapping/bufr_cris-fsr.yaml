@@ -54,16 +54,20 @@ bufr:
         scanStep: 3.3331
         sensor: cris
 
-    cloudCoverTotal:
-      query: "*/TOCC"
-
-    cloudTopHeight:
-      query: "*/HOCT"
-
     sensorChannelNumber:
       query: "*/CRCHNM/CHNM"
 
     # ObsValue
+    cloudCoverTotal:
+      query: "*/TOCC"
+      type: float 
+      transforms:
+        - scale: 0.01
+
+    cloudTopHeight:
+      query: "*/HOCT"
+      type: float
+
     spectralRadiance:
       query: "*/CRCHNM/SRAD"
       transforms:
@@ -79,37 +83,39 @@ bufr:
           _226: n21
 
 encoder:
-#  type: netcdf
-
   dimensions:
     - name: Channel
       source: variables/sensorChannelNumber
       path: "*/CRCHNM"
 
   globals:
+    - name: "description"
+      type: string
+      value: "Level-1C CrIS radiance spectra apodized using the standard Hamming window, with full radiometric calibration and geolocation"
+
     - name: "platformCommonName"
       type: string
-      value: "Meteorological Operational Satellite"
+      value: "JPSS"
 
     - name: "platformLongDescription"
       type: string
-      value: "EUMETSAT Polar System in sunsynchronous orbit"
+      value: "NOAA Joint Polar Satellite System"
+
+    - name: "sensorCommonName"
+      type: string
+      value: "CrIS"
+
+    - name: "sensorLongDescription"
+      type: string
+      value: "Cross-track Infrared Sounder (Interferometer) with three IR bands with 2211 channels; cross-track scanning"
 
     - name: "source"
       type: string
-      value: "MTYP 021-241 IASI 1C RADIANCES (VARIABLE CHNS) (METOP)"
+      value: "U.S. National Weather Service, National Centres for Environmental Prediction (NCEP))"
 
     - name: "sourceFiles"
       type: string
-      value: "gdas.t00z.crisf4.tm00.bufr_d"
-
-    - name: "datetimeReference"
-      type: string
-      value: "2021-08-01T00:00:00Z"
-
-    - name: "sensor"
-      type: string
-      value: "IASI"
+      value: "NCEP BUFR Dump - crisf4 NC021206 Normal Feed 431 channel subset"
 
     - name: "processingLevel"
       type: string
@@ -117,7 +123,7 @@ encoder:
 
     - name: "converter"
       type: string
-      value: "BUFR"
+      value: "bufr-query"
 
   variables:
 
@@ -192,23 +198,22 @@ encoder:
       longName: "Sensor View Angle"
       units: "degree"
 
-    - name: "MetaData/cloudCoverTotal"
-      source: variables/cloudCoverTotal
-      longName: "Total Cloud Cover"
-
-    - name: "MetaData/heightOfTopOfCloud"
-      source: variables/cloudTopHeight
-      longName: "Height of Top of Cloud"
-      units: "m"
-
     - name: "MetaData/sensorChannelNumber"
       source: variables/sensorChannelNumber
       longName: "Sensor Channel Number"
 
-#   The unit from BUFR is W m-2 sr-1 m -- this is radiance per wavenumber
-#   - name: "ObsValue/spectralRadiance"
-    - name: "ObsValue/radiance"
+    - name: "ObsValue/cloudCoverTotal"
+      source: variables/cloudCoverTotal
+      longName: "Total Cloud Cover"
+      units: "1"
+      range: [ 0, 1 ]
+
+    - name: "ObsValue/heightOfTopOfCloud"
+      source: variables/cloudTopHeight
+      longName: "Height of Top of Cloud"
+      units: "m"
+
+    - name: "ObsValue/spectralRadiance"
       source: variables/spectralRadiance
       longName: "CrIS Spectral Radiance"
-      units: "W m-2 sr-1"
-#     units: "W m-2 sr-1 m-1"
+      units: "W m-2 sr-1 m-1"
