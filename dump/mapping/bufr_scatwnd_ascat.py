@@ -65,12 +65,6 @@ class BufrAscatObsBuilder(ObsBuilder):
         """
 
         satId = container.get('satelliteId', category)
-
-        if not satId.size:
-            add_dummy_variable(container, 'obstype_windEastward', cat, 'satelliteId')
-            add_dummy_variable(container, 'obstype_windNorthward', cat, 'satelliteId')
-            return
-
         obstype = np.full_like(satId, 290)
 
         return obstype
@@ -139,10 +133,16 @@ class BufrAscatObsBuilder(ObsBuilder):
         satId = container.get('satelliteId', cat)
         if not satId.size:
             self.log.warning(f'category {cat[0]} does not exist in input file')
-            add_dummy_variable(container, 'obstype_windEastward', cat, 'satelliteId')
-            add_dummy_variable(container, 'obstype_windNorthward', cat, 'satelliteId')
-            add_dummy_variable(container, 'windEastward', cat, 'windSpeedAt10M')
-            add_dummy_variable(container, 'windNorthward', cat, 'windSpeedAt10M')
+
+            dummy_mappings = [
+                ('obstype_windEastward', 'satelliteId'),
+                ('obstype_windNorthward', 'satelliteId'),
+                ('windEastward', 'windSpeedAt10M'),
+                ('windNorthward', 'windSpeedAt10M')
+            ]
+            for target_var, source_var in dummy_mappings:
+                add_dummy_variable(container, target_var, cat, source_var)
+
             return
 
         # Add new ObsValue variables : ObsValue/windEastward & ObsValue/windNorthward 
@@ -171,9 +171,15 @@ class BufrAscatObsBuilder(ObsBuilder):
         satId = container.get('satelliteId', cat)
         if not satId.size:
             self.log.warning(f'category {cat[0]} does not exist in input file')
-            add_dummy_variable(container, 'height', cat, 'latitude')
-            add_dummy_variable(container, 'stationElevation', cat, 'latitude')
-            add_dummy_variable(container, 'pressure', cat, 'latitude')
+
+            dummy_mappings = [
+                ('pressure', 'latitude'),
+                ('height', 'latitude'),
+                ('stationElevation', 'latitude')
+            ]
+            for target_var, source_var in dummy_mappings:
+                add_dummy_variable(container, target_var, cat, source_var)
+            
             return
 
         # Add new MetaData variables: MetaData/height & MetaData/stationElevation
