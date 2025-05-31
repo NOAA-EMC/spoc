@@ -171,7 +171,7 @@ def _make_obs(comm, input_path, mapping_path, cycle_time):
 
     logging(comm, 'DEBUG', f'Change longitude range from [0,360] to [-180,180]')
     lon = container.get('variables/longitude')
-    lon[lon>180] -= 360
+    lon[lon > 180] -= 360
 
     logging(comm, 'DEBUG', f'Make an array of 0s for MetaData/sequenceNumber')
     sequenceNum = np.zeros(lon.shape, dtype=np.int32)
