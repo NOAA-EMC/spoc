@@ -29,6 +29,8 @@ bufr:
       query: "*/PRSLEVLA/CAT"
     stationIdentification:
       query: "*/SID"
+    observationSubTypeNum:
+      query: "*/T29"
     aircraftFlightNumber:
       query: "[*/ACID, */ACID_SEQ/ACID]"
     longitude:
@@ -145,6 +147,10 @@ encoder:
     - name: "MetaData/prepbufrDataLevelCategory"
       source: variables/prepbufrDataLevelCategory
       longName: "Prepbufr Data Level Category"
+
+    - name: "MetaData/observationSubTypeNum"
+      source: variables/observationSubTypeNum
+      longName: "Observation SubType Number"
 
     - name: "MetaData/stationIdentification"
       source: variables/stationIdentification
