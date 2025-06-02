@@ -11,6 +11,7 @@ from prepbufr_obs_builder import PrepbufrObsBuilder, map_path
 
 MAPPING_PATH = map_path('prepbufr_adpsfc.yaml')
 
+
 class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
     def __init__(self):
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
@@ -26,7 +27,6 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
             }
         ])
         return description
-
 
     def make_obs(self, comm, input_path):
         """
@@ -56,7 +56,6 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
         dhr2 = np.array(dhr)
         self._replace_timestamp(container, self._get_reference_time(input_path))
 
-
         self.log.debug(f'Make an array of 0s for MetaData/sequenceNumber')
         sequenceNum = np.zeros(dhr.shape, dtype=np.int32)
         self.log.debug(f' sequenceNummin/max =  {sequenceNum.min()} {sequenceNum.max()}')
@@ -68,5 +67,6 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
         self.log.debug(f'container list (updated): {container.list()}')
 
         return container
+
 
 add_main_functions(AdpsfcPrepbufrObsBuilder)

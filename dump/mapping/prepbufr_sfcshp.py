@@ -11,6 +11,7 @@ from prepbufr_obs_builder import PrepbufrObsBuilder, map_path
 
 MAPPING_PATH = map_path('prepbufr_sfcshp.yaml')
 
+
 class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
     def __init__(self):
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
@@ -26,7 +27,6 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
             }
         ])
         return description
-
 
     def make_obs(self, comm, input_path):
         """
@@ -71,7 +71,7 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
         tvo = np.full(tob.shape[0], tob.fill_value)
         tvo = np.where((tpc == 8), tob, tvo)
 
-        self.log.debug( f'Do tsen and tv QM calculations')
+        self.log.debug(f'Do tsen and tv QM calculations')
         tobqm = container.get('airTemperatureQualityMarker')
         tsenqm = np.full(tobqm.shape[0], tobqm.fill_value)
         tsenqm = np.where(((tpc >= 1) & (tpc < 8)), tobqm, tsenqm)
@@ -122,5 +122,6 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
                     sequenceNumber[i] = 1
 
         return sequenceNumber
+
 
 add_main_functions(SfcshpPrepbufrObsBuilder)

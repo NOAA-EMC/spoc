@@ -18,6 +18,7 @@ from prepbufr_obs_builder import PrepbufrObsBuilder, map_path
 
 MAPPING_PATH = map_path('prepbufr_acft_profiles.yaml')
 
+
 class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):
     def __init__(self):
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
@@ -25,7 +26,7 @@ class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):
     def _make_description(self):
         description = super()._make_description()
 
-        description.add_variables([ 
+        description.add_variables([
             {
                 'name': 'MetaData/sequenceNumber',
                 'source': 'sequenceNumber',
@@ -35,13 +36,12 @@ class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):
 
         return description
 
-
     def make_obs(self, comm, input_path):
         """
         Create the ioda acft_profiles prepbufr observations:
         - reads values
         - adds sequenceNum
-    
+
         Parameters
         ----------
         comm: object
@@ -53,7 +53,7 @@ class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):
         cycle_time: str
                 The cycle in YYYYMMDDHH format
         """
-    
+
         # Get container from mapping file first
         self.log.info(f'Get container from bufr')
         container = super().make_obs(comm, input_path)
@@ -61,7 +61,7 @@ class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):
         self.log.debug(f'container list (original): {container.list()}')
         lon = container.get('longitude')
         lon_paths = container.get_paths('longitude')
-    
+
         self.log.debug(f'Do DateTime calculation')
         dhr = container.get('obsTimeMinusCycleTime')
         dhr_paths = container.get_paths('obsTimeMinusCycleTime')
@@ -69,45 +69,44 @@ class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):
         self._replace_timestamp(container, self._get_reference_time(input_path))
 
         self.log.debug(f'Make an array of 0s for MetaData/sequenceNumber')
-        sequenceNum = self._compute_sequence_number(lon) 
+        sequenceNum = self._compute_sequence_number(lon)
         self.log.debug(f'sequenceNum min/max =  {sequenceNum.min()} {sequenceNum.max()}')
-    
+
         self.log.debug(f'Compute Obstypes')
         t_ot = container.get('airTemperatureObservationType')
         q_ot = container.get('specificHumidityObservationType')
         uv_ot = container.get('windObservationType')
         ot_paths = container.get_paths('airTemperatureObservationType')
-    
+
         airTemperature = container.get('airTemperatureObsValue')
         specificHumidity = container.get('specificHumidityObsValue')
         wind = container.get('windNorthwardObsValue')
-    
+
         ot_airTemperature = self._compute_typ_other(t_ot, airTemperature)
         ot_specificHumidity = self._compute_typ_other(q_ot, specificHumidity)
         ot_wind = self._compute_typ_uv(uv_ot, wind)
-    
+
         self.log.debug(f'Change IALR to 0.0 if masked for bias correction.')
         ialr = container.get('instantaneousAltitudeRate')
         ialr_paths = container.get_paths('instantaneousAltitudeRate')
         ialr2 = ma.array(ialr)
-    
+
         ialr_bc = self._compute_ialr_if_masked(uv_ot, ialr2)
-    
+
         self.log.debug(f'Update variables in container')
         container.replace('instantaneousAltitudeRate', ialr_bc)
         container.replace('airTemperatureObservationType', ot_airTemperature)
         container.replace('specificHumidityObservationType', ot_specificHumidity)
         container.replace('windObservationType', ot_wind)
-    
+
         self.log.debug(f'Add variables to container')
         container.add('sequenceNumber', sequenceNum, lon_paths)
-    
+
         # Check
         self.log.debug(f'container list (updated): {container.list()}')
-    
+
         return container
-    
-    
+
     def _compute_typ_other(self, typ, var):
         """
         Compute datatype if the variable is not wind.
@@ -117,15 +116,14 @@ class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):
         Returns:
             Masked array of the new datatype
         """
-    
+
         typ_var = copy.deepcopy(typ)
         typ_var[(typ_var > 300) & (typ_var < 400)] -= 200
         typ_var[(typ_var > 400) & (typ_var < 500)] -= 300
         typ_var[(typ_var > 500) & (typ_var < 600)] -= 400
-    
+
         return typ_var
-    
-    
+
     def _compute_typ_uv(self, typ, var):
         """
         Compute datatype if the variable is wind.
@@ -135,15 +133,14 @@ class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):
         Returns:
             Masked array of the new datatype
         """
-    
+
         typ_var = copy.deepcopy(typ)
         typ_var[(typ_var > 300) & (typ_var < 400)] -= 100
         typ_var[(typ_var > 400) & (typ_var < 500)] -= 200
         typ_var[(typ_var > 500) & (typ_var < 600)] -= 300
-    
+
         return typ_var
-    
-    
+
     def _compute_ialr_if_masked(self, typ, ialr):
         """
         Compute instantaneousAltitudeRate (IALR) if it is masked.
@@ -153,22 +150,21 @@ class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):
         Returns:
             Masked array of the updated instantaneousAltitudeRate
         """
-    
+
         ialr_bc = copy.deepcopy(ialr)
         ialr_bc[(ialr_bc.mask) & (typ >= 330) & (typ < 340)] = 0.0
 
         return ialr_bc
 
-
-    def _compute_sequence_number(self, lon): 
+    def _compute_sequence_number(self, lon):
         """
         Compute sequenceNumber
 
         Parameters:
-            lon: longitude 
+            lon: longitude
 
         Returns:
-            Masked array of sequenceNumber values. 
+            Masked array of sequenceNumber values.
             In this case, array is all 0's.
         """
 

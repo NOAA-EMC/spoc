@@ -78,12 +78,11 @@ class PrepbufrObsBuilder(ObsBuilder):
 
         return dateTime
 
-
     def _replace_timestamp(self, container: bufr.DataContainer, reference_time: np.datetime64) -> np.array:
         times = container.get('obsTimeMinusCycleTime')
 
         cycle_times = ma.masked_array(np.round(3600 * times).astype(np.int), dtype='timedelta64[s]', mask=times.mask)
-        timestamps = ma.masked_array(reference_time + cycle_times, 
+        timestamps = ma.masked_array(reference_time + cycle_times,
                                      mask=times.mask, dtype='datetime64[s]').astype('int64')
-        
+
         container.replace('timestamp', timestamps.filled())
