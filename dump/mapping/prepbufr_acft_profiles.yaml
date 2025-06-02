@@ -96,25 +96,33 @@ bufr:
 
 encoder:
   globals:
-    - name: "dataOriginalFormatSpec"
-      type: string
-      value: "prepbufr"
-
-    - name: "platforms"
+    - name: "platformCommonName"
       type: string
       value: "AIRCFT AIRCAR"
 
-    - name: "source"
-      type: string
-      value: "prepBUFR"
-
     - name: "description"
       type: string
-      value: "acft_profiles_prepbufr"
+      value: "Aircraft and AIRCAR (SAIREP/PIREP, AMDAR(ASDAR/ACARS), E-ADAS(AMDAR BUFR), MDCRS, ACARS) Reports" 
 
-    - name: "dataProviderOrigin"
+    - name: "platformLongDescription"
       type: string
-      value: "U.S. NOAA NCEP"
+      value: "Aircraft and AIRCAR (SAIREP/PIREP, AMDAR(ASDAR/ACARS), E-ADAS(AMDAR BUFR), MDCRS, ACARS) Reports in prepBUFR format"
+
+    - name: "sensor"
+      type: string
+      value: "ACFT_PROFILES data"
+
+    - name: "source"
+      type: string
+      value: "U.S. National Weather Service, National Centers for Environmental Prediction (NCEP))"
+
+    - name: "sourceFiles"
+      type: string
+      value: "NCEP prepBUFR - ACFT_PROFILES"
+
+    - name: "converter"
+      type: string
+      value: "bufr-query"
 
   variables:
     - name: "ObsType/airTemperature"

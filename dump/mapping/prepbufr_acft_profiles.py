@@ -29,7 +29,6 @@ class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):
             {
                 'name': 'MetaData/sequenceNumber',
                 'source': 'sequenceNumber',
-                'units': '1',
                 'longName': 'Sequence Number (Obs Subtype)',
             },
         ])
