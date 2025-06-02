@@ -11,7 +11,6 @@ from prepbufr_obs_builder import PrepbufrObsBuilder, map_path
 
 MAPPING_PATH = map_path('prepbufr_adpsfc.yaml')
 
-
 class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
     def __init__(self):
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
@@ -23,11 +22,11 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
             {
                 'name': 'MetaData/sequenceNumber',
                 'source': 'sequenceNumber',
-                'units': '1',
                 'longName': 'Sequence Number (Obs Subtype)',
             }
         ])
         return description
+
 
     def make_obs(self, comm, input_path):
         """
@@ -69,6 +68,5 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
         self.log.debug(f'container list (updated): {container.list()}')
 
         return container
-
 
 add_main_functions(AdpsfcPrepbufrObsBuilder)

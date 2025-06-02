@@ -47,20 +47,10 @@ bufr:
       query: "*/P___INFO/P__EVENT{1}/POB"
       transforms:
         - scale: 100
-    heightObsValue:
-      query: "*/Z___INFO/Z__EVENT{1}/ZOB"
-      type: float
-    stationElevationObsValue:
-      query: "*/ELV"
-      type: float
 
     # QualityMarker
     stationPressureQualityMarker:
       query: "*/P___INFO/P__EVENT{1}/PQM"
-    heightQualityMarker:
-      query: "*/Z___INFO/Z__EVENT{1}/ZQM"
-    stationElevationQualityMarker:
-      query: "*/Z___INFO/Z__EVENT{1}/ZQM"
 
     # ObsError
     stationPressureObsError:
@@ -71,25 +61,34 @@ bufr:
 encoder:
 
   globals:
-    - name: "dataOriginalFormatSpec"
-      type: string
-      value: "prepbufr"
-
-    - name: "platforms"
+    - name: "platformCommonName"
       type: string
       value: "ADPSFC"
 
-    - name: "source"
-      type: string
-      value: "prepBUFR"
-
     - name: "description"
       type: string
-      value: "ADPSFC_prepbufr"
+      value: "Surface Land (Synoptic, METAR) reports"
 
-    - name: "dataProviderOrigin"
+    - name: "platformLongDescription"
       type: string
-      value: "U.S. NOAA"
+      value: "Surface Land (Synoptic, METAR) reports in prepBUFR format"
+
+    - name: "sensor"
+      type: string
+      value: "ADPSFC data"
+
+    - name: "source"
+      type: string
+      value: "U.S. National Weather Service, National Centers for Environmental Prediction (NCEP))"
+
+    - name: "sourceFiles"
+      type: string
+      value: "NCEP prepBUFR - ADPSFC"
+
+    - name: "converter"
+      type: string
+      value: "bufr-query"
+
 
   variables:
 
@@ -97,14 +96,6 @@ encoder:
     - name: "ObsType/stationPressure"
       source: variables/observationType
       longName: "Station Pressure ObsType"
-
-    - name: "ObsType/stationElevation"
-      source: variables/observationType
-      longName: "Station Elevation ObsType"
-
-    - name: "ObsType/height"
-      source: variables/observationType
-      longName: "Height ObsType"
 
     # MetaData
     - name: "MetaData/prepbufrDataLevelCategory"
@@ -136,6 +127,7 @@ encoder:
     - name: "MetaData/pressure"
       source: variables/pressure
       longName: "Pressure"
+      units: "Pa"
 
     - name: "MetaData/height"
       source: variables/height
@@ -153,28 +145,10 @@ encoder:
       longName: "Station Pressure"
       units: "Pa"
 
-    - name: "ObsValue/stationElevation"
-      source: variables/stationElevationObsValue
-      longName: "Station Pressure"
-      units: "m"
-
-    - name: "ObsValue/height"
-      source: variables/heightObsValue
-      longName: "height"
-      units: "m"
-
     # QualityMarker
     - name: "QualityMarker/stationPressure"
       source: variables/stationPressureQualityMarker
       longName: "Station Pressure Quality Marker"
-
-    - name: "QualityMarker/stationElevation"
-      source: variables/heightQualityMarker
-      longName: "StationElevation Quality Marker"
-
-    - name: "QualityMarker/height"
-      source: variables/heightQualityMarker
-      longName: "Height Quality Marker"
 
     # ObsError
     - name: "ObsError/stationPressure"
