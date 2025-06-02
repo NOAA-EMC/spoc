@@ -4,8 +4,8 @@ import os
 import numpy as np
 
 import bufr
-from bufr.obs_builder import add_main_functions
-from bufr_satwnd_amv_obs_builder import SatWndAmvObsBuilder, map_path
+from bufr.obs_builder import add_main_functions, map_path
+from bufr_satwnd_amv_obs_builder import SatWndAmvObsBuilder
 
 
 MAPPING_PATH = map_path('bufr_satwnd_amv_ahi.yaml')

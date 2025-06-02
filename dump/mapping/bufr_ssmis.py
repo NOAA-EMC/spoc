@@ -6,7 +6,7 @@ import numpy.ma as ma
 import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
 from bufr.obs_builder import nprocs_per_task, add_dummy_variable
-from bufr.transforms import compute_solar_angles 
+from bufr.transforms import compute_solar_angles
 from datetime import datetime
 
 MAPPING_PATH = map_path('bufr_ssmis.yaml')
@@ -139,10 +139,15 @@ class BufrSsmisObsBuilder(ObsBuilder):
 
         satId = container.get('satelliteId', category)
         if not satId.size:
-            add_dummy_variable(container, 'solarZenithAngle', category, 'latitude')
-            add_dummy_variable(container, 'solarAzimuthAngle', category, 'latitude')
-            add_dummy_variable(container, 'sensorZenithAngle', category, 'latitude')
-            add_dummy_variable(container, 'sensorAzimuthAngle', category, 'latitude')
+            dummy_mappings = [
+                ('solarZenithAngle', 'latitude'),
+                ('solarAzimuthAngle', 'latitude'),
+                ('sensorZenithAngle', 'latitude'),
+                ('sensorAzimuthAngle', 'latitude')
+            ]
+            for target_var, source_var in dummy_mappings:
+                add_dummy_variable(container, target_var, category, source_var)
+
             return
 
         # Prepare input arrays
