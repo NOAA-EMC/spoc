@@ -57,8 +57,8 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
         self.log.debug(f'Do sequenceNumber (Obs SubType) calculation')
         typ = container.get('observationType')
         typ_paths = container.get_paths('observationType')
-        t29 = container.get('obssubtype')
-        t29_paths = container.get_paths('obssubtype')
+        t29 = container.get('observationSubTypeNum')
+        t29_paths = container.get_paths('observationSubTypeNum')
         seqNum = self._compute_sequence_number(typ, t29)
         self.log.debug(f' sequenceNum min/max =  {seqNum.min()} {seqNum.max()}')
 
