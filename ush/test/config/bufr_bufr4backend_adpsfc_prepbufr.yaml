@@ -6,7 +6,7 @@ time window:
 observations:
 - obs space:
     name: "ADPSFC"
-    simulated variables: ['stationElevation','stationPressure']
+    simulated variables: ['stationPressure']
     obsdatain:
       engine:
         type: bufr

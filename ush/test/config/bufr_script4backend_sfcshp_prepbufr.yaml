@@ -14,7 +14,7 @@ observations:
         type: script
         script file: "prepbufr_sfcshp.py"
         args:
-          input_path: "testinput/2021080100/gdas.t00z.prepbufr"
+          input: "testinput/2021080100/gdas.t00z.prepbufr"
           mapping_path: "./prepbufr_sfcshp.yaml"
     obsdataout:
       engine:

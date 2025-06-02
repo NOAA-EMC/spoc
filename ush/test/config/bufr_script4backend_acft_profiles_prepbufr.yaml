@@ -14,7 +14,7 @@ observations:
         type: script
         script file: "prepbufr_acft_profiles.py"
         args:
-          input_path: "testinput/2021080100/gdas.t00z.prepbufr.acft_profiles"
+          input: "testinput/2021080100/gdas.t00z.prepbufr.acft_profiles"
           mapping_path: "./prepbufr_acft_profiles.yaml"
     obsdataout:
       engine:
