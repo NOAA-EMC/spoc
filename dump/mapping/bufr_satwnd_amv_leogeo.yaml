@@ -27,9 +27,11 @@ bufr:
 
     sensorCentralFrequency:
       query: "*/SCCF"
+      type: float
 
     pressure:
       query: "*/PRLC[1]"
+      type: float
 
     # Processing Center
     dataProviderOrigin:
@@ -42,6 +44,7 @@ bufr:
     # Quality Information Without Forecast
     qualityInformationWithoutForecast:
       query: '*/LGRSQ4[1]{1}/PCCF'
+      type: float
 
     # Wind Retrieval Method Information - Computation 
     windComputationMethod:
@@ -50,6 +53,7 @@ bufr:
     # ObsValue - Wind Direction
     windDirection:
       query: '*/WDIR'
+      type: float
 
     # ObsValue - Wind Speed
     windSpeed:
@@ -63,30 +67,34 @@ bufr:
           _854: multi 
 
 encoder:
-# type: netcdf
-
-# dimensions:
-
   globals:
+    - name: "description"
+      type: string
+      value: "High-latitude Atmospheric Motion Vectors (AMVs) derived from combined geostationary and low-earth polar-orbiting satellite imagery"
+
     - name: "platformCommonName"
       type: string
-      value: "LEOGEO"
+      value: "MultiSats"
 
     - name: "platformLongDescription"
       type: string
-      value: "Combined Geostationary/Low-Earth Orbiting Operational Satellite(s)"
+      value: "Combined Geostationary/Low-Earth Orbiting Operational Satellites"
 
-    - name: "sensor"
+    - name: "sensorCommonName"
       type: string
-      value: "Multiple"
+      value: "LEOGEO"
+
+    - name: "sensorLongDescription"
+      type: string
+      value: "Multiple sensors from geostationary and low-earth orbiting satellites"
 
     - name: "source"
       type: string
-      value: "NCEP BUFR Dump for satellite derived atmospheric motion vectors (satwnd)"
+      value: "U.S. National Weather Service, National Centres for Environmental Prediction (NCEP))"
 
-    - name: "providerFullName"
+    - name: "sourceFiles"
       type: string
-      value: "National Environmental Satellite, Data, and Information Service"
+      value: "NCEP BUFR Dump - satwnd NC005072"
 
     - name: "processingLevel"
       type: string
@@ -94,7 +102,7 @@ encoder:
 
     - name: "converter"
       type: string
-      value: "BUFR"
+      value: "bufr-query"
 
   variables:
 
@@ -146,11 +154,12 @@ encoder:
     - name: "MetaData/qiWithoutForecast"
       source: variables/qualityInformationWithoutForecast
       longName: "Quality Information Without Forecast"
+      units: "percent"
 
     - name: "MetaData/pressure"
       source: variables/pressure
       longName: "Pressure"
-      units: "pa"
+      units: "Pa"
 
     - name: "ObsValue/windDirection"
       source: variables/windDirection

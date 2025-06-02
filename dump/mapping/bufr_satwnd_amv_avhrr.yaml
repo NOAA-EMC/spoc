@@ -30,10 +30,12 @@ bufr:
 
     sensorCentralFrequency:
       query: "*/SCCF"
+      type: float
 
     pressure:
       # [NESDIS, EUMETSAT]
       query: "[*/PRLC, */PRLC[1]]"
+      type: float
 
     # Processing Center
     dataProviderOrigin:
@@ -49,6 +51,7 @@ bufr:
     qualityInformation:
       # [NESDIS, EUMETSAT]
       query: "[*/GQCPRMS/PCCF, */AMVQIC/PCCF]"
+      type: float
 
     # Wind Retrieval Method Information - Computation 
     windComputationMethod:
@@ -57,6 +60,7 @@ bufr:
     # ObsValue - Wind Direction
     windDirection:
       query: '*/WDIR'
+      type: float
 
     # ObsValue - Wind Speed
     windSpeed:
@@ -75,30 +79,34 @@ bufr:
           _223: n19
 
 encoder:
-# type: netcdf
-
-# dimensions:
-
   globals:
+    - name: "description"
+      type: string
+      value: "Atmospheric Motion Vectors (AMVs) derived from AVHRR using longwave IR (LWIR) spectral band"
+
     - name: "platformCommonName"
       type: string
-      value: "EUMETSAT: METOP, NESDIS: NOAA"
+      value: "EUMETSAT MetOp and NESDIS NOAA series"
 
     - name: "platformLongDescription"
       type: string
-      value: "Low-Earth Orbiting Operational Satellite"
+      value: "Low-Earth Orbiting Operational Satellites - MetOp and NOAA series"
 
-    - name: "sensor"
+    - name: "sensorCommonName"
       type: string
-      value: "Advanced Very High Resolution Radiometer"
+      value: "AVHRR"
+
+    - name: "sensorLongDescription"
+      type: string
+      value: "Advanced Very High Resolution Radiometer with 6-channel radiometer covering VIS, NIR, SWIR, MWIR and TIR; cross-scanning"
 
     - name: "source"
       type: string
-      value: "NCEP BUFR Dump for satellite derived atmospheric motion vectors (satwnd)"
+      value: "U.S. National Weather Service, National Centres for Environmental Prediction (NCEP))"
 
-    - name: "providerFullName"
+    - name: "sourceFiles"
       type: string
-      value: "EUMETSAT: European Organisation for the Exploitation of Meteorological Satellites, NESDIS: National Environmental Satellite, Data, and Information Service"
+      value: "NCEP BUFR Dump - satwnd (before 2023): NC005080 (NOAA, MetOp); satwnd(after 2023): NC005080 (NOAA), NC005081 (MetOp)"
 
     - name: "processingLevel"
       type: string
@@ -106,7 +114,7 @@ encoder:
 
     - name: "converter"
       type: string
-      value: "BUFR"
+      value: "bufr-query"
 
   variables:
 
@@ -154,7 +162,7 @@ encoder:
     - name: "MetaData/pressure"
       source: variables/pressure
       longName: "Pressure"
-      units: "pa"
+      units: "Pa"
 
     - name: "ObsValue/windDirection"
       source: variables/windDirection
