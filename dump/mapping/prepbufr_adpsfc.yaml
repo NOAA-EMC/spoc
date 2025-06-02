@@ -31,6 +31,8 @@ bufr:
       query: "*/YOB"
     stationIdentification:
       query: "*/SID"
+    observationSubTypeNum:
+      query: "*/T29"
     pressure:
       query: "*/P___INFO/P__EVENT{1}/POB"
       transforms:
@@ -102,6 +104,10 @@ encoder:
       source: variables/prepbufrDataLevelCategory
       units: '1'
       longName: "Prepbufr Data Level Category"
+
+    - name: "MetaData/observationSubTypeNum"
+      source: variables/observationSubTypeNum
+      longName: "Observation SubType Number"
 
     - name: "MetaData/dateTime"
       source: variables/timestamp
