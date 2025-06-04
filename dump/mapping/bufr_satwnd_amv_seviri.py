@@ -4,11 +4,12 @@ import os
 import numpy as np
 
 import bufr
-from bufr.obs_builder import add_main_functions
-from bufr_satwnd_amv_obs_builder import SatWndAmvObsBuilder, map_path
+from bufr.obs_builder import add_main_functions, map_path
+from bufr_satwnd_amv_obs_builder import SatWndAmvObsBuilder
 
 
 MAPPING_PATH = map_path('bufr_satwnd_amv_seviri.yaml')
+
 
 class SatWndAmvSeviriObsBuilder(SatWndAmvObsBuilder):
     def __init__(self):
@@ -28,5 +29,6 @@ class SatWndAmvSeviriObsBuilder(SatWndAmvObsBuilder):
 
         return obstype
 
+
 # Add main functions create_obs_file and create_obs_group
-add_main_functions(SatWndAmvSeviriObsBuilder, uses_categories=True, uses_cache=True)
+add_main_functions(SatWndAmvSeviriObsBuilder)

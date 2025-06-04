@@ -4,16 +4,16 @@ import os
 import numpy as np
 
 import bufr
-from bufr.obs_builder import add_main_functions
-from bufr_satwnd_amv_obs_builder import SatWndAmvObsBuilder, map_path
+from bufr.obs_builder import add_main_functions, map_path, add_dummy_variable
+from bufr_satwnd_amv_obs_builder import SatWndAmvObsBuilder
 
 
 MAPPING_PATH = map_path('bufr_satwnd_amv_avhrr.yaml')
 
+
 class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
     def __init__(self):
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
-
 
     def make_obs(self, comm, input_path):
         # Get container from mapping file first
@@ -25,13 +25,11 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
 
         return container
 
-
     def _make_description(self):
         description = super()._make_description()
         self._add_quality_info_and_gen_app_descriptions(description)
 
         return description
-
 
     def _get_obs_type(self, swcm, chan_freq):
         obstype = swcm.copy()
@@ -44,7 +42,6 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
 
         return obstype.astype(np.int32)
 
-
     def _add_avhrr_quality_info_and_gen_app(self, container, cat):
         # Add new variables: MetaData/windGeneratingApplication and qualityInformationWithoutForecast
         gnap2D = container.get('generatingApplication', cat)
@@ -52,10 +49,14 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
         satId = container.get('satelliteId', cat)
 
         if not satId.size:
-            paths = container.get_paths('windComputationMethod', cat)
-            dummy = container.get('windSpeed', cat)
-            container.add('windGeneratingApplication', dummy, paths, cat)
-            container.add('qualityInformationWithoutForecast', dummy, paths, cat)
+
+            dummy_mappings = [
+                ('windGeneratingApplication', 'windComputationMethod'),
+                ('qualityInformationWithoutForecast', 'windSpeed')
+            ]
+            for target_var, source_var in dummy_mappings:
+                add_dummy_variable(container, target_var, cat, source_var)
+
             return
 
         gnap, qifn = self._get_avhrr_quality_info_and_gen_app(gnap2D, pccf2D, satId)
@@ -66,7 +67,6 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
         paths = container.get_paths('windComputationMethod', cat)
         container.add('windGeneratingApplication', gnap, paths, cat)
         container.add('qualityInformationWithoutForecast', qifn, paths, cat)
-
 
     def _get_avhrr_quality_info_and_gen_app(self, gnap2D, pccf2D, satID):
         # For METOP-A/B/C AVHRR data (satID 3,4,5), qi w/o forecast (qifn) is
@@ -93,9 +93,10 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
             # dataset. In that case, we need to actually set findQI=1 and findEE=4 here.
             # Let's do a preliminary check to see if any gnap2D values match findQI. If not, let's
             # automatically switch to findQI=1, findEE=4 and presume pre-2023 EUMETSAT AVHRR format
-            if np.any(np.isin(gnap2D, [findQI])) == False:
+            # If findQI is not found anywhere in gnap2D, set findQI and findEE to 1 and 4, respectively
+            if not np.any(np.isin(gnap2D, [findQI])):
                 self.log.debug(
-                        f'NO GNAP VALUE OF {findQI} EXISTS FOR EUMETSAT AVHRR DATASET, PRESUMING PRE-2023 FORMATTING')
+                    f'NO GNAP VALUE OF {findQI} EXISTS FOR EUMETSAT AVHRR DATASET, PRESUMING PRE-2023 FORMATTING')
                 findQI = 1
                 findEE = 4
         else:
@@ -116,19 +117,18 @@ class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
         gnap = None
         qifn = None
         for i in range(gDim2):
-            if np.unique(gnap2D[:, i].squeeze()) == findQI:
-                if i <= qDim2:
+            if np.unique(gnap2D[:, i]) == findQI:
+                if i < qDim2:
                     self.log.info(f'GNAP/PCCF found for column {i}')
-                    gnap = gnap2D[:, i].squeeze()
-                    qifn = pccf2D[:, i].squeeze()
+                    gnap = gnap2D[:, i].copy()
+                    qifn = pccf2D[:, i].copy()
                 else:
                     self.log.info(f'ERROR: GNAP column {i} outside of PCCF dimension {qDim2}')
         if (gnap is None) and (qifn is None):
             raise ValueError(f'GNAP == {findQI} NOT FOUND OR OUT OF PCCF DIMENSION-RANGE, WILL FAIL!')
         # If EE is needed, key search on np.unique(gnap2D[:,i].squeeze()) == findEE instead
-        # NOTE: Make sure to return np.float32 or np.int32 types as appropriate!!!
-        return gnap.astype(np.int32), qifn.astype(np.int32)
+        return gnap, qifn
 
 
 # Add main functions create_obs_file and create_obs_group
-add_main_functions(SatWndAmvAvhrrObsBuilder, uses_categories=True, uses_cache=True)
+add_main_functions(SatWndAmvAvhrrObsBuilder)

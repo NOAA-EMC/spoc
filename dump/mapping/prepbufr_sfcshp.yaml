@@ -19,6 +19,9 @@ bufr:
       query: "*/DHR"
     longitude:
       query: "*/XOB"
+      transforms:
+        - wrap: [ -180.0, 180.0 ]
+
     latitude:
       query: "*/YOB"
     stationIdentification:

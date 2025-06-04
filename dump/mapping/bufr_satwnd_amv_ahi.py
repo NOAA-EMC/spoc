@@ -4,17 +4,17 @@ import os
 import numpy as np
 
 import bufr
-from bufr.obs_builder import add_main_functions
-from bufr_satwnd_amv_obs_builder import SatWndAmvObsBuilder, map_path
+from bufr.obs_builder import add_main_functions, map_path
+from bufr_satwnd_amv_obs_builder import SatWndAmvObsBuilder
 
 
 MAPPING_PATH = map_path('bufr_satwnd_amv_ahi.yaml')
 FIND_QI = 102
 
+
 class SatWndAmvAhiObsBuilder(SatWndAmvObsBuilder):
     def __init__(self):
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
-
 
     def make_obs(self, comm, input_path):
         # Get container from mapping file first
@@ -22,17 +22,15 @@ class SatWndAmvAhiObsBuilder(SatWndAmvObsBuilder):
 
         # Add new/derived data into container
         for cat in container.all_sub_categories():
-            self._add_quality_info_and_gen_app_obs(FIND_QI, container, cat)
+            self._add_quality_info_and_gen_app(FIND_QI, container, cat)
 
         return container
-
 
     def _make_description(self):
         description = super()._make_description()
         self._add_quality_info_and_gen_app_descriptions(description)
 
         return description
-
 
     def _get_obs_type(self, swcm, chan_freq):
         obstype = swcm.copy()
@@ -49,4 +47,4 @@ class SatWndAmvAhiObsBuilder(SatWndAmvObsBuilder):
         return obstype
 
 
-add_main_functions(SatWndAmvAhiObsBuilder, uses_categories=True, use_cache=True)
+add_main_functions(SatWndAmvAhiObsBuilder)

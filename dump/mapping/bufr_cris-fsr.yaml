@@ -25,16 +25,14 @@ bufr:
     scanLineNumber:
       query: "*/SLNM"
 
-    gqisFlagQual:
-      query: "*/QGFQ"
-
     fieldOfViewNumber:
       query: "*/FOVN"
 
+    fieldOfRegardNumber:
+      query: "*/FORN"
+
     sensorScanPosition:
-      sensorScanPosition:
-        fieldOfViewNumber: "*/FOVN"
-        sensor: iasi 
+      query: "*/FOVN"
 
     solarZenithAngle:
       query: "*/SOZA"
@@ -48,80 +46,76 @@ bufr:
     sensorAzimuthAngle:
       query: "*/BEARAZ"
 
-    stationElevation:
-      query: "*/SELV"
-      type: float 
-
     sensorViewAngle:
       sensorScanAngle:
         fieldOfViewNumber: "*/FOVN"
+        fieldOfRegardNumber: "*/FORN"
         scanStart: -48.330
-        scanStep: 3.334
-        scanStepAdjust: 0.625 
-        sensor: iasi
-
-    fractionOfClearPixelsInFOV:
-      query: "*/IASIL1CS{1}/FCPH"
+        scanStep: 3.3331
+        sensor: cris
 
     sensorChannelNumber:
-      query: "*/IASICHN/CHNM"
+      query: "*/CRCHNM/CHNM"
 
     # ObsValue
+    cloudCoverTotal:
+      query: "*/TOCC"
+      type: float 
+      transforms:
+        - scale: 0.01
+
+    cloudTopHeight:
+      query: "*/HOCT"
+      type: float
+
     spectralRadiance:
-      spectralRadiance:
-        sensorChannelNumber: "*/IASICHN/CHNM"
-        startChannel: "*/IASIL1CB/STCH"
-        endChannel: "*/IASIL1CB/ENCH"
-        scaleFactor: "*/IASIL1CB/CHSF"
-        scaledSpectralRadiance: "*/IASICHN/SCRA"
+      query: "*/CRCHNM/SRAD"
+      transforms:
+        - scale: 0.01
 
   splits:
     satId:
       category:
         variable: satelliteId
         map:
-          _3: metop-b
-          _4: metop-a
-          _5: metop-c
+          _224: npp
+          _225: n20
+          _226: n21
 
 encoder:
-  type: netcdf
-
   dimensions:
     - name: Channel
       source: variables/sensorChannelNumber
-      path: "*/IASICHN"
-
-    - name: Cluster 
-      path: "*/IASIL1CS"
-
-    - name: Band 
-      path: "*/IASIL1CB"
+      path: "*/CRCHNM"
 
   globals:
+    - name: "description"
+      type: string
+      value: "Level-1C CrIS radiance spectra apodized using the standard Hamming window, with full radiometric calibration and geolocation"
+
     - name: "platformCommonName"
       type: string
-      value: "Meteorological Operational Satellite"
+      value: "JPSS"
 
     - name: "platformLongDescription"
       type: string
-      value: "EUMETSAT Polar System in sunsynchronous orbit"
+      value: "NOAA Joint Polar Satellite System"
+
+    - name: "sensorCommonName"
+      type: string
+      value: "CrIS"
+
+    - name: "sensorLongDescription"
+      type: string
+      value: "Cross-track Infrared Sounder (Interferometer) with three IR bands with 2211 channels; cross-track scanning"
 
     - name: "source"
       type: string
-      value: "MTYP 021-241 IASI 1C RADIANCES (VARIABLE CHNS) (METOP)"
+      value: "U.S. National Weather Service, National Centres for Environmental Prediction (NCEP))"
 
     - name: "sourceFiles"
       type: string
-      value: "gdas.t00z.mtiasi.tm00.bufr_d"
-
-    - name: "datetimeReference"
-      type: string
-      value: "2021-08-01T00:00:00Z"
-
-    - name: "sensor"
-      type: string
-      value: "IASI"
+      value: "NCEP BUFR Dump - crisf4 NC021206 Normal Feed 431 channel subset"
 
     - name: "processingLevel"
       type: string
@@ -129,7 +123,7 @@ encoder:
 
     - name: "converter"
       type: string
-      value: "BUFR"
+      value: "bufr-query"
 
   variables:
 
@@ -155,21 +149,21 @@ encoder:
       source: variables/satelliteId
       longName: "Satellite Identifier"
 
-    - name: "MetaData/instrumentIdentifier"
-      source: variables/sensorId
-      longName: "Satellite Instrument Identifier"
+#    - name: "MetaData/instrumentIdentifier"
+#      source: variables/sensorId
+#      longName: "Satellite Instrument Identifier"
 
     - name: "MetaData/scanLineNumber"
       source: variables/scanLineNumber
       longName: "Scan Line Number"
 
-    - name: "MetaData/qualityFlags"
-      source: variables/gqisFlagQual
-      longName: "Individual IASI-System Quality Flag"
-
     - name: "MetaData/fieldOfViewNumber"
       source: variables/fieldOfViewNumber
       longName: "Field of View Number"
+
+    - name: "MetaData/fieldOfRegardNumber"
+      source: variables/fieldOfRegardNumber
+      longName: "Field of Regard Number"
 
     - name: "MetaData/sensorScanPosition"
       source: variables/sensorScanPosition
@@ -204,27 +198,22 @@ encoder:
       longName: "Sensor View Angle"
       units: "degree"
 
-    - name: "MetaData/stationElevation"
-      source: variables/stationElevation
-      longName: "Altitude of Satellite"
-      units: "m"
-
     - name: "MetaData/sensorChannelNumber"
       source: variables/sensorChannelNumber
       longName: "Sensor Channel Number"
 
-    - name: "MetaData/fractionOfClearPixelsInFOV"
-      source: variables/fractionOfClearPixelsInFOV
-      longName: "Fraction of Clear Pixels in a Field of View"
+    - name: "ObsValue/cloudCoverTotal"
+      source: variables/cloudCoverTotal
+      longName: "Total Cloud Cover"
       units: "1"
-      range: [0, 100]
+      range: [ 0, 1 ]
 
-#   The unit from BUFR is W m-2 sr-1 m -- this is radiance per wavenumber
-    - name: "ObsValue/radiance"
+    - name: "ObsValue/heightOfTopOfCloud"
+      source: variables/cloudTopHeight
+      longName: "Height of Top of Cloud"
+      units: "m"
+
+    - name: "ObsValue/spectralRadiance"
       source: variables/spectralRadiance
-      longName: "IASI Spectral Radiance"
-      units: "W m-2 sr-1"  # units: "W m-2 sr-1 m-1"
-#      chunks: [1000, 154]
-#      chunks: [1000, 616]
-#      compressionLevel: 4
-
+      longName: "CrIS Spectral Radiance"
+      units: "W m-2 sr-1 m-1"

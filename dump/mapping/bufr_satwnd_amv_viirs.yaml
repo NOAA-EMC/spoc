@@ -27,9 +27,11 @@ bufr:
 
     sensorCentralFrequency:
       query: "*/SCCF"
+      type: float
 
     pressure:
       query: "*/PRLC[1]"
+      type: float
 
     # Processing Center
     dataProviderOrigin:
@@ -42,6 +44,7 @@ bufr:
     # Quality Information - contains multiple types
     qualityInformation:
       query: '*/AMVQIC/PCCF'
+      type: float
 
     # Wind Retrieval Method Information - Computation 
     windComputationMethod:
@@ -50,6 +53,7 @@ bufr:
     # ObsValue - Wind Direction
     windDirection:
       query: '*/WDIR'
+      type: float
 
     # ObsValue - Wind Speed
     windSpeed:
@@ -65,11 +69,11 @@ bufr:
           _226: n21
 
 encoder:
-# type: netcdf
-
-# dimensions:
-
   globals:
+    - name: "description"
+      type: string
+      value: "Atmospheric Motion Vectors (AMVs) derived from VIIRS using longwave IR (LWIR) spectral band"
+
     - name: "platformCommonName"
       type: string
       value: "SUOMI-NPP/NOAA-20/NOAA-21"
@@ -78,17 +82,21 @@ encoder:
       type: string
       value: "Low-Earth Orbiting Operational Satellite"
 
-    - name: "sensor"
+    - name: "sensorCommonName"
       type: string
-      value: "Visible Infrared Imaging Radiometer Suite"
+      value: "VIIRS"
+
+    - name: "sensorLongDescription"
+      type: string
+      value: "Visible Infrared Imaging Radiometer Suite wit 22 channels, including a day/night 0.7 µm channel; cross-scanning"
 
     - name: "source"
       type: string
-      value: "NCEP BUFR Dump for satellite derived atmospheric motion vectors (satwnd)"
+      value: "U.S. National Weather Service, National Centres for Environmental Prediction (NCEP))"
 
-    - name: "providerFullName"
+    - name: "sourceFiles"
       type: string
-      value: "National Environmental Satellite, Data, and Information Service"
+      value: "NCEP BUFR Dump - satwnd NC005091"
 
     - name: "processingLevel"
       type: string
@@ -96,7 +104,7 @@ encoder:
 
     - name: "converter"
       type: string
-      value: "BUFR"
+      value: "bufr-query"
 
   variables:
 
@@ -144,7 +152,7 @@ encoder:
     - name: "MetaData/pressure"
       source: variables/pressure
       longName: "Pressure"
-      units: "pa"
+      units: "Pa"
 
     - name: "ObsValue/windDirection"
       source: variables/windDirection
