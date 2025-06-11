@@ -66,35 +66,118 @@ class OceanBasin:
         dlon = self.longitudes[1] - self.longitudes[0]
 
         # the data may be a masked array
-        ocean_basin = []
+        # ocean_basin = []
+        # for i in range(n):
+            # if not ma.is_masked(lat[i]):
+                # i1 = round((lat[i] - lat0) / dlat)
+                # i2 = round((lon[i] - lon0) / dlon)
+                # ocean_basin.append(self.basin_array[i1][i2])
+        # return np.array(ocean_basin, dtype=np.int32)
+
+
+        # the data may be a masked array
+        ocean_basin = ma.array([0]*lat.size, mask=lat.mask, dtype=np.int32)
         for i in range(n):
             if not ma.is_masked(lat[i]):
                 i1 = round((lat[i] - lat0) / dlat)
                 i2 = round((lon[i] - lon0) / dlon)
-                ocean_basin.append(self.basin_array[i1][i2])
-        return np.array(ocean_basin, dtype=np.int32)
+                ocean_basin[i] = self.basin_array[i1][i2]
+        return ocean_basin
+
+
+
+def clean_lat_lon(lat, lon):
+    """
+    return a mask for valid pairs of latitude and longitude.
+
+    Parameters:
+    lat : array-like or None
+        Latitude values, expected in [-90, 90].
+    lon : array-like or None
+        Longitude values, all in [-180, 180] or all in [0, 360].
+
+    Returns:
+    mask : numpy.ndarray
+        Boolean mask (same shape as inputs), True for valid lat/lon pairs.
+        Use to filter other arrays (e.g., other_data[mask]).
+    """
+    # Handle undefined or None inputs
+    if lat is None or lon is None:
+        return np.array([], dtype=bool)
+
+    # Convert inputs to NumPy arrays, preserving masked arrays
+    try:
+        lat = np.asarray(lat, dtype=float)
+        lon = np.asarray(lon, dtype=float)
+    except (ValueError, TypeError):
+        return np.zeros_like(lat, dtype=bool)
+
+    # Ensure arrays have the same shape
+    # probably needs to throw an exception
+    if lat.shape != lon.shape:
+        return np.zeros_like(lat, dtype=bool)
+
+    # Initialize mask (True for valid, False for invalid)
+    mask = np.ones(lat.shape, dtype=bool)
+
+    # Handle masked arrays
+    if np.ma.isMaskedArray(lat):
+        mask &= ~lat.mask
+    if np.ma.isMaskedArray(lon):
+        mask &= ~lon.mask
+
+    # Validate latitude: must be in [-90, 90]
+    mask &= (lat >= -90) & (lat <= 90) & ~np.isnan(lat)
+
+    # Validate longitude: all in [-180, 180] or all in [0, 360]
+    valid_lons = lon[mask]  # Longitudes where lat is valid
+    if len(valid_lons) == 0:
+        return mask
+
+    # Check longitude range consistency
+    in_neg180_180 = (valid_lons >= -180) & (valid_lons <= 180)
+    in_0_360 = (valid_lons >= 0) & (valid_lons <= 360)
+
+    # Determine if all valid longitudes are in one range
+    all_neg180_180 = np.all(in_neg180_180)
+    all_0_360 = np.all(in_0_360)
+
+    # If neither range is fully consistent, use dominant range
+    # if the fraction of the "other" range is too large,
+    # probably needs to throw an error
+    if not (all_neg180_180 or all_0_360):
+        if np.sum(in_neg180_180) >= np.sum(in_0_360):
+            mask &= (lon >= -180) & (lon <= 180)
+        else:
+            mask &= (lon >= 0) & (lon <= 360)
+    else:
+        if all_neg180_180:
+            mask &= (lon >= -180) & (lon <= 180)
+        else:
+            mask &= (lon >= 0) & (lon <= 360)
+
+    # Ensure no NaN in longitude
+    mask &= ~np.isnan(lon)
+    return mask
 
 
 class MarineInsituObsBuilder(ObsBuilder):
     def __init__(self, mapping_path, log_name=os.path.basename(__file__), config=None):
-        # print(f'===============================>>>><<<<')
-        # print(f'config = {config}')
-        # print(f'===============================>>>><<<<')
         self.ocean_basin_file = config['ocean_basin'] if 'ocean_basin' in config else None
-        # print(f'self.ocean_basin_file = {self.ocean_basin_file}')
-        # print(f'config = {config}')
-
         super().__init__(mapping_path, log_name=log_name, config=config)
 
     def make_obs(self, comm, input_path):
         container = super().make_obs(comm, input_path)
 
+        lat = container.get('latitude')
+        lon = container.get('longitude')
+        lat_lon_mask = clean_lat_lon(lat, lon)
+        container.apply_mask(lat_lon_mask)
+
         if self.ocean_basin_file and os.path.exists(self.ocean_basin_file):
             self._add_ocean_basin(container, self.ocean_basin_file)
         else:
             self.log.warning(f"No ocean basin file provided, or can not be found")
-
-        # print("MMMMMMMMMMMMMMMMMM")
         return container
 
     def _make_description(self):
@@ -109,6 +192,7 @@ class MarineInsituObsBuilder(ObsBuilder):
 
         return description
 
+
     def _add_preqc_var(self, container, name):
         v = container.get(name)
         paths = container.get_paths(name)
@@ -119,11 +203,9 @@ class MarineInsituObsBuilder(ObsBuilder):
     def _add_error_var(self, container, name, error):
         v = container.get(name)
         paths = container.get_paths(name)
-        # print(">>>>>>>>>>>>>>>>>>>>>>")
         # print(f"_add_error_var {name}")
         error_var_name = f"ObsError{name}"
         # print(f"_add_error_var {error_var_name}")
-        # print(">>>>>>>>>>>>>>>>>>>>>>")
         error_var = np.full_like(v, error)
         container.add(error_var_name, error_var, paths)
 
@@ -143,4 +225,3 @@ class MarineInsituObsBuilder(ObsBuilder):
         ocean = OceanBasin(nc_file_path)
         v = ocean.get_station_basin(lat, lon)
         container.add("oceanBasin", v, paths)
-
