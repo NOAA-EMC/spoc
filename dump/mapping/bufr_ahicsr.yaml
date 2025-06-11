@@ -60,7 +60,7 @@ bufr:
       query: "*/CORN"
 
     sensorCentralFrequency:
-      query: "*/RPSEQ11{1}/SCCF"
+      query: "*/RPSEQ11/SCCF"
 
     sensorBandWidth:
       query: "*/RPSEQ11{1}/SCBW"
@@ -74,7 +74,7 @@ bufr:
     radianceComputationalMethod:
       query: "*/RPSEQ11{1}/RDCM"
 
-    # ObsValue   
+    # ObsValue
     cloudType:
       query: "*/RPSEQ11{1}/CLTP"
 
@@ -95,10 +95,13 @@ bufr:
       category:
         variable: satelliteId
         map:
-          _173: h8 
+          _173: h8
           _174: h9
 
 encoder:
+  dimensions:
+    - name: Channel
+      path: "*/RPSEQ11"
 
   globals:
     - name: "platformCommonName"
@@ -134,7 +137,6 @@ encoder:
       value: "bufr-query"
 
   variables:
-
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
@@ -206,7 +208,7 @@ encoder:
 
     - name: "MetaData/sensorBandWidth"
       source: variables/sensorBandWidth
-      longName: "Satellite Channel Band Width"
+      longName: "Satellite Channel Bandwidth"
       units: "Hz"
 
     - name: "MetaData/satelliteInstrumentData"
@@ -221,14 +223,14 @@ encoder:
       source: variables/radianceComputationalMethod
       longName: "Radiance Computational Method"
 
-    # ObsValue  
+    # ObsValue
     - name: "ObsValue/cloudType"
       source: variables/cloudType
       longName: "Cloud Type"
 
     - name: "ObsValue/cloudAmount"
       source: variables/cloudAmount
-      longName: "Cloud Amount in Segment"
+      longName: "Cloud Amount In Segment"
       units: "1"
 
     - name: "ObsValue/cloudFree"
