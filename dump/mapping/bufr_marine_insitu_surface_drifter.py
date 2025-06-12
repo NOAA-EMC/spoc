@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import os
 import numpy as np
 
@@ -36,7 +38,7 @@ class MarineInsituSurfaceDrifterObsBuilder(MarineInsituObsBuilder):
         print(np.count_nonzero(buoy_mask))
         print(np.count_nonzero(temp_mask))
         print("BBBBBBBBBBBBBBBBBBB")
-        # container.apply_mask(buoy_mask & temp_mask)
+        container.apply_mask(buoy_mask & temp_mask)
 
         self._add_preqc_var(container, "seaSurfaceTemperature")
         self._add_preqc_var(container, "salinity")

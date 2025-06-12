@@ -1,120 +1,243 @@
 import pytest
-import os
-import subprocess
-import tarfile
-import urllib.request
-import shutil
 import yaml
-from run_compare import run_compare
-from config import *
-
-import re
-
-
-'''
-B2I_SCRIPT_DIR = "/work/noaa/da/edwardg/spoc/dump/mapping/"
-B2I_CONFIG_CLASS_FILE = "bufr_marine_insitu_config.py"
-B2I_CONFIG_CLASS_NAME = "Bufr2iodaConfig"
-OCEAN_BASIN_FILE = "/work/noaa/global/glopara/fix/gdas/soca/20240802/common/RECCAP2_region_masks_all_v20221025.nc"
-
-SPOC_URL = "https://ftp.emc.ncep.noaa.gov/static_files/public/spoc"
-TARBALL_FILE = "spoc-0.0.0.tgz"
-TARBALL_URL = SPOC_URL + "/" + TARBALL_FILE
-TARBALL_DIR = "/work/noaa/da/edwardg/spoc/test"
-REMOTE_DATA_DIR = os.path.join(TARBALL_DIR, "remote_data")
-TESTDATA_DIR = os.path.join(REMOTE_DATA_DIR, "testdata")
-TESTOUTPUT_DIR = os.path.join(REMOTE_DATA_DIR, "testoutput")
-TESTCONFIG_DIR = os.path.join(REMOTE_DATA_DIR, "testconfig")
-TESTRESULT_DIR = os.path.join(TARBALL_DIR, "testresult")
-'''
-
-TESTS = create_tests()
+import os
+import tarfile
+import requests
+from pathlib import Path
+import shutil
+import subprocess
+from run_compare import run_nccmp
 
 
+def load_test_suites(yaml_file):
+    # Check if the file exists
+    if not os.path.exists(yaml_file):
+        pytest.fail(f"YAML file '{yaml_file}' not found. Please provide a valid file using --test-config-file.")
+    
+    # Load the YAML file
+    try:
+        with open(yaml_file, 'r') as file:
+            data = yaml.safe_load(file)
+    except yaml.YAMLError as e:
+        pytest.fail(f"Error parsing YAML file '{yaml_file}': {e}")
+    except Exception as e:
+        pytest.fail(f"Failed to read YAML file '{yaml_file}': {e}")
+
+    # Validate the YAML structure
+    if not isinstance(data, dict) or "test_suites" not in data:
+        pytest.fail(f"Invalid YAML structure in '{yaml_file}'. Expected 'test_suites' key.")
+    
+    test_suites = data["test_suites"]
+    if not test_suites:
+        pytest.fail(f"No test suites found in '{yaml_file}'.")
+
+    return test_suites
 
 
-@pytest.fixture(scope="session", autouse=True)
-def setup_test_environment():
-    """Download tarball, extract, set up testconfig and testresult directories."""
-    # Create tarball directory
-    os.makedirs(TARBALL_DIR, exist_ok=True)
-
-    # Download tarball
-    tarball_path = os.path.join(TARBALL_DIR, TARBALL_FILE)
-    print(f"Downloading tarball from {TARBALL_URL}")
-    urllib.request.urlretrieve(TARBALL_URL, tarball_path)
-
-    # Extract tarball
+def download_and_extract_tarball(suite, downloads_dir):
+    url = suite["url"]
+    tarball = suite["tarball"]
+    tarball_path = Path("test_suites") / tarball
+    print(f"Downloading {tarball} from {url}")
+    response = requests.get(f"{url}/{tarball}", stream=True)
+    if response.status_code != 200:
+        raise Exception(f"Failed to download {tarball}: HTTP {response.status_code}")
+    tarball_path.parent.mkdir(exist_ok=True)
+    with open(tarball_path, "wb") as f:
+        for chunk in response.iter_content(chunk_size=8192):
+            if chunk:
+                f.write(chunk)
+    print(f"Extracting {tarball} to {downloads_dir}")
     with tarfile.open(tarball_path, "r:gz") as tar:
-        tar.extractall(TARBALL_DIR)
-    print(f"Extracted tarball to {REMOTE_DATA_DIR}")
-
-    # Create testresult directory
-    if os.path.exists(TESTRESULT_DIR):
-        print(f"Removing old test results directory:\n {TESTRESULT_DIR}")
-        shutil.rmtree(TESTRESULT_DIR)
-    print(f"Creating new test results directory:\n {TESTRESULT_DIR}")
-    os.makedirs(TESTRESULT_DIR)
-
-    # Check if testconfig exists, create if missing
-    if not os.path.exists(TESTCONFIG_DIR):
-        os.makedirs(TESTCONFIG_DIR)
-        print(f"Created testconfig directory: {TESTCONFIG_DIR}")
-
-        # create_test_yamls()
-
-    # Cleanup tarball
-    os.remove(tarball_path)
-
-    yield  # Run tests
-
-    # Cleanup (optional)
-    # shutil.rmtree(REMOTE_DATA_DIR)
-    # shutil.rmtree(TESTRESULT_DIR)
+        tar.extractall(downloads_dir)
+    tarball_path.unlink()  # Remove tarball after extraction
 
 
+def create_subdir_symlink(symlink_path, subdir_path):
+    # Check if symlink already exists
+    if os.path.exists(symlink_path):
+        if os.path.islink(symlink_path) and os.readlink(symlink_path) == subdir_path:
+            print(f"Symlink already exists at {symlink_path} pointing to {subdir_path}.")
+            return
+        else:
+            print(f"Error: {symlink_path} already exists but is not a symlink to {subdir_path}.")
+            return
 
-def extract_descriptor(filename):
-    name = os.path.basename(filename)
-    pattern = r'^bufr_marine_insitu_(.+)\.py$'
-    match = re.match(pattern, name)                               
-    if match:
-        return match.group(1)  # Return the extracted part (e.g., profile_argo)
-    return None
+    if not os.path.exists(subdir_path):
+        print(f"Error: {subdir_path} does not exist.")
+    
+    # Create the symlink
+    try:
+        os.symlink(subdir_path, symlink_path)
+        print(f"Successfully created symlink at {symlink_path} pointing to {subdir_path}.")
+    except OSError as e:
+        print(f"Error creating symlink: {e}")
 
 
+# Fixture to handle setup and teardown for each test suite
+@pytest.fixture(scope="module")
+def test_suite_setup(request):
+    test_suite = request.param
+    test_suite_dir = Path("test_suites") / test_suite["name"]
+
+    # required subdir structure:
+    # symlinks:
+    testdata_dir = test_suite_dir / "testdata"
+    testoutput_dir = test_suite_dir / "testoutput"
+    testconfig_dir = test_suite_dir / "testconfig"  # optional
+    # directories:
+    testresults_dir = test_suite_dir / "testresults"
+    downloads_dir = test_suite_dir / "downloads"    # if tar ball
+
+    # if test_suite_dir exists, and has the right structure, use it.
+    # otherwise, create it and place in it symlinks to user's data,
+    # which is either in a given dir or in some dir unpacked from
+    # a tar ball
+
+    if test_suite_dir.exists():
+        # check that it has the required subdirectories
+        # not checking for config
+        if not os.path.exists(testdata_dir):
+            pytest.fail(f"Setup failed: {testdata_dir} does not exist.")
+        if not os.path.exists(testoutput_dir):
+            pytest.fail(f"Setup failed: {testoutput_dir} does not exist.")
+        print(f"Using existing data in {test_suite_dir}")
+    else:
+        # create the test_suite_dir and place in it symlinks
+        # to user data, which is either staged or downloaded
+        os.makedirs(test_suite_dir, exist_ok=True)
+
+        if "test_data_dir" in test_suite:
+            user_test_dir = Path(test_suite["test_data_dir"])
+        elif "url" in test_suite and "tarball" in test_suite:
+            os.makedirs(downloads_dir, exist_ok=True)
+            download_and_extract_tarball(test_suite, downloads_dir)
+            user_test_dir = downloads_dir
+
+        if user_test_dir.exists():
+            print(f"Using data in {user_test_dir}")
+        else:
+            pytest.fail(f"Setup failed: {user_test_dir} does not exist.")
+
+        user_input_dir = user_test_dir / "testdata"
+        user_reference_dir = user_test_dir / "testoutput"
+        user_config_dir = user_test_dir / "testconfig"
+        user_results_dir = user_test_dir / "testresults"
+
+        if not os.path.exists(user_input_dir):
+            pytest.fail(f"Setup failed: {user_input_dir} does not exist.")
+        create_subdir_symlink(testdata_dir, user_input_dir)
+
+        if not os.path.exists(user_reference_dir):
+            pytest.fail(f"Setup failed: {user_reference_dir} does not exist.")
+        create_subdir_symlink(testoutput_dir, user_reference_dir)
+
+        if os.path.exists(user_config_dir):
+            create_subdir_symlink(testconfig_dir, user_config_dir)
+
+        # the user may optionally provide a directory for test results
+        if os.path.exists(user_results_dir):
+            create_subdir_symlink(testresults_dir, user_results_dir)
+
+    os.makedirs(testresults_dir, exist_ok=True)
+
+    yield {
+        "suite_name": test_suite["name"],
+        "testdata_dir": testdata_dir,
+        "testoutput_dir": testoutput_dir,
+        "testconfig_dir": testconfig_dir,
+        "testresults_dir": testresults_dir,
+        "converter_dir": test_suite.get("converter_dir"),
+        "tests": test_suite["tests"],
+    }
+
+    # Optional cleanup (controlled by pytest command-line option)
+    if request.config.getoption("--cleanup"):
+        print(f"Cleaning up {test_suite_dir}")
+        shutil.rmtree(test_suite_dir)
 
 
+def pytest_generate_tests(metafunc):
+    if "test_suite_setup" in metafunc.fixturenames and "test_case" in metafunc.fixturenames:
+        # Get the YAML file path from the command-line option
+        yaml_file = metafunc.config.getoption("--test-config-file")
+        test_suites = load_test_suites(yaml_file)
 
-@pytest.mark.parametrize("test_name,script_name,config_name", TESTS)
-def test_converter(test_name, script_name, config_name):
-    """Run converter script and compare output with expected."""
-    descriptor = extract_descriptor(script_name)
+        # Parameterize tests
+        params = []
+        for suite in test_suites:
+            if "tests" not in suite:
+                pytest.fail(f"Test suite '{suite.get('name', 'unknown')}' missing 'tests' key.")
+            for test in suite["tests"]:
+                params.append((suite, test))
+        
+        metafunc.parametrize(
+            ("test_suite_setup", "test_case"),
+            params,
+            indirect=["test_suite_setup"],
+            ids=[f"{suite['name']}_{test['name']}" for suite, test in params],
+        )
 
-    # Ensure script and config exist
-    script_path = os.path.join(B2I_SCRIPT_DIR, script_name)
-    assert os.path.isfile(script_path), f"Script not found: {script_path}"
-    config_path = os.path.join(TESTCONFIG_DIR, config_name)
-    assert os.path.isfile(config_path), f"Config not found: {config_path}"
+# Main test function
+def test_converter(test_suite_setup, test_case):
+    suite_name = test_suite_setup["suite_name"]
+    converter_dir = test_suite_setup["converter_dir"]
+    testdata_dir = test_suite_setup["testdata_dir"]
+    testoutput_dir = test_suite_setup["testoutput_dir"]
+    testconfig_dir = test_suite_setup["testconfig_dir"]
+    testresults_dir = test_suite_setup["testresults_dir"]
 
-    config = import_bufr2ioda_config(B2I_SCRIPT_DIR, B2I_CONFIG_CLASS_FILE, B2I_CONFIG_CLASS_NAME)
-    config.read_config_file(config_path)
-    ioda_filename = config.ioda_filename(descriptor)
-    print(f"config ioda_filename = {ioda_filename}")
+    test_name = test_case["name"]
+    converter = test_case["converter"]
+    config_file = test_case.get("config")
+    input_file = test_case.get("input")
+    reference_file = test_case["reference"]
 
-    # Run converter
-    cmd = ["python3", script_path, "-c", config_path]
-    print(f"Running test {test_name}: {' '.join(cmd)}")
+    # Determine converter path
+    if converter_dir:
+        converter_path = Path(converter_dir) / converter
+    else:
+        converter_path = Path(converter)
+
+    # Check if converter exists
+    assert converter_path.exists(), f"Converter {converter_path} does not exist"
+
+    # Check if required files exist
+    if input_file:
+        input_path = testdata_dir / input_file
+        assert input_path.exists(), f"Input file {input_path} does not exist"
+    if config_file:
+        config_path = testconfig_dir / config_file
+        assert config_path.exists(), f"Config file {config_path} does not exist"
+
+    # output file name is assumed to be the same as the reference
+    # file name
+    output_file = reference_file
+    output_path = testresults_dir / reference_file
+
+    # Build and run the command
+    cmd = [str(converter_path)]
+    if config_file:
+        cmd.extend(["--config", str(config_path)])
+    if input_file and output_file:
+        cmd.extend(["--input", str(input_path), "--output", str(output_path)])
+    else:
+        # If no input, assume config_file specifies input/output
+        pytest.fail(f'Input/output or config specification required for {converter_path}')
+
+    print(f"Running command: {' '.join(cmd)}")
     result = subprocess.run(cmd, capture_output=True, text=True)
-    assert result.returncode == 0, f"Test {test_name} failed: {result.stderr}"
+    assert result.returncode == 0, f"Command failed: {result.stderr}"
 
-    result_file = os.path.join(TESTRESULT_DIR, ioda_filename)
-    expected_file = os.path.join(TESTOUTPUT_DIR, ioda_filename)
+    # Check if output file was created
+    assert output_path.exists(), f"Output file {output_path} was not created"
+    # could check reference earlier, but this allows the user to run
+    # the converter and see that it generates output
+    reference_path = testoutput_dir / reference_file
+    assert reference_path.exists(), f"Reference file {reference_path} does not exist"
 
-    # Compare output
-    assert os.path.isfile(result_file), f"Result file not found: {result_file}"
-    assert os.path.isfile(expected_file), f"Expected file not found: {expected_file}"
-    assert run_compare(result_file, expected_file), (
-        f"Test {test_name} failed: {result_file} does not match {expected_file}"
-    )
-    print(f"Test {test_name} passed")
+    # Compare output with reference
+    assert run_nccmp(output_path, reference_path), f"Output {output_path} does not match reference {reference_path}"
+
+if __name__ == "__main__":
+    pytest.main(["-v", "--tb=short"])
