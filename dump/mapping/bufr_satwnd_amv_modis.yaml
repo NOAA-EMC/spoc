@@ -28,9 +28,11 @@ bufr:
 
     sensorCentralFrequency:
       query: "*/SCCF"
+      type: float
 
     pressure:
       query: "*/PRLC"
+      type: float
 
     # Processing Center
     dataProviderOrigin:
@@ -43,6 +45,7 @@ bufr:
     # Quality Information - contains multiple types
     qualityInformation:
       query: '*/GQCPRMS[1]/PCCF'
+      type: float
 
     # Wind Retrieval Method Information - Computation 
     windComputationMethod:
@@ -51,6 +54,7 @@ bufr:
     # ObsValue - Wind Direction
     windDirection:
       query: '*/WDIR'
+      type: float
 
     # ObsValue - Wind Speed
     windSpeed:
@@ -65,30 +69,34 @@ bufr:
           _784: aqua
 
 encoder:
-# type: netcdf
-
-# dimensions:
-
   globals:
+    - name: "description"
+      type: string
+      value: "Atmospheric Motion Vectors (AMVs) derived from MODIS using three spectral bands: longwave IR (LWIR), water vapor/cloud top (WVCT) and water vapor/deep layer (WVDL)"
+
     - name: "platformCommonName"
       type: string
       value: "Terra/Aqua"
 
     - name: "platformLongDescription"
       type: string
-      value: "Low-Earth Orbiting Operational Satellite"
+      value: "TERRA and Aqua from NASA Earth Observation System"
 
-    - name: "sensor"
+    - name: "sensorCommonName"
       type: string
-      value: "Moderate Resolution Imaging Spectroradiometer"
+      value: "MODIS"
+
+    - name: "sensorLongDescription"
+      type: string
+      value: "Moderate Resolution Imaging Spectroradiometer with 36-channel VIS/IR spectro-radiometer; cross-scanning"
 
     - name: "source"
       type: string
-      value: "NCEP BUFR Dump for satellite derived atmospheric motion vectors (satwnd)"
+      value: "U.S. National Weather Service, National Centres for Environmental Prediction (NCEP))"
 
-    - name: "providerFullName"
+    - name: "sourceFiles"
       type: string
-      value: "National Environmental Satellite, Data, and Information Service"
+      value: "NCEP BUFR Dump - satwnd: NC005070 (TERRA) NC005071 (AQUA)"
 
     - name: "processingLevel"
       type: string
@@ -96,7 +104,7 @@ encoder:
 
     - name: "converter"
       type: string
-      value: "BUFR"
+      value: "bufr-query"
 
   variables:
 
@@ -144,7 +152,7 @@ encoder:
     - name: "MetaData/pressure"
       source: variables/pressure
       longName: "Pressure"
-      units: "pa"
+      units: "Pa"
 
     - name: "ObsValue/windDirection"
       source: variables/windDirection
