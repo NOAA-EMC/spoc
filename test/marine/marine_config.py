@@ -15,10 +15,6 @@ def create_test_config_files(b2i_config, test_dir):
     for test in CONFIG_TEST_DATA:
         i = test.data_type
         testconfig_path = os.path.join(testconfig_dir, b2i_config_filenames[i])
-        print(f'----->>>>  create_test_config_files: {testconfig_path}')
-        # print(f'----->>>>  creating {test}')
-        # print(f'----->>>>  creating {test.data_format}')
-
         b2i_config.create_config_file(
             test.data_format,
             test.subsets,
@@ -31,15 +27,21 @@ def create_test_config_files(b2i_config, test_dir):
             OCEAN_BASIN_FILE,
             testconfig_path
         )
+        print(f'Created yaml file: {testconfig_path}')
+
+def surface_or_profile_descriptor(test_data_type):
+    if test_data_type in marine_profile_instruments:
+        descriptor = "profile_" + test_data_type
+    elif test_data_type in marine_surface_instruments:
+        descriptor = "surface_" + test_data_type
+    else:
+        descriptor = None
+        print(f"Error: unknown data_type {test.data_type}")
+    return descriptor
 
 def generate_test_case(test):
     i = test.data_type
-    if test.data_type in marine_profile_instruments:
-        descriptor = "profile_" + test.data_type
-    elif test.data_type in marine_surface_instruments:
-        descriptor = "surface_" + test.data_type
-    else:
-        print(f"Error: unknown data_type {test.data_type}")
+    descriptor = surface_or_profile_descriptor(i)
 
     return {
         "name": b2i_test_names[i],
@@ -49,14 +51,11 @@ def generate_test_case(test):
         "config": b2i_config_filenames[i]
     }
 
-
-def generate_marine_test_config_file(config_filename, test_dir):
+def generate_marine_test_config_file(config_filename, converter_dir, test_dir):
     test_cases = []
 
     for test in CONFIG_TEST_DATA:
         test_cases.append(generate_test_case(test))
-
-    converter_dir = "/work/noaa/da/edwardg/spoc/dump/mapping/"
 
     # Define the test suite structure
     test_suite = {
@@ -83,5 +82,6 @@ if __name__ == "__main__":
     test_dir = "/work/noaa/da/edwardg/spoc/test/marine_data"
     create_test_config_files(b2i_config, test_dir)
 
+    converter_dir = "/work/noaa/da/edwardg/spoc/dump/mapping/"
     config_filename = 'marine_tests.yaml'
-    generate_marine_test_config_file(config_filename, test_dir)
+    generate_marine_test_config_file(config_filename, converter_dir, test_dir)

@@ -8,17 +8,8 @@ from collections import OrderedDict
 def bufr_filename(cycle_datetime, cycle_type, hh, data_format):
     return f"{cycle_datetime}-{cycle_type}.t{hh}z.{data_format}.tm00.bufr_d"
 
-
 def ioda_filename(cycle_type, hh, descriptor, cycle_datetime):
     return f"{cycle_type}.t{hh}z.insitu_{descriptor}.{cycle_datetime}.nc4"
-
-
-
-# configuration file can be either json or yaml
-# this config class provides the functions that determine
-# the names and the paths of the bufr input and the ioda output files
-# these functions can be overridden in the converter
-
 
 # Custom YAML dumper to preserve dictionary order
 class OrderedDumper(yaml.SafeDumper):
@@ -30,13 +21,7 @@ def _dict_representer(dumper, data):
         data.items()
     )
 
-
 class Bufr2iodaConfig:
-    # def __init__(self, script_name, config_file, platform_description):
-        # self.script_name = script_name
-        # self.platform_description = platform_description
-        # # read_config_file(config_file)
-
     def __init__(self):
         OrderedDumper.add_representer(OrderedDict, _dict_representer)
 
@@ -72,21 +57,6 @@ class Bufr2iodaConfig:
 
         # General Information
         self.converter = 'BUFR to IODA Converter'
-
-    def ocean_basin_nc_file_path(self):
-        return self.ocean_basin
-
-    def bufr_filename(self):
-        return f"{self.cycle_datetime}-{self.cycle_type}.t{self.hh}z.{self.data_format}.tm00.bufr_d"
-
-    def bufr_filepath(self):
-        return os.path.join(self.dump_dir, self.bufr_filename())
-
-    def ioda_filename(self, descriptor):
-        return f"{self.cycle_type}.t{self.hh}z.insitu_{descriptor}.{self.cycle_datetime}.nc4"
-
-    def ioda_filepath(self, descriptor):
-        return os.path.join(self.ioda_dir, self.ioda_filename(descriptor))
 
     def create_config_file(self, data_format, subsets, 
                             data_type, data_description, 
@@ -152,10 +122,6 @@ class Bufr2iodaConfig:
         with open(output_path, 'w') as f:
             yaml.dump(config, f, Dumper=OrderedDumper, default_flow_style=False, indent=2)
 
-        # print(f"Created config file: {output_path}")
-
-
-
     def replace_config_placeholders(config_path, bufr_dir, ioda_dir, ocean_basin_file, output_path):
         """
         Replace placeholders in a YAML config file and save to output_path.
@@ -198,9 +164,6 @@ class Bufr2iodaConfig:
         with open(output_path, 'w') as f:
             f.write(config_text)
 
-        # print(f"Created config file: {output_path}")
-
-
 
 if __name__ == "__main__":
 
@@ -212,8 +175,6 @@ if __name__ == "__main__":
     output_path = "/work/noaa/da/edwardg/spoc/test/testconfig/jbufr2ioda_insitu_profile_bathy_2021063006.yaml"
 
     replace_config_placeholders(config_path, bufr_dir, ioda_dir, ocean_basin_file, output_path)
-
-
 
     # test the other function
     try:

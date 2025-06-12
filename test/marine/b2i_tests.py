@@ -66,7 +66,6 @@ class ConfigTestData:
     # bufr_filename: str
     # ioda_filename: str
     # config_filename: str
-    # surface_or_profile: str
 
 
 # data_format, subsets, data_type
