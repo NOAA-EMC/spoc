@@ -96,17 +96,20 @@ def test_suite_setup(request):
 
     if test_suite_dir.exists():
         # check that it has the required subdirectories
+        # not checking for config
         if not os.path.exists(testdata_dir):
             pytest.fail(f"Setup failed: {testdata_dir} does not exist.")
         if not os.path.exists(testoutput_dir):
             pytest.fail(f"Setup failed: {testoutput_dir} does not exist.")
         print(f"Using existing data in {test_suite_dir}")
     else:
+        # create the test_suite_dir and place in it symlinks
+        # to user data, which is either staged or downloaded
         os.makedirs(test_suite_dir, exist_ok=True)
 
         if "test_data_dir" in test_suite:
             user_test_dir = Path(test_suite["test_data_dir"])
-        else:
+        elif "url" in test_suite and "tarball" in test_suite:
             os.makedirs(downloads_dir, exist_ok=True)
             download_and_extract_tarball(test_suite, downloads_dir)
             user_test_dir = downloads_dir
@@ -132,8 +135,10 @@ def test_suite_setup(request):
         if os.path.exists(user_config_dir):
             create_subdir_symlink(testconfig_dir, user_config_dir)
 
+        # the user may optionally provide a directory for test results
         if os.path.exists(user_results_dir):
             create_subdir_symlink(testresults_dir, user_results_dir)
+
     os.makedirs(testresults_dir, exist_ok=True)
 
     yield {
@@ -182,24 +187,11 @@ def test_converter(test_suite_setup, test_case):
     testconfig_dir = test_suite_setup["testconfig_dir"]
     testresults_dir = test_suite_setup["testresults_dir"]
 
-    # print(f"suite_name = {suite_name}")
-    # print(f"testdata_dir = {testdata_dir}")
-    # print(f"testoutput_dir = {testoutput_dir}")
-    # print(f"testconfig_dir = {testconfig_dir}")
-    # print(f"testresults_dir = {testresults_dir}")
-    # print(f"converter_dir = {converter_dir}")
-
     test_name = test_case["name"]
     converter = test_case["converter"]
     config_file = test_case.get("config")
     input_file = test_case.get("input")
     reference_file = test_case["reference"]
-
-    # print(f"test_name = {test_name}")
-    # print(f"converter = {converter}")
-    # print(f"input_file = {input_file}")
-    # print(f"reference_file = {reference_file}")
-    # print(f"config_file = {config_file}")
 
     # Determine converter path
     if converter_dir:
