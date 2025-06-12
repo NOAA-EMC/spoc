@@ -7,10 +7,10 @@ import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
 
 
-MAPPING_PATH = map_path('bufr_atms.yaml')
+MAPPING_PATH = map_path('bufr_iasi.yaml')
 
 
-class BufrAtmsObsBuilder(ObsBuilder):
+class BufrIasiObsBuilder(ObsBuilder):
     def __init__(self):
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
 
@@ -39,4 +39,4 @@ class BufrAtmsObsBuilder(ObsBuilder):
         return container
 
 
-add_main_functions(BufrAtmsObsBuilder)
+add_main_functions(BufrIasiObsBuilder)

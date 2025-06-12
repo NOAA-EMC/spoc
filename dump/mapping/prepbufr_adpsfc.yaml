@@ -19,23 +19,33 @@ bufr:
         transforms:
           - scale: 3600
         referenceTime: "2021-08-01T00:00:00Z"
+
     prepbufrDataLevelCategory:
       query: "*/CAT"
+
     obsTimeMinusCycleTime:
       query: "*/DHR"
+
     longitude:
       query: "*/XOB"
+      transforms:
+        - wrap: [ -180.0, 180.0 ]
+
     latitude:
       query: "*/YOB"
+
     stationIdentification:
       query: "*/SID"
+
     pressure:
       query: "*/P___INFO/P__EVENT{1}/POB"
       transforms:
         - scale: 100
+
     height:
       query: "*/Z___INFO/Z__EVENT{1}/ZOB"
       type: float
+
     stationElevation:
       query: "*/ELV"
       type: float
