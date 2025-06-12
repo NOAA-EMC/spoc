@@ -21,8 +21,8 @@ def run_nccmp(result_file, reference_file):
 
     # Run nccmp with -d (data comparison) and -f (force, no user prompt)
     # Use -t for tolerance if needed (e.g., -t 1e-5 for floating-point)
-    cmd = ["nccmp", "-d", "-m", "-g", "-f", "-S", result_file, reference_file]
-    print(f'Testing command: {' '.join(cmd)}', flush=True)
+    cmd = ["nccmp", "-d", "-m", "-g", "-f", "-S", str(result_file), str(reference_file)]
+    print(f"Testing command: {' '.join(cmd)}", flush=True)
     try:
         result = subprocess.run(cmd, capture_output=True, text=True, check=True)
         print(f"nccmp comparison passed: {result_file} matches {reference_file}")

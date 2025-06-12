@@ -66,16 +66,6 @@ class OceanBasin:
         dlon = self.longitudes[1] - self.longitudes[0]
 
         # the data may be a masked array
-        # ocean_basin = []
-        # for i in range(n):
-            # if not ma.is_masked(lat[i]):
-                # i1 = round((lat[i] - lat0) / dlat)
-                # i2 = round((lon[i] - lon0) / dlon)
-                # ocean_basin.append(self.basin_array[i1][i2])
-        # return np.array(ocean_basin, dtype=np.int32)
-
-
-        # the data may be a masked array
         ocean_basin = ma.array([0]*lat.size, mask=lat.mask, dtype=np.int32)
         for i in range(n):
             if not ma.is_masked(lat[i]):
@@ -83,7 +73,6 @@ class OceanBasin:
                 i2 = round((lon[i] - lon0) / dlon)
                 ocean_basin[i] = self.basin_array[i1][i2]
         return ocean_basin
-
 
 
 def clean_lat_lon(lat, lon):
@@ -119,12 +108,6 @@ def clean_lat_lon(lat, lon):
 
     # Initialize mask (True for valid, False for invalid)
     mask = np.ones(lat.shape, dtype=bool)
-
-    # Handle masked arrays
-    if np.ma.isMaskedArray(lat):
-        mask &= ~lat.mask
-    if np.ma.isMaskedArray(lon):
-        mask &= ~lon.mask
 
     # Validate latitude: must be in [-90, 90]
     mask &= (lat >= -90) & (lat <= 90) & ~np.isnan(lat)
@@ -203,9 +186,7 @@ class MarineInsituObsBuilder(ObsBuilder):
     def _add_error_var(self, container, name, error):
         v = container.get(name)
         paths = container.get_paths(name)
-        # print(f"_add_error_var {name}")
         error_var_name = f"ObsError{name}"
-        # print(f"_add_error_var {error_var_name}")
         error_var = np.full_like(v, error)
         container.add(error_var_name, error_var, paths)
 
