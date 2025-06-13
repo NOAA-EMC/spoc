@@ -26,9 +26,6 @@ bufr:
         hour: "*/RCHR"
         minute: "*/RCMI"
 
-    receiptTimeSignificance:
-      query: "*/RCTS"
-
     latitude:
       query: "*/CLATH"
 
@@ -44,51 +41,30 @@ bufr:
     solarZenithAngle:
       query: "*/SOZA"
 
-    numberPixelHorizontal:
-      query: "*/NPPR"
-
-    numberPixelVertical:
-      query: "*/NPPC"
-
     landOrSeaQualifier:
       query: "*/LSQL"
 
     geopotentialHeight:
       query: "*/HITE"
 
-    reportIndicator:
-      query: "*/CORN"
-
     sensorCentralFrequency:
-      query: "*/RPSEQ11/SCCF"
-
-    sensorBandWidth:
-      query: "*/RPSEQ11{1}/SCBW"
-
-    satelliteInstrumentData:
-      query: "*/RPSEQ11{1}/SIDP"
-
-    radianceType:
-      query: "*/RPSEQ11{1}/RDTP"
-
-    radianceComputationalMethod:
-      query: "*/RPSEQ11{1}/RDCM"
+      query: "*/RPSEQ11{1-10}/SCCF"
 
     # ObsValue
     cloudType:
-      query: "*/RPSEQ11{1}/CLTP"
+      query: "*/RPSEQ11{1-10}/CLTP"
 
     cloudAmount:
-      query: "*/RPSEQ11{1}/CLDMNT"
+      query: "*/RPSEQ11{1-10}/CLDMNT"
 
     cloudFree:
-      query: "*/RPSEQ11{1}/NCLDMNT"
+      query: "*/RPSEQ11{1-10}/NCLDMNT"
 
     brightnessTemperature:
-      query: "*/RPSEQ11{1}/TMBRST"
+      query: "*/RPSEQ11{1-10}/TMBRST"
 
     clearSkyStandardDeviation:
-      query: "*/RPSEQ11{1}/SDTB"
+      query: "*/RPSEQ11{1-10}/SDTB"
 
   splits:
     satId:
@@ -101,7 +77,7 @@ bufr:
 encoder:
   dimensions:
     - name: Channel
-      path: "*/RPSEQ11"
+      path: "*/RPSEQ11{1-10}"
 
   globals:
     - name: "platformCommonName"
@@ -148,10 +124,6 @@ encoder:
       longName: "Observation Receipt Time"
       units: "seconds since 1970-01-01T00:00:00Z"
 
-    - name: "MetaData/receiptTimeSignificance"
-      source: variables/receiptTimeSignificance
-      longName: "Receipt Time Significance"
-
     - name: "MetaData/latitude"
       source: variables/latitude
       longName: "Latitude"
@@ -180,14 +152,6 @@ encoder:
       units: "degree"
       range: [0, 180]
 
-    - name: "MetaData/numberPixelHorizontal"
-      source: variables/numberPixelHorizontal
-      longName: "Number Of Pixels Per Row"
-
-    - name: "MetaData/numberPixelVertical"
-      source: variables/numberPixelVertical
-      longName: "Number Of Pixels Per Column"
-
     - name: "MetaData/landOrSeaQualifier"
       source: variables/landOrSeaQualifier
       longName: "Land/Sea Qualifier"
@@ -197,31 +161,10 @@ encoder:
       longName: "Geopotential Height"
       units: "m"
 
-    - name: "MetaData/reportIndicator"
-      source: variables/reportIndicator
-      longName: "Corrected Report Indicator"
-
     - name: "MetaData/sensorCentralFrequency"
       source: variables/sensorCentralFrequency
       longName: "Satellite Channel Center Frequency"
       units: "Hz"
-
-    - name: "MetaData/sensorBandWidth"
-      source: variables/sensorBandWidth
-      longName: "Satellite Channel Bandwidth"
-      units: "Hz"
-
-    - name: "MetaData/satelliteInstrumentData"
-      source: variables/satelliteInstrumentData
-      longName: "Satellite Instrument Data Used In Processing"
-
-    - name: "MetaData/radianceType"
-      source: variables/radianceType
-      longName: "Radiance Type"
-
-    - name: "MetaData/radianceComputationalMethod"
-      source: variables/radianceComputationalMethod
-      longName: "Radiance Computational Method"
 
     # ObsValue
     - name: "ObsValue/cloudType"
