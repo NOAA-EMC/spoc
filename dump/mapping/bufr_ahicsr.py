@@ -20,7 +20,7 @@ class BufrAhicsrObsBuilder(ObsBuilder):
 
         Args:
             nlocs (int): Number of observation locations.
-            nchannels (int): Number of channels (default is 12).
+            nchannels (int): Number of channels.
 
         Returns:
             np.ndarray: 2D array with shape (nlocs, nchannels).
@@ -43,8 +43,8 @@ class BufrAhicsrObsBuilder(ObsBuilder):
             satId = container.get('satelliteId', cat)
             sccf_paths = container.get_paths('sensorCentralFrequency', cat)
             nlocs = satId.shape[0]  # Number of locations
-            nchannels = 16  # Number of channels 
-            # Add Ten Channels from 7 to 16 
+            nchannels = 16  # Number of channels
+            # Add Ten Channels from 7 to 16
             sensor_channel_number = self.compute_sensor_channel_number(nlocs, nchannels)
             self.log.debug(f'Adding derived variable: sensorChannelNumber for {nlocs} locations')
             container.add('sensorChannelNumber', sensor_channel_number, sccf_paths, cat)
