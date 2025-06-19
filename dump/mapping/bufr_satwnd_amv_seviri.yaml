@@ -29,9 +29,11 @@ bufr:
 
     sensorCentralFrequency:
       query: "*/SCCF"
+      type: float
 
     pressure:
       query: "*/PRLC[1]"
+      type: float
 
     # Processing Center
     dataProviderOrigin:
@@ -44,6 +46,7 @@ bufr:
     # Quality Information Without Forecast
     qualityInformationWithoutForecast:
       query: '*/AMVQIC{2}/PCCF'
+      type: float
 
     # Wind Retrieval Method Information - Computation 
     windComputationMethod:
@@ -52,6 +55,7 @@ bufr:
     # ObsValue - Wind Direction
     windDirection:
       query: '*/WDIR'
+      type: float
 
     # ObsValue - Wind Speed
     windSpeed:
@@ -68,30 +72,34 @@ bufr:
           _70: m11  
 
 encoder:
-# type: netcdf
-
-# dimensions:
-
   globals:
+    - name: "description"
+      type: string
+      value: "Atmospheric Motion Vectors (AMVs) derived from MSG SEVIRI using three spectral bands: longwave IR (LWIR), water vapor/cloud top (WVCT) and visible"
+
     - name: "platformCommonName"
       type: string
-      value: "METEOSAT"
+      value: "Meteosat"
 
     - name: "platformLongDescription"
       type: string
-      value: "Geostationary Operational Satellite"
+      value: "Meteosat Second Generation (MSG)"
 
-    - name: "sensor"
+    - name: "sensorCommonName"
       type: string
-      value: "Spinning Enhanced Visible Infra-Red Imager"
+      value: "SEVIRI"
+
+    - name: "sensorLongDescription"
+      type: string
+      value: "Spinning Enhanced Visible Infra-Red Imager with 12 channels (11 narrow-bandwidth, 1 high-resolution broad-bandwidth VIS)"
 
     - name: "source"
       type: string
-      value: "NCEP BUFR Dump for satellite derived atmospheric motion vectors (satwnd)"
+      value: "U.S. National Weather Service, National Centres for Environmental Prediction (NCEP))"
 
-    - name: "providerFullName"
+    - name: "sourceFiles"
       type: string
-      value: "European Organisation for the Exploitation of Meteorological Satellites"
+      value: "NCEP BUFR Dump - satwnd: NC005067 (LWIR), NC005068(VIS), NC005069(WV/CT)"
 
     - name: "processingLevel"
       type: string
@@ -99,7 +107,7 @@ encoder:
 
     - name: "converter"
       type: string
-      value: "BUFR"
+      value: "bufr-query"
 
   variables:
 
@@ -151,11 +159,12 @@ encoder:
     - name: "MetaData/qiWithoutForecast"
       source: variables/qualityInformationWithoutForecast
       longName: "Quality Information Without Forecast"
+      units: "percent"
 
     - name: "MetaData/pressure"
       source: variables/pressure
       longName: "Pressure"
-      units: "pa"
+      units: "Pa"
 
     - name: "ObsValue/windDirection"
       source: variables/windDirection
