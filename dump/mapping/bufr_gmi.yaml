@@ -38,7 +38,6 @@ bufr:
     BrightnessTemperature:
       query: "*/PIXELS{1}/GMICHT/TMBR"
 
-
     remappedBT:
       remappedBrightnessTemperature:
         sensor: gmi
@@ -58,8 +57,6 @@ bufr:
           minute: "*/MINU"
           second: "*/SECO"
         
-
-
 encoder:
   dimensions:
     - name: Channel
@@ -133,16 +130,6 @@ encoder:
       source: variables/scanLineNumber
       longName: "Scan Line Number"
   
-        #   # ObsValue
-        #   # Brightness Temperature
-        #    - name: "ObsValue/brightnessTemperature"
-        #      source: variables/BrightnessTemperature
-        #      longName: "Brightness Temperature"
-        #      units: "K"
-        #      range: [120, 500]
-        # chunks: [10000, 24]
-        #
-        #
 # ObsValue
     # Remapped Brightness Temperature
     - name: "ObsValue/brightnessTemperature"
@@ -150,5 +137,3 @@ encoder:
       longName: "3-by-3 Averaged Brightness Temperature"
       units: "K"
       range: [120, 500]
-        #      chunks: [10000, 24]
-
