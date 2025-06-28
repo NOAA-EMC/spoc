@@ -1,0 +1,84 @@
+time window:
+  begin: "2024-02-18T21:00:00Z"
+  end: "2024-02-19T03:00:00Z"
+  bound to include: begin
+ 
+observations:
+- obs space:
+    name: "sevasr-m8"
+    observed variables: [cloudAmount]
+    derived variables: [cloudAmount]
+    simulated variables: [cloudAmount]
+    obsdatain:
+      engine:
+        type: script
+        script file: "bufr_sevasr.py"
+        args:
+          input_path: "./testinput/2024021900/gdas.t00z.sevasr.tm00.bufr_d"
+          mapping_path: "./bufr_sevasr.yaml"
+            category: "m8"
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/script4backend/gdas.t00z.sevasr_m8.tm00.nc"
+
+
+observations:
+- obs space:
+    name: "sevasr-m9"
+    observed variables: [cloudAmount]
+    derived variables: [cloudAmount]
+    simulated variables: [cloudAmount]
+    obsdatain:
+      engine:
+        type: script
+        script file: "bufr_sevasr.py"
+        args:
+          input_path: "./testinput/2024021900/gdas.t00z.sevasr.tm00.bufr_d"
+          mapping_path: "./bufr_sevasr.yaml"
+            category: "m9"
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/script4backend/gdas.t00z.sevasr_m9.tm00.nc"
+ 
+
+observations:
+- obs space:
+    name: "sevasr-m10"
+    observed variables: [cloudAmount]
+    derived variables: [cloudAmount]
+    simulated variables: [cloudAmount]
+    obsdatain:
+      engine:
+        type: script
+        script file: "bufr_sevasr.py"
+        args:
+          input_path: "./testinput/2024021900/gdas.t00z.sevasr.tm00.bufr_d"
+          mapping_path: "./bufr_sevasr.yaml"
+            category: "m10"
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/script4backend/gdas.t00z.sevasr_m10.tm00.nc"
+
+
+observations:
+- obs space:
+    name: "sevasr-m11"
+    observed variables: [cloudAmount]
+    derived variables: [cloudAmount]
+    simulated variables: [cloudAmount]
+    obsdatain:
+      engine:
+        type: script
+        script file: "bufr_sevasr.py"
+        args:
+          input: "./testinput/2024021900/gdas.t00z.sevasr.tm00.bufr_d"
+          input_path: "./testinput/2024021900/gdas.t00z.sevasr.tm00.bufr_d"
+          mapping_path: "./bufr_sevasr.yaml"
+            category: "m11"
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/script4backend/gdas.t00z.sevasr_m11.tm00.nc"
