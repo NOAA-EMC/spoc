@@ -1,0 +1,23 @@
+time window:
+  begin: "2018-04-14T21:00:00Z"
+  end: "2024-03-01T03:00:00Z"
+  bound to include: begin
+
+observations:
+  - obs space:
+      name: "GPSRO"
+      observed variables:  ['bendingAngle']
+      derived variables: ['bendingAngle']
+      simulated variables: ['bendingAngle'] 
+      obsdatain:
+        engine:
+          type: script
+          script file: "./bufr_gpsro.py"
+          args:
+            input_path: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+            mapping_path: "./bufr_gpsro.yaml"
+      obsdataout:
+        engine:
+          type: H5File
+          #obsfile: "./testoutput/2024021900/script4backend/gdas.t00z.gpsro_{satelliteId}.tm00.nc"
+          obsfile: "./testoutput/2024021900/script4backend/gdas.t00z.gpsro_{satId}.tm00.nc"

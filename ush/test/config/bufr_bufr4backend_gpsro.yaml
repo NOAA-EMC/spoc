@@ -1,0 +1,773 @@
+
+time window:
+  begin: "2018-04-14T21:00:00Z"
+  end: "2024-03-01T03:00:00Z"
+  bound to include: begin
+
+observations:
+- obs space:
+    name: "metop_3"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["metop_3"]
+        cache categories:
+          - ["metop_3"]
+          - ["metop_4"]
+          - ["metop_5"]
+          - ["tsx_42"]
+          - ["tdm_43"]
+          - ["paz_44"]
+          - ["s6_66"]
+          - ["geoopt_265"]
+          - ["geoopt_266"]
+          - ["piq_267"]
+          - ["piq_268"]
+          - ["spire_269"]
+          - ["cosmic2_750"]
+          - ["cosmic2_751"]
+          - ["cosmic2_752"]
+          - ["cosmic2_753"]
+          - ["cosmic2_754"]
+          - ["cosmic2_755"]
+          - ["grace_803"]
+          - ["grace_804"]
+          - ["k5_825"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_metop_3.tm00.nc"
+
+- obs space:
+    name: "metop_4"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["metop_4"]
+        cache categories:
+          - ["metop_3"]
+          - ["metop_4"]
+          - ["metop_5"]
+          - ["tsx_42"]
+          - ["tdm_43"]
+          - ["paz_44"]
+          - ["s6_66"]
+          - ["geoopt_265"]
+          - ["geoopt_266"]
+          - ["piq_267"]
+          - ["piq_268"]
+          - ["spire_269"]
+          - ["cosmic2_750"]
+          - ["cosmic2_751"]
+          - ["cosmic2_752"]
+          - ["cosmic2_753"]
+          - ["cosmic2_754"]
+          - ["cosmic2_755"]
+          - ["grace_803"]
+          - ["grace_804"]
+          - ["k5_825"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_metop_4.tm00.nc"
+
+- obs space:
+    name: "metop_5"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["metop_5"]
+        cache categories:
+          - ["metop_3"]
+          - ["metop_4"]
+          - ["metop_5"]
+          - ["tsx_42"]
+          - ["tdm_43"]
+          - ["paz_44"]
+          - ["s6_66"]
+          - ["geoopt_265"]
+          - ["geoopt_266"]
+          - ["piq_267"]
+          - ["piq_268"]
+          - ["spire_269"]
+          - ["cosmic2_750"]
+          - ["cosmic2_751"]
+          - ["cosmic2_752"]
+          - ["cosmic2_753"]
+          - ["cosmic2_754"]
+          - ["cosmic2_755"]
+          - ["grace_803"]
+          - ["grace_804"]
+          - ["k5_825"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_metop_5.tm00.nc"
+
+- obs space:
+    name: "tsx_42"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["tsx_42"]
+        cache categories:
+          - ["metop_3"]
+          - ["metop_4"]
+          - ["metop_5"]
+          - ["tsx_42"]
+          - ["tdm_43"]
+          - ["paz_44"]
+          - ["s6_66"]
+          - ["geoopt_265"]
+          - ["geoopt_266"]
+          - ["piq_267"]
+          - ["piq_268"]
+          - ["spire_269"]
+          - ["cosmic2_750"]
+          - ["cosmic2_751"]
+          - ["cosmic2_752"]
+          - ["cosmic2_753"]
+          - ["cosmic2_754"]
+          - ["cosmic2_755"]
+          - ["grace_803"]
+          - ["grace_804"]
+          - ["k5_825"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_tsx_42.tm00.nc"
+
+
+- obs space:
+    name: "tdm_43"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["tdm_43"]
+        cache categories:
+          - ["metop_3"]
+          - ["metop_4"]
+          - ["metop_5"]
+          - ["tsx_42"]
+          - ["tdm_43"]
+          - ["paz_44"]
+          - ["s6_66"]
+          - ["geoopt_265"]
+          - ["geoopt_266"]
+          - ["piq_267"]
+          - ["piq_268"]
+          - ["spire_269"]
+          - ["cosmic2_750"]
+          - ["cosmic2_751"]
+          - ["cosmic2_752"]
+          - ["cosmic2_753"]
+          - ["cosmic2_754"]
+          - ["cosmic2_755"]
+          - ["grace_803"]
+          - ["grace_804"]
+          - ["k5_825"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_tdm_43.tm00.nc"
+
+
+- obs space:
+    name: "paz_44"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["paz_44"]
+        cache categories:
+          - ["metop_3"]
+          - ["metop_4"]
+          - ["metop_5"]
+          - ["tsx_42"]
+          - ["tdm_43"]
+          - ["paz_44"]
+          - ["s6_66"]
+          - ["geoopt_265"]
+          - ["geoopt_266"]
+          - ["piq_267"]
+          - ["piq_268"]
+          - ["spire_269"]
+          - ["cosmic2_750"]
+          - ["cosmic2_751"]
+          - ["cosmic2_752"]
+          - ["cosmic2_753"]
+          - ["cosmic2_754"]
+          - ["cosmic2_755"]
+          - ["grace_803"]
+          - ["grace_804"]
+          - ["k5_825"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_paz_44.tm00.nc"
+
+
+- obs space:
+    name: "s6_66"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["s6_66"]
+        cache categories:
+          - ["metop_3"]
+          - ["metop_4"]
+          - ["metop_5"]
+          - ["tsx_42"]
+          - ["tdm_43"]
+          - ["paz_44"]
+          - ["s6_66"]
+          - ["geoopt_265"]
+          - ["geoopt_266"]
+          - ["piq_267"]
+          - ["piq_268"]
+          - ["spire_269"]
+          - ["cosmic2_750"]
+          - ["cosmic2_751"]
+          - ["cosmic2_752"]
+          - ["cosmic2_753"]
+          - ["cosmic2_754"]
+          - ["cosmic2_755"]
+          - ["grace_803"]
+          - ["grace_804"]
+          - ["k5_825"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_s6_66.tm00.nc"
+
+
+- obs space:
+    name: "geoopt_265"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["geoopt_265"]
+        cache categories:
+          - ["metop_3"]
+          - ["metop_4"]
+          - ["metop_5"]
+          - ["tsx_42"]
+          - ["tdm_43"]
+          - ["paz_44"]
+          - ["s6_66"]
+          - ["geoopt_265"]
+          - ["geoopt_266"]
+          - ["piq_267"]
+          - ["piq_268"]
+          - ["spire_269"]
+          - ["cosmic2_750"]
+          - ["cosmic2_751"]
+          - ["cosmic2_752"]
+          - ["cosmic2_753"]
+          - ["cosmic2_754"]
+          - ["cosmic2_755"]
+          - ["grace_803"]
+          - ["grace_804"]
+          - ["k5_825"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_geoopt_265.tm00.nc"
+
+
+- obs space:
+    name: "geoopt_266"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["geoopt_266"]
+        cache categories:
+          - ["metop_3"]
+          - ["metop_4"]
+          - ["metop_5"]
+          - ["tsx_42"]
+          - ["tdm_43"]
+          - ["paz_44"]
+          - ["s6_66"]
+          - ["geoopt_265"]
+          - ["geoopt_266"]
+          - ["piq_267"]
+          - ["piq_268"]
+          - ["spire_269"]
+          - ["cosmic2_750"]
+          - ["cosmic2_751"]
+          - ["cosmic2_752"]
+          - ["cosmic2_753"]
+          - ["cosmic2_754"]
+          - ["cosmic2_755"]
+          - ["grace_803"]
+          - ["grace_804"]
+          - ["k5_825"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_geoopt_266.tm00.nc"
+
+
+- obs space:
+    name: "piq_267"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["piq_267"]
+        cache categories:
+          - ["metop_3"]
+          - ["metop_4"]
+          - ["metop_5"]
+          - ["tsx_42"]
+          - ["tdm_43"]
+          - ["paz_44"]
+          - ["s6_66"]
+          - ["geoopt_265"]
+          - ["geoopt_266"]
+          - ["piq_267"]
+          - ["piq_268"]
+          - ["spire_269"]
+          - ["cosmic2_750"]
+          - ["cosmic2_751"]
+          - ["cosmic2_752"]
+          - ["cosmic2_753"]
+          - ["cosmic2_754"]
+          - ["cosmic2_755"]
+          - ["grace_803"]
+          - ["grace_804"]
+          - ["k5_825"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_piq_267.tm00.nc"
+
+
+- obs space:
+    name: "piq_268"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["piq_268"]
+        cache categories:
+          - ["metop_3"]
+          - ["metop_4"]
+          - ["metop_5"]
+          - ["tsx_42"]
+          - ["tdm_43"]
+          - ["paz_44"]
+          - ["s6_66"]
+          - ["geoopt_265"]
+          - ["geoopt_266"]
+          - ["piq_267"]
+          - ["piq_268"]
+          - ["spire_269"]
+          - ["cosmic2_750"]
+          - ["cosmic2_751"]
+          - ["cosmic2_752"]
+          - ["cosmic2_753"]
+          - ["cosmic2_754"]
+          - ["cosmic2_755"]
+          - ["grace_803"]
+          - ["grace_804"]
+          - ["k5_825"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_piq_268.tm00.nc"
+
+
+- obs space:
+    name: "spire_269"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["spire_269"]
+        cache categories:
+          - ["metop_3"]
+          - ["metop_4"]
+          - ["metop_5"]
+          - ["tsx_42"]
+          - ["tdm_43"]
+          - ["paz_44"]
+          - ["s6_66"]
+          - ["geoopt_265"]
+          - ["geoopt_266"]
+          - ["piq_267"]
+          - ["piq_268"]
+          - ["spire_269"]
+          - ["cosmic2_750"]
+          - ["cosmic2_751"]
+          - ["cosmic2_752"]
+          - ["cosmic2_753"]
+          - ["cosmic2_754"]
+          - ["cosmic2_755"]
+          - ["grace_803"]
+          - ["grace_804"]
+          - ["k5_825"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_spire_269.tm00.nc"
+
+
+- obs space:
+    name: "cosmic2_750"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["cosmic2_750"]
+        cache categories:
+          - ["metop_3"]
+          - ["metop_4"]
+          - ["metop_5"]
+          - ["tsx_42"]
+          - ["tdm_43"]
+          - ["paz_44"]
+          - ["s6_66"]
+          - ["geoopt_265"]
+          - ["geoopt_266"]
+          - ["piq_267"]
+          - ["piq_268"]
+          - ["spire_269"]
+          - ["cosmic2_750"]
+          - ["cosmic2_751"]
+          - ["cosmic2_752"]
+          - ["cosmic2_753"]
+          - ["cosmic2_754"]
+          - ["cosmic2_755"]
+          - ["grace_803"]
+          - ["grace_804"]
+          - ["k5_825"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_cosmic2_750.tm00.nc"
+
+
+- obs space:
+    name: "cosmic2_751"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["cosmic2_751"]
+        cache categories:
+          - ["metop_3"] 
+          - ["metop_4"] 
+          - ["metop_5"] 
+          - ["tsx_42"] 
+          - ["tdm_43"] 
+          - ["paz_44"] 
+          - ["s6_66"] 
+          - ["geoopt_265"] 
+          - ["geoopt_266"] 
+          - ["piq_267"] 
+          - ["piq_268"] 
+          - ["spire_269"] 
+          - ["cosmic2_750"] 
+          - ["cosmic2_751"] 
+          - ["cosmic2_752"] 
+          - ["cosmic2_753"] 
+          - ["cosmic2_754"] 
+          - ["cosmic2_755"] 
+          - ["grace_803"] 
+          - ["grace_804"] 
+          - ["k5_825"] 
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_cosmic2_751.tm00.nc"
+
+- obs space: 
+    name: "cosmic2_752"
+    simulated variables: ['bendingAngle'] 
+    obsdatain: 
+      engine: 
+        type: bufr 
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d" 
+        mapping file: "./bufr_gpsro.yaml" 
+        category: ["cosmic2_752"] 
+        cache categories:
+          - ["metop_3"] 
+          - ["metop_4"] 
+          - ["metop_5"] 
+          - ["tsx_42"] 
+          - ["tdm_43"] 
+          - ["paz_44"] 
+          - ["s6_66"] 
+          - ["geoopt_265"] 
+          - ["geoopt_266"] 
+          - ["piq_267"] 
+          - ["piq_268"] 
+          - ["spire_269"] 
+          - ["cosmic2_750"] 
+          - ["cosmic2_751"] 
+          - ["cosmic2_752"] 
+          - ["cosmic2_753"] 
+          - ["cosmic2_754"] 
+          - ["cosmic2_755"] 
+          - ["grace_803"] 
+          - ["grace_804"] 
+          - ["k5_825"] 
+    obsdataout: 
+      engine: 
+        type: H5File 
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_cosmic2_752.tm00.nc" 
+
+- obs space:
+    name: "cosmic2_753"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["cosmic2_753"]
+        cache categories:
+          - ["metop_3"]
+          - ["metop_4"]
+          - ["metop_5"]
+          - ["tsx_42"]
+          - ["tdm_43"]
+          - ["paz_44"]
+          - ["s6_66"]
+          - ["geoopt_265"]
+          - ["geoopt_266"]
+          - ["piq_267"]
+          - ["piq_268"]
+          - ["spire_269"]
+          - ["cosmic2_750"]
+          - ["cosmic2_751"]
+          - ["cosmic2_752"]
+          - ["cosmic2_753"]
+          - ["cosmic2_754"]
+          - ["cosmic2_755"]
+          - ["grace_803"]
+          - ["grace_804"]
+          - ["k5_825"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_cosmic2_753.tm00.nc"
+
+- obs space:
+    name: "cosmic2_754"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["cosmic2_754"]
+        cache categories:
+          - ["metop_3"]
+          - ["metop_4"]
+          - ["metop_5"]
+          - ["tsx_42"]
+          - ["tdm_43"]
+          - ["paz_44"]
+          - ["s6_66"]
+          - ["geoopt_265"]
+          - ["geoopt_266"]
+          - ["piq_267"]
+          - ["piq_268"]
+          - ["spire_269"]
+          - ["cosmic2_750"]
+          - ["cosmic2_751"]
+          - ["cosmic2_752"]
+          - ["cosmic2_753"]
+          - ["cosmic2_754"]
+          - ["cosmic2_755"]
+          - ["grace_803"]
+          - ["grace_804"]
+          - ["k5_825"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_cosmic2_754.tm00.nc"
+
+- obs space:
+    name: "cosmic2_755"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["cosmic2_755"]
+        cache categories:
+          - ["metop_3"]
+          - ["metop_4"]
+          - ["metop_5"]
+          - ["tsx_42"]
+          - ["tdm_43"]
+          - ["paz_44"]
+          - ["s6_66"]
+          - ["geoopt_265"]
+          - ["geoopt_266"]
+          - ["piq_267"]
+          - ["piq_268"]
+          - ["spire_269"]
+          - ["cosmic2_750"]
+          - ["cosmic2_751"]
+          - ["cosmic2_752"]
+          - ["cosmic2_753"]
+          - ["cosmic2_754"]
+          - ["cosmic2_755"]
+          - ["grace_803"]
+          - ["grace_804"]
+          - ["k5_825"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_cosmic2_755.tm00.nc"
+
+- obs space:
+    name: "grace_803"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["grace_803"]
+        cache categories:
+          - ["metop_3"]
+          - ["metop_4"]
+          - ["metop_5"]
+          - ["tsx_42"]
+          - ["tdm_43"]
+          - ["paz_44"]
+          - ["s6_66"]
+          - ["geoopt_265"]
+          - ["geoopt_266"]
+          - ["piq_267"]
+          - ["piq_268"]
+          - ["spire_269"]
+          - ["cosmic2_750"]
+          - ["cosmic2_751"]
+          - ["cosmic2_752"]
+          - ["cosmic2_753"]
+          - ["cosmic2_754"]
+          - ["cosmic2_755"]
+          - ["grace_803"]
+          - ["grace_804"]
+          - ["k5_825"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_grace_803.tm00.nc"
+
+- obs space:
+    name: "grace_804"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["grace_804"]
+        cache categories:
+          - ["metop_3"]
+          - ["metop_4"]
+          - ["metop_5"]
+          - ["tsx_42"]
+          - ["tdm_43"]
+          - ["paz_44"]
+          - ["s6_66"]
+          - ["geoopt_265"]
+          - ["geoopt_266"]
+          - ["piq_267"]
+          - ["piq_268"]
+          - ["spire_269"]
+          - ["cosmic2_750"]
+          - ["cosmic2_751"]
+          - ["cosmic2_752"]
+          - ["cosmic2_753"]
+          - ["cosmic2_754"]
+          - ["cosmic2_755"]
+          - ["grace_803"]
+          - ["grace_804"]
+          - ["k5_825"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_grace_804.tm00.nc"
+
+
+- obs space:
+    name: "k5_825"
+    simulated variables: ['bendingAngle']
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        mapping file: "./bufr_gpsro.yaml"
+        category: ["k5_825"]
+        cache categories:
+          - ["metop_3"]
+          - ["metop_4"]
+          - ["metop_5"]
+          - ["tsx_42"]
+          - ["tdm_43"]
+          - ["paz_44"]
+          - ["s6_66"]
+          - ["geoopt_265"]
+          - ["geoopt_266"]
+          - ["piq_267"]
+          - ["piq_268"]
+          - ["spire_269"]
+          - ["cosmic2_750"]
+          - ["cosmic2_751"]
+          - ["cosmic2_752"]
+          - ["cosmic2_753"]
+          - ["cosmic2_754"]
+          - ["cosmic2_755"]
+          - ["grace_803"]
+          - ["grace_804"]
+          - ["k5_825"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_k5_825.tm00.nc"

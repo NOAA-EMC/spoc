@@ -1,0 +1,132 @@
+bufr:
+  group_by_variable: height 
+  variables:
+    # MetaData
+#    timestamp:
+#      datetime:
+#        year: "*/YEAR"
+#        month: "*/MNTH"
+#        day: "*/DAYS"
+#        hour: "*/HOUR"
+#        minute: "*/MINU"
+#        second: "*/SECO"
+
+    satelliteId_height: #entifier:
+      query: "*/SAID"
+#    latitude:
+#      query: "*/ROSEQ1/CLATH"
+#    longitude:
+#      query: "*/ROSEQ1/CLONH"
+#      query: "*/GEODU"
+    height:
+      query: "*/ROSEQ3/HEIT"
+    percentConfidence:
+      query: "*/ROSEQ3/PCCF"
+
+#    # ObsValue
+    atmosphericRefractivity:
+      query: "*/ROSEQ3/ARFR[1]"
+
+    # ObsError
+    obsErrorAtmosphericRefractivity:
+      query: "*/ROSEQ3/ARFR[2]"
+
+  splits:
+    satId:
+      category:
+        variable: satelliteId_height
+        map:
+          _3: metop_3
+          _4: metop_4
+          _5: metop_5
+          _42: tsx_42
+          _43:  tdm_43
+          _44:  paz_44
+          _66:  s6_66
+          _265: geoopt_265
+          _266: geoopt_266
+          _267: piq_267
+          _268: piq_268          
+          _269: spire_269
+          _750: cosmic2_750
+          _751: cosmic2_751
+          _752: cosmic2_752
+          _753: cosmic2_753
+          _754: cosmic2_754
+          _755: cosmic2_755
+          _803: grace_803
+          _804: grace_804
+          _825: k5_825
+
+encoder:
+  # Need to get these from the json file. Might have to append a lot. 
+  globals:
+    - name: "dataOriginalFormatSpec"
+      type: string
+      value: "bufr_d"
+
+#    - name: "data_type"
+#      type: string
+#      value: "gpsro"
+#
+#    - name: "subsets"
+#      type: string
+#      value: "NC003010" 
+#
+#    - name: "data_description"
+#      type: string
+#      value: "Satellite radio occultation data" 
+
+
+  variables:
+
+#    # MetaData
+#    # Longitude
+#    - name: "MetaData/longitude"
+#      source: variables/longitude
+#      units: "degrees_east" 
+#      range: [-180, 180]
+#      longName: "Longitude" 
+#
+#    # Latitude
+#    - name: "MetaData/latitude"
+#      source: variables/latitude
+#      units: "degrees_north" 
+#      range: [-90, 90]
+#      longName: "Latitude" 
+
+#    # Datetime
+#    - name: "MetaData/dateTime"
+#      source: variables/timestamp
+#      units: "seconds since 1970-01-01T00:00:00Z" 
+#      longName: "Datetime" 
+
+    - name: "MetaData/satelliteId_height"
+      source: variables/satelliteId_height
+      units: 1
+      longName: "satelliteId_height"
+
+    # Height
+    - name: "MetaData/height"
+      source: variables/height
+      units: "m" 
+      longName: "Height for Atm Refractivity" 
+
+    # PCCF Ref Percent Confidence
+    - name: "MetaData/percentConfidence"
+      source: variables/percentConfidence
+      units: "%" 
+      longName: "Ref Percent Confidence" 
+
+    # ObsValue: Atmospheric Refractivity
+    - name: "ObsValue/atmosphericRefractivity"
+      source: variables/atmosphericRefractivity
+      units: "N-units" 
+      longName: "Atmospheric Refractivity" 
+
+    # ObsError: Atmospheric Refractivity
+    - name: "ObsError/atmosphericRefractivity"
+      source: variables/obsErrorAtmosphericRefractivity
+      units: "N-units" 
+      longName: "Atmospheric Refractivity Obs Error" 
+
