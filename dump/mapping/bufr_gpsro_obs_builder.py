@@ -146,16 +146,28 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
                     self.log.info("Manipulate the data")
 
                     self.log.info("Creating derived variables - stationIdentification")
-                    self._derive_stationIdentification(container, cat)
+                    self._derive_stationidentification(container, cat)
                     #print("NICKE NEW CONTAINER 2 LIST", container.list())
 
                     self.log.info("Creating derived variables - Grid Latitude / Longitude")
                     #print(f"NICKE gridlat before {satellite_variables['gridLatitude'].min()}, {satellite_variables['gridLatitude'].max()}")
-                    #self._replace_gridCoordinates(container, cat)   # Don't need this but I know it works if I get rid of conversion in yaml!
-
+                    self._replace_gridcoordinates(container, cat)   # Don't need this but I know it works if I get rid of conversion in yaml!
+                    a = container.get('gridLatitude', cat)
+                    print("NICKE EEE ", a.min(), a.max())
 
                     self.log.info("Deriving imph and using mefr to manipulate bnda, imph, impp, bndaoe")
-                    #self._derive_imph_and_bnda(container, cat)
+                    self._derive_imph_and_bnda(container, cat)
+
+                    # Update Sequence Number
+                    self.log.info("Update Sequence Number")
+                    self._update_sequencenumber(container, cat)
+
+                    # Update satelliteAscendingFlag and QFRO 
+                    self.log.info("Update satelliteAscendingFlag and QFRO")
+                    self._update_satelliteascendingflag_and_qfro(container, cat)
+
+
+                    # GLOBAL ATTRIBUTES
 
 
                     # Get generic information for arrays for empty output files 
@@ -467,7 +479,14 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
                 'source': 'stationIdentification',
                 #'units': 'Pa',
                 'longName': 'Station Identification',
-            }])
+            },
+            {
+                'name': 'MetaData/impactHeightRO',
+                'source': 'impactHeightRO',
+                'units': 'm',
+                'longName': 'Impact Height Bending Angle',
+            }
+            ])
 
     def _add_new_variables_height_yaml(self, description):
         description.add_variables([
@@ -508,28 +527,18 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
 
     # Methods that are used to extend the export description
     #def _add_pressures(self, container, cat):
-    def _replace_gridCoordinates(self, container, cat):
-        lat_deg = container.get('gridLatitude', cat) 
-        lon_deg = container.get('gridLongitude', cat) 
-        lat_deg_paths = container.get_paths('gridLatitude', cat) 
-        lon_deg_paths = container.get_paths('gridLongitude', cat)
+    def _replace_gridcoordinates(self, container, cat):
+        lat_deg = container.get('latitude', cat) 
+        lon_deg = container.get('longitude', cat) 
 
-        print(f"NICKE latdeg first {lat_deg.min()}, {lat_deg.max()}")
+        lat_rad = np.deg2rad(lat_deg)
+        lon_rad = np.deg2rad(lon_deg)
 
-        lat_valid = (lat_deg <= 360) & (lat_deg >= -180)
-        lon_valid = (lon_deg <= 360) & (lon_deg >= -180)
-
-        lat_deg[lat_valid] = np.deg2rad(lat_deg[lat_valid])
-        lon_deg[lon_valid] = np.deg2rad(lon_deg[lon_valid])
-
-        print(f"NICKE latdeg second {lat_deg.min()}, {lat_deg.max()}")
+        container.replace('gridLatitude', lat_rad, cat)
+        container.replace('gridLongitude', lon_rad, cat)
 
 
-        container.replace('gridLatitude', lat_deg, cat)
-        container.replace('gridLongitude', lon_deg, cat)
-
-
-    def _derive_stationIdentification(self, container, cat):
+    def _derive_stationidentification(self, container, cat):
         said = container.get('satelliteId', cat)
         ptid = container.get('satelliteTransmitterId', cat)
         said_paths = container.get_paths('satelliteId', cat)
@@ -554,6 +563,8 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
         impp3 = container.get('impactParameterRO_roseq2repl3', cat).astype(np.float32)
         elrc = container.get('earthRadiusCurvature', cat)
         geodu = container.get('geoidUndulation', cat)
+        impp1_paths = container.get_paths('impactParameterRO_roseq2repl1', cat)
+
 
         mefr1 = container.get('frequency__roseq2repl1', cat)
         mefr2 = container.get('frequency__roseq2repl2', cat)
@@ -570,17 +581,20 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
         imph2 = (impp2 - elrc - geodu).astype(np.float32)
         imph3 = (impp3 - elrc - geodu).astype(np.float32)
    
-        self.log.info("Overwrite values for mefr, bnda, impp, imph, bndaoe"
+        self.log.info("Overwrite values for mefr, bnda, impp, imph, bndaoe")
         for i in range(len(impp1)):
+            #print("NICKE TEST MEFR", mefr1[i], mefr2[i], mefr3[i])
             if (mefr2[i] == 0.0):
-                bnda1[i] = bnda2[i]
+                #print("NICKE TEST REPLACE 2")
                 mefr1[i] = mefr2[i]
+                bnda1[i] = bnda2[i]
                 impp1[i] = impp2[i]
                 imph1[i] = imph2[i]
                 bndaoe1[i] = bndaoe2[i]
             if (mefr3[i] == 0.0):
-                bnda1[i] = bnda3[i]
+                #print("NICKE TEST REPLACE 3")
                 mefr1[i] = mefr3[i]
+                bnda1[i] = bnda3[i]
                 impp1[i] = impp3[i]
                 imph1[i] = imph3[i]
                 bndaoe1[i] = bndaoe3[i]       
@@ -589,225 +603,88 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
 
         #container replace
         self.log.info("imph container replace")
+        container.replace('bendingAngle_roseq2repl1', bnda1, cat)
+        container.replace('frequency__roseq2repl1', mefr1, cat)
+        container.replace('impactParameterRO_roseq2repl1', impp1, cat)
+        container.replace('obsErrorBendingAngle1', bndaoe1, cat)
 
 
         #container add
         self.log.info("imph container add")
-
+        container.add('impactHeightRO', imph1, impp1_paths, cat)
 
         #container remove
         self.log.info("imph container remove")
-        #container.remove('impactParameterRO_roseq2repl1')
+        #container.remove('bendingAngle_roseq2repl2')
+        #container.remove('bendingAngle_roseq2repl3')
+        #container.remove('frequency__roseq2repl2')
+        #container.remove('frequency__roseq2repl3')
         #container.remove('impactParameterRO_roseq2repl2')
         #container.remove('impactParameterRO_roseq2repl3')
+        #container.remove('obsErrorBendingAngle2')
+        #container.remove('obsErrorBendingAngle3')
 
 
-        #return imph
+    def _update_sequencenumber(self, container, cat):
+        seqnum = container.get('sequenceNumber', cat)
 
-        #satId = container.get('satelliteId', cat)
-        #if not satId.size:
-        #    self.log.warning(f'category {cat[0]} does not exist in input file')
-        #    add_dummy_variable(container, 'pressure', cat, 'latitude')
-        #    return
-#
-#        latitude = container.get('latitude', cat)
-#        paths = container.get_paths('latitude', cat)
-#
-#        pressure = np.full_like(latitude, 0)
-        #container.add('pressure', pressure, paths, cat)   
+        count1 = 0
+        count2 = 0
+        seqnum2 = []
+        for i in range(len(seqnum)):
+            if (int(seqnum[i]) != count2):
+                count1 += 1
+            count2 = int(seqnum[i])
+            seqnum2.append(count1)
+        seqnum2 = np.array(seqnum2)
 
-        
+        self.log.info("Replace sequenceNumber with updated values")
+        container.replace('sequenceNumber', seqnum2, cat)
 
-    #for i in range(len(degrees)):
-    #    if degrees[i] <= 360 and degrees[i] >= -180:
-    #        degrees[i] = np.deg2rad(degrees[i])
-    #rad = degrees
+    def _update_satelliteascendingflag_and_qfro(self, container, cat):
+        qfro = container.get('qualityFlags', cat)
+        qfro2 = container.get('pccf', cat).astype(np.float32)
+        satasc = container.get('satelliteAscendingFlag', cat)
+        #   find ibit for qfro (16bit from left to right)
+        #   bit5=1, reject the bending angle obs
+        #   bit6=1, reject the refractivity obs
+        bit3 = []
+        bit5 = []
+        bit6 = []
+        for quality in qfro:
+            if quality & 8192 > 0:
+                bit3.append(1)
+            else:
+                bit3.append(0)
+    
+            if quality & 2048 > 0:
+                bit5.append(1)
+            else:
+                bit5.append(0)
+    
+            # For refractivity data use only:
+            if quality & 1024 > 0:
+                bit6.append(1)
+            else:
+                bit6.append(0)
+    
+        bit3 = np.array(bit3)
+        bit5 = np.array(bit5)
+        bit6 = np.array(bit6)
+        self.log.debug(f"     new bit3 shape, type, min/max {bit3.shape}, \
+                    {bit3.dtype}, {bit3.min()}, {bit3.max()}")
+    
+        #   overwrite satelliteAscendingFlag and QFRO
+        for quality in range(len(bit3)):
+            satasc[quality] = 0
+            qfro2[quality] = 0.0
+            if bit3[quality] == 1:
+                satasc[quality] = 1
+            # if (bit6[quality] == 1): refractivity data only
+            #    qfro2[quality] = 1.0
+            if (bit5[quality] == 1):
+                qfro2[quality] = 1.0 
 
-
-
-
-
-
-
-
-
-
-
-#    def _add_wind_descriptions(self, description):
-#        description.add_variables([
-#            {
-#                'name': 'ObsType/windEastward',
-#                'source': 'obstype_uwind',
-#                'units': '1',
-#                'longName': 'Observation Type based on Satellite-derived Wind Computation Method and Spectral Band',
-#            },
-#            {
-#                'name': 'ObsType/windNorthward',
-#                'source': 'obstype_vwind',
-#                'units': '1',
-#                'longName': 'Observation Type based on Satellite-derived Wind Computation Method and Spectral Band',
-#            },
-#            {
-#                'name': 'ObsValue/windEastward',
-#                'source': 'windEastward',
-#                'units': 'm s-1',
-#                'longName': 'Eastward Wind Component',
-#            },
-#            {
-#                'name': 'ObsValue/windNorthward',
-#                'source': 'windNorthward',
-#                'units': 'm s-1',
-#                'longName': 'Northward Wind Component',
-#            }])
-#
-#    def _add_quality_info_and_gen_app_descriptions(self, description):
-#        description.add_variables([
-#            {
-#                'name': 'MetaData/windGeneratingApplication',
-#                'source': 'windGeneratingApplication',
-#                'units': '1',
-#                'longName': 'Wind Generating Application',
-#            },
-#            {
-#                'name': 'MetaData/qualityInformationWithoutForecast',
-#                'source': 'qualityInformationWithoutForecast',
-#                'units': '1',
-#                'longName': 'Quality Information Without Forecast',
-#            }])
-#
-#
-#    # Methods that are used to extend the obs data container
-#    def _add_wind_obs(self, container, cat):
-#        # Add new variables: ObsType/windEastward & ObsType/windNorthward
-#        swcm = container.get('windComputationMethod', cat)
-#        chanfreq = container.get('sensorCentralFrequency', cat)
-#
-#        if swcm.size == 0:
-#            self.log.warning(f'category {cat[0]} does not exist in input file')
-#            paths = container.get_paths('variables/windComputationMethod', cat)
-#            obstype = container.get('variables/windComputationMethod', cat)
-#            container.add('variables/obstype_uwind', obstype, paths, cat)
-#            container.add('variables/obstype_vwind', obstype, paths, cat)
-#
-#            paths = container.get_paths('variables/windSpeed', cat)
-#            wob = container.get('variables/windSpeed', cat)
-#            container.add('variables/windEastward', wob, paths, cat)
-#            container.add('variables/windNorthward', wob, paths, cat)
-#            return
-#
-#        # self.log.debug(f'swcm min/max = {swcm.min()} {swcm.max()}')
-#        self.log.debug('chanfreq min/max = {chanfreq.min()} {chanfreq.max()}')
-#
-#        obstype = self._get_obs_type(swcm, chanfreq)
-#
-#        self.log.debug(f'obstype = {obstype}')
-#        self.log.debug(f'obstype min/max =  {obstype.min()} {obstype.max()}')
-#
-#        paths = container.get_paths('windComputationMethod', cat)
-#        container.add('obstype_uwind', obstype, paths, cat)
-#        container.add('obstype_vwind', obstype, paths, cat)
-#
-#        # Add new variables: ObsValue/windEastward & ObsValue/windNorthward
-#        wdir = container.get('windDirection', cat)
-#        wspd = container.get('windSpeed', cat)
-#
-#        self.log.debug(f'wdir min/max = {wdir.min()} {wdir.max()}')
-#        self.log.debug(f'wspd min/max = {wspd.min()} {wspd.max()}')
-#
-#        uob, vob = self._compute_wind_components(wdir, wspd)
-#
-#        self.log.debug(f'uob min/max = {uob.min()} {uob.max()}')
-#        self.log.debug(f'vob min/max = {vob.min()} {vob.max()}')
-#
-#        paths = container.get_paths('windSpeed', cat)
-#        container.add('windEastward', uob, paths, cat)
-#        container.add('windNorthward', vob, paths, cat)
-#
-#    def _add_quality_info_and_gen_app(self, findQi, container, cat):
-#        # Add new variables: MetaData/windGeneratingApplication and qualityInformationWithoutForecast
-#        gnap2D = container.get('generatingApplication', cat)
-#        pccf2D = container.get('qualityInformation', cat)
-#        satId = container.get('satelliteId', cat)
-#
-#        if not satId.size:
-#            paths = container.get_paths('windComputationMethod', cat)
-#            dummy = container.get('windSpeed', cat)
-#            container.add('windGeneratingApplication', dummy, paths, cat)
-#            container.add('qualityInformationWithoutForecast', dummy, paths, cat)
-#            return
-#
-#        gnap, qifn = self._get_quality_info_and_gen_app(findQi, gnap2D, pccf2D, satId)
-#
-#        self.log.debug(f'gnap min/max = {gnap.min()} {gnap.max()}')
-#        self.log.debug(f'qifn min/max = {qifn.min()} {qifn.max()}')
-#
-#        paths = container.get_paths('windComputationMethod', cat)
-#        container.add('windGeneratingApplication', gnap, paths, cat)
-#        container.add('qualityInformationWithoutForecast', qifn, paths, cat)
-#
-#    def _get_obs_type(self, swcm, chan_freq=0):
-#        """
-#        Determine the observation type based on `swcm` and `chanfreq`.
-#
-#        Parameters:
-#            swcm (array-like): Switch mode values.
-#            chanfreq (array-like): Channel frequency values (Hz).
-#
-#        Returns:
-#            numpy.ndarray: Observation type array.
-#
-#        Raises:
-#            ValueError: If any `obstype` is unassigned.
-#        """
-#
-#        raise NotImplementedError('Method _get_obs_type must be implemented in derived classes')
-#
-#    # Private methods
-#    def _compute_wind_components(self, wdir, wspd):
-#        """
-#        Compute the U and V wind components from wind direction and wind speed.
-#
-#        Parameters:
-#            wdir (array-like): Wind direction in degrees (meteorological convention: 0° = North, 90° = East).
-#            wspd (array-like): Wind speed.
-#
-#        Returns:
-#            tuple: U and V wind components as numpy arrays with dtype float32.
-#        """
-#        wdir_rad = np.radians(wdir)  # Convert degrees to radians
-#        u = -wspd * np.sin(wdir_rad)
-#        v = -wspd * np.cos(wdir_rad)
-#
-#        return u.astype(np.float32), v.astype(np.float32)
-#
-#    def _get_quality_info_and_gen_app(self, findQi, gnap2D, pccf2D):
-#        # For NOAA VIIRS data, qi w/o forecast (qifn) is packaged in same
-#        # vector of qi with ga = 5 (EUMETSAT QI without forecast). Must
-#        # conduct a search and extract the correct vector for gnap and qi
-#
-#        # 1. Find dimension-sizes of ga and qi (should be the same!)
-#        gDim1, gDim2 = np.shape(gnap2D)
-#        qDim1, qDim2 = np.shape(pccf2D)
-#        self.log.info('Generating Application and Quality Information SEARCH')
-#        self.log.debug( f'Dimension size of GNAP ({gDim1},{gDim2})')
-#        self.log.debug( f'Dimension size of PCCF ({qDim1},{qDim2})')
-#
-#        # 2. Initialize gnap and qifn as None, and search for dimension of
-#        #    ga with values of 5. If the same column exists for qi, assign
-#        #    gnap to ga[:,i] and qifn to qi[:,i], else raise warning that no
-#        #    appropriate GNAP/PCCF combination was found
-#        gnap = None
-#        qifn = None
-#        for i in range(gDim2):
-#            if np.unique(gnap2D[:, i].squeeze()) == find_qi:
-#                if i <= qDim2:
-#                    self.log.info(f'GNAP/PCCF found for column {i}')
-#                    gnap = gnap2D[:, i].squeeze()
-#                    qifn = pccf2D[:, i].squeeze()
-#                else:
-#                    self.log.info(f'ERROR: GNAP column {i} outside of PCCF dimension {qDim2}')
-#        if (gnap is None) & (qifn is None):
-#            raise ValueError(f'GNAP == {findQI} NOT FOUND OR OUT OF PCCF DIMENSION-RANGE, WILL FAIL!')
-#        # If EE is needed, key search on np.unique(gnap2D[:,i].squeeze()) == 7 instead
-#        # NOTE: Make sure to return np.float32 or np.int32 types as appropriate!!!
-#        return gnap.astype(np.int32), qifn.astype(np.int32)
+        self.log.info('Replace pccf and satasc in container')
+        container.replace('pccf', qfro2, cat)
+        container.replace('satelliteAscendingFlag', satasc, cat)

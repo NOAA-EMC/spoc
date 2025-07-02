@@ -19,6 +19,7 @@ bufr:
       query: "*/ROSEQ1/CLATH"
       transforms:
         - scale: 0.017453292519943
+        #- scale: 0.0174532925
     gridLongitude:
       query: "*/ROSEQ1/CLONH"
       transforms:
@@ -163,7 +164,7 @@ encoder:
 
     # Grid Longitude
     - name: "MetaData/gridLongitude"
-      source: variables/longitude
+      source: variables/gridLongitude
       units: "radians" 
       range: [-3.14159265, 3.14159265]
       type: float32 
@@ -171,7 +172,7 @@ encoder:
 
     # Grid Latitude
     - name: "MetaData/gridLatitude"
-      source: variables/latitude
+      source: variables/gridLatitude
       units: "radians" 
       range: [-1.570796325, 1.570796325]
       type: float32 
