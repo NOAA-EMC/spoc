@@ -10,11 +10,6 @@ from bufr_gpsro_obs_builder import BaseGpsroBufrObsBuilder
 LOCATION_PROFILE = map_path("./bufr_gpsro_latitude.yaml")
 HEIGHT_PROFILE   = map_path("./bufr_gpsro_height.yaml")
 
-#from bufr import encoders
-
-#desc = encoders.Description("./bufr_gpsro_height.yaml")
-#print("NE DESC", desc)
-
 # ----------------------------------------------------------------------
 # Concrete implementation
 # ----------------------------------------------------------------------

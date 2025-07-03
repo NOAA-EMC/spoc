@@ -11,15 +11,15 @@ bufr:
 #        minute: "*/MINU"
 #        second: "*/SECO"
 
-    satelliteId_height: #entifier:
+    satelliteId_height:
       query: "*/SAID"
 #    latitude:
 #      query: "*/ROSEQ1/CLATH"
 #    longitude:
 #      query: "*/ROSEQ1/CLONH"
-#      query: "*/GEODU"
     height:
       query: "*/ROSEQ3/HEIT"
+      type: float
     percentConfidence:
       query: "*/ROSEQ3/PCCF"
 
@@ -40,9 +40,9 @@ bufr:
           _4: metop_4
           _5: metop_5
           _42: tsx_42
-          _43:  tdm_43
-          _44:  paz_44
-          _66:  s6_66
+          _43: tdm_43
+          _44: paz_44
+          _66: s6_66
           _265: geoopt_265
           _266: geoopt_266
           _267: piq_267

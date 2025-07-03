@@ -19,13 +19,12 @@ bufr:
       query: "*/ROSEQ1/CLATH"
       transforms:
         - scale: 0.017453292519943
-        #- scale: 0.0174532925
     gridLongitude:
       query: "*/ROSEQ1/CLONH"
       transforms:
         - scale: 0.017453292519943
 
-    satelliteId: #entifier:
+    satelliteId:
       query: "*/SAID"
     satelliteInstrument:
       query: "*/SIID"
@@ -39,8 +38,6 @@ bufr:
       query: "*/SEQNUM"
     geoidUndulation:
       query: "*/GEODU"
-#    height:
-#      query: "*/ROSEQ3/HEIT"
     impactParameterRO_roseq2repl1:
       query: "*/ROSEQ1/ROSEQ2{1}/IMPP"
     impactParameterRO_roseq2repl2:
@@ -49,14 +46,15 @@ bufr:
       query: "*/ROSEQ1/ROSEQ2{3}/IMPP"
     frequency__roseq2repl1:
       query: "*/ROSEQ1/ROSEQ2{1}/MEFR"
+      type: float
     frequency__roseq2repl2:
       query: "*/ROSEQ1/ROSEQ2{2}/MEFR"
+      type: float
     frequency__roseq2repl3:
       query: "*/ROSEQ1/ROSEQ2{3}/MEFR"
+      type: float
     pccf:
       query: "*/PCCF[1]"
-#    percentConfidence:
-#      query: "*/ROSEQ3/PCCF"
     sensorAzimuthAngle:
       query: "*/BEARAZ"
 
@@ -79,8 +77,6 @@ bufr:
       query: "*/ROSEQ1/ROSEQ2{2}/BNDA[1]"
     bendingAngle_roseq2repl3:
       query: "*/ROSEQ1/ROSEQ2{3}/BNDA[1]"
-#    atmosphericRefractivity:
-#      query: "*/ROSEQ3/ARFR[1]"
 
     # ObsError
     obsErrorBendingAngle1:
@@ -89,8 +85,6 @@ bufr:
       query: "*/ROSEQ1/ROSEQ2{2}/BNDA[2]"
     obsErrorBendingAngle3:
       query: "*/ROSEQ1/ROSEQ2{3}/BNDA[2]"
-#    obsErrorAtmosphericRefractivity:
-#      query: "*/ROSEQ3/ARFR[2]"
 
     # ObsType
     obsTypeBendingAngle:
@@ -184,14 +178,9 @@ encoder:
       units: "seconds since 1970-01-01T00:00:00Z" 
       longName: "Datetime" 
 
-#    # Station Identification
-#    - name: "MetaData/stationIdentification"
-#      source: variables/stid_sat
-#      longName: "Station Identification" 
-
     # Satellite Identifier
     - name: "MetaData/satelliteIdentifier"
-      source: variables/satelliteId #entifier
+      source: variables/satelliteId
       longName: "Satellite Identifier" 
 
     # Satellite Instrument
@@ -226,25 +215,13 @@ encoder:
       units: "m" 
       longName: "Geoid Undulation" 
 
-    # Height
-#    - name: "MetaData/height"
-#      source: variables/height
-#      units: "m" 
-#      longName: "Height for Atm Refractivity" 
-
     # Impact Parameter RO
     - name: "MetaData/impactParameterRO"
       source: variables/impactParameterRO_roseq2repl1
       units: "m" 
       longName: "Impact Parameter Bending Angle" 
 
-#    # Impact Height RO
-#    - name: "MetaData/impactHeightRO"
-#      source: variables/imph1_sat
-#      units: "m" 
-#      longName: "Impact Height Bending Angle" 
-
-    # Impact Height RO
+    # Frequency 
     - name: "MetaData/frequency"
       source: variables/frequency__roseq2repl1
       units: "Hz" 
@@ -255,12 +232,6 @@ encoder:
       source: variables/pccf
       units: "%" 
       longName: "Profile Percent Confidence" 
-
-    # PCCF Ref Percent Confidence
-#    - name: "MetaData/percentConfidence"
-#      source: variables/percentConfidence
-#      units: "%" 
-#      longName: "Ref Percent Confidence" 
 
     # Azimuth Angle
     - name: "MetaData/sensorAzimuthAngle"
@@ -273,16 +244,17 @@ encoder:
       source: variables/dataProviderOrigin
       longName: "Identification of Originating Center" 
 
-    # Quality: Quality Flags
+    # QFRO 
     - name: "MetaData/qfro"
       source: variables/qfro
       longName: "QFRO" 
 
+    # QualityFlags
     - name: "MetaData/qualityFlags"
       source: variables/qualityFlags
       longName: "Quality Flags for QFRO bit5 and bit6" 
 
-    # Quality: Satellite Ascending Flag
+    # Satellite Ascending Flag
     - name: "MetaData/satelliteAscendingFlag"
       source: variables/satelliteAscendingFlag
       longName: "Satellite Ascending Flag" 
@@ -293,23 +265,11 @@ encoder:
       units: "radians" 
       longName: "Bending Angle" 
 
-    # ObsValue: Atmospheric Refractivity
-#    - name: "ObsValue/atmosphericRefractivity"
-#      source: variables/atmosphericRefractivity
-#      units: "N-units" 
-#      longName: "Atmospheric Refractivity" 
-
     # ObsError: Bending Angle
     - name: "ObsError/bendingAngle"
       source: variables/obsErrorBendingAngle1
       units: "radians" 
       longName: "Bending Angle Obs Error" 
-
-#    # ObsError: Atmospheric Refractivity
-#    - name: "ObsError/atmosphericRefractivity"
-#      source: variables/obsErrorAtmosphericRefractivity
-#      units: "N-units" 
-#      longName: "Atmospheric Refractivity Obs Error" 
 
     # ObsType: Bending Angle
     - name: "ObsType/bendingAngle"
@@ -320,5 +280,4 @@ encoder:
     - name: "ObsType/atmosphericRefractivity"
       source: variables/obsTypeAtmosphericRefractivity
       longName: "Atmospheric Refractivity ObsType" 
-
 
