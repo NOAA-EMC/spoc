@@ -10,6 +10,7 @@ from typing import Dict
 import bufr
 from bufr.obs_builder import ObsBuilder
 
+
 class BaseGpsroBufrObsBuilder(ObsBuilder):
     """Common logic; subclasses supply the YAML map paths."""
 
@@ -32,7 +33,7 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
     # -----------------------------------------------------------------
     # Example method the parent framework calls
     # -----------------------------------------------------------------
-    def make_obs(self,  comm, input_path):
+    def make_obs(self, comm, input_path):
         """
         Create the ioda gpsro bufr observations:
         - reads values
@@ -57,13 +58,12 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
             for var in height_container.list():
                 container.add(var, height_container.get(var, cat), ['*'], cat)
 
-        self.log.debug(f'container list (original): {container.list()}') #['atmosphericRefractivity', 'bendingAngle_roseq2repl1']
-        self.log.debug(f'all_sub_categories =  {container.all_sub_categories()}') # [['cosmic2_750'], ['cosmic2_751']]
-        self.log.debug(f'category map =  {container.get_category_map()}') # {'splits/satId': ['metop_3', 'metop_4']}
+        self.log.debug(f'container list (original): {container.list()}')  # ['atmosphericRefractivity', 'bendingAngle_roseq2repl1']
+        self.log.debug(f'all_sub_categories =  {container.all_sub_categories()}')  # [['cosmic2_750'], ['cosmic2_751']]
+        self.log.debug(f'category map =  {container.get_category_map()}')  # {'splits/satId': ['metop_3', 'metop_4']}
 
         self.log.debug(f'Create new datacontainer')
         d1 = bufr.DataContainer({'splits/satId': ['metop', 'cosmic', 'tdm', 'grace', 'geoopt', 'piq', 'k5', 'paz', 's6', 'tsx', 'spire']})
-        #d1 = bufr.DataContainer({'splits/satId': ['metop', 'cosmic', 'tdm']}) #, 'grace', 'geoopt', 'piq', 'k5', 'paz', 's6', 'tsx', 'spire']})
 
         # Lists required.
         metop_list = [['metop_3'], ['metop_4'], ['metop_5']]
@@ -140,9 +140,7 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
                     self.log.info("   Updating satelliteAscendingFlag and QFRO")
                     self._update_satelliteascendingflag_and_qualityflags(container, cat)
 
-
                     # GLOBAL ATTRIBUTES
-
 
                     # Get generic information for arrays for empty output files
                     self.log.info("   - Gather information for empty output files")
@@ -151,13 +149,12 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
                         dtypes = {}
                         for varnames in varlist:
                             dtypes[varnames] = container.get(varnames, cat).dtype
-                            #print(f"NICKE dtypes {varnames}: {dtypes[varnames]}")
-                        number_satellites_processed+=1
+                        number_satellites_processed += 1
 
                     self.log.info("   - Get data from container and separate by group (metop, cosmic, etc)")
                     # THEN look in the container, put everything in arrays, and do everything.
-                    for varname in container.list():  # varname is a string
-                        satellite_variables[varname]= np.array(container.get(varname, cat))
+                    for varname in container.list():
+                        satellite_variables[varname] = np.array(container.get(varname, cat))
                         satellite_paths[varname] = container.get_paths(varname, cat)
 
                         if cat in metop_list:
@@ -247,8 +244,6 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
                             else:
                                 spire_variables[varname] = np.concatenate((satellite_variables[varname], spire_variables[varname]), axis=0)
                                 spire_paths[varname] = satellite_paths[varname]
-
-
 
         # Needs to stay this way.
         # Once manipulations are done and all the concantenations are done, THEN you can put all the data where they need to be.
@@ -358,11 +353,11 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
         # Check
         self.log.debug(f'container list (updated): {container.list()}')
 
-        #return container
+        # return container
         return d1
 
-
     # Provide defualt implementations for methods from the ObsBuilder class
+
     def _make_description(self):
         description = super()._make_description()
         self._add_new_variable_descriptions(description)
@@ -383,7 +378,7 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
                 'units': 'm',
                 'longName': 'Impact Height Bending Angle',
             }
-            ])
+        ])
 
     def _add_new_variables_height_yaml(self, description):
         description.add_variables([
@@ -411,10 +406,8 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
                 'units': 'N-units',
                 'longName': 'Atmospheric Refractivity Obs Error',
             },
-            ])
+        ])
 
-
-    # Methods that are used to extend the export description
     def _replace_gridcoordinates(self, container, cat):
         lat_deg = container.get('latitude', cat)
         lon_deg = container.get('longitude', cat)
@@ -425,7 +418,6 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
         # Add to container
         container.replace('gridLatitude', lat_rad, cat)
         container.replace('gridLongitude', lon_rad, cat)
-
 
     def _derive_stationidentification(self, container, cat):
         said = container.get('satelliteId', cat)
@@ -442,7 +434,6 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
 
         # Add to container
         container.add('stationIdentification', stid, said_paths, cat)
-
 
     def _derive_imph(self, container, cat):
         impp1 = container.get('impactParameterRO_roseq2repl1', cat).astype(np.float32)
@@ -461,7 +452,6 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
         container.add('impactHeightRO1', imph1, impp1_paths, cat)
         container.add('impactHeightRO2', imph2, impp1_paths, cat)
         container.add('impactHeightRO3', imph3, impp1_paths, cat)
-
 
     def _update_depending_on_mefr(self, container, cat):
         mefr1 = container.get('frequency__roseq2repl1', cat)
@@ -501,7 +491,6 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
         container.replace('impactParameterRO_roseq2repl1', impp1, cat)
         container.replace('impactHeightRO1', imph1, cat)
         container.replace('obsErrorBendingAngle1', bndaoe1, cat)
-
 
     def _update_sequencenumber(self, container, cat):
         seqnum = container.get('sequenceNumber', cat)
