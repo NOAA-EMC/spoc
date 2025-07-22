@@ -1,7 +1,6 @@
-
 time window:
   begin: "2018-04-14T21:00:00Z"
-  end: "2024-03-01T03:00:00Z"
+  end: "2025-03-01T03:00:00Z"
   bound to include: begin
 
 observations:
@@ -11,7 +10,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["metop_3"]
         cache categories:
@@ -39,7 +38,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_metop_3.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_metop_3.tm00.nc"
 
 - obs space:
     name: "metop_4"
@@ -47,7 +46,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["metop_4"]
         cache categories:
@@ -75,7 +74,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_metop_4.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_metop_4.tm00.nc"
 
 - obs space:
     name: "metop_5"
@@ -83,7 +82,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["metop_5"]
         cache categories:
@@ -111,7 +110,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_metop_5.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_metop_5.tm00.nc"
 
 - obs space:
     name: "tsx_42"
@@ -119,7 +118,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["tsx_42"]
         cache categories:
@@ -147,7 +146,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_tsx_42.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_tsx_42.tm00.nc"
 
 
 - obs space:
@@ -156,7 +155,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["tdm_43"]
         cache categories:
@@ -184,7 +183,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_tdm_43.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_tdm_43.tm00.nc"
 
 
 - obs space:
@@ -193,7 +192,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["paz_44"]
         cache categories:
@@ -221,7 +220,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_paz_44.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_paz_44.tm00.nc"
 
 
 - obs space:
@@ -230,7 +229,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["s6_66"]
         cache categories:
@@ -258,7 +257,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_s6_66.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_s6_66.tm00.nc"
 
 
 - obs space:
@@ -267,7 +266,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["geoopt_265"]
         cache categories:
@@ -295,7 +294,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_geoopt_265.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_geoopt_265.tm00.nc"
 
 
 - obs space:
@@ -304,7 +303,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["geoopt_266"]
         cache categories:
@@ -332,7 +331,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_geoopt_266.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_geoopt_266.tm00.nc"
 
 
 - obs space:
@@ -341,7 +340,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["piq_267"]
         cache categories:
@@ -369,7 +368,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_piq_267.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_piq_267.tm00.nc"
 
 
 - obs space:
@@ -378,7 +377,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["piq_268"]
         cache categories:
@@ -406,7 +405,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_piq_268.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_piq_268.tm00.nc"
 
 
 - obs space:
@@ -415,7 +414,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["spire_269"]
         cache categories:
@@ -443,7 +442,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_spire_269.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_spire_269.tm00.nc"
 
 
 - obs space:
@@ -452,7 +451,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["cosmic2_750"]
         cache categories:
@@ -480,7 +479,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_cosmic2_750.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_750.tm00.nc"
 
 
 - obs space:
@@ -489,7 +488,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["cosmic2_751"]
         cache categories:
@@ -517,7 +516,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_cosmic2_751.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_751.tm00.nc"
 
 - obs space: 
     name: "cosmic2_752"
@@ -525,7 +524,7 @@ observations:
     obsdatain: 
       engine: 
         type: bufr 
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d" 
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d" 
         mapping file: "./bufr_gpsro.yaml" 
         category: ["cosmic2_752"] 
         cache categories:
@@ -553,7 +552,7 @@ observations:
     obsdataout: 
       engine: 
         type: H5File 
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_cosmic2_752.tm00.nc" 
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_752.tm00.nc" 
 
 - obs space:
     name: "cosmic2_753"
@@ -561,7 +560,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["cosmic2_753"]
         cache categories:
@@ -589,7 +588,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_cosmic2_753.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_753.tm00.nc"
 
 - obs space:
     name: "cosmic2_754"
@@ -597,7 +596,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["cosmic2_754"]
         cache categories:
@@ -625,7 +624,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_cosmic2_754.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_754.tm00.nc"
 
 - obs space:
     name: "cosmic2_755"
@@ -633,7 +632,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["cosmic2_755"]
         cache categories:
@@ -661,7 +660,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_cosmic2_755.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_755.tm00.nc"
 
 - obs space:
     name: "grace_803"
@@ -669,7 +668,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["grace_803"]
         cache categories:
@@ -697,7 +696,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_grace_803.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_grace_803.tm00.nc"
 
 - obs space:
     name: "grace_804"
@@ -705,7 +704,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["grace_804"]
         cache categories:
@@ -733,7 +732,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_grace_804.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_grace_804.tm00.nc"
 
 
 - obs space:
@@ -742,7 +741,7 @@ observations:
     obsdatain:
       engine:
         type: bufr
-        obsfile: "./testinput/2024021900/gdas.t00z.gpsro.tm00.bufr_d"
+        obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./bufr_gpsro.yaml"
         category: ["k5_825"]
         cache categories:
@@ -770,4 +769,4 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.gpsro_k5_825.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_k5_825.tm00.nc"
