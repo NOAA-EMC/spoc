@@ -116,6 +116,7 @@ class AtovsObsBuilder(ObsBuilder):
             rars_flag = True
             total_files += 1
         if input_path.get('1b'):
+            self.log.info('Processing 1b file.')
             container_1b = bufr.Parser(input_path[NMFD], self.map_dict[NMFD]).parse(comm)
             self._re_map_variable(container_1b, feed_type=NMFD)
             nmfd_flag = True
@@ -153,13 +154,13 @@ class AtovsObsBuilder(ObsBuilder):
         """
 
         t = ac.a_ep[i, ifov] * t + ac.a_sp[i, ifov]
-        t[(ifov < 1) | (ifov > ac.n_fovs)] = [INVALID]
+        t[(ifov < 0) | (ifov >= ac.n_fovs)] = [INVALID]
         return t
 
     def _apply_ant_corr(self, i, ac, ifov, t):
         # t:              on input, this argument contains the antenna temperatures for the sensor channels.
         t = (t - ac.a_sp[i, ifov]) / ac.a_ep[i, ifov]
-        t[(ifov < 1) | (ifov > ac.n_fovs)] = [INVALID]
+        t[(ifov < 0) | (ifov >= ac.n_fovs)] = [INVALID]
         return t
 
     def _apply_corr(self, sat_id, ta, ifov, feed_type=NMFD, sacv=None):

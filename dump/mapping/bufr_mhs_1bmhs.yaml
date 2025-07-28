@@ -17,6 +17,9 @@ bufr:
     fieldOfViewNumber:
       query: '*/FOVN'
 
+    sacv:
+      query: '*/FOVN'
+ 
     heightOfStation:
       query: '*/HMSL'
 
