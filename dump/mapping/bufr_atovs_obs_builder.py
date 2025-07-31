@@ -154,13 +154,13 @@ class AtovsObsBuilder(ObsBuilder):
         """
 
         t = ac.a_ep[i, ifov] * t + ac.a_sp[i, ifov]
-        t[(ifov < 0) | (ifov >= ac.n_fovs)] = [INVALID]
+        t[(ifov < 0) | (ifov >= ac.n_fovs)] = INVALID
         return t
 
     def _apply_ant_corr(self, i, ac, ifov, t):
         # t:              on input, this argument contains the antenna temperatures for the sensor channels.
         t = (t - ac.a_sp[i, ifov]) / ac.a_ep[i, ifov]
-        t[(ifov < 0) | (ifov >= ac.n_fovs)] = [INVALID]
+        t[(ifov < 0) | (ifov >= ac.n_fovs)] = INVALID
         return t
 
     def _apply_corr(self, sat_id, ta, ifov, feed_type=NMFD, sacv=None):
