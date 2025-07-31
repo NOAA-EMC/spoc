@@ -65,19 +65,19 @@ encoder:
   globals:
     - name: "platformCommonName"
       type: string
-      value: "JPSS"
+      value: "GPM"
 
     - name: "platformLongDescription"
       type: string
-      value: "Joint Polar Satellite System"
+      value: "NASA Core Observatory satellite"
 
     - name: "sensor"
       type: string
-      value: "Special Sensor Microwave Imager / Sounder (SSMIS)"
+      value: "GMI"
 
     - name: "source"
       type: string
-      value: "NCEP BUFR Dump for SSMIS brightness temperature data (ssmisu)"
+      value: "NCEP BUFR Dump for GMI brightness temperature data"
 
     - name: "providerFullName"
       type: string
@@ -85,7 +85,7 @@ encoder:
 
     - name: "processingLevel"
       type: string
-      value: "Level-1B"
+      value: "Level-1CR"
 
     - name: "converter"
       type: string
