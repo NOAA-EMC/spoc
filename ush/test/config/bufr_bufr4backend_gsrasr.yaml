@@ -1,0 +1,61 @@
+time window:
+  begin: "2021-07-31T21:00:00Z"
+  end: "2021-08-01T03:00:00Z"
+  bound to include: begin
+
+observations:
+- obs space:
+    name: "gsrasr-g16"
+    simulated variables: [brightnessTemperature]
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2021080100/gdas.t00z.gsrasr.tm00.bufr_d"
+        mapping file: "./bufr_gsrasr.yaml"
+        category: ["g16"]
+        cache categories:            # optional
+          - ["g16"]
+          - ["g17"]
+          - ["g18"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.gsrasr_g16.tm00.nc"
+
+
+- obs space:
+    name: "gsrasr-g17"
+    simulated variables: [brightnessTemperature]
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2021080100/gdas.t00z.gsrasr.tm00.bufr_d"
+        mapping file: "./bufr_gsrasr.yaml"
+        category: ["g17"]
+        cache categories:            # optional
+          - ["g16"]
+          - ["g17"]
+          - ["g18"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.gsrasr_g17.tm00.nc"
+
+
+- obs space:
+    name: "gsrasr-g18"
+    simulated variables: [brightnessTemperature]
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2021080100/gdas.t00z.gsrasr.tm00.bufr_d"
+        mapping file: "./bufr_gsrasr.yaml"
+        category: ["g18"]
+        cache categories:            # optional
+          - ["g16"]
+          - ["g17"]
+          - ["g18"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.gsrasr_g18.tm00.nc"
