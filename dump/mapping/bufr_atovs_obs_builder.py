@@ -207,8 +207,8 @@ class AtovsObsBuilder(ObsBuilder):
             if ta.shape[0]:
                 if feed_type == RARS:
                     sacv = container.get('sacv', sat_id)
-                    sacv_flag = (sacv == SPC_COEFF_VERSION)
-                    if sacv_flag.all():
+                    sacv_flag = (sacv != SPC_COEFF_VERSION)
+                    if not sacv_flag.any():
                         continue
 
                 ifov = container.get('fieldOfViewNumber', sat_id)
