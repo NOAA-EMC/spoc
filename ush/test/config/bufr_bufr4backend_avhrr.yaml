@@ -1,0 +1,61 @@
+time window:
+  begin: "2024-02-18T21:00:00Z"
+  end: "2024-02-19T03:00:00Z"
+  bound to include: begin
+
+observations:
+- obs space:
+    name: "avhrr-metop-b"
+    simulated variables: [brightnessTemperature]
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.avcsam.tm00.bufr_d"
+        mapping file: "./bufr_avhrr.yaml"
+        category: ["metop-b"]
+        cache categories:            # optional
+          - ["metop-a"]
+          - ["metop-b"]
+          - ["metop-c"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.avhrr_metop-b.tm00.nc"
+
+
+- obs space:
+    name: "avhrr-metop-c"
+    simulated variables: [brightnessTemperature]
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.avcsam.tm00.bufr_d"
+        mapping file: "./bufr_avhrr.yaml"
+        category: ["metop-c"]
+        cache categories:            # optional
+          - ["metop-a"]
+          - ["metop-b"]
+          - ["metop-c"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.avhrr_metop-c.tm00.nc"
+
+
+- obs space:
+    name: "avhrr-metop-a"
+    simulated variables: [brightnessTemperature]
+    obsdatain:
+      engine:
+        type: bufr
+        obsfile: "./testinput/2024021900/gdas.t00z.avcsam.tm00.bufr_d"
+        mapping file: "./bufr_avhrr.yaml"
+        category: ["metop-a"]
+        cache categories:            # optional
+          - ["metop-a"]
+          - ["metop-b"]
+          - ["metop-c"]
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.avhrr_metop-a.tm00.nc"
