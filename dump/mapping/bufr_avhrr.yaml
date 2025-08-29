@@ -152,5 +152,5 @@ encoder:
     # ObsValue
     - name: "ObsValue/brightnessTemperature"
       source: variables/brightnessTemperature
-      longName: "Brightness Temperature (Hight Accurcay)"
+      longName: "Brightness Temperature (High Accurcay)"
       units: "K"
