@@ -12,11 +12,10 @@ observations:
     obsdatain:
       engine:
         type: script
-        script file: "bufr_sfcshp_prepbufr.py"
+        script file: "prepbufr_sfcshp.py"
         args:
-          input_path: "testinput/2021080100/gdas.t00z.prepbufr"
-          mapping_path: "./bufr_sfcshp_prepbufr.yaml"
-          cycle_time: "2021080100"
+          input: "testinput/2021080100/gdas.t00z.prepbufr"
+          mapping_path: "./prepbufr_sfcshp.yaml"
     obsdataout:
       engine:
         type: H5File

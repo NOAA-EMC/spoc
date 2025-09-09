@@ -6,17 +6,16 @@ time window:
 observations:
 - obs space:
     name: "ADPSFC"
-    observed variables: ['stationElevation','stationPressure']
-    derived variables: ['stationElevation','stationPressure']
-    simulated variables: ['stationElevation','stationPressure']
+    observed variables: ['stationPressure']
+    derived variables: ['stationPressure']
+    simulated variables: ['stationPressure']
     obsdatain:
       engine:
         type: script
-        script file: "bufr_adpsfc_prepbufr.py"
+        script file: "prepbufr_adpsfc.py"
         args:
-          input_path: "./testinput/2021080100/gdas.t00z.prepbufr"
-          mapping_path: "./bufr_adpsfc_prepbufr_mapping.yaml"
-          cycle_time: "2021080100"
+          input: "./testinput/2021080100/gdas.t00z.prepbufr"
+          mapping_path: "./prepbufr_adpsfc.yaml"
     obsdataout:
       engine:
         type: H5File
