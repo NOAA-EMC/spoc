@@ -25,6 +25,21 @@ bufr:
     fieldOfViewNumber:
       query: "*/PIXELS{1}/FOVN"
 
+    satelliteZenithAngle:
+      query: "*/PIXELS{1}/GMIANG/SAZA"
+
+    bearingOrAzimuth:
+      query: "*/PIXELS{1}/GMIANG/BEARAZ"
+
+    solarZenithAngle:
+      query: "*/PIXELS{1}/GMIANG/SOZA"
+
+    solarAzimuth:
+      query: "*/PIXELS{1}/GMIANG/SOLAZI"
+
+    satelliteSunGlintAngle:
+      query: "*/PIXELS{1}/GMIANG/SSGA"
+
     sensorChannelNumber:
       query: "*/PIXELS{1}/GMICHT/CHNM"
 
@@ -125,7 +140,32 @@ encoder:
       source: variables/sensorScanAngle
       longName: "Sensor View Angle"
       units: "degree"
-  
+ 
+    - name: "MetaData/satelliteZenithAngle"
+      source: "variables/satelliteZenithAngle"
+      longName: "Satellite Zenith Angle"
+      units: "degree"
+
+    - name: "MetaData/bearingOrAzimuth"
+      source: "variables/bearingOrAzimuth"
+      longName: "Bearing or Azimuth"
+      units: "degree"
+
+    - name: "MetaData/solarZenithAngle"
+      source: "variables/solarZenithAngle"
+      longName: "Solar Zenith Angle"
+      units: "degree"
+
+    - name: "MetaData/solarAzimuth"
+      source: "variables/solarAzimuth"
+      longName: "Solar Azimuth"
+      units: "degree"
+
+    - name: "MetaData/satelliteSunGlintAngle"
+      source: "variables/satelliteSunGlintAngle"
+      longName: "Satellite-Sun Glint Angle"
+      units: "degree"
+
     - name: "MetaData/scanLineNumber"
       source: variables/scanLineNumber
       longName: "Scan Line Number"
