@@ -9,7 +9,7 @@ from bufr.obs_builder import add_main_functions
 from prepbufr_obs_builder import PrepbufrObsBuilder, map_path
 
 
-MAPPING_PATH = map_path('bufr_sfcshp_prepbufr.yaml')
+MAPPING_PATH = map_path('prepbufr_sfcshp.yaml')
 
 
 class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
@@ -17,23 +17,15 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
 
     def _make_description(self):
-        description = super._make_description()
+        description = super()._make_description()
 
         description.add_variables([
             {
-                'name': "MetaData/dateTime",
-                'source': 'timestamp',
-                'units': "seconds since 1970-01-01T00:00:00Z",
-                'longName': "Observation Time"
-            },
-            {
                 'name': 'MetaData/sequenceNumber',
                 'source': 'sequenceNumber',
-                'units': '1',
                 'longName': 'Sequence Number (Obs Subtype)',
             }
         ])
-
         return description
 
     def make_obs(self, comm, input_path):
@@ -52,18 +44,21 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
 
         # Get container from mapping file first
         self.log.info('Get container from bufr')
-        container = self.super().make_obs(comm, input_path)
+        container = super().make_obs(comm, input_path)
 
         self.log.debug(f'container list (original): {container.list()}')
 
         self.log.debug(f'Do DateTime calculation')
-        self._add_timestamp(container, self._get_reference_time(input_path))
+        dhr = container.get('obsTimeMinusCycleTime')
+        dhr_paths = container.get_paths('obsTimeMinusCycleTime')
+        dhr2 = np.array(dhr)
+        self._replace_timestamp(container, self._get_reference_time(input_path))
 
         self.log.debug(f'Do sequenceNumber (Obs SubType) calculation')
         typ = container.get('observationType')
         typ_paths = container.get_paths('observationType')
-        t29 = container.get('obssubtype')
-        t29_paths = container.get_paths('obssubtype')
+        t29 = container.get('observationSubTypeNum')
+        t29_paths = container.get_paths('observationSubTypeNum')
         seqNum = self._compute_sequence_number(typ, t29)
         self.log.debug(f' sequenceNum min/max =  {seqNum.min()} {seqNum.max()}')
 
@@ -98,7 +93,7 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
         container.replace('virtualTemperatureQualityMarker', tvoqm)
         container.replace('virtualTemperatureObsError', tvooe)
 
-        self.log.debug('DEBUG', f'Add variables to container')
+        self.log.debug(f'Add variables to container')
         container.add('sequenceNumber', seqNum, typ_paths)
 
         # Check
