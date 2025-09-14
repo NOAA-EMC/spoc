@@ -4,12 +4,7 @@ import numpy as np
 import numpy.ma as ma
 
 import bufr
-from bufr.obs_builder import ObsBuilder, add_main_functions
-
-
-def map_path(map_file_name):
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    return os.path.join(script_dir, map_file_name)
+from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
 
 
 MAPPING_PATH = map_path('bufr_iasi.yaml')

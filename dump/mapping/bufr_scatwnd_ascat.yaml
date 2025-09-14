@@ -36,6 +36,7 @@ bufr:
     # ObsValue - Wind Direction
     windDirectionAt10M:
       query: '*/WD10'
+      type: float
 
     # ObsValue - Wind Speed
     windSpeedAt10M:
@@ -51,11 +52,11 @@ bufr:
           _5: metop-c 
 
 encoder:
-# type: netcdf
-
-# dimensions:
-
   globals:
+    - name: "description"
+      type: string
+      value: "Level-2 ocean surface wind vector retrievals and derived wind components from ASCAT on MetOp satellites, sampled at 50 km resolution"
+
     - name: "platformCommonName"
       type: string
       value: "MetOp"
@@ -64,17 +65,21 @@ encoder:
       type: string
       value: "Meteorological Operational Satellite"
 
-    - name: "sensor"
+    - name: "sensorCommonName"
       type: string
-      value: "Advanced Scatterometer - ASCATW"
+      value: "ASCAT"
+
+    - name: "sensorLongDescription"
+      type: string
+      value: "Advanced Scatterometer"
 
     - name: "source"
       type: string
-      value: "NCEP BUFR Dump for satellite derived surface wind components from ASCAT (scatw)"
+      value: "U.S. National Weather Service, National Centres for Environmental Prediction (NCEP))"
 
-    - name: "providerFullName"
+    - name: "sourceFiles"
       type: string
-      value: "National Environmental Satellite, Data, and Information Service"
+      value: "NCEP BUFR Dump NC012122 - ascatw"
 
     - name: "processingLevel"
       type: string
@@ -82,7 +87,7 @@ encoder:
 
     - name: "converter"
       type: string
-      value: "BUFR"
+      value: "bufr-query"
 
   variables:
     # MetaData 
@@ -115,7 +120,6 @@ encoder:
     - name: "MetaData/qualityFlags"
       source: variables/qualityFlags
       longName: "Quality Flags"
-      units: "1"
 
     - name: "ObsValue/windDirection"
       source: variables/windDirectionAt10M

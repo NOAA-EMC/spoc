@@ -39,9 +39,11 @@ bufr:
 
     sensorCentralFrequency:
       query: "*/SCCF"
+      type: float
 
     pressure:
       query: "*/PRLC[1]"
+      type: float
 
     # Processing Center
     dataProviderOrigin:
@@ -50,10 +52,12 @@ bufr:
     # Quality Information - Quality Indicator  
     qualityInformationWithoutForecast:
       query: '*/AMVQIC{2}/PCCF'
+      type: float
 
     # Quality Information - Expected Error  
     expectedError:
       query: '*/AMVQIC{4}/PCCF'
+      type: float
 
     # Derived Motion Wind (DMW) Intermediate Vectors - Coefficient of Variation
     coefficientOfVariation:
@@ -70,6 +74,7 @@ bufr:
     # ObsValue - Wind Direction
     windDirection:
       query: '*/WDIR'
+      type: float
 
     # ObsValue - Wind Speed
     windSpeed:
@@ -85,30 +90,34 @@ bufr:
           _272: goes-18 
 
 encoder:
-# type: netcdf
-
-# dimensions:
-
   globals:
+    - name: "description"
+      type: string
+      value: "Atmospheric Motion Vectors (AMVs) derived from GOES ABI using five spectral bands: longwave IR (LWIR), shortwave IR (SWIR), water vapor/deep layer (WV/DL), water vapor/cloud top (WVCT) and visible"
+ 
     - name: "platformCommonName"
       type: string
       value: "GOES"
 
     - name: "platformLongDescription"
       type: string
-      value: "Geostationary Operational Satellite"
+      value: "Geostationary Operational Environmental Satellite"
 
-    - name: "sensor"
+    - name: "sensorCommonName"
       type: string
-      value: "Advanced Baseline Imager - ABI"
+      value: "ABI"
+
+    - name: "sensorLongDescription"
+      type: string
+      value: "Advanced Baseline Imager with 16 channels, balanced VIS, NIR, SWIR, MWIR and LWIR"
 
     - name: "source"
       type: string
-      value: "NCEP BUFR Dump for satellite derived atmospheric motion vectors (satwnd)"
+      value: "U.S. National Weather Service, National Centres for Environmental Prediction (NCEP))"
 
-    - name: "providerFullName"
+    - name: "sourceFiles"
       type: string
-      value: "National Environmental Satellite, Data, and Information Service"
+      value: "NCEP BUFR Dump - satwnd: NC005030 (LWIR), NC005031(WV/DL), NC005032(VIS), NC005034(WV/CT), NC005039(SWIR) "
 
     - name: "processingLevel"
       type: string
@@ -116,7 +125,7 @@ encoder:
 
     - name: "converter"
       type: string
-      value: "BUFR"
+      value: "bufr-query"
 
   variables:
     # MetaData 
@@ -164,15 +173,18 @@ encoder:
     - name: "MetaData/qiWithoutForecast"
       source: variables/qualityInformationWithoutForecast
       longName: "Quality Information Without Forecast"
+      units: "percent"
 
+      # To DO: change to MetaData/windPercentConfidence (dimension: Location) 
     - name: "MetaData/expectedError"
       source: variables/expectedError
       longName: "Expected Error"
-      units: "m s-1"
+      units: "percent"
 
     - name: "MetaData/coefficientOfVariation"
       source: variables/coefficientOfVariation
-      longName: "Coefficient of Variation"
+      longName: "Coefficient of Variation - a measure of the variability of AMV data relative to its average value (large coefficients mean high uncertainity)"
+      units: "1"
 
     - name: "MetaData/windComputationMethod"
       source: variables/windComputationMethod
@@ -185,7 +197,7 @@ encoder:
     - name: "MetaData/pressure"
       source: variables/pressure
       longName: "Pressure"
-      units: "pa"
+      units: "Pa"
 
     - name: "ObsValue/windDirection"
       source: variables/windDirection

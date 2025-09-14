@@ -60,13 +60,16 @@ bufr:
         scanStepAdjust: 0.625 
         sensor: iasi
 
-    fractionOfClearPixelsInFOV:
-      query: "*/IASIL1CS{1}/FCPH"
-
     sensorChannelNumber:
       query: "*/IASICHN/CHNM"
 
     # ObsValue
+    fractionOfClearPixelsInFOV:
+      query: "*/IASIL1CS{1}/FCPH"
+      type: float
+      transforms:
+        - scale: 0.01
+
     spectralRadiance:
       spectralRadiance:
         sensorChannelNumber: "*/IASICHN/CHNM"
@@ -85,37 +88,39 @@ bufr:
           _5: metop-c
 
 encoder:
-  type: netcdf
-
   dimensions:
     - name: Channel
       source: variables/sensorChannelNumber
       path: "*/IASICHN"
 
   globals:
+    - name: "description"
+      type: string
+      value: "IASI Level-1C radiance spectra, calibrated, geolocated, and apodized using the standard Hamming window to suppress spectral sidelobes"
+
     - name: "platformCommonName"
       type: string
-      value: "Meteorological Operational Satellite"
+      value: "MetOp"
 
     - name: "platformLongDescription"
       type: string
-      value: "EUMETSAT Polar System in sunsynchronous orbit"
+      value: "Meteorological Operational Satellite"
+
+    - name: "sensorCommonName"
+      type: string
+      value: "IASI"
+
+    - name: "sensorLongDescription"
+      type: string
+      value: "Infrared Atmospheric Sounding Interferometer with 8461 channels with one embedded IR imaging channel; corss-track scanning"
 
     - name: "source"
       type: string
-      value: "MTYP 021-241 IASI 1C RADIANCES (VARIABLE CHNS) (METOP)"
+      value: "U.S. National Weather Service, National Centres for Environmental Prediction (NCEP))"
 
     - name: "sourceFiles"
       type: string
-      value: "gdas.t00z.mtiasi.tm00.bufr_d"
-
-    - name: "datetimeReference"
-      type: string
-      value: "2021-08-01T00:00:00Z"
-
-    - name: "sensor"
-      type: string
-      value: "IASI"
+      value: "NCEP BUFR Dump - mtiasi NC021241 Normal Feed 616 channel subset"
 
     - name: "processingLevel"
       type: string
@@ -123,7 +128,7 @@ encoder:
 
     - name: "converter"
       type: string
-      value: "BUFR"
+      value: "bufr-query"
 
   variables:
 
@@ -207,17 +212,16 @@ encoder:
       source: variables/sensorChannelNumber
       longName: "Sensor Channel Number"
 
-    - name: "MetaData/fractionOfClearPixelsInFOV"
+    - name: "ObsValue/cloudFree"
       source: variables/fractionOfClearPixelsInFOV
       longName: "Fraction of Clear Pixels in a Field of View"
       units: "1"
-      range: [0, 100]
+      range: [ 0, 1 ]
 
-#   The unit from BUFR is W m-2 sr-1 m -- this is radiance per wavenumber
-    - name: "ObsValue/radiance"
+    - name: "ObsValue/spectralRadiance"
       source: variables/spectralRadiance
       longName: "IASI Spectral Radiance"
-      units: "W m-2 sr-1"  # units: "W m-2 sr-1 m-1"
+      units: "W m-2 sr-1 m-1"
 #      chunks: [1000, 154]
 #      chunks: [1000, 616]
 #      compressionLevel: 4

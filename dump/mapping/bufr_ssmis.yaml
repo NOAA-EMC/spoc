@@ -40,9 +40,6 @@ bufr:
     sensorChannelNumber:
       query: "*/SSMISCHN/CHNM"
 
-#    brightnessTemperature:
-#      query: "*/SSMISCHN/TMBR"
-
     sensorScanAngle:
       sensorScanAngle:
         fieldOfViewNumber: "*/FOVN"
@@ -85,34 +82,33 @@ encoder:
       path: "*/SSMISCHN"
   
   globals:
+    - name: "description"
+      type: string
+      value: "SSMIS Level-1B calibrated radiance data with precipitation-contaminated FOVs filtered out and spatial averaging applied to reduce spatial noise"
+
     - name: "platformCommonName"
       type: string
-      value: "SSMIS-DMSP18"
-  
-    - name: "platformLongDescription"
-      type: string
-      value: "MTYP 021-201 DMSP SSM/IS Tb (UNIFIED PRE-PROCESSOR)"
-  
-  globals:
-    - name: "platformCommonName"
-      type: string
-      value: "JPSS"
+      value: "DSMP"
 
     - name: "platformLongDescription"
       type: string
-      value: "Joint Polar Satellite System"
+      value: "Defense Meteorological Satellite Program"
 
-    - name: "sensor"
+    - name: "sensorCommonName"
       type: string
-      value: "Special Sensor Microwave Imager / Sounder (SSMIS)"
+      value: "SSMIS"
+
+    - name: "sensorLongDescription"
+      type: string
+      value: "Special Sensor Microwave Imager/Sounder (SSMIS) - 21 frequencies, 24 channels MW radiometer covering the 54 and 183 GHz bands; conical scanning"
 
     - name: "source"
       type: string
-      value: "NCEP BUFR Dump for SSMIS brightness temperature data (ssmisu)"
+      value: "U.S. National Weather Service, National Centres for Environmental Prediction (NCEP))"
 
-    - name: "providerFullName"
+    - name: "sourceFiles"
       type: string
-      value: "National Environmental Satellite, Data, and Information Service"
+      value: "NCEP BUFR Dump - ssmisu NC021201"
 
     - name: "processingLevel"
       type: string
@@ -120,7 +116,7 @@ encoder:
 
     - name: "converter"
       type: string
-      value: "BUFR"
+      value: "bufr-query"
 
   variables:
     # MetaData

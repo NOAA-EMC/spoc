@@ -1,5 +1,5 @@
 time window:
-  begin: "2021-07-31T21:00:00Z"
+  begin: "1969-07-31T21:00:00Z"
   end: "2021-08-01T03:00:00Z"
   bound to include: begin
 
@@ -11,7 +11,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2021080100/gdas.t00z.prepbufr"
-        mapping file: "./bufr_sfcshp_prepbufr.yaml"
+        mapping file: "./prepbufr_sfcshp.yaml"
     obsdataout:
       engine:
         type: H5File
