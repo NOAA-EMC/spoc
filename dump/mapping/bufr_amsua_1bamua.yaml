@@ -17,6 +17,10 @@ bufr:
     fieldOfViewNumber:
       query: '*/FOVN'
 
+    # A placeholder ro dummy variable
+    sacv:
+      query: '*/FOVN'
+
     heightOfStation:
       query: '*/HMSL'
 

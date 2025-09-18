@@ -12,22 +12,22 @@ bufr:
 
   variables:
     brightnessTemperature:
-      query: '*/ATNCHV/TMBRST'
+      query: '*/BRITCSTC/TMBR'
 
     fieldOfViewNumber:
       query: '*/FOVN'
 
     sacv:
-      query: '*/SACV'
-
+      query: '*/FOVN'
+ 
     heightOfStation:
-      query: '*/SELV'
+      query: '*/HMSL'
 
     latitude:
-      query: '*/CLATH'
+      query: '*/CLAT'
 
     longitude:
-      query: '*/CLONH'
+      query: '*/CLON'
 
     satelliteIdentifier:
       query: '*/SAID'
@@ -36,9 +36,7 @@ bufr:
       query: '*/BEARAZ'
 
     sensorChannelNumber:
-      query: '*/ATNCHV/INCN'
-      transforms:
-        - offset: -27
+      query: '*/BRITCSTC/CHNM'
 
     sensorScanAngle:
       sensorScanAngle:
@@ -70,7 +68,7 @@ encoder:
 
   dimensions:
   - name: Channel
-    path: '*/ATNCHV'
+    path: '*/BRITCSTC'
     source: variables/sensorChannelNumber
 
   globals:
@@ -80,7 +78,7 @@ encoder:
 
   - name: platformLongDescription
     type: string
-    value: MTYP 021-033 RARS(EARS,AP,SA) AMSU-A 1C Tb DATA)
+    value: MTYP 021-023 PROC AMSU-A 1B Tb
 
   variables:
   - name: MetaData/satelliteIdentifier
