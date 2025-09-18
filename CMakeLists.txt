@@ -6,6 +6,7 @@ enable_testing()
 
 # Add subdirectories
 add_subdirectory(tools)
+add_subdirectory(dump/aux)
 
 message(STATUS "TOP CMAKE_BINARY_DIR : ${CMAKE_BINARY_DIR}")
 message(STATUS "TOP CMAKE_SOURCE_DIR : ${CMAKE_SOURCE_DIR}")
