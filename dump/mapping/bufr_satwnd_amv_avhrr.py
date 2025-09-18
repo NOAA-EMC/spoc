@@ -1,369 +1,134 @@
 #!/usr/bin/env python3
-import sys
+
 import os
-import argparse
-import time
 import numpy as np
+
 import bufr
-from pyioda.ioda.Engines.Bufr import Encoder as iodaEncoder
-from bufr.encoders.netcdf import Encoder as netcdfEncoder
-from wxflow import Logger
-
-# Initialize Logger
-# Get log level from the environment variable, default to 'INFO it not set
-log_level = os.getenv('LOG_LEVEL', 'INFO')
-logger = Logger('BUFR2IODA_satwnd_amv_avhrr.py', level=log_level, colored_log=False)
+from bufr.obs_builder import add_main_functions, map_path, add_dummy_variable
+from bufr_satwnd_amv_obs_builder import SatWndAmvObsBuilder
 
 
-def logging(comm, level, message):
-
-    if comm.rank() == 0:
-        # Define a dictionary to map levels to logger methods
-        log_methods = {
-            'DEBUG': logger.debug,
-            'INFO': logger.info,
-            'WARNING': logger.warning,
-            'ERROR': logger.error,
-            'CRITICAL': logger.critical,
-        }
-
-        # Get the appropriate logging method, default to 'INFO'
-        log_method = log_methods.get(level.upper(), logger.info)
-
-        if log_method == logger.info and level.upper() not in log_methods:
-            # Log a warning if the level is invalid
-            logger.warning(f'log level = {level}: not a valid level --> set to INFO')
-
-        # Call the logging method
-        log_method(message)
+MAPPING_PATH = map_path('bufr_satwnd_amv_avhrr.yaml')
 
 
-def _make_description(mapping_path, update=False):
-    description = bufr.encoders.Description(mapping_path)
+class SatWndAmvAvhrrObsBuilder(SatWndAmvObsBuilder):
+    def __init__(self):
+        super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
 
-    if update:
-        # Define the variables to be added in a list of dictionaries
-        variables = [
-            {
-                'name': 'ObsType/windEastward',
-                'source': 'variables/obstype_uwind',
-                'units': '1',
-                'longName': 'Observation Type based on Satellite-derived Wind Computation Method and Spectral Band',
-            },
-            {
-                'name': 'ObsType/windNorthward',
-                'source': 'variables/obstype_vwind',
-                'units': '1',
-                'longName': 'Observation Type based on Satellite-derived Wind Computation Method and Spectral Band',
-            },
-            {
-                'name': 'ObsValue/windEastward',
-                'source': 'variables/windEastward',
-                'units': 'm s-1',
-                'longName': 'Eastward Wind Component',
-            },
-            {
-                'name': 'ObsValue/windNorthward',
-                'source': 'variables/windNorthward',
-                'units': 'm s-1',
-                'longName': 'Northward Wind Component',
-            },
-            # MetaData/windGeneratingApplication will be inferred from variables/generatingApplication
-            # following a search for the proper variables/generatingApplication column
-            {
-                'name': 'MetaData/windGeneratingApplication',
-                'source': 'variables/windGeneratingApplication',
-                'units': '1',
-                'longName': 'Wind Generating Application',
-            },
-            # MetaData/qualityInformationWithoutForecast will be inferred from variables/qualityInformation
-            # following a search for the proper variables/generatingApplication column
-            {
-                'name': 'MetaData/qualityInformationWithoutForecast',
-                'source': 'variables/qualityInformationWithoutForecast',
-                'units': 'percent',
-                'longName': 'Quality Information Without Forecast',
-            }
-        ]
+    def make_obs(self, comm, input_path):
+        # Get container from mapping file first
+        container = super().make_obs(comm, input_path)
 
-        # Loop through each variable and add it to the description
-        for var in variables:
-            description.add_variable(
-                name=var['name'],
-                source=var['source'],
-                units=var['units'],
-                longName=var['longName']
-            )
+        # Add new/derived data into container
+        for cat in container.all_sub_categories():
+            self._add_avhrr_quality_info_and_gen_app(container, cat)
 
-    return description
+        return container
 
+    def _make_description(self):
+        description = super()._make_description()
+        self._add_quality_info_and_gen_app_descriptions(description)
 
-def compute_wind_components(wdir, wspd):
-    """
-    Compute the U and V wind components from wind direction and wind speed.
+        return description
 
-    Parameters:
-        wdir (array-like): Wind direction in degrees (meteorological convention: 0° = North, 90° = East).
-        wspd (array-like): Wind speed.
+    def _get_obs_type(self, swcm, chan_freq):
+        obstype = swcm.copy()
 
-    Returns:
-        tuple: U and V wind components as numpy arrays with dtype float32.
-    """
-    wdir_rad = np.radians(wdir)  # Convert degrees to radians
-    u = -wspd * np.sin(wdir_rad)
-    v = -wspd * np.cos(wdir_rad)
+        # Use numpy vectorized operations
+        obstype = np.where(swcm == 1, 244, obstype)  # IRLW
 
-    return u.astype(np.float32), v.astype(np.float32)
+        if not np.any(np.isin(obstype, [244])):
+            raise ValueError("Error: Unassigned ObsType found ... ")
 
+        return obstype.astype(np.int32)
 
-def _get_quality_information_and_generating_application(comm, gnap2D, pccf2D, satID):
-    # For METOP-A/B/C AVHRR data (satID 3,4,5), qi w/o forecast (qifn) is
-    # packaged in same vector of qi with ga = 5 (QI without forecast), and EE
-    # is packaged in same vector of qi with ga=7 (Estimated Error (EE) in m/s
-    # converted to a percent confidence) shape (4,nobs).
-    #
-    # For NOAA-15/18/19 AVHRR data (satID 206,209,223), qi w/o forecast
-    # (qifn) is packaged in same vector of qi with ga = 1 (EUMETSAT QI
-    # without forecast), and EE is packaged in same vector of qi with ga=4
-    # (Estimated Error (EE) in m/s converted to a percent confidence) shape
-    # (4,nobs).
-    #
-    # Must conduct a search and extract the correct vector for gnap and qi
-    # 0. Define the appropriate QI and EE search values, based on satID
-    if np.all(np.isin(satID, [206, 209, 223])):  # NESDIS AVHRR set
-        findQI = 1
-        findEE = 4
-    elif np.all(np.isin(satID, [3, 4, 5])):  # EUMETSAT AVHRR set
-        findQI = 5
-        findEE = 7
-        # There is a catch: prior to 2023 AVHRR winds from EUMETSAT were formatted in the same
-        # way as NESDIS AVHRR winds and both were passed through the NC005080 tank as a single
-        # dataset. In that case, we need to actually set findQI=1 and findEE=4 here.
-        # Let's do a preliminary check to see if any gnap2D values match findQI. If not, let's
-        # automatically switch to findQI=1, findEE=4 and presume pre-2023 EUMETSAT AVHRR format
-        if not (np.any(np.isin(gnap2D, [findQI]))):
-            logging(comm, 'DEBUG', f'NO GNAP VALUE OF {findQI} EXISTS FOR EUMETSAT AVHRR DATASET, PRESUMING PRE-2023 FORMATTING')
+    def _add_avhrr_quality_info_and_gen_app(self, container, cat):
+        # Add new variables: MetaData/windGeneratingApplication and qualityInformationWithoutForecast
+        gnap2D = container.get('generatingApplication', cat)
+        pccf2D = container.get('qualityInformation', cat)
+        satId = container.get('satelliteId', cat)
+
+        if not satId.size:
+
+            dummy_mappings = [
+                ('windGeneratingApplication', 'windComputationMethod'),
+                ('qualityInformationWithoutForecast', 'windSpeed')
+            ]
+            for target_var, source_var in dummy_mappings:
+                add_dummy_variable(container, target_var, cat, source_var)
+
+            return
+
+        gnap, qifn = self._get_avhrr_quality_info_and_gen_app(gnap2D, pccf2D, satId)
+
+        self.log.debug(f'gnap min/max = {gnap.min()} {gnap.max()}')
+        self.log.debug(f'qifn min/max = {qifn.min()} {qifn.max()}')
+
+        paths = container.get_paths('windComputationMethod', cat)
+        container.add('windGeneratingApplication', gnap, paths, cat)
+        container.add('qualityInformationWithoutForecast', qifn, paths, cat)
+
+    def _get_avhrr_quality_info_and_gen_app(self, gnap2D, pccf2D, satID):
+        # For METOP-A/B/C AVHRR data (satID 3,4,5), qi w/o forecast (qifn) is
+        # packaged in same vector of qi with ga = 5 (QI without forecast), and EE
+        # is packaged in same vector of qi with ga=7 (Estimated Error (EE) in m/s
+        # converted to a percent confidence) shape (4,nobs).
+        #
+        # For NOAA-15/18/19 AVHRR data (satID 206,209,223), qi w/o forecast
+        # (qifn) is packaged in same vector of qi with ga = 1 (EUMETSAT QI
+        # without forecast), and EE is packaged in same vector of qi with ga=4
+        # (Estimated Error (EE) in m/s converted to a percent confidence) shape
+        # (4,nobs).
+        #
+        # Must conduct a search and extract the correct vector for gnap and qi
+        # 0. Define the appropriate QI and EE search values, based on satID
+        if np.all(np.isin(satID, [206, 209, 223])):  # NESDIS AVHRR set
             findQI = 1
             findEE = 4
-    else:
-        logging(comm, 'DEBUG', f'satID set not found (all satID values follow):')
-        for sid in np.unique(satID):
-            logging(comm, 'DEBUG', f'satID: {sid}')
-    logging(comm, 'DEBUG', f'BTH: findQI={findQI}')
-    # 1. Find dimension-sizes of ga and qi (should be the same!)
-    gDim1, gDim2 = np.shape(gnap2D)
-    qDim1, qDim2 = np.shape(pccf2D)
-    logging(comm, 'INFO', f'Generating Application and Quality Information SEARCH:')
-    logging(comm, 'DEBUG', f'Dimension size of GNAP ({gDim1},{gDim2})')
-    logging(comm, 'DEBUG', f'Dimension size of PCCF ({qDim1},{qDim2})')
-    # 2. Initialize gnap and qifn as None, and search for dimension of
-    #    ga with values of findQI. If the same column exists for qi, assign
-    #    gnap to ga[:,i] and qifn to qi[:,i], else raise warning that no
-    #    appropriate GNAP/PCCF combination was found
-    gnap = None
-    qifn = None
-    for i in range(gDim2):
-        if np.unique(gnap2D[:, i].squeeze()) == findQI:
-            if i <= qDim2:
-                logging(comm, 'INFO', f'GNAP/PCCF found for column {i}')
-                gnap = gnap2D[:, i].squeeze()
-                qifn = pccf2D[:, i].squeeze()
-            else:
-                logging(comm, 'INFO', f'ERROR: GNAP column {i} outside of PCCF dimension {qDim2}')
-    if (gnap is None) & (qifn is None):
-        raise ValueError(f'GNAP == {findQI} NOT FOUND OR OUT OF PCCF DIMENSION-RANGE, WILL FAIL!')
-    # If EE is needed, key search on np.unique(gnap2D[:,i].squeeze()) == findEE instead
-    # NOTE: Make sure to return np.float32 or np.int32 types as appropriate!!!
-    return gnap.astype(np.int32), qifn.astype(np.int32)
-
-
-def _get_obs_type(swcm):
-    """
-    Determine the observation type based on `swcm` and `chanfreq`.
-
-    Parameters:
-        swcm (array-like): Switch mode values.
-        chanfreq (array-like): Channel frequency values (Hz).
-
-    Returns:
-        numpy.ndarray: Observation type array.
-
-    Raises:
-        ValueError: If any `obstype` is unassigned.
-    """
-
-    obstype = swcm.copy()
-
-    # Use numpy vectorized operations
-    obstype = np.where(swcm == 1, 244, obstype)  # IRLW
-
-    if not np.any(np.isin(obstype, [244])):
-        raise ValueError("Error: Unassigned ObsType found ... ")
-
-    return obstype.astype(np.int32)
-
-
-def _make_obs(comm, input_path, mapping_path):
-
-    # Get container from mapping file first
-    logging(comm, 'INFO', 'Get container from bufr')
-    container = bufr.Parser(input_path, mapping_path).parse(comm)
-
-    logging(comm, 'DEBUG', f'container list (original): {container.list()}')
-    logging(comm, 'DEBUG', f'all_sub_categories =  {container.all_sub_categories()}')
-    logging(comm, 'DEBUG', f'category map =  {container.get_category_map()}')
-
-    # Add new/derived data into container
-    for cat in container.all_sub_categories():
-
-        logging(comm, 'DEBUG', f'category = {cat}')
-
-        satid = container.get('variables/satelliteId', cat)
-        if satid.size == 0:
-            logging(comm, 'WARNING', f'category {cat[0]} does not exist in input file')
-            paths = container.get_paths('variables/windComputationMethod', cat)
-            obstype = container.get('variables/windComputationMethod', cat)
-            container.add('variables/obstype_uwind', obstype, paths, cat)
-            container.add('variables/obstype_vwind', obstype, paths, cat)
-
-            paths = container.get_paths('variables/windSpeed', cat)
-            wob = container.get('variables/windSpeed', cat)
-            container.add('variables/windEastward', wob, paths, cat)
-            container.add('variables/windNorthward', wob, paths, cat)
-
-            paths = container.get_paths('variables/windComputationMethod', cat)
-            dummy = container.get('variables/windSpeed', cat)
-            container.add('variables/windGeneratingApplication', dummy, paths, cat)
-            container.add('variables/qualityInformationWithoutForecast', dummy, paths, cat)
-
+        elif np.all(np.isin(satID, [3, 4, 5])):  # EUMETSAT AVHRR set
+            findQI = 5
+            findEE = 7
+            # There is a catch: prior to 2023 AVHRR winds from EUMETSAT were formatted in the same
+            # way as NESDIS AVHRR winds and both were passed through the NC005080 tank as a single
+            # dataset. In that case, we need to actually set findQI=1 and findEE=4 here.
+            # Let's do a preliminary check to see if any gnap2D values match findQI. If not, let's
+            # automatically switch to findQI=1, findEE=4 and presume pre-2023 EUMETSAT AVHRR format
+            # If findQI is not found anywhere in gnap2D, set findQI and findEE to 1 and 4, respectively
+            if not np.any(np.isin(gnap2D, [findQI])):
+                self.log.debug(
+                    f'NO GNAP VALUE OF {findQI} EXISTS FOR EUMETSAT AVHRR DATASET, PRESUMING PRE-2023 FORMATTING')
+                findQI = 1
+                findEE = 4
         else:
-            # Add new variables: ObsType/windEastward & ObsType/windNorthward
-            swcm = container.get('variables/windComputationMethod', cat)
-            chanfreq = container.get('variables/sensorCentralFrequency', cat)
-
-            logging(comm, 'DEBUG', f'swcm min/max = {swcm.min()} {swcm.max()}')
-            logging(comm, 'DEBUG', f'chanfreq min/max = {chanfreq.min()} {chanfreq.max()}')
-
-            obstype = _get_obs_type(swcm)
-
-            logging(comm, 'DEBUG', f'obstype = {obstype}')
-            logging(comm, 'DEBUG', f'obstype min/max =  {obstype.min()} {obstype.max()}')
-
-            paths = container.get_paths('variables/windComputationMethod', cat)
-            container.add('variables/obstype_uwind', obstype, paths, cat)
-            container.add('variables/obstype_vwind', obstype, paths, cat)
-
-            # Add new variables: ObsValue/windEastward & ObsValue/windNorthward
-            wdir = container.get('variables/windDirection', cat)
-            wspd = container.get('variables/windSpeed', cat)
-
-            logging(comm, 'DEBUG', f'wdir min/max = {wdir.min()} {wdir.max()}')
-            logging(comm, 'DEBUG', f'wspd min/max = {wspd.min()} {wspd.max()}')
-
-            uob, vob = compute_wind_components(wdir, wspd)
-
-            logging(comm, 'DEBUG', f'uob min/max = {uob.min()} {uob.max()}')
-            logging(comm, 'DEBUG', f'vob min/max = {vob.min()} {vob.max()}')
-
-            paths = container.get_paths('variables/windSpeed', cat)
-            container.add('variables/windEastward', uob, paths, cat)
-            container.add('variables/windNorthward', vob, paths, cat)
-
-            # Add new variables: MetaData/windGeneratingApplication and qualityInformationWithoutForecast
-            satID = container.get('variables/satelliteId', cat)
-            gnap2D = container.get('variables/generatingApplication', cat)
-            pccf2D = container.get('variables/qualityInformation', cat)
-
-            gnap, qifn = _get_quality_information_and_generating_application(comm, gnap2D, pccf2D, satID)
-
-            logging(comm, 'DEBUG', f'gnap min/max = {gnap.min()} {gnap.max()}')
-            logging(comm, 'DEBUG', f'qifn min/max = {qifn.min()} {qifn.max()}')
-
-            paths = container.get_paths('variables/windComputationMethod', cat)
-            container.add('variables/windGeneratingApplication', gnap, paths, cat)
-            container.add('variables/qualityInformationWithoutForecast', qifn, paths, cat)
-
-    # Check
-    logging(comm, 'DEBUG', f'container list (updated): {container.list()}')
-    logging(comm, 'DEBUG', f'all_sub_categories {container.all_sub_categories()}')
-
-    return container
+            self.log.debug(f'satID set not found (all satID values follow):')
+            for sid in np.unique(satID):
+                self.log.debug(f'satID: {sid}')
+        self.log.debug(f'BTH: findQI={findQI}')
+        # 1. Find dimension-sizes of ga and qi (should be the same!)
+        gDim1, gDim2 = np.shape(gnap2D)
+        qDim1, qDim2 = np.shape(pccf2D)
+        self.log.info(f'Generating Application and Quality Information SEARCH:')
+        self.log.debug(f'Dimension size of GNAP ({gDim1},{gDim2})')
+        self.log.debug(f'Dimension size of PCCF ({qDim1},{qDim2})')
+        # 2. Initialize gnap and qifn as None, and search for dimension of
+        #    ga with values of findQI. If the same column exists for qi, assign
+        #    gnap to ga[:,i] and qifn to qi[:,i], else raise warning that no
+        #    appropriate GNAP/PCCF combination was found
+        gnap = None
+        qifn = None
+        for i in range(gDim2):
+            if np.unique(gnap2D[:, i]) == findQI:
+                if i < qDim2:
+                    self.log.info(f'GNAP/PCCF found for column {i}')
+                    gnap = gnap2D[:, i].copy()
+                    qifn = pccf2D[:, i].copy()
+                else:
+                    self.log.info(f'ERROR: GNAP column {i} outside of PCCF dimension {qDim2}')
+        if (gnap is None) and (qifn is None):
+            raise ValueError(f'GNAP == {findQI} NOT FOUND OR OUT OF PCCF DIMENSION-RANGE, WILL FAIL!')
+        # If EE is needed, key search on np.unique(gnap2D[:,i].squeeze()) == findEE instead
+        return gnap, qifn
 
 
-def create_obs_group(input_path, mapping_path, category, env):
-
-    comm = bufr.mpi.Comm(env["comm_name"])
-
-    description = _make_description(mapping_path, update=True)
-
-    # Check the cache for the data and return it if it exists
-    logging(comm, 'DEBUG', f'Check if bufr.DataCache exists? {bufr.DataCache.has(input_path, mapping_path)}')
-    if bufr.DataCache.has(input_path, mapping_path):
-        container = bufr.DataCache.get(input_path, mapping_path)
-        logging(comm, 'INFO', f'Encode {category} from cache')
-        data = iodaEncoder(description).encode(container)[(category,)]
-        logging(comm, 'INFO', f'Mark {category} as finished in the cache')
-        bufr.DataCache.mark_finished(input_path, mapping_path, [category])
-        logging(comm, 'INFO', f'Return the encoded data for {category}')
-        return data
-
-    container = _make_obs(comm, input_path, mapping_path)
-
-    # Gather data from all tasks into all tasks. Each task will have the complete record
-    logging(comm, 'INFO', f'Gather data from all tasks into all tasks')
-    container.all_gather(comm)
-
-    logging(comm, 'INFO', f'Add container to cache')
-    # Add the container to the cache
-    bufr.DataCache.add(input_path, mapping_path, container.all_sub_categories(), container)
-
-    # Encode the data
-    logging(comm, 'INFO', f'Encode {category}')
-    data = iodaEncoder(description).encode(container)[(category,)]
-
-    logging(comm, 'INFO', f'Mark {category} as finished in the cache')
-    # Mark the data as finished in the cache
-    bufr.DataCache.mark_finished(input_path, mapping_path, [category])
-
-    logging(comm, 'INFO', f'Return the encoded data for {category}')
-    return data
-
-
-def create_obs_file(input_path, mapping_path, output_path):
-
-    comm = bufr.mpi.Comm("world")
-    container = _make_obs(comm, input_path, mapping_path)
-    container.gather(comm)
-
-    description = _make_description(mapping_path, update=True)
-
-    # Encode the data
-    if comm.rank() == 0:
-        netcdfEncoder(description).encode(container, output_path)
-
-    logging(comm, 'INFO', f'Return the encoded data')
-
-
-if __name__ == '__main__':
-
-    start_time = time.time()
-
-    bufr.mpi.App(sys.argv)
-    comm = bufr.mpi.Comm("world")
-
-    # Required input arguments as positional arguments
-    parser = argparse.ArgumentParser(description="Convert BUFR to NetCDF using a mapping file.")
-    parser.add_argument('input', type=str, help='Input BUFR file')
-    parser.add_argument('mapping', type=str, help='BUFR2IODA Mapping File')
-    parser.add_argument('output', type=str, help='Output NetCDF file')
-
-    args = parser.parse_args()
-    infile = args.input
-    mapping = args.mapping
-    output = args.output
-
-    create_obs_file(infile, mapping, output)
-
-    end_time = time.time()
-    running_time = end_time - start_time
-    logging(comm, 'INFO', f'Total running time: {running_time}')
+# Add main functions create_obs_file and create_obs_group
+add_main_functions(SatWndAmvAvhrrObsBuilder)

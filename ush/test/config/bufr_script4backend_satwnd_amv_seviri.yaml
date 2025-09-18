@@ -14,7 +14,7 @@ observations:
         script file: "bufr_satwnd_amv_seviri.py"
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-          mapping_path: "./bufr_satwnd_amv_seviri_mapping.yaml"
+          mapping_path: "./bufr_satwnd_amv_seviri.yaml"
           category: "m8"
     obsdataout:
       engine:
@@ -32,7 +32,7 @@ observations:
         script file: "bufr_satwnd_amv_seviri.py"
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-          mapping_path: "./bufr_satwnd_amv_seviri_mapping.yaml"
+          mapping_path: "./bufr_satwnd_amv_seviri.yaml"
           category: "m9"
     obsdataout:
       engine:
@@ -50,7 +50,7 @@ observations:
         script file: "bufr_satwnd_amv_seviri.py"
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-          mapping_path: "./bufr_satwnd_amv_seviri_mapping.yaml"
+          mapping_path: "./bufr_satwnd_amv_seviri.yaml"
           category: "m10"
     obsdataout:
       engine:
@@ -68,7 +68,7 @@ observations:
         script file: "bufr_satwnd_amv_seviri.py"
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-          mapping_path: "./bufr_satwnd_amv_seviri_mapping.yaml"
+          mapping_path: "./bufr_satwnd_amv_seviri.yaml"
           category: "m11"
     obsdataout:
       engine:

@@ -10,7 +10,7 @@ observations:
       engine:
         type: bufr 
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr_satwnd_amv_avhrr_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_avhrr.yaml"
         category: ["metop-1a"]
         cache categories:            # optional
           - ["metop-1a"]
@@ -31,7 +31,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr_satwnd_amv_avhrr_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_avhrr.yaml"
         category: ["metop-1b"]
         cache categories:            # optional
           - ["metop-1a"]
@@ -52,7 +52,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr_satwnd_amv_avhrr_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_avhrr.yaml"
         category: ["metop-1c"]
         cache categories:            # optional
           - ["metop-1a"]
@@ -73,7 +73,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr_satwnd_amv_avhrr_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_avhrr.yaml"
         category: ["noaa-15"]
         cache categories:            # optional
           - ["metop-1a"]
@@ -94,7 +94,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr_satwnd_amv_avhrr_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_avhrr.yaml"
         category: ["noaa-18"]
         cache categories:            # optional
           - ["metop-1a"]
@@ -115,7 +115,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr_satwnd_amv_avhrr_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_avhrr.yaml"
         category: ["noaa-19"]
         cache categories:            # optional
           - ["metop-1a"]

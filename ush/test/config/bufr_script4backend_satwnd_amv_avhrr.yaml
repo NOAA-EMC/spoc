@@ -14,7 +14,7 @@ observations:
         script file: "bufr_satwnd_amv_avhrr.py"
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-          mapping_path: "./bufr_satwnd_amv_avhrr_mapping.yaml"
+          mapping_path: "./bufr_satwnd_amv_avhrr.yaml"
           category: "metop-1a"
     obsdataout:
       engine:
@@ -32,7 +32,7 @@ observations:
         script file: "bufr_satwnd_amv_avhrr.py"
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-          mapping_path: "./bufr_satwnd_amv_avhrr_mapping.yaml"
+          mapping_path: "./bufr_satwnd_amv_avhrr.yaml"
           category: "metop-1b"
     obsdataout:
       engine:
@@ -50,7 +50,7 @@ observations:
         script file: "bufr_satwnd_amv_avhrr.py"
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-          mapping_path: "./bufr_satwnd_amv_avhrr_mapping.yaml"
+          mapping_path: "./bufr_satwnd_amv_avhrr.yaml"
           category: "metop-1c"
     obsdataout:
       engine:
@@ -68,7 +68,7 @@ observations:
         script file: "bufr_satwnd_amv_avhrr.py"
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-          mapping_path: "./bufr_satwnd_amv_avhrr_mapping.yaml"
+          mapping_path: "./bufr_satwnd_amv_avhrr.yaml"
           category: "noaa-15"
     obsdataout:
       engine:
@@ -86,7 +86,7 @@ observations:
         script file: "bufr_satwnd_amv_avhrr.py"
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-          mapping_path: "./bufr_satwnd_amv_avhrr_mapping.yaml"
+          mapping_path: "./bufr_satwnd_amv_avhrr.yaml"
           category: "noaa-18"
     obsdataout:
       engine:
@@ -104,7 +104,7 @@ observations:
         script file: "bufr_satwnd_amv_avhrr.py"
         args:
           input_path: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-          mapping_path: "./bufr_satwnd_amv_avhrr_mapping.yaml"
+          mapping_path: "./bufr_satwnd_amv_avhrr.yaml"
           category: "noaa-19"
     obsdataout:
       engine:

@@ -10,7 +10,7 @@ observations:
       engine:
         type: bufr 
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr_satwnd_amv_seviri_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_seviri.yaml"
         category: ["m8"]
         cache categories:            # optional
           - ["m8"]
@@ -29,7 +29,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr_satwnd_amv_seviri_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_seviri.yaml"
         category: ["m9"]
         cache categories:            # optional
           - ["m8"]
@@ -48,7 +48,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr_satwnd_amv_seviri_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_seviri.yaml"
         category: ["m10"]
         cache categories:            # optional
           - ["m8"]
@@ -67,7 +67,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2021080100/gdas.t00z.satwnd.tm00.bufr_d"
-        mapping file: "./bufr_satwnd_amv_seviri_mapping.yaml"
+        mapping file: "./bufr_satwnd_amv_seviri.yaml"
         category: ["m11"]
         cache categories:            # optional
           - ["m8"]
