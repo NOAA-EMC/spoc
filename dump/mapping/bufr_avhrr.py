@@ -13,7 +13,7 @@ from bufr.transforms import compute_solar_angles
 MAPPING_PATH = map_path('bufr_avhrr.yaml')
 
 
-def determine_orbit_direction(latitude, timestamp):
+def compute_orbit_direction(latitude, timestamp):
     """
     Determine ascending or descending pass for each point.
     
@@ -33,88 +33,90 @@ def determine_orbit_direction(latitude, timestamp):
     return directions
 
 
-def get_sensor_scan_position(fov_array):
-    # Normalize FOV scan position to [-1, 1]
-    scan_position = np.zeros_like(fov_array)
-    scan_position = scan_position.astype(np.float32)
-    if fov_array.size == 0:
-        return scan_position
-
-    min_fov = fov_array.min()
-    max_fov = fov_array.max()
-    scan_position = 2 * ((fov_array - min_fov) / (max_fov - min_fov)) - 1
-    print(f'xxxxx    scan_position type = {scan_position.dtype}')
-    scan_position = scan_position.astype(np.float32)
-    print(f'yyyyy  scan_position type = {scan_position.dtype}')
-    return scan_position
-
-
-def compute_avhrr_sensor_azimuth(timestamp, latitude, fov_array):
+def compute_scan_position(fovn, cut_spot=11, dfov=4.25):
     """
-    Compute sensor azimuth angle for AVHRR data based on FOV and orbit direction.
+    Compute scan position from Field of View Number (FOVN) for AVHRR GAC data.
+    This is the python version of the gsi Fortran code 
+    in src/gsi/read_avhrr.f90 that converts 
+    FOVN from the bufr file to scan position:
 
-    Parameters:
-        timestamp   : 1D array of UNIX timestamp (same length as latitude)
-        latitude    : 1D array of latitude in degrees
-        fov_array    : 1D or masked array of field-of-view numbers (integers)
+    !
+    !       Get scan position (1 - 90) based on (409 - 2*cut_spot - 1) = 386 here,  GAC pixels
+    !       avhrr gac scan has 409 positions. we drop tails: 1- 11 & 399- 409 [the two ends]
+    !       here we linearly map pixels: 12- 398 to 1 - 90 scan positions
+               if ( mod(hdr(10)-cut_spot,dfov) < half*dfov ) then
+                  scan_pos = real(nint((hdr(10)-cut_spot)/dfov) + 1) 
+               else
+                  scan_pos = real(nint((hdr(10)-cut_spot)/dfov)) 
+               endif
 
-    Returns:
-        azimuth      : Masked array of sensor azimuth angles in degrees [0, 360)
     """
-    # Ensure masked array
-    fov_array = ma.masked_array(fov_array)
+    half_dfov = 0.5 * dfov
+    offset = fovn - cut_spot
 
-    # Prepare output
-    azimuth = ma.masked_all(fov_array.shape, dtype=np.float32)
-    if fov_array.size == 0:
-        return azimuth
+    scan_position = ma.masked_array(np.zeros_like(fovn, dtype=float), mask=fovn.mask)
 
-    scan_position = get_sensor_scan_position(fov_array)
+    condition = ma.masked_less((offset % dfov), half_dfov).filled(False)
 
-    # Get orbit direction: 1 = descending, -1 = ascending
-    orbit_direction = determine_orbit_direction(latitude, timestamp)
-    orbit_direction = np.array(orbit_direction)  # Ensure it's an array for masking
+    scan_position[condition] = np.round(offset[condition] / dfov) + 1
+    scan_position[~condition] = np.round(offset[~condition] / dfov)
 
-    # Descending pass (north to south)
-    descending_mask = (orbit_direction == 1) & (~fov_array.mask)
-    azimuth[descending_mask] = 180 + 90 * scan_position[descending_mask]
+    return ma.masked_where(fovn.mask, scan_position.astype(int))
 
-    # Ascending pass (south to north)
-    ascending_mask = (orbit_direction == -1) & (~fov_array.mask)
-    azimuth[ascending_mask] = 180 - 90 * scan_position[ascending_mask]
 
-    # Wrap azimuth to [0, 360)
-    azimuth = azimuth % 360
+def compute_sensor_view_angle(scan_position, max_angle=55.4):
+    """
+    Compute sensor view angle from scan position.
+    """
+    num_positions = 90
+    center = (num_positions + 1) / 2
+    angle_per_pos = max_angle / (center - 1)
+
+    deviation = scan_position - center
+    view_angle = deviation * angle_per_pos
+    return ma.masked_where(scan_position.mask, view_angle)
+
+
+def compute_sensor_azimuth_angle(sensor_view_angle, orbit_direction):
+    """
+    Approximate sensor azimuth angle based on orbit direction.
+    """
+    azimuth = ma.masked_array(np.zeros_like(sensor_view_angle), mask=sensor_view_angle.mask)
+
+    ascending = orbit_direction == 1
+    descending = orbit_direction == -1
+
+    azimuth[ascending] = 90 + sensor_view_angle[ascending]
+    azimuth[descending] = 270 - sensor_view_angle[descending]
 
     return azimuth
 
 
-def compute_sensor_scan_and_view_angle(fov_array, total_fovs=2048, max_view_angle_deg=55.0):
+def compute_solar_azimuth_angle(latitude, longitude, timestamp):
     """
-    Compute sensorScanPosition and sensorViewAngle for AVHRR-style instruments.
-
-    Parameters:
-        fov_array : np.ma.MaskedArray
-            Field-of-view number array (0 to total_fovs-1)
-        total_fovs : int
-            Total number of fields-of-view (default 2048)
-        max_view_angle_deg : float
-            Max scan angle from nadir (default 55.0° for AVHRR)
-
-    Returns:
-        Tuple of np.ma.MaskedArray:
-            - sensorScanPosition (unitless, -1.0 to +1.0)
-            - sensorViewAngle (degrees)
+    Approximate solar azimuth angle using a basic astronomical model.
+    For accurate calculations, consider using `pvlib` or `skyfield`.
     """
-    fov_array = ma.masked_array(fov_array)
+    solar_azimuth = ma.masked_array(np.zeros_like(latitude), mask=latitude.mask)
 
-    # Normalize scan position: -1 to +1
-    scan_pos = 2 * (fov_array / (total_fovs - 1)) - 1
+    for i in range(len(latitude)):
+        if latitude.mask[i] or longitude.mask[i] or timestamp.mask[i]:
+            continue
 
-    # View angle in degrees (approximate)
-    view_angle = scan_pos * max_view_angle_deg
+        dt = datetime.utcfromtimestamp(timestamp[i])
+        hour_angle = ((dt.hour + dt.minute / 60 + dt.second / 3600) - 12) * 15
+        day_of_year = dt.timetuple().tm_yday
+        decl = 23.44 * np.cos(np.deg2rad((360 / 365.0) * (day_of_year + 10)))
+        lat = latitude[i]
 
-    return scan_pos, view_angle
+        cos_az = (
+            np.sin(np.deg2rad(decl)) - np.sin(np.deg2rad(lat)) * np.sin(np.deg2rad(90))
+        ) / (np.cos(np.deg2rad(lat)) * np.cos(np.deg2rad(90)))
+        
+        az = np.rad2deg(np.arccos(cos_az))
+        solar_azimuth[i] = az
+
+    return solar_azimuth
 
 
 class BufrGsrasrObsBuilder(ObsBuilder):
@@ -149,7 +151,7 @@ class BufrGsrasrObsBuilder(ObsBuilder):
             error_var = np.full_like(v, error)
             container.add(error_var_name, error_var, paths, cat)
 
-            # compute sensorAzimuthAngle
+            # get the data to compute additional variables
             timestamp = container.get('timestamp', cat)
             latitude = container.get('latitude', cat)
             longitude = container.get('longitude', cat)
@@ -159,30 +161,22 @@ class BufrGsrasrObsBuilder(ObsBuilder):
                 self.log.debug(f'longitude min/max = {longitude.min()} {longitude.max()}')       
             if timestamp.size != 0:
                 self.log.debug(f'timestamp min/max = {timestamp.min()} {timestamp.max()}')                                                                           
-
-            # solar azimuth angle
-            solar_zenith_angle, solar_azimuth_angle = compute_solar_angles(latitude, longitude, timestamp)
-            paths = container.get_paths("sensorZenithAngle", cat)
-            azimuth_angle_name = "solarAzimuthAngle"
-            container.add(azimuth_angle_name, solar_azimuth_angle, paths, cat)
-
-            # sensor azimuth angle
             fovn = container.get("fieldOfViewNumber", cat)
-            sensor_azimuth_angle = compute_avhrr_sensor_azimuth(timestamp, latitude, fovn)
-            azimuth_angle_name = "sensorAzimuthAngle"
-            container.add(azimuth_angle_name, sensor_azimuth_angle, paths, cat)
 
-            # sensor scan position
-            scan_position = get_sensor_scan_position(fovn)
-            scan_position_name = "sensorScanPosition"
-            container.add(scan_position_name, scan_position, paths, cat)
-            print(f'>>> scan_position type = {scan_position.dtype}')
+            # compute the additional variables
+            scan_position = compute_scan_position(fovn)
+            sensor_view_angle = compute_sensor_view_angle(scan_position)
+            orbit_direction = compute_orbit_direction(latitude, timestamp)
+            sensor_azimuth_angle = compute_sensor_azimuth_angle(sensor_view_angle, orbit_direction)
+            solar_azimuth_angle = compute_solar_azimuth_angle(latitude, longitude, timestamp)
 
-            # sensor view angle
-            max_view_angle = 55.4       # Max view angle for AVHRR (approx)
-            view_angle = scan_position * max_view_angle
-            view_angle_name = "sensorViewAngle"
-            container.add(view_angle_name, view_angle, paths, cat)
+            # add the new variables to the container
+            paths = container.get_paths("sensorZenithAngle", cat)
+            container.add("sensorScanPosition", scan_position, paths, cat)
+            # print(f'>>> scan_position type = {scan_position.dtype}')
+            container.add("sensorViewAngle", sensor_view_angle, paths, cat)
+            container.add("sensorAzimuthAngle", sensor_azimuth_angle, paths, cat)
+            container.add("solarAzimuthAngle", solar_azimuth_angle, paths, cat)
 
             satId = container.get('satelliteId', cat)
 
