@@ -18,8 +18,8 @@ COSMIC_BACKGROUND_TEMP = 2.7253
 nc_dir = './aux'
 
 
-NMFD_MAPPING = map_path('bufr_amsua_1bamua.yaml')
-RARS_MAPPING = map_path('bufr_amsua_esamua.yaml')
+NMFD_MAPPING = map_path('amsua_1bamua.yaml')
+RARS_MAPPING = map_path('amsua_esamua.yaml')
 
 
 class ACCoeff:
