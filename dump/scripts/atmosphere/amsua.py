@@ -2,11 +2,11 @@
 import os
 from bufr.obs_builder import add_main_functions, map_path
 
-from bufr_atovs_obs_builder import AtovsObsBuilder, NMFD, RARS
+from atovs_obs_builder import AtovsObsBuilder, NMFD, RARS
 
 
-NMFD_MAPPING = map_path('bufr_amsua_1bamua.yaml')
-RARS_MAPPING = map_path('bufr_amsua_esamua.yaml')
+NMFD_MAPPING = map_path('amsua_1bamua.yaml')
+RARS_MAPPING = map_path('amsua_esamua.yaml')
 
 
 class AmsuaObsBuilder(AtovsObsBuilder):

@@ -2,11 +2,11 @@
 import os
 from bufr.obs_builder import add_main_functions, map_path
 
-from bufr_atovs_obs_builder import AtovsObsBuilder, NMFD, RARS
+from atovs_obs_builder import AtovsObsBuilder, NMFD, RARS
 
 
-NMFD_MAPPING = map_path('bufr_mhs_1bmhs.yaml')
-RARS_MAPPING = map_path('bufr_mhs_esmhs.yaml')
+NMFD_MAPPING = map_path('mhs_1bmhs.yaml')
+RARS_MAPPING = map_path('mhs_esmhs.yaml')
 
 
 class MhsObsBuilder(AtovsObsBuilder):

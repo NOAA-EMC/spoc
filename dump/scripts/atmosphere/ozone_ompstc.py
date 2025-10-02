@@ -5,9 +5,9 @@ import numpy.ma as ma
 
 import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
-from bufr_ozone_obs_builder import BufrOzoneObsBuilder
+from ozone_obs_builder import BufrOzoneObsBuilder
 
-MAPPING_PATH = map_path('bufr_ozone_ompstc.yaml')
+MAPPING_PATH = map_path('ozone_ompstc.yaml')
 
 
 class BufrOzoneOmpstcObsBuilder(BufrOzoneObsBuilder):

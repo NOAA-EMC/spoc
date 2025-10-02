@@ -9,7 +9,7 @@ from bufr.obs_builder import nprocs_per_task, add_dummy_variable
 from bufr.transforms import compute_solar_angles
 from datetime import datetime
 
-MAPPING_PATH = map_path('bufr_ssmis.yaml')
+MAPPING_PATH = map_path('ssmis.yaml')
 
 
 class BufrSsmisObsBuilder(ObsBuilder):
