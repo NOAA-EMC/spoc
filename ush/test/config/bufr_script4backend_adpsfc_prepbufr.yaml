@@ -6,9 +6,9 @@ time window:
 observations:
 - obs space:
     name: "ADPSFC"
-    observed variables: ['stationPressure']
-    derived variables: ['stationPressure']
-    simulated variables: ['stationPressure']
+    observed variables: ['stationPressure','airTemperature','virtualTemperature','specificHumidity','windEastward','windNorthward']
+    derived variables: ['stationPressure','airTemperature','virtualTemperature','specificHumidity','windEastward','windNorthward']
+    simulated variables: ['stationPressure','airTemperature','virtualTemperature','specificHumidity','windEastward','windNorthward']
     obsdatain:
       engine:
         type: script
