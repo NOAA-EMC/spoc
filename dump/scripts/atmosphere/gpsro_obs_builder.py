@@ -10,9 +10,10 @@ from bufr.bufr_python.encoders import *
 
 MAPPING_PATH = map_path('gpsro.yaml')
 
+
 class SatGroup:
-    def __init__(self, 
-                 name: str, 
+    def __init__(self,
+                 name: str,
                  categoryGroup: list[str],
                  sensor_name: str,
                  sensor_full_name: str,
@@ -69,7 +70,7 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
                                           'Constellation Observing System for Meteorology, Ionosphere, and Climate-2 E5',
                                           'Constellation Observing System for Meteorology, Ionosphere, and Climate-2 E6'],
                      satellite_id=[750, 751, 752, 753, 754, 755]),
-            SatGroup(name='geoopt', 
+            SatGroup(name='geoopt',
                      categoryGroup=['geoopt_265', 'geoopt_266'],
                      sensor_name='CION',
                      sensor_full_name='CICERO Instrument for GNSS-RO',
@@ -98,7 +99,7 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
                      satellite_name=['KOMPSAT-9'],
                      satellite_full_name=['Korean Multi-Purpose Satellite'],
                      satellite_id=[825]),
-            SatGroup(name='metop', 
+            SatGroup(name='metop',
                      categoryGroup=['metop_3', 'metop_4', 'metop_5'],
                      sensor_name='GRAS',
                      sensor_full_name='GNSS Receiver for Atmospheric Sounding',
@@ -127,7 +128,7 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
                      satellite_name=['PlanetIQ'],
                      satellite_full_name=['PLANETIQ GNOMES-A',
                                           'PLANETIQ GNOMES-B'],
-                     satellite_id=[267,268]),
+                     satellite_id=[267, 268]),
             SatGroup(name='s6',
                      categoryGroup=['s6_66'],
                      sensor_name='Tri-G',
@@ -166,15 +167,13 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
                      satellite_id=[42]),
         ]
 
-
-
     def make_obs(self, comm, input_path):
         container = super().make_obs(comm, input_path)
-        new_container = bufr.DataContainer({'splits/satId':[sat_group.name for sat_group in self.sat_groups]})
+        new_container = bufr.DataContainer({'splits/satId': [sat_group.name for sat_group in self.sat_groups]})
 
         for sat_group in self.sat_groups:
             sat_group.add_to_container(container, new_container)
-        
+
         # do Manipulations here
         self.log.info("   Replacing, Creating, and Deriving variables.")
         for sat_group in new_container.all_sub_categories():
@@ -191,19 +190,18 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
         comm = bufr.mpi.Comm("world")
         self.log.comm = comm
         container = self.make_obs(comm, input_path)
-        container.gather(comm)   
+        container.gather(comm)
 
         if comm.rank() == 0:
             for category in container.all_sub_categories():
                 group_container = container.get_sub_container(category)
-                
+
                 encoder = netcdf.Encoder(self._make_cat_description(category))
                 encoder.encode(group_container,
                                output,
                                append)
 
-
-    def create_obs_group(self, input, env, category:str=None, cache_categories:list=None):
+    def create_obs_group(self, input, env, category: str = None, cache_categories: list = None):
         """
         Create an observation file from the input data. Override this method if you want to
         customize the file creation process or if you need a different function signature (ex: you
@@ -248,11 +246,10 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
             result = self._create_obs_group_w_cache(input, env, category, cache_categories, '')
         else:
             result = self._create_obs_group_no_cache(input, env, '')
-        
+
         return result
 
-
-    def _create_obs_group_w_cache(self, input, env, category:tuple, cache_categories:list, sat_group):
+    def _create_obs_group_w_cache(self, input, env, category: tuple, cache_categories: list, sat_group):
         from pyioda.ioda.Engines.Bufr import Encoder as iodaEncoder
 
         comm = bufr.mpi.Comm(env["comm_name"])
@@ -285,9 +282,9 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
         self.log.info(f'Add container to cache')
         # Add the container to the cache
         bufr.DataCache.add(cache_input_path,
-                        cache_mapping_path,
-                        cache_categories,
-                        container)
+                           cache_mapping_path,
+                           cache_categories,
+                           container)
 
         self.log.info(f'Encode {category} for {category[0]}')
         group_container = container.get_sub_container(category)
@@ -301,11 +298,10 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
 
         return data
 
-
     def _make_cat_description(self, category):
         description = super()._make_description()
-        sat_groups = [group for group in self.sat_groups if group.name == category[0]] 
-        if sat_groups: 
+        sat_groups = [group for group in self.sat_groups if group.name == category[0]]
+        if sat_groups:
             sat_group = sat_groups[0]
             description.add_global('sensor_name', sat_group.sensor_name)
             description.add_global('sensor_full_name', sat_group.sensor_full_name)
@@ -319,7 +315,6 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
         self._add_new_variable_descriptions(description)
 
         return description
-
 
     def _add_new_variable_descriptions(self, description):
         description.add_variables([
@@ -340,7 +335,6 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
                 'longName': 'Sequence Number',
             }
         ])
-
 
     def _replace_gridcoordinates(self, new_container, sat_group):
         lat_deg = new_container.get('latitude', sat_group)
@@ -404,7 +398,6 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
         imph2 = new_container.get('impactHeightRO2', sat_group)
         imph3 = new_container.get('impactHeightRO3', sat_group)
 
-        #self.log.info("      Overwrite values for mefr, bnda, impp, imph, bndaoe")
         for i in range(len(impp1)):
             if (mefr2[i] == 0.0):
                 mefr1[i] = mefr2[i]
@@ -426,7 +419,6 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
         new_container.replace('impactHeightRO1', imph1, sat_group)
         new_container.replace('obsErrorBendingAngle1', bndaoe1, sat_group)
 
-
     def _update_sequencenumbers(self, new_container, sat_group):
         seq = new_container.get('sequenceNumber', sat_group)
         seq_paths = new_container.get_paths('sequenceNumber', sat_group)
@@ -442,7 +434,6 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
 
         seqnum2 = np.array(seqnum2).astype(np.int32)  # <-- CONVERT TO NUMPY ARRAY
         new_container.add('sequenceNumber2', seqnum2, seq_paths, sat_group)
-
 
     def _update_satelliteascendingflag_and_qualityflags(self, new_container, sat_group):
         qfro = new_container.get('qualityFlags', sat_group)
@@ -490,6 +481,6 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
         new_container.replace('qualityFlags', qfro2, sat_group)
         new_container.replace('satelliteAscendingFlag', satasc, sat_group)
 
+
 # Add main functions create_obs_file and create_obs_group
 add_main_functions(BaseGpsroBufrObsBuilder)
-
