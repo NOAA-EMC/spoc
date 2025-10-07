@@ -6,7 +6,7 @@ time window:
 observations:
 - obs space:
     name: "ADPSFC"
-    simulated variables: ['stationPressure']
+    simulated variables: ['stationPressure','airTemperature','virtualTemperature','specificHumidity','windEastward','windNorthward']
     obsdatain:
       engine:
         type: bufr
