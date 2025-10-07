@@ -15,11 +15,7 @@ RARS = 'es'   # Regional ATOVS Retransmission Services
 # Far-Infrared Absolute Spectrophotometer (FIRAS)"Astrophysical Journal, vol 512, pp 511-520
 COSMIC_BACKGROUND_TEMP = 2.7253
 
-nc_dir = './aux'
-
-
-NMFD_MAPPING = map_path('amsua_1bamua.yaml')
-RARS_MAPPING = map_path('amsua_esamua.yaml')
+nc_dir = './'
 
 
 class ACCoeff:
