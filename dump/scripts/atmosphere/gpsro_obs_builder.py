@@ -96,7 +96,7 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
                      sensor_full_name='Integrated GPS and Occultation Receiver',
                      sensor_id=103,
                      data_provider='UCAR',
-                     satellite_name=['KOMPSAT-9'],
+                     satellite_name=['KOMPSAT-5'],
                      satellite_full_name=['Korean Multi-Purpose Satellite'],
                      satellite_id=[825]),
             SatGroup(name='metop',
