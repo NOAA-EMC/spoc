@@ -7,7 +7,7 @@ import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions
 
 
-MAPPING_PATH = map_path('bufr_sfcsno.yaml')
+MAPPING_PATH = map_path('sfcsno.yaml')
 
 
 class BufrSfcsnoObsBuilder(ObsBuilder):

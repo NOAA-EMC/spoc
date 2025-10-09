@@ -7,7 +7,7 @@ import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
 
 
-MAPPING_PATH = map_path('bufr_cris-fsr.yaml')
+MAPPING_PATH = map_path('cris-fsr.yaml')
 
 
 class BufrCrisObsBuilder(ObsBuilder):
