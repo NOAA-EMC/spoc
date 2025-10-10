@@ -1,0 +1,324 @@
+time window:
+  begin: "2018-04-14T21:00:00Z"
+  end: "2025-12-15T03:00:00Z"
+
+observations:
+- obs space:
+    name: "metop"
+    observed variables: [bendingAngle]
+    derived variables: [bendingAngle]
+    simulated variables: [bendingAngle]
+    obsdatain:
+      engine:
+        type: script 
+        script file: "gpsro.py"
+        args:
+          input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
+          category: 'metop'
+          cache categories:
+            - "metop"
+            - "cosmic2"
+            - "tdm"
+            - "grace"
+            - "geoopt"
+            - "piq"
+            - "k5"
+            - "paz"
+            - "s6"
+            - "tsx"
+            - "spire"
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gpsro_metop.tm00.nc"
+
+- obs space:
+    name: "cosmic2"
+    observed variables: [bendingAngle]
+    derived variables: [bendingAngle]
+    simulated variables: [bendingAngle]
+    obsdatain:
+      engine:
+        type: script 
+        script file: "gpsro.py"
+        args:
+          input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
+          category: 'cosmic2'
+          cache categories:
+            - "metop"
+            - "cosmic2"
+            - "tdm"
+            - "grace"
+            - "geoopt"
+            - "piq"
+            - "k5"
+            - "paz"
+            - "s6"
+            - "tsx"
+            - "spire"
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gpsro_cosmic2.tm00.nc"
+
+- obs space:
+    name: "tdm"
+    observed variables: [bendingAngle]
+    derived variables: [bendingAngle]
+    simulated variables: [bendingAngle]
+    obsdatain:
+      engine:
+        type: script
+        script file: "gpsro.py"
+        args:
+          input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
+          category: 'tdm'
+          cache categories:
+            - "metop"
+            - "cosmic2"
+            - "tdm"
+            - "grace"
+            - "geoopt"
+            - "piq"
+            - "k5"
+            - "paz"
+            - "s6"
+            - "tsx"
+            - "spire"
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gpsro_tdm.tm00.nc"
+
+- obs space:
+    name: "grace"
+    observed variables: [bendingAngle]
+    derived variables: [bendingAngle]
+    simulated variables: [bendingAngle]
+    obsdatain:
+      engine:
+        type: script
+        script file: "gpsro.py"
+        args:
+          input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
+          category: 'grace'
+          cache categories:
+            - "metop"
+            - "cosmic2"
+            - "tdm"
+            - "grace"
+            - "geoopt"
+            - "piq"
+            - "k5"
+            - "paz"
+            - "s6"
+            - "tsx"
+            - "spire"
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gpsro_grace.tm00.nc"
+
+- obs space:
+    name: "geoopt"
+    observed variables: [bendingAngle]
+    derived variables: [bendingAngle]
+    simulated variables: [bendingAngle]
+    obsdatain:
+      engine:
+        type: script
+        script file: "gpsro.py"
+        args:
+          input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
+          category: 'geoopt'
+          cache categories:
+            - "metop"
+            - "cosmic2"
+            - "tdm"
+            - "grace"
+            - "geoopt"
+            - "piq"
+            - "k5"
+            - "paz"
+            - "s6"
+            - "tsx"
+            - "spire"
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gpsro_geoopt.tm00.nc"
+
+- obs space:
+    name: "piq"
+    observed variables: [bendingAngle]
+    derived variables: [bendingAngle]
+    simulated variables: [bendingAngle]
+    obsdatain:
+      engine:
+        type: script
+        script file: "gpsro.py"
+        args:
+          input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
+          category: 'piq'
+          cache categories:
+            - "metop"
+            - "cosmic2"
+            - "tdm"
+            - "grace"
+            - "geoopt"
+            - "piq"
+            - "k5"
+            - "paz"
+            - "s6"
+            - "tsx"
+            - "spire"
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gpsro_piq.tm00.nc"
+
+- obs space:
+    name: "k5"
+    observed variables: [bendingAngle]
+    derived variables: [bendingAngle]
+    simulated variables: [bendingAngle]
+    obsdatain:
+      engine:
+        type: script
+        script file: "gpsro.py"
+        args:
+          input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
+          category: 'k5'
+          cache categories:
+            - "metop"
+            - "cosmic2"
+            - "tdm"
+            - "grace"
+            - "geoopt"
+            - "piq"
+            - "k5"
+            - "paz"
+            - "s6"
+            - "tsx"
+            - "spire"
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gpsro_k5.tm00.nc"
+
+- obs space:
+    name: "paz"
+    observed variables: [bendingAngle]
+    derived variables: [bendingAngle]
+    simulated variables: [bendingAngle]
+    obsdatain:
+      engine:
+        type: script
+        script file: "gpsro.py"
+        args:
+          input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
+          category: 'paz'
+          cache categories:
+            - "metop"
+            - "cosmic2"
+            - "tdm"
+            - "grace"
+            - "geoopt"
+            - "piq"
+            - "k5"
+            - "paz"
+            - "s6"
+            - "tsx"
+            - "spire"
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gpsro_paz.tm00.nc"
+
+- obs space:
+    name: "s6"
+    observed variables: [bendingAngle]
+    derived variables: [bendingAngle]
+    simulated variables: [bendingAngle]
+    obsdatain:
+      engine:
+        type: script
+        script file: "gpsro.py"
+        args:
+          input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
+          category: 's6'
+          cache categories:
+            - "metop"
+            - "cosmic2"
+            - "tdm"
+            - "grace"
+            - "geoopt"
+            - "piq"
+            - "k5"
+            - "paz"
+            - "s6"
+            - "tsx"
+            - "spire"
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gpsro_s6.tm00.nc"
+
+- obs space:
+    name: "tsx"
+    observed variables: [bendingAngle]
+    derived variables: [bendingAngle]
+    simulated variables: [bendingAngle]
+    obsdatain:
+      engine:
+        type: script
+        script file: "gpsro.py"
+        args:
+          input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
+          category: 'tsx'
+          cache categories:
+            - "metop"
+            - "cosmic2"
+            - "tdm"
+            - "grace"
+            - "geoopt"
+            - "piq"
+            - "k5"
+            - "paz"
+            - "s6"
+            - "tsx"
+            - "spire"
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gpsro_tsx.tm00.nc"
+
+- obs space:
+    name: "spire"
+    observed variables: [bendingAngle]
+    derived variables: [bendingAngle]
+    simulated variables: [bendingAngle]
+    obsdatain:
+      engine:
+        type: script
+        script file: "gpsro.py"
+        args:
+          input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
+          category: 'spire'
+          cache categories:
+            - "metop"
+            - "cosmic2"
+            - "tdm"
+            - "grace"
+            - "geoopt"
+            - "piq"
+            - "k5"
+            - "paz"
+            - "s6"
+            - "tsx"
+            - "spire"
+    obsdataout:
+      engine:
+        type: H5File
+        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gpsro_spire.tm00.nc"
+
