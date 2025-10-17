@@ -124,6 +124,8 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
         container.replace('virtualTemperatureObsError', tvooe)
 
         self.log.debug(f'Add variables to container')
+        # Both 'sequenceNumber' and 'obsSubType' are populated with identical arrays.
+        # This is intentional for compatibility with downstream consumers that may expect either field.
         container.add('sequenceNumber', obsSubType, typ_paths)
         container.add('obsSubType', obsSubType, typ_paths)
 
