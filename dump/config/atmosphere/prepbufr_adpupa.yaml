@@ -12,6 +12,8 @@ bufr:
     # ObsType
     observationType:
       query: "*/TYP"
+    observationSubType:
+      query: "*/T29"
 
     # MetaData
     timestamp:
