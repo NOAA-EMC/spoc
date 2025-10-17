@@ -62,7 +62,7 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
         """
         Create the ioda sfcshp prepbufr observations:
         - reads values
-        - adds ObsSubType 
+        - adds ObsSubType and sequenceNumber
 
         Parameters
         ----------
