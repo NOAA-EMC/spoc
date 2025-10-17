@@ -144,13 +144,9 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
             Masked array of obsSubType values
         """
 
-        obsSubType = np.zeros(typ.shape, dtype=np.int32)
-        for i in range(len(typ)):
-            if (typ[i] == 180 or typ[i] == 280):
-                if (t29[i] > 555 and t29[i] < 565):
-                    obsSubType[i] = 0
-                else:
-                    obsSubType[i] = 1
+        mask_typ = np.isin(typ, [180, 280])
+        mask_t29 = (t29 > 555) & (t29 < 565)
+        obsSubType = np.where(mask_typ & ~mask_t29, 1, 0).astype(np.int32)
 
         return obsSubType
 
