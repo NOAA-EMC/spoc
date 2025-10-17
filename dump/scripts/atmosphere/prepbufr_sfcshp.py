@@ -84,7 +84,7 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
         dhr2 = np.array(dhr)
         self._replace_timestamp(container, self._get_reference_time(input_path))
 
-        self.log.debug(f'Do ObsSubType and sequenceNumber calculation')
+        self.log.debug(f'Do ObsSubType and sequenceNumber calculations')
         typ = container.get('observationType')
         typ_paths = container.get_paths('observationType')
         t29 = container.get('observationSubTypeNum')
