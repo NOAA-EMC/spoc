@@ -24,8 +24,39 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
                 'name': 'MetaData/sequenceNumber',
                 'source': 'sequenceNumber',
                 'longName': 'Sequence Number (Obs Subtype)',
+            },
+            {
+                'name': 'ObsSubType/stationPressure',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
+            },
+            {
+                'name': 'ObsSubType/airTemperature',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
+            },
+            {
+                'name': 'ObsSubType/virtualTemperature',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
+            },
+            {
+                'name': 'ObsSubType/specificHumidity',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
+            },
+            {
+                'name': 'ObsSubType/windEastward',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
+            },
+            {
+                'name': 'ObsSubType/windNorthward',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
             }
         ])
+
         return description
 
     def make_obs(self, comm, input_path):
@@ -33,6 +64,7 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
         Create the ioda adpsfc prepbufr observations:
         - reads values
         - adds sequenceNum
+        - adds ObsSubType
 
         Parameters
         ----------
@@ -56,9 +88,9 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
         dhr2 = np.array(dhr)
         self._replace_timestamp(container, self._get_reference_time(input_path))
 
-        self.log.debug(f'Make an array of 0s for MetaData/sequenceNumber')
+        self.log.debug(f'Make an array of 0s for MetaData/sequenceNumber and ObsSubType')
         sequenceNum = np.zeros(dhr.shape, dtype=np.int32)
-        self.log.debug(f' sequenceNummin/max =  {sequenceNum.min()} {sequenceNum.max()}')
+        self.log.debug(f' sequenceNum min/max =  {sequenceNum.min()} {sequenceNum.max()}')
 
         self.log.debug(f'Do tsen and tv calculation')
         tpc = container.get('temperatureEventCode')
@@ -93,6 +125,7 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
 
         self.log.debug(f'Add variables to container')
         container.add('sequenceNumber', sequenceNum, dhr_paths)
+        container.add('obsSubType', sequenceNum, dhr_paths)
 
         # Check
         self.log.debug(f'container list (updated): {container.list()}')

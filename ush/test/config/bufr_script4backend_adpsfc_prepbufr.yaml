@@ -1,6 +1,6 @@
 time window:
-  begin: "2021-07-31T21:00:00Z"
-  end: "2021-08-01T03:00:00Z"
+  begin: "2024-02-18T21:00:00Z"
+  end: "2024-02-19T03:00:00Z"
   bound to include: begin
 
 observations:
@@ -14,9 +14,8 @@ observations:
         type: script
         script file: "prepbufr_adpsfc.py"
         args:
-          input: "./testinput/2021080100/gdas.t00z.prepbufr"
-          mapping_path: "./prepbufr_adpsfc.yaml"
+          input: "./testinput/2024021900/gdas.t00z.prepbufr"
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/script4backend/gdas.t00z.adpsfc_prepbufr.tm00.nc"
+        obsfile: "./testoutput/2024021900/script4backend/gdas.t00z.adpsfc_prepbufr.tm00.nc"

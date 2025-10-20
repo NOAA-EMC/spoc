@@ -42,6 +42,10 @@ class AdpupaPrepbufrObsBuilder(PrepbufrObsBuilder):
         hrdr = container.get('obsTimeMinusCycleTime')
         self._replace_timestamp(container, self._get_reference_time(input_path))
 
+        self.log.debug(f'Make an array of 0s for ObsSubType')
+        obsSubType = np.zeros(hrdr.shape, dtype=np.int32)
+        self.log.debug(f' obsSubType min/max =  {obsSubType.min()} {obsSubType.max()}')
+
         self.log.debug(f'Perform stationPressure, stationPressureQM, and stationPressureError calculations')
         cat = container.get('prepbufrDataLevelCategory')
         pob = container.get('pressure')
@@ -80,6 +84,7 @@ class AdpupaPrepbufrObsBuilder(PrepbufrObsBuilder):
         container.add('stationPressure', station_pressure, ydr_paths)
         container.add('stationPressureQualityMarker', station_pressureQM, ydr_paths)
         container.add('stationPressureError', station_pressureError, ydr_paths)
+        container.add('obsSubType', obsSubType, ydr_paths)
 
         self.log.debug(f'container list (updated): {container.list()}')
 
@@ -107,6 +112,36 @@ class AdpupaPrepbufrObsBuilder(PrepbufrObsBuilder):
                 'units': 'Pa',
                 'longName': 'Station Pressure Error',
             },
+            {
+                'name': 'ObsSubType/stationPressure',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
+            },
+            {
+                'name': 'ObsSubType/airTemperature',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
+            },
+            {
+                'name': 'ObsSubType/virtualTemperature',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
+            },
+            {
+                'name': 'ObsSubType/specificHumidity',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
+            },
+            {
+                'name': 'ObsSubType/windEastward',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
+            },
+            {
+                'name': 'ObsSubType/windNorthward',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
+            }
         ])
 
         return description

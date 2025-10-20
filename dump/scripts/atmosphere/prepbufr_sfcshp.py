@@ -24,6 +24,36 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
                 'name': 'MetaData/sequenceNumber',
                 'source': 'sequenceNumber',
                 'longName': 'Sequence Number (Obs Subtype)',
+            },
+            {
+                'name': 'ObsSubType/stationPressure',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
+            },
+            {
+                'name': 'ObsSubType/airTemperature',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
+            },
+            {
+                'name': 'ObsSubType/virtualTemperature',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
+            },
+            {
+                'name': 'ObsSubType/specificHumidity',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
+            },
+            {
+                'name': 'ObsSubType/windEastward',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
+            },
+            {
+                'name': 'ObsSubType/windNorthward',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
             }
         ])
         return description
@@ -32,7 +62,7 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
         """
         Create the ioda sfcshp prepbufr observations:
         - reads values
-        - adds sequenceNum
+        - adds ObsSubType and sequenceNumber
 
         Parameters
         ----------
@@ -54,13 +84,13 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
         dhr2 = np.array(dhr)
         self._replace_timestamp(container, self._get_reference_time(input_path))
 
-        self.log.debug(f'Do sequenceNumber (Obs SubType) calculation')
+        self.log.debug(f'Do ObsSubType and sequenceNumber calculations')
         typ = container.get('observationType')
         typ_paths = container.get_paths('observationType')
         t29 = container.get('observationSubTypeNum')
         t29_paths = container.get_paths('observationSubTypeNum')
-        seqNum = self._compute_sequence_number(typ, t29)
-        self.log.debug(f' sequenceNum min/max =  {seqNum.min()} {seqNum.max()}')
+        obsSubType = self._compute_obssubtype(typ, t29)
+        self.log.debug(f' obsSubType min/max =  {obsSubType.min()} {obsSubType.max()}')
 
         self.log.debug(f'Do tsen and tv calculation')
         tpc = container.get('temperatureEventCode')
@@ -94,34 +124,33 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
         container.replace('virtualTemperatureObsError', tvooe)
 
         self.log.debug(f'Add variables to container')
-        container.add('sequenceNumber', seqNum, typ_paths)
+        # Both 'sequenceNumber' and 'obsSubType' are populated with identical arrays.
+        # This is intentional for compatibility with downstream consumers that may expect either field.
+        container.add('sequenceNumber', obsSubType, typ_paths)
+        container.add('obsSubType', obsSubType, typ_paths)
 
         # Check
         self.log.debug(f'container list (updated): {container.list()}')
 
         return container
 
-    def _compute_sequence_number(self, typ, t29):
+    def _compute_obssubtype(self, typ, t29):
         """
-        Compute sequenceNumber
+        Compute obsSubType group
 
         Parameters:
             typ: observation Type (obsType)
             t29: data dump report type
 
         Returns:
-            Masked array of sequenceNumber values
+            Masked array of obsSubType values
         """
 
-        sequenceNumber = np.zeros(typ.shape, dtype=np.int32)
-        for i in range(len(typ)):
-            if (typ[i] == 180 or typ[i] == 280):
-                if (t29[i] > 555 and t29[i] < 565):
-                    sequenceNumber[i] = 0
-                else:
-                    sequenceNumber[i] = 1
+        mask_typ = np.isin(typ, [180, 280])
+        mask_t29 = (t29 > 555) & (t29 < 565)
+        obsSubType = np.where(mask_typ & ~mask_t29, 1, 0).astype(np.int32)
 
-        return sequenceNumber
+        return obsSubType
 
 
 add_main_functions(SfcshpPrepbufrObsBuilder)
