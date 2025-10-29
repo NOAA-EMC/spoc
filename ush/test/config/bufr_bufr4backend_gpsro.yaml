@@ -38,7 +38,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_metop_3.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_metop_3.nc"
 
 - obs space:
     name: "metop_4"
@@ -74,7 +74,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_metop_4.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_metop_4.nc"
 
 - obs space:
     name: "metop_5"
@@ -110,7 +110,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_metop_5.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_metop_5.nc"
 
 - obs space:
     name: "tsx_42"
@@ -146,7 +146,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_tsx_42.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_tsx_42.nc"
 
 
 - obs space:
@@ -183,7 +183,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_tdm_43.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_tdm_43.nc"
 
 
 - obs space:
@@ -220,7 +220,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_paz_44.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_paz_44.nc"
 
 
 - obs space:
@@ -257,7 +257,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_s6_66.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_s6_66.nc"
 
 
 - obs space:
@@ -294,7 +294,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_geoopt_265.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_geoopt_265.nc"
 
 
 - obs space:
@@ -331,7 +331,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_geoopt_266.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_geoopt_266.nc"
 
 
 - obs space:
@@ -368,7 +368,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_piq_267.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_piq_267.nc"
 
 
 - obs space:
@@ -405,7 +405,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_piq_268.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_piq_268.nc"
 
 
 - obs space:
@@ -442,7 +442,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_spire_269.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_spire_269.nc"
 
 
 - obs space:
@@ -479,7 +479,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_750.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_750.nc"
 
 
 - obs space:
@@ -516,7 +516,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_751.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_751.nc"
 
 - obs space: 
     name: "cosmic2_752"
@@ -552,7 +552,7 @@ observations:
     obsdataout: 
       engine: 
         type: H5File 
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_752.tm00.nc" 
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_752.nc" 
 
 - obs space:
     name: "cosmic2_753"
@@ -588,7 +588,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_753.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_753.nc"
 
 - obs space:
     name: "cosmic2_754"
@@ -624,7 +624,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_754.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_754.nc"
 
 - obs space:
     name: "cosmic2_755"
@@ -660,7 +660,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_755.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_755.nc"
 
 - obs space:
     name: "grace_803"
@@ -696,7 +696,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_grace_803.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_grace_803.nc"
 
 - obs space:
     name: "grace_804"
@@ -732,7 +732,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_grace_804.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_grace_804.nc"
 
 
 - obs space:
@@ -769,4 +769,4 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_k5_825.tm00.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_k5_825.nc"

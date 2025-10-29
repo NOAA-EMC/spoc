@@ -11,8 +11,8 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2021080100/gdas.t00z.prepbufr.acft_profiles"
-        mapping file: "./prepbufr_acft_profiles.yaml"
+        mapping file: "./prepbufr_aircraft.yaml"
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.acft_profiles_prepbufr.tm00.nc"
+        obsfile: "./testoutput/2021080100/bufr4backend/gdas.t00z.prepbufr_aircraft.nc"
