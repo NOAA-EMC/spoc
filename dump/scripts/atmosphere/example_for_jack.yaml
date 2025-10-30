@@ -1,0 +1,10 @@
+encoder:
+  globals:
+    - name: dummy
+      type: string
+      value: dummy str
+  variables:
+    - name: ObsValue/sine
+      source: variables/sin
+      longName: Sine Wave
+      units: unitless
