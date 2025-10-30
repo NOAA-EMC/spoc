@@ -11,7 +11,7 @@ observations:
     obsdatain:
       engine:
         type: script 
-        script file: "gpsro.py"
+        script file: "gnssro.py"
         args:
           input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
           category: 'metop'
@@ -40,7 +40,7 @@ observations:
     obsdatain:
       engine:
         type: script 
-        script file: "gpsro.py"
+        script file: "gnssro.py"
         args:
           input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
           category: 'cosmic2'
@@ -69,7 +69,7 @@ observations:
     obsdatain:
       engine:
         type: script
-        script file: "gpsro.py"
+        script file: "gnssro.py"
         args:
           input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
           category: 'tdm'
@@ -98,7 +98,7 @@ observations:
     obsdatain:
       engine:
         type: script
-        script file: "gpsro.py"
+        script file: "gnssro.py"
         args:
           input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
           category: 'grace'
@@ -127,7 +127,7 @@ observations:
     obsdatain:
       engine:
         type: script
-        script file: "gpsro.py"
+        script file: "gnssro.py"
         args:
           input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
           category: 'geoopt'
@@ -156,7 +156,7 @@ observations:
     obsdatain:
       engine:
         type: script
-        script file: "gpsro.py"
+        script file: "gnssro.py"
         args:
           input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
           category: 'piq'
@@ -185,7 +185,7 @@ observations:
     obsdatain:
       engine:
         type: script
-        script file: "gpsro.py"
+        script file: "gnssro.py"
         args:
           input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
           category: 'k5'
@@ -214,7 +214,7 @@ observations:
     obsdatain:
       engine:
         type: script
-        script file: "gpsro.py"
+        script file: "gnssro.py"
         args:
           input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
           category: 'paz'
@@ -243,7 +243,7 @@ observations:
     obsdatain:
       engine:
         type: script
-        script file: "gpsro.py"
+        script file: "gnssro.py"
         args:
           input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
           category: 's6'
@@ -272,7 +272,7 @@ observations:
     obsdatain:
       engine:
         type: script
-        script file: "gpsro.py"
+        script file: "gnssro.py"
         args:
           input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
           category: 'tsx'
@@ -301,7 +301,7 @@ observations:
     obsdatain:
       engine:
         type: script
-        script file: "gpsro.py"
+        script file: "gnssro.py"
         args:
           input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
           category: 'spire'

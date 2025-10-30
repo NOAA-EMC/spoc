@@ -11,7 +11,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["metop_3"]
         cache categories:
           - ["metop_3"]
@@ -38,7 +38,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_metop_3.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_metop_3.nc"
 
 - obs space:
     name: "metop_4"
@@ -47,7 +47,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["metop_4"]
         cache categories:
           - ["metop_3"]
@@ -74,7 +74,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_metop_4.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_metop_4.nc"
 
 - obs space:
     name: "metop_5"
@@ -83,7 +83,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["metop_5"]
         cache categories:
           - ["metop_3"]
@@ -110,7 +110,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_metop_5.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_metop_5.nc"
 
 - obs space:
     name: "tsx_42"
@@ -119,7 +119,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["tsx_42"]
         cache categories:
           - ["metop_3"]
@@ -146,7 +146,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_tsx_42.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_tsx_42.nc"
 
 
 - obs space:
@@ -156,7 +156,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["tdm_43"]
         cache categories:
           - ["metop_3"]
@@ -183,7 +183,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_tdm_43.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_tdm_43.nc"
 
 
 - obs space:
@@ -193,7 +193,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["paz_44"]
         cache categories:
           - ["metop_3"]
@@ -220,7 +220,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_paz_44.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_paz_44.nc"
 
 
 - obs space:
@@ -230,7 +230,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["s6_66"]
         cache categories:
           - ["metop_3"]
@@ -257,7 +257,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_s6_66.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_s6_66.nc"
 
 
 - obs space:
@@ -267,7 +267,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["geoopt_265"]
         cache categories:
           - ["metop_3"]
@@ -294,7 +294,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_geoopt_265.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_geoopt_265.nc"
 
 
 - obs space:
@@ -304,7 +304,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["geoopt_266"]
         cache categories:
           - ["metop_3"]
@@ -331,7 +331,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_geoopt_266.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_geoopt_266.nc"
 
 
 - obs space:
@@ -341,7 +341,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["piq_267"]
         cache categories:
           - ["metop_3"]
@@ -368,7 +368,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_piq_267.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_piq_267.nc"
 
 
 - obs space:
@@ -378,7 +378,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["piq_268"]
         cache categories:
           - ["metop_3"]
@@ -405,7 +405,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_piq_268.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_piq_268.nc"
 
 
 - obs space:
@@ -415,7 +415,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["spire_269"]
         cache categories:
           - ["metop_3"]
@@ -442,7 +442,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_spire_269.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_spire_269.nc"
 
 
 - obs space:
@@ -452,7 +452,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["cosmic2_750"]
         cache categories:
           - ["metop_3"]
@@ -479,7 +479,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_750.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_cosmic2_750.nc"
 
 
 - obs space:
@@ -489,7 +489,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["cosmic2_751"]
         cache categories:
           - ["metop_3"] 
@@ -516,7 +516,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_751.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_cosmic2_751.nc"
 
 - obs space: 
     name: "cosmic2_752"
@@ -525,7 +525,7 @@ observations:
       engine: 
         type: bufr 
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d" 
-        mapping file: "./gpsro.yaml" 
+        mapping file: "./gnssro.yaml" 
         category: ["cosmic2_752"] 
         cache categories:
           - ["metop_3"] 
@@ -552,7 +552,7 @@ observations:
     obsdataout: 
       engine: 
         type: H5File 
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_752.nc" 
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_cosmic2_752.nc" 
 
 - obs space:
     name: "cosmic2_753"
@@ -561,7 +561,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["cosmic2_753"]
         cache categories:
           - ["metop_3"]
@@ -588,7 +588,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_753.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_cosmic2_753.nc"
 
 - obs space:
     name: "cosmic2_754"
@@ -597,7 +597,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["cosmic2_754"]
         cache categories:
           - ["metop_3"]
@@ -624,7 +624,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_754.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_cosmic2_754.nc"
 
 - obs space:
     name: "cosmic2_755"
@@ -633,7 +633,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["cosmic2_755"]
         cache categories:
           - ["metop_3"]
@@ -660,7 +660,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_cosmic2_755.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_cosmic2_755.nc"
 
 - obs space:
     name: "grace_803"
@@ -669,7 +669,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["grace_803"]
         cache categories:
           - ["metop_3"]
@@ -696,7 +696,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_grace_803.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_grace_803.nc"
 
 - obs space:
     name: "grace_804"
@@ -705,7 +705,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["grace_804"]
         cache categories:
           - ["metop_3"]
@@ -732,7 +732,7 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_grace_804.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_grace_804.nc"
 
 
 - obs space:
@@ -742,7 +742,7 @@ observations:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-        mapping file: "./gpsro.yaml"
+        mapping file: "./gnssro.yaml"
         category: ["k5_825"]
         cache categories:
           - ["metop_3"]
@@ -769,4 +769,4 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gpsro_k5_825.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_k5_825.nc"
