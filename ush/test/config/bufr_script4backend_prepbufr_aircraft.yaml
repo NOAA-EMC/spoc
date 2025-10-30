@@ -12,7 +12,7 @@ observations:
     obsdatain:
       engine:
         type: script
-        script file: "prepbufr_acft_profiles.py"
+        script file: "prepbufr_aircraft.py"
         args:
           input: "testinput/2021080100/gdas.t00z.prepbufr.acft_profiles"
           mapping_path: "./prepbufr_aircraft.yaml"
