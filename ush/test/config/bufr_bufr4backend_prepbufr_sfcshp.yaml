@@ -5,14 +5,14 @@ time window:
 
 observations:
 - obs space:
-    name: "ADPSFC"
-    simulated variables: ['stationPressure','airTemperature','virtualTemperature','specificHumidity','windEastward','windNorthward']
+    name: "SFCSHP"
+    simulated variables: ['stationPressure','airTemperature','virtualTemperature','specificHumidity','windNorthward','windEastward']
     obsdatain:
       engine:
         type: bufr
         obsfile: "./testinput/2024021900/gdas.t00z.prepbufr"
-        mapping file: "./prepbufr_adpsfc.yaml"
+        mapping file: "./prepbufr_sfcshp.yaml"
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.adpsfc_prepbufr.tm00.nc"
+        obsfile: "./testoutput/2024021900/bufr4backend/gdas.t00z.prepbufr_sfcshp.nc"

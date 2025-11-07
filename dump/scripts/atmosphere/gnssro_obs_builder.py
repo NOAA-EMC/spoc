@@ -8,7 +8,7 @@ import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
 from bufr.bufr_python.encoders import *
 
-MAPPING_PATH = map_path('gpsro.yaml')
+MAPPING_PATH = map_path('gnssro.yaml')
 
 
 class SatGroup:
@@ -48,7 +48,7 @@ class SatGroup:
             new_container.add(var_name, new_array, data_paths, [self.name])
 
 
-class BaseGpsroBufrObsBuilder(ObsBuilder):
+class BaseGnssroBufrObsBuilder(ObsBuilder):
     def __init__(self, mapping_path, log_name=os.path.basename(__file__)):
         super().__init__(mapping_path, log_name=log_name)
 
@@ -483,4 +483,4 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
 
 
 # Add main functions create_obs_file and create_obs_group
-add_main_functions(BaseGpsroBufrObsBuilder)
+add_main_functions(BaseGnssroBufrObsBuilder)

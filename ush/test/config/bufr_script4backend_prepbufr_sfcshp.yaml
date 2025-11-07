@@ -18,4 +18,4 @@ observations:
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024021900/script4backend/gdas.t00z.sfcshp_prepbufr.tm00.nc"
+        obsfile: "./testoutput/2024021900/script4backend/gdas.t00z.prepbufr_sfcshp.nc"

@@ -16,7 +16,7 @@ from bufr.obs_builder import add_main_functions
 from prepbufr_obs_builder import PrepbufrObsBuilder, map_path
 
 
-MAPPING_PATH = map_path('prepbufr_acft_profiles.yaml')
+MAPPING_PATH = map_path('prepbufr_aircraft.yaml')
 
 
 class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):
