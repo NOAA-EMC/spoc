@@ -5,10 +5,10 @@ import numpy as np
 
 import bufr
 from bufr.obs_builder import add_main_functions, map_path
-from satwnd_amv_obs_builder import SatWndAmvObsBuilder
+from retrieval_amv_obs_builder import SatWndAmvObsBuilder
 
 
-MAPPING_PATH = map_path('satwnd_amv_abi.yaml')
+MAPPING_PATH = map_path('retrieval_amv_abi.yaml')
 
 
 class SatWndAmvAbiObsBuilder(SatWndAmvObsBuilder):

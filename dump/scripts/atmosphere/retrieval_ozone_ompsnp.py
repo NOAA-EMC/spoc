@@ -6,9 +6,9 @@ import numpy.ma as ma
 import bufr
 from bufr.bufr_python.encoders import netcdf
 from bufr.obs_builder import ObsBuilder, add_main_functions, add_dummy_variable, map_path
-from ozone_obs_builder import BufrOzoneObsBuilder
+from retrieval_ozone_obs_builder import BufrOzoneObsBuilder
 
-MAPPING_PATH = map_path('ozone_ompsnp.yaml')
+MAPPING_PATH = map_path('retrieval_ozone_ompsnp.yaml')
 USE_REFERENCE_PRESSURE = True
 
 

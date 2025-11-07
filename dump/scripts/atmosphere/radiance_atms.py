@@ -7,7 +7,7 @@ import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
 
 
-MAPPING_PATH = map_path('atms.yaml')
+MAPPING_PATH = map_path('radiance_atms.yaml')
 
 
 class BufrAtmsObsBuilder(ObsBuilder):
