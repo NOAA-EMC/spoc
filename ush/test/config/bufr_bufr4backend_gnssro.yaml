@@ -17,14 +17,14 @@ observations:
           - ["metop_3"]
           - ["metop_4"]
           - ["metop_5"]
-          - ["tsx_42"]
-          - ["tdm_43"]
+          - ["terrasarx_42"]
+          - ["tandemx_43"]
           - ["paz_44"]
-          - ["s6_66"]
-          - ["geoopt_265"]
-          - ["geoopt_266"]
-          - ["piq_267"]
-          - ["piq_268"]
+          - ["sentinel6_66"]
+          - ["geooptics_265"]
+          - ["geooptics_266"]
+          - ["planetiq_267"]
+          - ["planetiq_268"]
           - ["spire_269"]
           - ["cosmic2_750"]
           - ["cosmic2_751"]
@@ -34,7 +34,7 @@ observations:
           - ["cosmic2_755"]
           - ["grace_803"]
           - ["grace_804"]
-          - ["k5_825"]
+          - ["kompsat5_825"]
     obsdataout:
       engine:
         type: H5File
@@ -53,14 +53,14 @@ observations:
           - ["metop_3"]
           - ["metop_4"]
           - ["metop_5"]
-          - ["tsx_42"]
-          - ["tdm_43"]
+          - ["terrasarx_42"]
+          - ["tandemx_43"]
           - ["paz_44"]
-          - ["s6_66"]
-          - ["geoopt_265"]
-          - ["geoopt_266"]
-          - ["piq_267"]
-          - ["piq_268"]
+          - ["sentinel6_66"]
+          - ["geooptics_265"]
+          - ["geooptics_266"]
+          - ["planetiq_267"]
+          - ["planetiq_268"]
           - ["spire_269"]
           - ["cosmic2_750"]
           - ["cosmic2_751"]
@@ -70,7 +70,7 @@ observations:
           - ["cosmic2_755"]
           - ["grace_803"]
           - ["grace_804"]
-          - ["k5_825"]
+          - ["kompsat5_825"]
     obsdataout:
       engine:
         type: H5File
@@ -89,14 +89,14 @@ observations:
           - ["metop_3"]
           - ["metop_4"]
           - ["metop_5"]
-          - ["tsx_42"]
-          - ["tdm_43"]
+          - ["terrasarx_42"]
+          - ["tandemx_43"]
           - ["paz_44"]
-          - ["s6_66"]
-          - ["geoopt_265"]
-          - ["geoopt_266"]
-          - ["piq_267"]
-          - ["piq_268"]
+          - ["sentinel6_66"]
+          - ["geooptics_265"]
+          - ["geooptics_266"]
+          - ["planetiq_267"]
+          - ["planetiq_268"]
           - ["spire_269"]
           - ["cosmic2_750"]
           - ["cosmic2_751"]
@@ -106,33 +106,33 @@ observations:
           - ["cosmic2_755"]
           - ["grace_803"]
           - ["grace_804"]
-          - ["k5_825"]
+          - ["kompsat5_825"]
     obsdataout:
       engine:
         type: H5File
         obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_metop_5.nc"
 
 - obs space:
-    name: "tsx_42"
+    name: "terrasarx_42"
     simulated variables: ['bendingAngle']
     obsdatain:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./gnssro.yaml"
-        category: ["tsx_42"]
+        category: ["terrasarx_42"]
         cache categories:
           - ["metop_3"]
           - ["metop_4"]
           - ["metop_5"]
-          - ["tsx_42"]
-          - ["tdm_43"]
+          - ["terrasarx_42"]
+          - ["tandemx_43"]
           - ["paz_44"]
-          - ["s6_66"]
-          - ["geoopt_265"]
-          - ["geoopt_266"]
-          - ["piq_267"]
-          - ["piq_268"]
+          - ["sentinel6_66"]
+          - ["geooptics_265"]
+          - ["geooptics_266"]
+          - ["planetiq_267"]
+          - ["planetiq_268"]
           - ["spire_269"]
           - ["cosmic2_750"]
           - ["cosmic2_751"]
@@ -142,34 +142,34 @@ observations:
           - ["cosmic2_755"]
           - ["grace_803"]
           - ["grace_804"]
-          - ["k5_825"]
+          - ["kompsat5_825"]
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_tsx_42.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_terrasarx_42.nc"
 
 
 - obs space:
-    name: "tdm_43"
+    name: "tandemx_43"
     simulated variables: ['bendingAngle']
     obsdatain:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./gnssro.yaml"
-        category: ["tdm_43"]
+        category: ["tandemx_43"]
         cache categories:
           - ["metop_3"]
           - ["metop_4"]
           - ["metop_5"]
-          - ["tsx_42"]
-          - ["tdm_43"]
+          - ["terrasarx_42"]
+          - ["tandemx_43"]
           - ["paz_44"]
-          - ["s6_66"]
-          - ["geoopt_265"]
-          - ["geoopt_266"]
-          - ["piq_267"]
-          - ["piq_268"]
+          - ["sentinel6_66"]
+          - ["geooptics_265"]
+          - ["geooptics_266"]
+          - ["planetiq_267"]
+          - ["planetiq_268"]
           - ["spire_269"]
           - ["cosmic2_750"]
           - ["cosmic2_751"]
@@ -179,11 +179,11 @@ observations:
           - ["cosmic2_755"]
           - ["grace_803"]
           - ["grace_804"]
-          - ["k5_825"]
+          - ["kompsat5_825"]
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_tdm_43.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_tandemx_43.nc"
 
 
 - obs space:
@@ -199,14 +199,14 @@ observations:
           - ["metop_3"]
           - ["metop_4"]
           - ["metop_5"]
-          - ["tsx_42"]
-          - ["tdm_43"]
+          - ["terrasarx_42"]
+          - ["tandemx_43"]
           - ["paz_44"]
-          - ["s6_66"]
-          - ["geoopt_265"]
-          - ["geoopt_266"]
-          - ["piq_267"]
-          - ["piq_268"]
+          - ["sentinel6_66"]
+          - ["geooptics_265"]
+          - ["geooptics_266"]
+          - ["planetiq_267"]
+          - ["planetiq_268"]
           - ["spire_269"]
           - ["cosmic2_750"]
           - ["cosmic2_751"]
@@ -216,7 +216,7 @@ observations:
           - ["cosmic2_755"]
           - ["grace_803"]
           - ["grace_804"]
-          - ["k5_825"]
+          - ["kompsat5_825"]
     obsdataout:
       engine:
         type: H5File
@@ -224,26 +224,26 @@ observations:
 
 
 - obs space:
-    name: "s6_66"
+    name: "sentinel6_66"
     simulated variables: ['bendingAngle']
     obsdatain:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./gnssro.yaml"
-        category: ["s6_66"]
+        category: ["sentinel6_66"]
         cache categories:
           - ["metop_3"]
           - ["metop_4"]
           - ["metop_5"]
-          - ["tsx_42"]
-          - ["tdm_43"]
+          - ["terrasarx_42"]
+          - ["tandemx_43"]
           - ["paz_44"]
-          - ["s6_66"]
-          - ["geoopt_265"]
-          - ["geoopt_266"]
-          - ["piq_267"]
-          - ["piq_268"]
+          - ["sentinel6_66"]
+          - ["geooptics_265"]
+          - ["geooptics_266"]
+          - ["planetiq_267"]
+          - ["planetiq_268"]
           - ["spire_269"]
           - ["cosmic2_750"]
           - ["cosmic2_751"]
@@ -253,34 +253,34 @@ observations:
           - ["cosmic2_755"]
           - ["grace_803"]
           - ["grace_804"]
-          - ["k5_825"]
+          - ["kompsat5_825"]
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_s6_66.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_sentinel6_66.nc"
 
 
 - obs space:
-    name: "geoopt_265"
+    name: "geooptics_265"
     simulated variables: ['bendingAngle']
     obsdatain:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./gnssro.yaml"
-        category: ["geoopt_265"]
+        category: ["geooptics_265"]
         cache categories:
           - ["metop_3"]
           - ["metop_4"]
           - ["metop_5"]
-          - ["tsx_42"]
-          - ["tdm_43"]
+          - ["terrasarx_42"]
+          - ["tandemx_43"]
           - ["paz_44"]
-          - ["s6_66"]
-          - ["geoopt_265"]
-          - ["geoopt_266"]
-          - ["piq_267"]
-          - ["piq_268"]
+          - ["sentinel6_66"]
+          - ["geooptics_265"]
+          - ["geooptics_266"]
+          - ["planetiq_267"]
+          - ["planetiq_268"]
           - ["spire_269"]
           - ["cosmic2_750"]
           - ["cosmic2_751"]
@@ -290,34 +290,34 @@ observations:
           - ["cosmic2_755"]
           - ["grace_803"]
           - ["grace_804"]
-          - ["k5_825"]
+          - ["kompsat5_825"]
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_geoopt_265.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_geooptics_265.nc"
 
 
 - obs space:
-    name: "geoopt_266"
+    name: "geooptics_266"
     simulated variables: ['bendingAngle']
     obsdatain:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./gnssro.yaml"
-        category: ["geoopt_266"]
+        category: ["geooptics_266"]
         cache categories:
           - ["metop_3"]
           - ["metop_4"]
           - ["metop_5"]
-          - ["tsx_42"]
-          - ["tdm_43"]
+          - ["terrasarx_42"]
+          - ["tandemx_43"]
           - ["paz_44"]
-          - ["s6_66"]
-          - ["geoopt_265"]
-          - ["geoopt_266"]
-          - ["piq_267"]
-          - ["piq_268"]
+          - ["sentinel6_66"]
+          - ["geooptics_265"]
+          - ["geooptics_266"]
+          - ["planetiq_267"]
+          - ["planetiq_268"]
           - ["spire_269"]
           - ["cosmic2_750"]
           - ["cosmic2_751"]
@@ -327,34 +327,34 @@ observations:
           - ["cosmic2_755"]
           - ["grace_803"]
           - ["grace_804"]
-          - ["k5_825"]
+          - ["kompsat5_825"]
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_geoopt_266.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_geooptics_266.nc"
 
 
 - obs space:
-    name: "piq_267"
+    name: "planetiq_267"
     simulated variables: ['bendingAngle']
     obsdatain:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./gnssro.yaml"
-        category: ["piq_267"]
+        category: ["planetiq_267"]
         cache categories:
           - ["metop_3"]
           - ["metop_4"]
           - ["metop_5"]
-          - ["tsx_42"]
-          - ["tdm_43"]
+          - ["terrasarx_42"]
+          - ["tandemx_43"]
           - ["paz_44"]
-          - ["s6_66"]
-          - ["geoopt_265"]
-          - ["geoopt_266"]
-          - ["piq_267"]
-          - ["piq_268"]
+          - ["sentinel6_66"]
+          - ["geooptics_265"]
+          - ["geooptics_266"]
+          - ["planetiq_267"]
+          - ["planetiq_268"]
           - ["spire_269"]
           - ["cosmic2_750"]
           - ["cosmic2_751"]
@@ -364,34 +364,34 @@ observations:
           - ["cosmic2_755"]
           - ["grace_803"]
           - ["grace_804"]
-          - ["k5_825"]
+          - ["kompsat5_825"]
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_piq_267.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_planetiq_267.nc"
 
 
 - obs space:
-    name: "piq_268"
+    name: "planetiq_268"
     simulated variables: ['bendingAngle']
     obsdatain:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./gnssro.yaml"
-        category: ["piq_268"]
+        category: ["planetiq_268"]
         cache categories:
           - ["metop_3"]
           - ["metop_4"]
           - ["metop_5"]
-          - ["tsx_42"]
-          - ["tdm_43"]
+          - ["terrasarx_42"]
+          - ["tandemx_43"]
           - ["paz_44"]
-          - ["s6_66"]
-          - ["geoopt_265"]
-          - ["geoopt_266"]
-          - ["piq_267"]
-          - ["piq_268"]
+          - ["sentinel6_66"]
+          - ["geooptics_265"]
+          - ["geooptics_266"]
+          - ["planetiq_267"]
+          - ["planetiq_268"]
           - ["spire_269"]
           - ["cosmic2_750"]
           - ["cosmic2_751"]
@@ -401,11 +401,11 @@ observations:
           - ["cosmic2_755"]
           - ["grace_803"]
           - ["grace_804"]
-          - ["k5_825"]
+          - ["kompsat5_825"]
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_piq_268.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_planetiq_268.nc"
 
 
 - obs space:
@@ -421,14 +421,14 @@ observations:
           - ["metop_3"]
           - ["metop_4"]
           - ["metop_5"]
-          - ["tsx_42"]
-          - ["tdm_43"]
+          - ["terrasarx_42"]
+          - ["tandemx_43"]
           - ["paz_44"]
-          - ["s6_66"]
-          - ["geoopt_265"]
-          - ["geoopt_266"]
-          - ["piq_267"]
-          - ["piq_268"]
+          - ["sentinel6_66"]
+          - ["geooptics_265"]
+          - ["geooptics_266"]
+          - ["planetiq_267"]
+          - ["planetiq_268"]
           - ["spire_269"]
           - ["cosmic2_750"]
           - ["cosmic2_751"]
@@ -438,7 +438,7 @@ observations:
           - ["cosmic2_755"]
           - ["grace_803"]
           - ["grace_804"]
-          - ["k5_825"]
+          - ["kompsat5_825"]
     obsdataout:
       engine:
         type: H5File
@@ -458,14 +458,14 @@ observations:
           - ["metop_3"]
           - ["metop_4"]
           - ["metop_5"]
-          - ["tsx_42"]
-          - ["tdm_43"]
+          - ["terrasarx_42"]
+          - ["tandemx_43"]
           - ["paz_44"]
-          - ["s6_66"]
-          - ["geoopt_265"]
-          - ["geoopt_266"]
-          - ["piq_267"]
-          - ["piq_268"]
+          - ["sentinel6_66"]
+          - ["geooptics_265"]
+          - ["geooptics_266"]
+          - ["planetiq_267"]
+          - ["planetiq_268"]
           - ["spire_269"]
           - ["cosmic2_750"]
           - ["cosmic2_751"]
@@ -475,7 +475,7 @@ observations:
           - ["cosmic2_755"]
           - ["grace_803"]
           - ["grace_804"]
-          - ["k5_825"]
+          - ["kompsat5_825"]
     obsdataout:
       engine:
         type: H5File
@@ -495,14 +495,14 @@ observations:
           - ["metop_3"] 
           - ["metop_4"] 
           - ["metop_5"] 
-          - ["tsx_42"] 
-          - ["tdm_43"] 
+          - ["terrasarx_42"] 
+          - ["tandemx_43"] 
           - ["paz_44"] 
-          - ["s6_66"] 
-          - ["geoopt_265"] 
-          - ["geoopt_266"] 
-          - ["piq_267"] 
-          - ["piq_268"] 
+          - ["sentinel6_66"] 
+          - ["geooptics_265"] 
+          - ["geooptics_266"] 
+          - ["planetiq_267"] 
+          - ["planetiq_268"] 
           - ["spire_269"] 
           - ["cosmic2_750"] 
           - ["cosmic2_751"] 
@@ -512,7 +512,7 @@ observations:
           - ["cosmic2_755"] 
           - ["grace_803"] 
           - ["grace_804"] 
-          - ["k5_825"] 
+          - ["kompsat5_825"] 
     obsdataout:
       engine:
         type: H5File
@@ -531,14 +531,14 @@ observations:
           - ["metop_3"] 
           - ["metop_4"] 
           - ["metop_5"] 
-          - ["tsx_42"] 
-          - ["tdm_43"] 
+          - ["terrasarx_42"] 
+          - ["tandemx_43"] 
           - ["paz_44"] 
-          - ["s6_66"] 
-          - ["geoopt_265"] 
-          - ["geoopt_266"] 
-          - ["piq_267"] 
-          - ["piq_268"] 
+          - ["sentinel6_66"] 
+          - ["geooptics_265"] 
+          - ["geooptics_266"] 
+          - ["planetiq_267"] 
+          - ["planetiq_268"] 
           - ["spire_269"] 
           - ["cosmic2_750"] 
           - ["cosmic2_751"] 
@@ -548,7 +548,7 @@ observations:
           - ["cosmic2_755"] 
           - ["grace_803"] 
           - ["grace_804"] 
-          - ["k5_825"] 
+          - ["kompsat5_825"] 
     obsdataout: 
       engine: 
         type: H5File 
@@ -567,14 +567,14 @@ observations:
           - ["metop_3"]
           - ["metop_4"]
           - ["metop_5"]
-          - ["tsx_42"]
-          - ["tdm_43"]
+          - ["terrasarx_42"]
+          - ["tandemx_43"]
           - ["paz_44"]
-          - ["s6_66"]
-          - ["geoopt_265"]
-          - ["geoopt_266"]
-          - ["piq_267"]
-          - ["piq_268"]
+          - ["sentinel6_66"]
+          - ["geooptics_265"]
+          - ["geooptics_266"]
+          - ["planetiq_267"]
+          - ["planetiq_268"]
           - ["spire_269"]
           - ["cosmic2_750"]
           - ["cosmic2_751"]
@@ -584,7 +584,7 @@ observations:
           - ["cosmic2_755"]
           - ["grace_803"]
           - ["grace_804"]
-          - ["k5_825"]
+          - ["kompsat5_825"]
     obsdataout:
       engine:
         type: H5File
@@ -603,14 +603,14 @@ observations:
           - ["metop_3"]
           - ["metop_4"]
           - ["metop_5"]
-          - ["tsx_42"]
-          - ["tdm_43"]
+          - ["terrasarx_42"]
+          - ["tandemx_43"]
           - ["paz_44"]
-          - ["s6_66"]
-          - ["geoopt_265"]
-          - ["geoopt_266"]
-          - ["piq_267"]
-          - ["piq_268"]
+          - ["sentinel6_66"]
+          - ["geooptics_265"]
+          - ["geooptics_266"]
+          - ["planetiq_267"]
+          - ["planetiq_268"]
           - ["spire_269"]
           - ["cosmic2_750"]
           - ["cosmic2_751"]
@@ -620,7 +620,7 @@ observations:
           - ["cosmic2_755"]
           - ["grace_803"]
           - ["grace_804"]
-          - ["k5_825"]
+          - ["kompsat5_825"]
     obsdataout:
       engine:
         type: H5File
@@ -639,14 +639,14 @@ observations:
           - ["metop_3"]
           - ["metop_4"]
           - ["metop_5"]
-          - ["tsx_42"]
-          - ["tdm_43"]
+          - ["terrasarx_42"]
+          - ["tandemx_43"]
           - ["paz_44"]
-          - ["s6_66"]
-          - ["geoopt_265"]
-          - ["geoopt_266"]
-          - ["piq_267"]
-          - ["piq_268"]
+          - ["sentinel6_66"]
+          - ["geooptics_265"]
+          - ["geooptics_266"]
+          - ["planetiq_267"]
+          - ["planetiq_268"]
           - ["spire_269"]
           - ["cosmic2_750"]
           - ["cosmic2_751"]
@@ -656,7 +656,7 @@ observations:
           - ["cosmic2_755"]
           - ["grace_803"]
           - ["grace_804"]
-          - ["k5_825"]
+          - ["kompsat5_825"]
     obsdataout:
       engine:
         type: H5File
@@ -675,14 +675,14 @@ observations:
           - ["metop_3"]
           - ["metop_4"]
           - ["metop_5"]
-          - ["tsx_42"]
-          - ["tdm_43"]
+          - ["terrasarx_42"]
+          - ["tandemx_43"]
           - ["paz_44"]
-          - ["s6_66"]
-          - ["geoopt_265"]
-          - ["geoopt_266"]
-          - ["piq_267"]
-          - ["piq_268"]
+          - ["sentinel6_66"]
+          - ["geooptics_265"]
+          - ["geooptics_266"]
+          - ["planetiq_267"]
+          - ["planetiq_268"]
           - ["spire_269"]
           - ["cosmic2_750"]
           - ["cosmic2_751"]
@@ -692,7 +692,7 @@ observations:
           - ["cosmic2_755"]
           - ["grace_803"]
           - ["grace_804"]
-          - ["k5_825"]
+          - ["kompsat5_825"]
     obsdataout:
       engine:
         type: H5File
@@ -711,14 +711,14 @@ observations:
           - ["metop_3"]
           - ["metop_4"]
           - ["metop_5"]
-          - ["tsx_42"]
-          - ["tdm_43"]
+          - ["terrasarx_42"]
+          - ["tandemx_43"]
           - ["paz_44"]
-          - ["s6_66"]
-          - ["geoopt_265"]
-          - ["geoopt_266"]
-          - ["piq_267"]
-          - ["piq_268"]
+          - ["sentinel6_66"]
+          - ["geooptics_265"]
+          - ["geooptics_266"]
+          - ["planetiq_267"]
+          - ["planetiq_268"]
           - ["spire_269"]
           - ["cosmic2_750"]
           - ["cosmic2_751"]
@@ -728,7 +728,7 @@ observations:
           - ["cosmic2_755"]
           - ["grace_803"]
           - ["grace_804"]
-          - ["k5_825"]
+          - ["kompsat5_825"]
     obsdataout:
       engine:
         type: H5File
@@ -736,26 +736,26 @@ observations:
 
 
 - obs space:
-    name: "k5_825"
+    name: "kompsat5_825"
     simulated variables: ['bendingAngle']
     obsdatain:
       engine:
         type: bufr
         obsfile: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
         mapping file: "./gnssro.yaml"
-        category: ["k5_825"]
+        category: ["kompsat5_825"]
         cache categories:
           - ["metop_3"]
           - ["metop_4"]
           - ["metop_5"]
-          - ["tsx_42"]
-          - ["tdm_43"]
+          - ["terrasarx_42"]
+          - ["tandemx_43"]
           - ["paz_44"]
-          - ["s6_66"]
-          - ["geoopt_265"]
-          - ["geoopt_266"]
-          - ["piq_267"]
-          - ["piq_268"]
+          - ["sentinel6_66"]
+          - ["geooptics_265"]
+          - ["geooptics_266"]
+          - ["planetiq_267"]
+          - ["planetiq_268"]
           - ["spire_269"]
           - ["cosmic2_750"]
           - ["cosmic2_751"]
@@ -765,8 +765,8 @@ observations:
           - ["cosmic2_755"]
           - ["grace_803"]
           - ["grace_804"]
-          - ["k5_825"]
+          - ["kompsat5_825"]
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_k5_825.nc"
+        obsfile: "./testoutput/2024122500/bufr4backend/gdas.t00z.gnssro_kompsat5_825.nc"
