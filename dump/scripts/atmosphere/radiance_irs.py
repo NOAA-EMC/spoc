@@ -6,9 +6,9 @@ import numpy as np
 from netCDF4 import Dataset
 from bufr.encoders import netcdf
 
-dir   = "/scratch3/NCEPDEV/global/Jack.Woollen/IRSPP/IRSPP/IRSPPv1.3_test_cases/input"
-out   = "out.nc"
-yaml  = 'yaml.h'
+inpdir   = "/scratch3/NCEPDEV/global/Jack.Woollen/IRSPP/IRSPP/IRSPPv1.3_test_cases/input"
+out   = "radiance_irs.nc"
+yaml  = 'radiance_irs.yaml'
 first = 'true'
 iter  = 1
 imax = np.empty(1024,dtype=int)
