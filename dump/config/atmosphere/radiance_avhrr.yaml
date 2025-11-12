@@ -59,7 +59,7 @@ encoder:
   globals:
     - name: "description"
       type: string
-      value: ""
+      value: "AVHRR"
 
     - name: "platformCommonName"
       type: string
@@ -152,5 +152,5 @@ encoder:
     # ObsValue
     - name: "ObsValue/brightnessTemperature"
       source: variables/brightnessTemperature
-      longName: "Brightness Temperature (Hight Accurcay)"
+      longName: "Brightness Temperature (High Accuracy)"
       units: "K"

@@ -7,10 +7,10 @@ import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
 
 
-MAPPING_PATH = map_path('atms.yaml')
+MAPPING_PATH = map_path('radiance_cris-fsr.yaml')
 
 
-class BufrAtmsObsBuilder(ObsBuilder):
+class BufrCrisObsBuilder(ObsBuilder):
     def __init__(self):
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
 
@@ -25,7 +25,6 @@ class BufrAtmsObsBuilder(ObsBuilder):
 
         # Add new/derived data into container
         for cat in container.all_sub_categories():
-
             self.log.debug(f'category = {cat}')
 
             satId = container.get('satelliteId', cat)
@@ -39,4 +38,4 @@ class BufrAtmsObsBuilder(ObsBuilder):
         return container
 
 
-add_main_functions(BufrAtmsObsBuilder)
+add_main_functions(BufrCrisObsBuilder)
