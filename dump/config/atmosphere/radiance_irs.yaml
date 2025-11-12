@@ -1,0 +1,119 @@
+encoder:
+
+  dimensions:
+    - name: pscore
+      path: "*/PSCORE"
+
+  globals:
+
+    - name: dummy
+      type: string
+      value: dummy str
+
+  variables:
+
+    - name: MetaData/time
+      source: variables/time
+      longName: "UTC time at which the geometric metadata are calculated."
+      units: "seconds since 2000-01-01 00:00:00.0"
+
+    - name: MetaData/dwell_number
+      source: variables/dwell_number
+      longName: "Dwell number based on fixed position across the full disc based on the current instrument scan law."
+      units: "none"
+
+    - name: MetaData/stroke_direction
+      source: variables/stroke_direction
+      longName: "Stroke direction for dwell acquisition"
+      units: "none"
+
+    - name: MetaData/latitude
+      source: variables/latitude
+      longName: "Geolocation latitude"
+      units: "degrees_north"
+
+    - name: MetaData/longitude
+      source: variables/longitude
+      longName: "Geolocation longitude"
+      units: "degrees_east"
+
+    - name: MetaData/satellite_azimuth_angle
+      source: variables/satellite_azimuth_angle
+      longName: "Satellite azimuth angle"
+      units: "degrees"
+
+    - name: MetaData/satellite_zenith_angle
+      source: variables/satellite_zenith_angle
+      longName: "Satellite zenith angle"
+      units: "degrees"
+
+    - name: MetaData/solar_azimuth_angle
+      source: variables/solar_azimuth_angle
+      longName: "Solar azimuth angle"
+      units: "degrees"
+
+    - name: MetaData/solar_zenith_angle
+      source: variables/solar_zenith_angle
+      longName: "Solar zenith angle"
+      units: "degrees"
+
+    - name: MetaData/cloud_signal
+      source: variables/cloud_signal
+      longName: "Cloud signal for spatial sample"
+      units: "none"
+
+    - name: MetaData/cloud_fraction
+      source: variables/cloud_fraction
+      longName: "Cloud fraction for spatial sample"
+      units: "none"
+
+    - name: ObsValues/mwir_global_pc_scores
+      source: variables/mwir_global_pc_scores
+      longName: "mwir_global_pc_scores"
+      units: "none"
+
+    - name: ObsValues/mwir_global_pcr_scores
+      source: variables/mwir_global_pcr_scores
+      longName: "mwir_global_pcr_scores"
+      units: "none"
+
+    - name: ObsValues/mwir_global_pcrs_quality
+      source: variables/mwir_global_pcrs_quality
+      longName: "mwir_global_pcrs_quality"
+      units: "none"
+
+    - name: ObsValues/mwir_spatial_sample_quality
+      source: variables/mwir_spatial_sample_quality
+      longName: "mwir_spatial_sample_quality"
+      units: "none"
+
+    - name: ObsValues/mwir_residual_energy
+      source: variables/mwir_residual_energy
+      longName: "mwir_residual_energy"
+      units: "none"
+
+    - name: ObsValues/lwir_global_pc_scores
+      source: variables/lwir_global_pc_scores
+      longName: "lwir_global_pc_scores"
+      units: "none"
+
+    - name: ObsValues/lwir_global_pcr_scores
+      source: variables/lwir_global_pcr_scores
+      longName: "lwir_global_pcr_scores"
+      units: "none"
+
+    - name: ObsValues/lwir_global_pcrs_quality
+      source: variables/lwir_global_pcrs_quality
+      longName: "lwir_global_pcrs_quality"
+      units: "none"
+
+    - name: ObsValues/lwir_spatial_sample_quality
+      source: variables/lwir_spatial_sample_quality
+      longName: "lwir_spatial_sample_quality"
+      units: "none"
+
+    - name: ObsValues/lwir_residual_energy
+      source: variables/lwir_residual_energy
+      longName: "lwir_residual_energy"
+      units: "none"
+
