@@ -14,7 +14,7 @@ iter  = 1
 imax = np.empty(1024,dtype=int)
 jmax = np.empty(1024,dtype=int)
 
-for filename in os.listdir(dir):
+for filename in os.listdir(inpdir):
    print(filename)
    irs  = Dataset(dir+"/"+filename)
    plat = irs['state/platform']
