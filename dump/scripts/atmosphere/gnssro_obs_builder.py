@@ -8,7 +8,7 @@ import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
 from bufr.bufr_python.encoders import *
 
-MAPPING_PATH = map_path('gpsro.yaml')
+MAPPING_PATH = map_path('gnssro.yaml')
 
 
 class SatGroup:
@@ -48,7 +48,7 @@ class SatGroup:
             new_container.add(var_name, new_array, data_paths, [self.name])
 
 
-class BaseGpsroBufrObsBuilder(ObsBuilder):
+class BaseGnssroBufrObsBuilder(ObsBuilder):
     def __init__(self, mapping_path, log_name=os.path.basename(__file__)):
         super().__init__(mapping_path, log_name=log_name)
 
@@ -70,8 +70,8 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
                                           'Constellation Observing System for Meteorology, Ionosphere, and Climate-2 E5',
                                           'Constellation Observing System for Meteorology, Ionosphere, and Climate-2 E6'],
                      satellite_id=[750, 751, 752, 753, 754, 755]),
-            SatGroup(name='geoopt',
-                     categoryGroup=['geoopt_265', 'geoopt_266'],
+            SatGroup(name='geooptics',
+                     categoryGroup=['geooptics_265', 'geooptics_266'],
                      sensor_name='CION',
                      sensor_full_name='CICERO Instrument for GNSS-RO',
                      sensor_id=526,
@@ -90,8 +90,8 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
                      satellite_full_name=['Gravity Recovery and Climate Experiment Follow-On C',
                                           'Gravity Recovery and Climate Experiment Follow-On D'],
                      satellite_id=[803, 804]),
-            SatGroup(name='k5',
-                     categoryGroup=['k5_825'],
+            SatGroup(name='kompsat5',
+                     categoryGroup=['kompsat5_825'],
                      sensor_name='IGOR',
                      sensor_full_name='Integrated GPS and Occultation Receiver',
                      sensor_id=103,
@@ -119,8 +119,8 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
                      satellite_name=['PAZ'],
                      satellite_full_name=['Paz Satellite'],
                      satellite_id=[44]),
-            SatGroup(name='piq',
-                     categoryGroup=['piq_267', 'piq_268'],
+            SatGroup(name='planetiq',
+                     categoryGroup=['planetiq_267', 'planetiq_268'],
                      sensor_name='Pyxis-RO',
                      sensor_full_name='Pyxis-RO',
                      sensor_id=534,
@@ -129,8 +129,8 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
                      satellite_full_name=['PLANETIQ GNOMES-A',
                                           'PLANETIQ GNOMES-B'],
                      satellite_id=[267, 268]),
-            SatGroup(name='s6',
-                     categoryGroup=['s6_66'],
+            SatGroup(name='sentinel6',
+                     categoryGroup=['sentinel6_66'],
                      sensor_name='Tri-G',
                      sensor_full_name='Triple-G',
                      sensor_id=104,
@@ -147,8 +147,8 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
                      satellite_name=['Spire'],
                      satellite_full_name=['SPIRE LEMUR 3U CUBESAT'],
                      satellite_id=[269]),
-            SatGroup(name='tdm',
-                     categoryGroup=['tdm_43'],
+            SatGroup(name='tandemx',
+                     categoryGroup=['tandemx_43'],
                      sensor_name='IGOR',
                      sensor_full_name='Integrated GPS and Occultation Receiver',
                      sensor_id=103,
@@ -156,8 +156,8 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
                      satellite_name=['TanDEM-X'],
                      satellite_full_name=['TerraSAR-X add-on for Digital Elevation Measurement'],
                      satellite_id=[43]),
-            SatGroup(name='tsx',
-                     categoryGroup=['tsx_42'],
+            SatGroup(name='terrasarx',
+                     categoryGroup=['terrasarx_42'],
                      sensor_name='IGOR',
                      sensor_full_name='Integrated GPS and Occultation Receiver',
                      sensor_id=103,
@@ -483,4 +483,4 @@ class BaseGpsroBufrObsBuilder(ObsBuilder):
 
 
 # Add main functions create_obs_file and create_obs_group
-add_main_functions(BaseGpsroBufrObsBuilder)
+add_main_functions(BaseGnssroBufrObsBuilder)
