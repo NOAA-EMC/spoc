@@ -18,14 +18,14 @@ observations:
           cache categories:
             - "metop"
             - "cosmic2"
-            - "tdm"
+            - "tandemx"
             - "grace"
-            - "geoopt"
-            - "piq"
-            - "k5"
+            - "geooptics"
+            - "planetiq"
+            - "kompsat5"
             - "paz"
-            - "s6"
-            - "tsx"
+            - "sentinel6"
+            - "terrasarx"
             - "spire"
     obsdataout:
       engine:
@@ -47,14 +47,14 @@ observations:
           cache categories:
             - "metop"
             - "cosmic2"
-            - "tdm"
+            - "tandemx"
             - "grace"
-            - "geoopt"
-            - "piq"
-            - "k5"
+            - "geooptics"
+            - "planetiq"
+            - "kompsat5"
             - "paz"
-            - "s6"
-            - "tsx"
+            - "sentinel6"
+            - "terrasarx"
             - "spire"
     obsdataout:
       engine:
@@ -62,7 +62,7 @@ observations:
         obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gnssro_cosmic2.nc"
 
 - obs space:
-    name: "tdm"
+    name: "tandemx"
     observed variables: [bendingAngle]
     derived variables: [bendingAngle]
     simulated variables: [bendingAngle]
@@ -72,23 +72,23 @@ observations:
         script file: "gnssro.py"
         args:
           input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-          category: 'tdm'
+          category: 'tandemx'
           cache categories:
             - "metop"
             - "cosmic2"
-            - "tdm"
+            - "tandemx"
             - "grace"
-            - "geoopt"
-            - "piq"
-            - "k5"
+            - "geooptics"
+            - "planetiq"
+            - "kompsat5"
             - "paz"
-            - "s6"
-            - "tsx"
+            - "sentinel6"
+            - "terrasarx"
             - "spire"
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gnssro_tdm.nc"
+        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gnssro_tandemx.nc"
 
 - obs space:
     name: "grace"
@@ -105,14 +105,14 @@ observations:
           cache categories:
             - "metop"
             - "cosmic2"
-            - "tdm"
+            - "tandemx"
             - "grace"
-            - "geoopt"
-            - "piq"
-            - "k5"
+            - "geooptics"
+            - "planetiq"
+            - "kompsat5"
             - "paz"
-            - "s6"
-            - "tsx"
+            - "sentinel6"
+            - "terrasarx"
             - "spire"
     obsdataout:
       engine:
@@ -120,7 +120,7 @@ observations:
         obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gnssro_grace.nc"
 
 - obs space:
-    name: "geoopt"
+    name: "geooptics"
     observed variables: [bendingAngle]
     derived variables: [bendingAngle]
     simulated variables: [bendingAngle]
@@ -130,26 +130,26 @@ observations:
         script file: "gnssro.py"
         args:
           input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-          category: 'geoopt'
+          category: 'geooptics'
           cache categories:
             - "metop"
             - "cosmic2"
-            - "tdm"
+            - "tandemx"
             - "grace"
-            - "geoopt"
-            - "piq"
-            - "k5"
+            - "geooptics"
+            - "planetiq"
+            - "kompsat5"
             - "paz"
-            - "s6"
-            - "tsx"
+            - "sentinel6"
+            - "terrasarx"
             - "spire"
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gnssro_geoopt.nc"
+        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gnssro_geooptics.nc"
 
 - obs space:
-    name: "piq"
+    name: "planetiq"
     observed variables: [bendingAngle]
     derived variables: [bendingAngle]
     simulated variables: [bendingAngle]
@@ -159,26 +159,26 @@ observations:
         script file: "gnssro.py"
         args:
           input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-          category: 'piq'
+          category: 'planetiq'
           cache categories:
             - "metop"
             - "cosmic2"
-            - "tdm"
+            - "tandemx"
             - "grace"
-            - "geoopt"
-            - "piq"
-            - "k5"
+            - "geooptics"
+            - "planetiq"
+            - "kompsat5"
             - "paz"
-            - "s6"
-            - "tsx"
+            - "sentinel6"
+            - "terrasarx"
             - "spire"
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gnssro_piq.nc"
+        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gnssro_planetiq.nc"
 
 - obs space:
-    name: "k5"
+    name: "kompsat5"
     observed variables: [bendingAngle]
     derived variables: [bendingAngle]
     simulated variables: [bendingAngle]
@@ -188,23 +188,23 @@ observations:
         script file: "gnssro.py"
         args:
           input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-          category: 'k5'
+          category: 'kompsat5'
           cache categories:
             - "metop"
             - "cosmic2"
-            - "tdm"
+            - "tandemx"
             - "grace"
-            - "geoopt"
-            - "piq"
-            - "k5"
+            - "geooptics"
+            - "planetiq"
+            - "kompsat5"
             - "paz"
-            - "s6"
-            - "tsx"
+            - "sentinel6"
+            - "terrasarx"
             - "spire"
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gnssro_k5.nc"
+        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gnssro_kompsat5.nc"
 
 - obs space:
     name: "paz"
@@ -221,14 +221,14 @@ observations:
           cache categories:
             - "metop"
             - "cosmic2"
-            - "tdm"
+            - "tandemx"
             - "grace"
-            - "geoopt"
-            - "piq"
-            - "k5"
+            - "geooptics"
+            - "planetiq"
+            - "kompsat5"
             - "paz"
-            - "s6"
-            - "tsx"
+            - "sentinel6"
+            - "terrasarx"
             - "spire"
     obsdataout:
       engine:
@@ -236,7 +236,7 @@ observations:
         obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gnssro_paz.nc"
 
 - obs space:
-    name: "s6"
+    name: "sentinel6"
     observed variables: [bendingAngle]
     derived variables: [bendingAngle]
     simulated variables: [bendingAngle]
@@ -246,26 +246,26 @@ observations:
         script file: "gnssro.py"
         args:
           input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-          category: 's6'
+          category: 'sentinel6'
           cache categories:
             - "metop"
             - "cosmic2"
-            - "tdm"
+            - "tandemx"
             - "grace"
-            - "geoopt"
-            - "piq"
-            - "k5"
+            - "geooptics"
+            - "planetiq"
+            - "kompsat5"
             - "paz"
-            - "s6"
-            - "tsx"
+            - "sentinel6"
+            - "terrasarx"
             - "spire"
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gnssro_s6.nc"
+        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gnssro_sentinel6.nc"
 
 - obs space:
-    name: "tsx"
+    name: "terrasarx"
     observed variables: [bendingAngle]
     derived variables: [bendingAngle]
     simulated variables: [bendingAngle]
@@ -275,23 +275,23 @@ observations:
         script file: "gnssro.py"
         args:
           input: "./testinput/2024122500/gdas.t00z.gpsro.tm00.bufr_d"
-          category: 'tsx'
+          category: 'terrasarx'
           cache categories:
             - "metop"
             - "cosmic2"
-            - "tdm"
+            - "tandemx"
             - "grace"
-            - "geoopt"
-            - "piq"
-            - "k5"
+            - "geooptics"
+            - "planetiq"
+            - "kompsat5"
             - "paz"
-            - "s6"
-            - "tsx"
+            - "sentinel6"
+            - "terrasarx"
             - "spire"
     obsdataout:
       engine:
         type: H5File
-        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gnssro_tsx.nc"
+        obsfile: "./testoutput/2024122500/script4backend/gdas.t00z.gnssro_terrasarx.nc"
 
 - obs space:
     name: "spire"
@@ -308,14 +308,14 @@ observations:
           cache categories:
             - "metop"
             - "cosmic2"
-            - "tdm"
+            - "tandemx"
             - "grace"
-            - "geoopt"
-            - "piq"
-            - "k5"
+            - "geooptics"
+            - "planetiq"
+            - "kompsat5"
             - "paz"
-            - "s6"
-            - "tsx"
+            - "sentinel6"
+            - "terrasarx"
             - "spire"
     obsdataout:
       engine:

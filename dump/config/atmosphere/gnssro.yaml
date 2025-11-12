@@ -100,14 +100,14 @@ bufr:
           _3: metop_3
           _4: metop_4
           _5: metop_5
-          _42: tsx_42
-          _43:  tdm_43
+          _42: terrasarx_42
+          _43:  tandemx_43
           _44:  paz_44
-          _66:  s6_66
-          _265: geoopt_265
-          _266: geoopt_266
-          _267: piq_267
-          _268: piq_268          
+          _66:  sentinel6_66
+          _265: geooptics_265
+          _266: geooptics_266
+          _267: planetiq_267
+          _268: planetiq_268          
           _269: spire_269
           _750: cosmic2_750
           _751: cosmic2_751
@@ -117,7 +117,7 @@ bufr:
           _755: cosmic2_755
           _803: grace_803
           _804: grace_804
-          _825: k5_825
+          _825: kompsat5_825
 
 encoder:
   # Need to get these from the json file. Might have to append a lot. 
