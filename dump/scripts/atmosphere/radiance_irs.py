@@ -36,7 +36,6 @@ for filename in os.listdir(inpdir):
          for i in range(1,3):
             for j in range(1,3):
                pc1=lwva.variables['global_pc_scores'][i+a][j+b][1]
-               pc1=abs(pc1)
                pcmax = max(pc1,pcmax)
                if pcmax == pc1:
                   imax[n]=i+a
