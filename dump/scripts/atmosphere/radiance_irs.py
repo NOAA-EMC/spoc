@@ -6,13 +6,14 @@ import numpy as np
 from netCDF4 import Dataset
 from bufr.encoders import netcdf
 
-inpdir   = "/scratch3/NCEPDEV/global/Jack.Woollen/IRSPP/IRSPP/IRSPPv1.3_test_cases/input"
-out   = "radiance_irs.nc"
-yaml  = 'radiance_irs.yaml'
-first = 'true'
-iter  = 1
-imax = np.empty(1024,dtype=int)
-jmax = np.empty(1024,dtype=int)
+inpdir = "/scratch3/NCEPDEV/global/Jack.Woollen/IRSPP/IRSPP/IRSPPv1.3_test_cases/input"
+outoda = "radiance_irs.nc"
+yaml   = "/scratch3/NCEPDEV/global/Jack.Woollen/spoc/dump/config/atmosphere/radiance_irs.yaml"
+first  = "true"
+iter   = 1
+itex   = 1000000
+imax   = np.empty(1024,dtype=int)
+jmax   = np.empty(1024,dtype=int)
 
 for filename in os.listdir(inpdir):
    print(filename)
@@ -140,9 +141,9 @@ for filename in os.listdir(inpdir):
       lwir_spatial_sample_quality=np.concatenate((lwir_spatial_sample_quality,alwir_spatial_sample_quality))
       lwir_residual_energy=np.concatenate((lwir_residual_energy,alwir_residual_energy))
 
-#  if iter==1:
-#     break
-#  iter=iter+1
+   if iter==itex:
+      break
+   iter=iter+1
 
 # change dtypes for certain variables
 stroke_direction = stroke_direction.astype('i')
@@ -175,5 +176,5 @@ container.add('lwir_global_pcr_scores', lwir_global_pcr_scores, ['*'])
 container.add('lwir_global_pcrs_quality', lwir_global_pcrs_quality, ['*'])
 container.add('lwir_spatial_sample_quality', lwir_spatial_sample_quality, ['*'])
 container.add('lwir_residual_energy', lwir_residual_energy, ['*'])
-netcdf.Encoder(description).encode(container,out)
+netcdf.Encoder(description).encode(container,outoda)
 
