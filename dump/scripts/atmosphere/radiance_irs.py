@@ -16,7 +16,7 @@ jmax = np.empty(1024,dtype=int)
 
 for filename in os.listdir(inpdir):
    print(filename)
-   irs  = Dataset(dir+"/"+filename)
+   irs  = Dataset(inpdir+"/"+filename)
    plat = irs['state/platform']
    cele = irs['state/celestial']
    inst = irs['state/instrument']
