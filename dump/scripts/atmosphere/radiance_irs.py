@@ -7,11 +7,11 @@ from netCDF4 import Dataset
 from bufr.encoders import netcdf
 
 inpdir = "/scratch3/NCEPDEV/global/Jack.Woollen/IRSPP/IRSPP/IRSPPv1.3_test_cases/input"
-outoda = "radiance_irs.nc"
+iodout = "radiance_irs.nc"
 yaml   = "/scratch3/NCEPDEV/global/Jack.Woollen/spoc/dump/config/atmosphere/radiance_irs.yaml"
 first  = "true"
 iter   = 1
-itex   = 1000000
+itex   = -1           
 imax   = np.empty(1024,dtype=int)
 jmax   = np.empty(1024,dtype=int)
 
@@ -31,11 +31,11 @@ for filename in os.listdir(inpdir):
 
    # select the hottest spot in each 5x5 box within each dwell
    n = 0
-   for a in range(0,155,5):
-      for b in range(0,155,5):
+   for a in range(0,160,5):
+      for b in range(0,160,5):
          pcmax = 0
-         for i in range(1,3):
-            for j in range(1,3):
+         for i in range(1,4):
+            for j in range(1,4):
                pc1=lwva.variables['global_pc_scores'][i+a][j+b][1]
                pcmax = max(pc1,pcmax)
                if pcmax == pc1:
@@ -45,7 +45,7 @@ for filename in os.listdir(inpdir):
          #print(n,imax[n],jmax[n])
 
    # create numpy for this dwell group
-   n=n-1
+   print(n)
    atime=np.empty(n)
    adwell_number=np.empty(n)
    astroke_direction=np.empty(n)
@@ -69,7 +69,7 @@ for filename in os.listdir(inpdir):
    alwir_residual_energy=np.empty(n)
 
    # save the soundings selected from this dwell
-   for m in range(1,n):
+   for m in range(0,n):
       i = imax[m]
       j = jmax[m]
       atime[m]=loca.variables['time'][:]
@@ -176,5 +176,5 @@ container.add('lwir_global_pcr_scores', lwir_global_pcr_scores, ['*'])
 container.add('lwir_global_pcrs_quality', lwir_global_pcrs_quality, ['*'])
 container.add('lwir_spatial_sample_quality', lwir_spatial_sample_quality, ['*'])
 container.add('lwir_residual_energy', lwir_residual_energy, ['*'])
-netcdf.Encoder(description).encode(container,outoda)
+netcdf.Encoder(description).encode(container,iodout)
 
