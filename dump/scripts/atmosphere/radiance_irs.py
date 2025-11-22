@@ -14,9 +14,10 @@ iter   = 1
 itex   = -1           
 imax   = np.empty(1024,dtype=int)
 jmax   = np.empty(1024,dtype=int)
+fill   = 1.e300
 
 for filename in os.listdir(inpdir):
-   print(filename)
+   print(iter,filename)
    irs  = Dataset(inpdir+"/"+filename)
    plat = irs['state/platform']
    cele = irs['state/celestial']
@@ -36,17 +37,15 @@ for filename in os.listdir(inpdir):
          pcmax = -99.e99
          for i in range(1,4):
             for j in range(1,4):
-               pc1=lwva.variables['global_pc_scores'][i+a][j+b][1]
-               if abs(pc1) > 2000000:
-                  break
-               pcmax = max(pc1,pcmax)
-               if pcmax == pc1:
-                  imax[n]=i+a
-                  jmax[n]=j+b
+               pc1=lwva.variables['global_pc_scores'][i+a][j+b][0]
+               if abs(pc1) < fill:
+                  pcmax = max(pc1,pcmax)
+                  if pcmax == pc1:
+                     imax[n]=i+a
+                     jmax[n]=j+b
          n=n+1
 
    # create numpy for this dwell group
-   print(n)
    atime=np.empty(n)
    adwell_number=np.empty(n)
    astroke_direction=np.empty(n)
@@ -73,7 +72,6 @@ for filename in os.listdir(inpdir):
    for m in range(0,n):
       i = imax[m]
       j = jmax[m]
-      #print(m,lwva.variables['global_pc_scores'][i][j][1])
       atime[m]=loca.variables['time'][:]
       adwell_number[m]=loca.variables['dwell_number'][:]
       astroke_direction[m]=loca.variables['stroke_direction'][:]
