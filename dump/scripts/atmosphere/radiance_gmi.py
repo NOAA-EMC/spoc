@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 import os
-import numpy as np
-import numpy.ma as ma
-
 import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
 
