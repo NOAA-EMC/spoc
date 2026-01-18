@@ -1,20 +1,135 @@
-#!/usr/bin/env python3
+# ----------------------------------------------------------------------------------------------------------
+#!/usr/bin/env python3 # read mtg/irs netcdf files compute radiances and write to obsforge ioda file
+# ----------------------------------------------------------------------------------------------------------
 
 import os
+import sys
 import bufr
 import numpy as np
 from netCDF4 import Dataset
 from bufr.encoders import netcdf
 
-inpdir = "/scratch3/NCEPDEV/global/Jack.Woollen/IRSPP/IRSPP/IRSPPv1.3_test_cases/input"
-iodout = "radiance_irs.nc"
-yaml   = "/scratch3/NCEPDEV/global/Jack.Woollen/spoc/dump/config/atmosphere/radiance_irs.yaml"
-first  = "true"
+# ----------------------------------------------------------------------------------------------------------
+# define the apodising function
+# ----------------------------------------------------------------------------------------------------------
+
+def apply_hamming(x,nchan):
+     hamming0 = np.float64(0.54); hamming1 = np.float64(0.23)
+     y = x; ncn = nchan-1
+     y[0] = (x[0]*hamming0+x[1]*hamming1)/(hamming0+hamming1)
+     y[ncn] = (x[ncn]*hamming0+x[ncn-1]*hamming1)/(hamming0+hamming1)
+     for icn in range(1,ncn):
+          y[icn] = x[icn-1]*hamming1+x[icn]*hamming0+x[icn+1]*hamming1
+     return y
+
+# ----------------------------------------------------------------------------------------------------------
+# read two arguments to define task
+# ---------------------------------
+# 1) the input data directory path
+# 2) the output path/filename
+# ----------------------------------------------------------------------------------------------------------
+
+if len(sys.argv) < 2:
+    print(f"{sys.argv[0]} needs <inpdir> and <iodout> ")
+    exit()
+
+inpdir=sys.argv[1]; print(sys.argv[1])
+iodout=sys.argv[2]; print(sys.argv[2])
+
+# ----------------------------------------------------------------------------------------------------------
+# setup more filenames and parameters
+# ----------------------------------------------------------------------------------------------------------
+
+yamls   = "/scratch3/NCEPDEV/global/Jack.Woollen/spoc/dump/config/atmosphere"
+parms   = "/scratch3/NCEPDEV/global/Jack.Woollen/spoc/dump/parm/atmosphere"
+lwchans = parms+"/irs_coopman_lw_channels.txt"
+mwchans = parms+"/irs_coopman_mw_channels.txt"
+reconst = parms+"/RSP_OPE_BASEEV_MTS1+IRS_20230925000000_V1_out.h5"
+yaml    = yamls+"/radiance_irs.yaml"
+
+# ----------------------------------------------------------------------------------------------------------
+# read the channel data for lw and mw ir wave numbers
+# --------------------------------------------------
+
+chan_lw = np.loadtxt(lwchans,dtype=int); chan_lw = chan_lw[chan_lw != 0]; chns_lw = chan_lw.shape[0]
+chan_mw = np.loadtxt(mwchans,dtype=int); chan_mw = chan_mw[chan_mw != 0]; chns_mw = chan_mw.shape[0]
+
+# ----------------------------------------------------------------------------------------------------------
+# read reconstruction means and operators for lw and mw ir channels
+# ----------------------------------------------------------------------------------------------------------
+
+hd5file=Dataset(reconst)
+means = hd5file['lwir'].variables['Mean'][:][:]; means_lw = means[chan_lw]
+means = hd5file['mwir'].variables['Mean'][:][:]; means_mw = means[chan_mw]
+recop = hd5file['lwir'].variables['ReconstructionOperator']; recop_lw = recop[:,chan_lw]; wnum_lw = recop.shape[1]
+recop = hd5file['mwir'].variables['ReconstructionOperator']; recop_mw = recop[:,chan_mw]; wnum_mw = recop.shape[1]
+
+# ----------------------------------------------------------------------------------------------------------
+# hamming the eigenvectors
+# ----------------------------------------------------------------------------------------------------------
+
+means_lw = apply_hamming(means_lw,chns_lw)
+means_mw = apply_hamming(means_mw,chns_mw)
+for ipc in range(len(recop_lw)):
+     recop_lw[ipc] = apply_hamming(recop_lw[ipc][:],chns_lw)
+     recop_mw[ipc] = apply_hamming(recop_mw[ipc][:],chns_mw)
+
+# ----------------------------------------------------------------------------------------------------------
+# setup radiance channel output parameters 
+# ----------------------------------------------------------------------------------------------------------
+
+lw0 = 0
+lw1 = chns_lw
+mw0 = chns_lw
+mw1 = mw0+chns_mw
+nchan = chns_lw+chns_mw
+chans = np.full(nchan,0,dtype=int)
+chans[lw0:lw1] = chan_lw[:]
+chans[mw0:mw1] = chan_mw[:]+wnum_lw
+
+# ----------------------------------------------------------------------------------------------------------
+# working parameters and arrays
+# ----------------------------------------------------------------------------------------------------------
+
 iter   = 1
-itex   = -1           
-imax   = np.empty(1024,dtype=int)
-jmax   = np.empty(1024,dtype=int)
+itex   = -1          
+imax   = np.zeros(1024,dtype=int)
+jmax   = np.zeros(1024,dtype=int)
+kmax   = 1024 
 fill   = 1.e300
+
+# ----------------------------------------------------------------------------------------------------------
+# create numpy array for all the dwell groups
+# ----------------------------------------------------------------------------------------------------------
+
+n=73*kmax; print(n)
+time=np.zeros(n)
+dwell_number=np.zeros(n)
+stroke_direction=np.zeros(n)
+latitude=np.zeros(n)
+longitude=np.zeros(n)
+satellite_azimuth_angle=np.zeros(n)
+satellite_zenith_angle=np.zeros(n)
+solar_azimuth_angle=np.zeros(n)
+solar_zenith_angle=np.zeros(n)
+cloud_signal=np.zeros(n)
+cloud_fraction=np.zeros(n)
+mwir_global_pc_scores=np.zeros((n,150))
+mwir_global_pcr_scores=np.zeros(n)
+mwir_global_pcrs_quality=np.zeros(n)
+mwir_spatial_sample_quality=np.zeros(n)
+mwir_residual_energy=np.zeros(n)
+lwir_global_pc_scores=np.zeros((n,150))
+lwir_global_pcr_scores=np.zeros(n)
+lwir_global_pcrs_quality=np.zeros(n)
+lwir_spatial_sample_quality=np.zeros(n)
+lwir_residual_energy=np.zeros(n)
+chan_num=np.zeros((n,nchan))
+radiance=np.zeros((n,nchan))
+
+# ----------------------------------------------------------------------------------------------------------
+# loop through the list of mtg-irs dwell files
+# ----------------------------------------------------------------------------------------------------------
 
 for filename in os.listdir(inpdir):
    print(iter,filename)
@@ -30,7 +145,10 @@ for filename in os.listdir(inpdir):
    mwva = irs['data/mwir/compressed']
    lwva = irs['data/lwir/compressed']
 
-   # select the hottest spot in each 5x5 box within each dwell
+# ----------------------------------------------------------------------------------------------------------
+# select the hottest spot in each 5x5 box within the dwell
+# ----------------------------------------------------------------------------------------------------------
+
    n = 0
    for a in range(0,160,5):
       for b in range(0,160,5):
@@ -38,121 +156,72 @@ for filename in os.listdir(inpdir):
          for i in range(1,4):
             for j in range(1,4):
                pc1=lwva.variables['global_pc_scores'][i+a][j+b][0]
-               if abs(pc1) < fill:
+               if abs(pc1) < fill: 
                   pcmax = max(pc1,pcmax)
                   if pcmax == pc1:
                      imax[n]=i+a
                      jmax[n]=j+b
          n=n+1
 
-   # create numpy for this dwell group
-   atime=np.empty(n)
-   adwell_number=np.empty(n)
-   astroke_direction=np.empty(n)
-   alatitude=np.empty(n)
-   alongitude=np.empty(n)
-   asatellite_azimuth_angle=np.empty(n)
-   asatellite_zenith_angle=np.empty(n)
-   asolar_azimuth_angle=np.empty(n)
-   asolar_zenith_angle=np.empty(n)
-   acloud_signal=np.empty(n)
-   acloud_fraction=np.empty(n)
-   amwir_global_pc_scores=np.empty((n,150))
-   amwir_global_pcr_scores=np.empty(n)
-   amwir_global_pcrs_quality=np.empty(n)
-   amwir_spatial_sample_quality=np.empty(n)
-   amwir_residual_energy=np.empty(n)
-   alwir_global_pc_scores=np.empty((n,150))
-   alwir_global_pcr_scores=np.empty(n)
-   alwir_global_pcrs_quality=np.empty(n)
-   alwir_spatial_sample_quality=np.empty(n)
-   alwir_residual_energy=np.empty(n)
+# ----------------------------------------------------------------------------------------------------------
+# save the soundings selected from this dwell
+# ----------------------------------------------------------------------------------------------------------
 
-   # save the soundings selected from this dwell
-   for m in range(0,n):
-      i = imax[m]
-      j = jmax[m]
-      atime[m]=loca.variables['time'][:]
-      adwell_number[m]=loca.variables['dwell_number'][:]
-      astroke_direction[m]=loca.variables['stroke_direction'][:]
-      alatitude[m]=loca.variables['latitude'][i][j]
-      alongitude[m]=loca.variables['longitude'][i][j]
-      asatellite_azimuth_angle[m]=loca.variables['satellite_azimuth_angle'][i][j]
-      asatellite_zenith_angle[m]=loca.variables['satellite_zenith_angle'][i][j]
-      asolar_azimuth_angle[m]=loca.variables['solar_azimuth_angle'][i][j]
-      asolar_zenith_angle[m]=loca.variables['solar_zenith_angle'][i][j]
-      acloud_signal[m]=loca.variables['cloud_signal'][i][j]
-      acloud_fraction[m]=loca.variables['cloud_fraction'][i][j]
-      amwir_global_pc_scores[m]=mwva.variables['global_pc_scores'][i][j][:]
-      amwir_global_pcr_scores[m]=mwva.variables['global_pcr_scores'][i][j]
-      amwir_global_pcrs_quality[m]=mwva.variables['global_pcrs_quality'][i][j]
-      amwir_spatial_sample_quality[m]=mwva.variables['spatial_sample_quality'][i][j]
-      amwir_residual_energy[m]=mwva.variables['residual_energy'][:]
-      alwir_global_pc_scores[m]=lwva.variables['global_pc_scores'][i][j][:]
-      alwir_global_pcr_scores[m]=lwva.variables['global_pcr_scores'][i][j]
-      alwir_global_pcrs_quality[m]=lwva.variables['global_pcrs_quality'][i][j]
-      alwir_spatial_sample_quality[m]=lwva.variables['spatial_sample_quality'][i][j]
-      alwir_residual_energy[m]=lwva.variables['residual_energy'][:]
+   m = (iter-1)*kmax-1
+   for k in range(n):
+      i = imax[k]
+      j = jmax[k]
+      m = m+1
+      time[m]=loca.variables['time'][:]
+      dwell_number[m] = loca.variables['dwell_number'][:]
+      stroke_direction[m] = loca.variables['stroke_direction'][:]
+      latitude[m] = loca.variables['latitude'][i][j]
+      longitude[m] = loca.variables['longitude'][i][j]
+      satellite_azimuth_angle[m] = loca.variables['satellite_azimuth_angle'][i][j]
+      satellite_zenith_angle[m] = loca.variables['satellite_zenith_angle'][i][j]
+      solar_azimuth_angle[m] = loca.variables['solar_azimuth_angle'][i][j]
+      solar_zenith_angle[m] = loca.variables['solar_zenith_angle'][i][j]
+      cloud_signal[m] = loca.variables['cloud_signal'][i][j]
+      cloud_fraction[m] = loca.variables['cloud_fraction'][i][j]
+      mwir_global_pc_scores[m] = mwva.variables['global_pc_scores'][i][j][:]
+      mwir_global_pcr_scores[m] = mwva.variables['global_pcr_scores'][i][j]
+      mwir_global_pcrs_quality[m] = mwva.variables['global_pcrs_quality'][i][j]
+      mwir_spatial_sample_quality[m] = mwva.variables['spatial_sample_quality'][i][j]
+      mwir_residual_energy[m] = mwva.variables['residual_energy'][:]
+      lwir_global_pc_scores[m] = lwva.variables['global_pc_scores'][i][j][:]
+      lwir_global_pcr_scores[m] = lwva.variables['global_pcr_scores'][i][j]
+      lwir_global_pcrs_quality[m] = lwva.variables['global_pcrs_quality'][i][j]
+      lwir_spatial_sample_quality[m] = lwva.variables['spatial_sample_quality'][i][j]
+      lwir_residual_energy[m] = lwva.variables['residual_energy'][:]
+      radiance[m][lw0:lw1] = 100.*(np.matrix(lwir_global_pc_scores[m]) @ np.matrix(recop_lw) + means_lw)
+      radiance[m][mw0:mw1] = 100.*(np.matrix(mwir_global_pc_scores[m]) @ np.matrix(recop_mw) + means_mw)
+      chan_num[m] = chans[:]
 
-   # accumulate this dwell into the dump group
-   if first == 'true':
-      first = 'nottrue'
-      time=atime
-      dwell_number=adwell_number
-      stroke_direction=astroke_direction
-      latitude=alatitude
-      longitude=alongitude
-      satellite_azimuth_angle=asatellite_azimuth_angle
-      satellite_zenith_angle=asatellite_zenith_angle
-      solar_azimuth_angle=asolar_azimuth_angle
-      solar_zenith_angle=asolar_zenith_angle
-      cloud_signal=acloud_signal
-      cloud_fraction=acloud_fraction
-      mwir_global_pc_scores=amwir_global_pc_scores
-      mwir_global_pcr_scores=amwir_global_pcr_scores
-      mwir_global_pcrs_quality=amwir_global_pcrs_quality
-      mwir_spatial_sample_quality=amwir_spatial_sample_quality
-      mwir_residual_energy=amwir_residual_energy
-      lwir_global_pc_scores=alwir_global_pc_scores
-      lwir_global_pcr_scores=alwir_global_pcr_scores
-      lwir_global_pcrs_quality=alwir_global_pcrs_quality
-      lwir_spatial_sample_quality=alwir_spatial_sample_quality
-      lwir_residual_energy=alwir_residual_energy
-   else:
-      time=np.concatenate((time,atime))
-      dwell_number=np.concatenate((dwell_number,adwell_number))
-      stroke_direction=np.concatenate((stroke_direction,astroke_direction))
-      latitude=np.concatenate((latitude,alatitude))
-      longitude=np.concatenate((longitude,alongitude))
-      satellite_azimuth_angle=np.concatenate((satellite_azimuth_angle,asatellite_azimuth_angle))
-      satellite_zenith_angle=np.concatenate((satellite_zenith_angle,asatellite_zenith_angle))
-      solar_azimuth_angle=np.concatenate((solar_azimuth_angle,asolar_azimuth_angle))
-      solar_zenith_angle=np.concatenate((solar_zenith_angle,asolar_zenith_angle))
-      cloud_signal=np.concatenate((cloud_signal,acloud_signal))
-      cloud_fraction=np.concatenate((cloud_fraction,acloud_fraction))
-      mwir_global_pc_scores=np.concatenate((mwir_global_pc_scores,amwir_global_pc_scores))
-      mwir_global_pcr_scores=np.concatenate((mwir_global_pcr_scores,amwir_global_pcr_scores))
-      mwir_global_pcrs_quality=np.concatenate((mwir_global_pcrs_quality,amwir_global_pcrs_quality))
-      mwir_spatial_sample_quality=np.concatenate((mwir_spatial_sample_quality,amwir_spatial_sample_quality))
-      mwir_residual_energy=np.concatenate((mwir_residual_energy,amwir_residual_energy))
-      lwir_global_pc_scores=np.concatenate((lwir_global_pc_scores,alwir_global_pc_scores))
-      lwir_global_pcr_scores=np.concatenate((lwir_global_pcr_scores,alwir_global_pcr_scores))
-      lwir_global_pcrs_quality=np.concatenate((lwir_global_pcrs_quality,alwir_global_pcrs_quality))
-      lwir_spatial_sample_quality=np.concatenate((lwir_spatial_sample_quality,alwir_spatial_sample_quality))
-      lwir_residual_energy=np.concatenate((lwir_residual_energy,alwir_residual_energy))
-
+   print(m)
    if iter==itex:
       break
    iter=iter+1
 
-# change dtypes for certain variables
-stroke_direction = stroke_direction.astype('i')
-mwir_global_pcrs_quality = mwir_global_pcrs_quality.astype('i')
-mwir_spatial_sample_quality = mwir_spatial_sample_quality.astype('i')
-lwir_global_pcrs_quality = lwir_global_pcrs_quality.astype('i')
-lwir_spatial_sample_quality = lwir_spatial_sample_quality.astype('i')
+#print(radiance.shape,lwir_global_pc_scores.shape,recop_lw.shape,means_lw.shape)
+#print(radiance.dtype,lwir_global_pc_scores.dtype,recop_lw.dtype,means_lw.dtype)
+#for i in range(300):
+#     print(radiance[0][i])
+#exit()
 
+# ----------------------------------------------------------------------------------------------------------
+# change dtypes for certain variables
+# ----------------------------------------------------------------------------------------------------------
+
+#stroke_direction = stroke_direction.astype('int')
+#mwir_global_pcrs_quality = mwir_global_pcrs_quality.astype('int')
+#mwir_spatial_sample_quality = mwir_spatial_sample_quality.astype('int')
+#lwir_global_pcrs_quality = lwir_global_pcrs_quality.astype('int')
+#lwir_spatial_sample_quality = lwir_spatial_sample_quality.astype('int')
+
+# ----------------------------------------------------------------------------------------------------------
 # write into the container and the ioda dump file
+# ----------------------------------------------------------------------------------------------------------
+
 container = bufr.DataContainer()
 description = bufr.encoders.Description(yaml)
 container.add('time', time, ['*'])
@@ -176,5 +245,10 @@ container.add('lwir_global_pcr_scores', lwir_global_pcr_scores, ['*'])
 container.add('lwir_global_pcrs_quality', lwir_global_pcrs_quality, ['*'])
 container.add('lwir_spatial_sample_quality', lwir_spatial_sample_quality, ['*'])
 container.add('lwir_residual_energy', lwir_residual_energy, ['*'])
+container.add('chan_num', chan_num, ['*','*/RADCHN'])
+container.add('radiance', radiance, ['*','*/RADCHN'])
 netcdf.Encoder(description).encode(container,iodout)
+
+#for i in range(300):
+#     print(i,radiance[0][i])
 

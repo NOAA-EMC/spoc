@@ -3,6 +3,8 @@ encoder:
   dimensions:
     - name: pscore
       path: "*/PSCORE"
+    - name: radchn
+      path: "*/RADCHN"
 
   globals:
 
@@ -117,3 +119,12 @@ encoder:
       longName: "lwir_residual_energy"
       units: "none"
 
+    - name: ObsValues/chan_num                
+      source: variables/chan_num                   
+      longName: "selected channel number"
+      units: "none"
+
+    - name: ObsValues/radiance                
+      source: variables/radiance                   
+      longName: "selected channel radiance"
+      units: "W/(m^2.sr.cm^-1)"
