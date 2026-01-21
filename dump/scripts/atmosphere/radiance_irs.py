@@ -1,6 +1,4 @@
-# ----------------------------------------------------------------------------------------------------------
 #!/usr/bin/env python3 # read mtg/irs netcdf files compute radiances and write to obsforge ioda file
-# ----------------------------------------------------------------------------------------------------------
 
 import os
 import sys
@@ -15,7 +13,7 @@ from bufr.encoders import netcdf
 
 def apply_hamming(x,nchan):
      hamming0 = np.float64(0.54); hamming1 = np.float64(0.23)
-     y = x; ncn = nchan-1
+     y = x.copy(); ncn = nchan-1
      y[0] = (x[0]*hamming0+x[1]*hamming1)/(hamming0+hamming1)
      y[ncn] = (x[ncn]*hamming0+x[ncn-1]*hamming1)/(hamming0+hamming1)
      for icn in range(1,ncn):
@@ -29,7 +27,7 @@ def apply_hamming(x,nchan):
 # 2) the output path/filename
 # ----------------------------------------------------------------------------------------------------------
 
-if len(sys.argv) < 2:
+if len(sys.argv) < 3:
     print(f"{sys.argv[0]} needs <inpdir> and <iodout> ")
     exit()
 
@@ -42,10 +40,10 @@ iodout=sys.argv[2]; print(sys.argv[2])
 
 yamls   = "/scratch3/NCEPDEV/global/Jack.Woollen/spoc/dump/config/atmosphere"
 parms   = "/scratch3/NCEPDEV/global/Jack.Woollen/spoc/dump/parm/atmosphere"
-lwchans = parms+"/irs_coopman_lw_channels.txt"
-mwchans = parms+"/irs_coopman_mw_channels.txt"
-reconst = parms+"/RSP_OPE_BASEEV_MTS1+IRS_20230925000000_V1_out.h5"
-yaml    = yamls+"/radiance_irs.yaml"
+lwchans = os.path.join(parms,"irs_coopman_lw_channels.txt")
+mwchans = os.path.join(parms,"irs_coopman_mw_channels.txt")
+reconst = os.path.join(parms,"RSP_OPE_BASEEV_MTS1+IRS_20230925000000_V1_out.h5")
+yaml    = os.path.join(yamls,"radiance_irs.yaml")
 
 # ----------------------------------------------------------------------------------------------------------
 # read the channel data for lw and mw ir wave numbers
@@ -92,46 +90,73 @@ chans[mw0:mw1] = chan_mw[:]+wnum_lw
 # ----------------------------------------------------------------------------------------------------------
 
 iter   = 1
-itex   = -1          
+itex   = -1         
 imax   = np.zeros(1024,dtype=int)
 jmax   = np.zeros(1024,dtype=int)
 kmax   = 1024 
 fill   = 1.e300
 
 # ----------------------------------------------------------------------------------------------------------
+# check that the files in the list exist and are readable
+# ----------------------------------------------------------------------------------------------------------
+
+try:
+   file_list = os.listdir(inpdir)
+   file_keep = [] 
+except OSError as e:
+   sys.stderr.write(f"Error reading input directory '{inpdir}': {e}\n")
+   sys.exit(1)
+
+netcdf_files = [f for f in file_list if f.lower().endswith(".nc")]
+if not netcdf_files:
+   sys.stderr.write(f"No NetCDF files found in input directory '{inpdir}'.\n")
+   sys.exit(1)
+
+for filename in netcdf_files:
+   #print(iter, filename)
+   try:
+        irs  = Dataset(os.path.join(inpdir, filename))
+        file_keep.append(filename)
+   except OSError as e:
+        sys.stderr.write(f"Skipping file '{filename}': failed to open as NetCDF: {e}\n")
+        continue
+
+# ----------------------------------------------------------------------------------------------------------
 # create numpy array for all the dwell groups
 # ----------------------------------------------------------------------------------------------------------
 
-n=73*kmax; print(n)
-time=np.zeros(n)
-dwell_number=np.zeros(n)
-stroke_direction=np.zeros(n)
-latitude=np.zeros(n)
-longitude=np.zeros(n)
-satellite_azimuth_angle=np.zeros(n)
-satellite_zenith_angle=np.zeros(n)
-solar_azimuth_angle=np.zeros(n)
-solar_zenith_angle=np.zeros(n)
-cloud_signal=np.zeros(n)
-cloud_fraction=np.zeros(n)
-mwir_global_pc_scores=np.zeros((n,150))
-mwir_global_pcr_scores=np.zeros(n)
-mwir_global_pcrs_quality=np.zeros(n)
-mwir_spatial_sample_quality=np.zeros(n)
-mwir_residual_energy=np.zeros(n)
-lwir_global_pc_scores=np.zeros((n,150))
-lwir_global_pcr_scores=np.zeros(n)
-lwir_global_pcrs_quality=np.zeros(n)
-lwir_spatial_sample_quality=np.zeros(n)
-lwir_residual_energy=np.zeros(n)
-chan_num=np.zeros((n,nchan))
-radiance=np.zeros((n,nchan))
+nfil=len(file_keep)      ; print('nfiles=',nfil)
+nloc=len(file_keep)*kmax ; print('nlocs=',nloc)
+
+time=np.zeros(nloc)
+dwell_number=np.zeros(nloc)
+stroke_direction=np.zeros(nloc)
+latitude=np.zeros(nloc)
+longitude=np.zeros(nloc)
+satellite_azimuth_angle=np.zeros(nloc)
+satellite_zenith_angle=np.zeros(nloc)
+solar_azimuth_angle=np.zeros(nloc)
+solar_zenith_angle=np.zeros(nloc)
+cloud_signal=np.zeros(nloc)
+cloud_fraction=np.zeros(nloc)
+mwir_global_pc_scores=np.zeros((nloc,150))
+mwir_global_pcr_scores=np.zeros(nloc)
+mwir_global_pcrs_quality=np.zeros(nloc)
+mwir_spatial_sample_quality=np.zeros(nloc)
+mwir_residual_energy=np.zeros(nloc)
+lwir_global_pc_scores=np.zeros((nloc,150))
+lwir_global_pcr_scores=np.zeros(nloc)
+lwir_global_pcrs_quality=np.zeros(nloc)
+lwir_spatial_sample_quality=np.zeros(nloc)
+lwir_residual_energy=np.zeros(nloc)
+chan_num=np.zeros((nloc,nchan))
+radiance=np.zeros((nloc,nchan))
 
 # ----------------------------------------------------------------------------------------------------------
-# loop through the list of mtg-irs dwell files
+# loop through the list of mtg-irs dwell files kept
 # ----------------------------------------------------------------------------------------------------------
 
-for filename in os.listdir(inpdir):
+for filename in file_keep:
    print(iter,filename)
    irs  = Dataset(inpdir+"/"+filename)
    plat = irs['state/platform']
@@ -193,11 +218,12 @@ for filename in os.listdir(inpdir):
       lwir_global_pcrs_quality[m] = lwva.variables['global_pcrs_quality'][i][j]
       lwir_spatial_sample_quality[m] = lwva.variables['spatial_sample_quality'][i][j]
       lwir_residual_energy[m] = lwva.variables['residual_energy'][:]
-      radiance[m][lw0:lw1] = 100.*(np.matrix(lwir_global_pc_scores[m]) @ np.matrix(recop_lw) + means_lw)
-      radiance[m][mw0:mw1] = 100.*(np.matrix(mwir_global_pc_scores[m]) @ np.matrix(recop_mw) + means_mw)
+
+
+      radiance[m][lw0:lw1] = 100.* (np.dot(lwir_global_pc_scores[m],recop_lw) + means_lw)
+      radiance[m][mw0:mw1] = 100.* (np.dot(mwir_global_pc_scores[m],recop_mw) + means_mw)
       chan_num[m] = chans[:]
 
-   print(m)
    if iter==itex:
       break
    iter=iter+1
@@ -205,18 +231,8 @@ for filename in os.listdir(inpdir):
 #print(radiance.shape,lwir_global_pc_scores.shape,recop_lw.shape,means_lw.shape)
 #print(radiance.dtype,lwir_global_pc_scores.dtype,recop_lw.dtype,means_lw.dtype)
 #for i in range(300):
-#     print(radiance[0][i])
+#   print(radiance[0][i])
 #exit()
-
-# ----------------------------------------------------------------------------------------------------------
-# change dtypes for certain variables
-# ----------------------------------------------------------------------------------------------------------
-
-#stroke_direction = stroke_direction.astype('int')
-#mwir_global_pcrs_quality = mwir_global_pcrs_quality.astype('int')
-#mwir_spatial_sample_quality = mwir_spatial_sample_quality.astype('int')
-#lwir_global_pcrs_quality = lwir_global_pcrs_quality.astype('int')
-#lwir_spatial_sample_quality = lwir_spatial_sample_quality.astype('int')
 
 # ----------------------------------------------------------------------------------------------------------
 # write into the container and the ioda dump file
