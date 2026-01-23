@@ -38,13 +38,11 @@ class BufrSsmisObsBuilder(ObsBuilder):
 
         # Add new/derived data into container
         for cat in container.all_sub_categories():
-
-            self.log.debug(f'category = {cat}')
-
-            satId = container.get('satelliteId', cat)
-            if not np.any(satId):
-                self.log.warning(f'category {cat[0]} does not exist in input file')
-
+            nlocs = container.get('latitude', cat).size
+            if nlocs == 0:
+                self.log.warning(f"Skipping empty category {cat[0]}")
+                continue
+        
             self._add_sensor_zenith_and_solar_angles(container, cat)
             self._add_satellite_ascend_descent_orbit(container, cat)
 
@@ -52,45 +50,52 @@ class BufrSsmisObsBuilder(ObsBuilder):
         self.log.debug(f'container list (updated): {container.list()}')
         self.log.debug(f'all_sub_categories {container.all_sub_categories()}')
 
+        for cat in container.all_sub_categories():
+            self.log.warning(f"cat={cat} nlat={container.get('latitude',cat).size} "
+                             f"nchn={container.get('sensorChannelNumber',cat).size}")
+
+        self.log.warning(f"category map = {container.get_category_map()}")
+        self.log.warning("driver template output_file = radiance_ssmis_{splits/satId}.nc")
+
         return container
 
     def _make_description(self):
         description = super()._make_description()
-        self._add_new_variable_descriptions(description)
+#        self._add_new_variable_descriptions(description)
 
         return description
 
-    def _add_new_variable_descriptions(self, description):
-        description.add_variables([
-            {
-                'name': 'MetaData/satelliteAscendingFlag',
-                'source': 'satelliteAscendingFlag',
-                'longName': 'Satellite Ascending/Descending Orbit Flag (Ascend:1; Descend:-1)',
-            },
-            {
-                'name': 'MetaData/sensorZenithAngle',
-                'source': 'sensorZenithAngle',
-                'units': 'degree',
-                'longName': 'Sensor Zenith Angle',
-            },
-            {
-                'name': 'MetaData/sensorAzimuthAngle',
-                'source': 'sensorAzimuthAngle',
-                'units': 'degree',
-                'longName': 'Sensor Azimuth Angle',
-            },
-            {
-                'name': 'MetaData/solarZenithAngle',
-                'source': 'solarZenithAngle',
-                'units': 'degree',
-                'longName': 'Solar Zenith Angle',
-            },
-            {
-                'name': 'MetaData/solarAzimuthAngle',
-                'source': 'solarAzimuthAngle',
-                'units': 'degree',
-                'longName': 'Solar Azimuth Angle',
-            }])
+#    def _add_new_variable_descriptions(self, description):
+#        description.add_variables([
+#            {
+#                'name': 'MetaData/satelliteAscendingFlag',
+#                'source': 'satelliteAscendingFlag',
+#                'longName': 'Satellite Ascending/Descending Orbit Flag (Ascend:1; Descend:-1)',
+#            },
+#            {
+#                'name': 'MetaData/sensorZenithAngle',
+#                'source': 'sensorZenithAngle',
+#                'units': 'degree',
+#                'longName': 'Sensor Zenith Angle',
+#            },
+#            {
+#                'name': 'MetaData/sensorAzimuthAngle',
+#                'source': 'sensorAzimuthAngle',
+#                'units': 'degree',
+#                'longName': 'Sensor Azimuth Angle',
+#            },
+#            {
+#                'name': 'MetaData/solarZenithAngle',
+#                'source': 'solarZenithAngle',
+#                'units': 'degree',
+#                'longName': 'Solar Zenith Angle',
+#            },
+#            {
+#                'name': 'MetaData/solarAzimuthAngle',
+#                'source': 'solarAzimuthAngle',
+#                'units': 'degree',
+#                'longName': 'Solar Azimuth Angle',
+#            }])
 
     def _add_satellite_ascend_descent_orbit(self, container, category):
         """
@@ -172,7 +177,7 @@ class BufrSsmisObsBuilder(ObsBuilder):
 
         # Add sensor angles
         sensor_zenith = np.full_like(latitudes, 53.0)
-        sensor_azimuth = np.full_like(latitudes, latitudes.fill_value)
+        sensor_azimuth = np.zeros_like(latitudes, dtype=np.float32)
         container.add('sensorZenithAngle', sensor_zenith, paths, category)
         container.add('sensorAzimuthAngle', sensor_azimuth, paths, category)
 
