@@ -71,7 +71,7 @@ bufr:
       category:
         variable: satelliteId
         map:
-          #_249: f16
+          _249: f16
           _285: f17
           _286: f18
 
@@ -169,6 +169,15 @@ encoder:
       source: variables/solarZenithAngle
       longName: "Solar Zenith Angle"
       units: "degree"
+
+    - name: "MetaData/solarAzimuthAngle"
+      source: variables/solarAzimuthAngle
+      longName: "Solar Azimuth Angle"
+      units: "degree"
+
+    - name: "MetaData/satelliteAscendingFlag"
+      source: variables/satelliteAscendingFlag
+      longName: "Satellite Ascending/Descending Orbit Flag (Ascend:1; Descend:-1)"
 
     - name: "MetaData/earthSurfaceType"
       source: variables/surfaceFlag
