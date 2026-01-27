@@ -164,7 +164,21 @@ encoder:
       source: variables/sensorScanAngle
       longName: "Sensor View Angle"
       units: "degree"
-  
+
+    - name: "MetaData/solarZenithAngle"
+      source: variables/solarZenithAngle
+      longName: "Solar Zenith Angle"
+      units: "degree"
+
+    - name: "MetaData/solarAzimuthAngle"
+      source: variables/solarAzimuthAngle
+      longName: "Solar Azimuth Angle"
+      units: "degree"
+
+    - name: "MetaData/satelliteAscendingFlag"
+      source: variables/satelliteAscendingFlag
+      longName: "Satellite Ascending/Descending Orbit Flag (Ascend:1; Descend:-1)"
+
     - name: "MetaData/earthSurfaceType"
       source: variables/surfaceFlag
       longName: "Earth Surface Type"
@@ -177,15 +191,6 @@ encoder:
       source: variables/scanLineNumber
       longName: "Scan Line Number"
   
-#    # ObsValue
-#    # Brightness Temperature
-#    - name: "ObsValue/brightnessTemperature"
-#      source: variables/brightnessTemperature
-#      longName: "Brightness Temperature"
-#      units: "K"
-#      range: [120, 500]
-#      chunks: [10000, 24]
-
     # ObsValue
     # Remapped Brightness Temperature
     - name: "ObsValue/brightnessTemperature"
