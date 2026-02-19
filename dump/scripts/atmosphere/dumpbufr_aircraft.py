@@ -3,9 +3,9 @@
 import os
 import sys
 import bufr
-import rddump
 import ncepbufr
 import numpy as np
+import dumpbufr_aircraft
 from bufr.encoders import netcdf
 from datetime import datetime, timezone
 
@@ -14,14 +14,14 @@ from datetime import datetime, timezone
 # ----------------------------------------------
 
 filename = 'work/aircar.2023010100'
-iodout   = 'aircraft.nc'
-yaml     = 'aircraft.yaml'
+yaml     = '/scratch3/NCEPDEV/global/Jack.Woollen/spoc/dump/config/atmosphere/dumpbufr_aircraft.yaml'
+iodout   = 'dumpbufr_aircraft.nc'
 
 # -------------------------------------------------
 # open the aircraft dump file and count the reports
 # -------------------------------------------------
 
-nloc=rddump.rddump(filename)
+nloc=dumpbufr_aircraft.rddump(filename)
 if nloc>=0:
    print()
    print('Sucessfully opened ',filename,' with ',nloc,' subsets')
@@ -67,11 +67,11 @@ oe_windNorthward = np.empty(nloc,dtype=float)
 # define the bufr reader common connection and read in the data 
 # -------------------------------------------------------------
 
-common_data = rddump.data
+common_data = dumpbufr_aircraft.data
 
 for n in range(nloc):
 
-   next=rddump.rddump('readns')
+   next=dumpbufr_aircraft.rddump('readns')
    if next != 0:
       print('error reading bufr file')
       sys.exit(99)
@@ -167,30 +167,30 @@ for n in range(nloc):
 
 container = bufr.DataContainer()
 description = bufr.encoders.Description(yaml)
-container.add('stationIdentification',      md_stationIdentification,['*'])
-container.add('aircraftFlightNumber',       md_aircraftFlightNumber,['*'])
-container.add('aircraftTailNumber',         md_aircraftTailNumber,['*'])
-container.add('observationTypeNum',         md_observationTypeNum,['*'])
-container.add('observationSubTypeNum',      md_observationSubTypeNum,['*'])
-container.add('latitude',                   md_latitude,['*'])
-container.add('longitude',                  md_longitude,['*'])
-container.add('unix_time',                  md_unix_time,['*'])
-container.add('pressure',                   md_pressure,['*'])
-container.add('elevation',                  md_elevation,['*'])
-container.add('aircraftFlightPhase',        md_aircraftFlightPhase,['*'])
-container.add('instantaneousAltitudeRate',  md_instantaneousAltitudeRate,['*'])
-container.add('aircraftNavigationSystem',   md_aircraftNavigationSystem,['*'])
-container.add('airTemperature',             ov_airTemperature,['*'])
-container.add('specificHumidity',           ov_specificHumidity,['*'])
-container.add('windEastward',               ov_windEastward,['*'])
-container.add('windNorthward',              ov_windNorthward,['*'])
-container.add('airTemperature',             qm_airTemperature,['*'])
-container.add('specificHumidity',           qm_specificHumidity,['*'])
-container.add('windEastward',               qm_windEastward,['*'])
-container.add('windNorthward',              qm_windNorthward,['*'])
-container.add('airTemperature',             oe_airTemperature,['*'])
-container.add('specificHumidity',           oe_specificHumidity,['*'])
-container.add('windEastward',               oe_windEastward,['*'])
-container.add('windNorthward',              oe_windNorthward,['*'])
+container.add('md_stationIdentification',      md_stationIdentification,['*'])
+container.add('md_aircraftFlightNumber',       md_aircraftFlightNumber,['*'])
+container.add('md_aircraftTailNumber',         md_aircraftTailNumber,['*'])
+container.add('md_observationTypeNum',         md_observationTypeNum,['*'])
+container.add('md_observationSubTypeNum',      md_observationSubTypeNum,['*'])
+container.add('md_latitude',                   md_latitude,['*'])
+container.add('md_longitude',                  md_longitude,['*'])
+container.add('md_unix_time',                  md_unix_time,['*'])
+container.add('md_pressure',                   md_pressure,['*'])
+container.add('md_elevation',                  md_elevation,['*'])
+container.add('md_aircraftFlightPhase',        md_aircraftFlightPhase,['*'])
+container.add('md_instantaneousAltitudeRate',  md_instantaneousAltitudeRate,['*'])
+container.add('md_aircraftNavigationSystem',   md_aircraftNavigationSystem,['*'])
+container.add('ov_airTemperature',             ov_airTemperature,['*'])
+container.add('ov_specificHumidity',           ov_specificHumidity,['*'])
+container.add('ov_windEastward',               ov_windEastward,['*'])
+container.add('ov_windNorthward',              ov_windNorthward,['*'])
+container.add('qm_airTemperature',             qm_airTemperature,['*'])
+container.add('qm_specificHumidity',           qm_specificHumidity,['*'])
+container.add('qm_windEastward',               qm_windEastward,['*'])
+container.add('qm_windNorthward',              qm_windNorthward,['*'])
+container.add('oe_airTemperature',             oe_airTemperature,['*'])
+container.add('oe_specificHumidity',           oe_specificHumidity,['*'])
+container.add('oe_windEastward',               oe_windEastward,['*'])
+container.add('oe_windNorthward',              oe_windNorthward,['*'])
 netcdf.Encoder(description).encode(container,iodout)
 

@@ -36,9 +36,9 @@ encoder:
       source: variables/md_longitude     
       longName: "MetaData/longitude"  
       units: "none"             
-    - name: "MetaData/unix_Time"      
-      source: variables/md_unix_Time     
-      longName: "MetaData/unix_Time"  
+    - name: "MetaData/unix_time"      
+      source: variables/md_unix_time     
+      longName: "MetaData/unix_time"  
       units: "none"             
     - name: "MetaData/pressure"      
       source: variables/md_pressure     
