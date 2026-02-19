@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 # define the input and  parameter file locations
 # ----------------------------------------------
 
-filename = 'work/aircar.2023010100'
+filename = 'work/acdump.2023080100'
 yaml     = '/scratch3/NCEPDEV/global/Jack.Woollen/spoc/dump/config/atmosphere/dumpbufr_aircraft.yaml'
 iodout   = 'dumpbufr_aircraft.nc'
 
