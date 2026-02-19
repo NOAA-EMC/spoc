@@ -1,0 +1,110 @@
+encoder:
+
+  globals:
+
+    - name: dummy
+      type: string
+      value: dummy str
+
+  variables:
+
+    - name: "MetaData/stationIdentification"      
+      source: variables/md_stationIdentification     
+      longName: "MetaData/stationIdentification"  
+      units: "none"             
+    - name: "MetaData/aircraftFlightNumber"      
+      source: variables/md_aircraftFlightNumber     
+      longName: "MetaData/aircraftFlightNumber"  
+      units: "none"             
+    - name: "MetaData/aircraftTailNumber"      
+      source: variables/md_aircraftTailNumber     
+      longName: "MetaData/aircraftTailNumber"  
+      units: "none"             
+    - name: "MetaData/observationTypeNum"      
+      source: variables/md_observationTypeNum     
+      longName: "MetaData/observationTypeNum"  
+      units: "none"             
+    - name: "MetaData/observationSubTypeNum"      
+      source: variables/md_observationSubTypeNum     
+      longName: "MetaData/observationSubTypeNum"  
+      units: "none"             
+    - name: "MetaData/latitude"      
+      source: variables/md_latitude     
+      longName: "MetaData/latitude"  
+      units: "none"             
+    - name: "MetaData/longitude"      
+      source: variables/md_longitude     
+      longName: "MetaData/longitude"  
+      units: "none"             
+    - name: "MetaData/unix_Time"      
+      source: variables/md_unix_Time     
+      longName: "MetaData/unix_Time"  
+      units: "none"             
+    - name: "MetaData/pressure"      
+      source: variables/md_pressure     
+      longName: "MetaData/pressure"  
+      units: "none"             
+    - name: "MetaData/elevation"      
+      source: variables/md_elevation     
+      longName: "MetaData/elevation"  
+      units: "none"             
+    - name: "MetaData/aircraftFlightPhase"      
+      source: variables/md_aircraftFlightPhase     
+      longName: "MetaData/aircraftFlightPhase"  
+      units: "none"             
+    - name: "MetaData/instantaneousAltitudeRate"      
+      source: variables/md_instantaneousAltitudeRate     
+      longName: "MetaData/instantaneousAltitudeRate"  
+      units: "none"             
+    - name: "MetaData/aircraftNavigationSystem"      
+      source: variables/md_aircraftNavigationSystem     
+      longName: "MetaData/aircraftNavigationSystem"  
+      units: "none"             
+    - name: "ObsValues/airTemperature"      
+      source: variables/ov_airTemperature     
+      longName: "ObsValues/airTemperature"  
+      units: "none"             
+    - name: "ObsValues/specificHumidity"      
+      source: variables/ov_specificHumidity     
+      longName: "ObsValues/specificHumidity"  
+      units: "none"             
+    - name: "ObsValues/windEastward"      
+      source: variables/ov_windEastward     
+      longName: "ObsValues/windEastward"  
+      units: "none"             
+    - name: "ObsValues/windNorthward"      
+      source: variables/ov_windNorthward     
+      longName: "ObsValues/windNorthward"  
+      units: "none"             
+    - name: "QualityMarker/airTemperature"      
+      source: variables/qm_airTemperature     
+      longName: "QualityMarker/airTemperature"  
+      units: "none"             
+    - name: "QualityMarker/specificHumidity"      
+      source: variables/qm_specificHumidity     
+      longName: "QualityMarker/specificHumidity"  
+      units: "none"             
+    - name: "QualityMarker/windEastward"      
+      source: variables/qm_windEastward     
+      longName: "QualityMarker/windEastward"  
+      units: "none"             
+    - name: "QualityMarker/windNorthward"      
+      source: variables/qm_windNorthward     
+      longName: "QualityMarker/windNorthward"  
+      units: "none"             
+    - name: "ObsError/airTemperature"      
+      source: variables/oe_airTemperature     
+      longName: "ObsError/airTemperature"  
+      units: "none"             
+    - name: "ObsError/specificHumidity"      
+      source: variables/oe_specificHumidity     
+      longName: "ObsError/specificHumidity"  
+      units: "none"             
+    - name: "ObsError/windEastward"      
+      source: variables/oe_windEastward     
+      longName: "ObsError/windEastward"  
+      units: "none"             
+    - name: "ObsError/windNorthward"      
+      source: variables/oe_windNorthward     
+      longName: "ObsError/windNorthward"  
+      units: "none"             
