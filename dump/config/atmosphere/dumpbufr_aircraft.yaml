@@ -36,17 +36,17 @@ encoder:
       source: variables/md_longitude     
       longName: "MetaData/longitude"  
       units: "none"             
-    - name: "MetaData/unix_time"      
+    - name: "MetaData/dateTime"      
       source: variables/md_unix_time     
-      longName: "MetaData/unix_time"  
+      longName: "MetaData/dateTime"  
       units: "none"             
     - name: "MetaData/pressure"      
       source: variables/md_pressure     
       longName: "MetaData/pressure"  
       units: "none"             
-    - name: "MetaData/elevation"      
+    - name: "MetaData/stationElevation"      
       source: variables/md_elevation     
-      longName: "MetaData/elevation"  
+      longName: "MetaData/stationElevation"  
       units: "none"             
     - name: "MetaData/aircraftFlightPhase"      
       source: variables/md_aircraftFlightPhase     

@@ -56,6 +56,7 @@
       real(8) mixr,rehu,tmdp,rahu,qmdd,mstq
       real(8) tmdb,tmdx,WDIR,WSPD,QMWN
       real(8) rpid,acid,acrn,dpof
+      real(8) pi180/0.017453293/
 
       character(8) sid,subset
       equivalence (sid,rid)
@@ -121,6 +122,8 @@
       call ufbint(lunin,IALR,1,1,iret,'IALR')
       call ufbint(lunin,ACNS,1,1,iret,'ACNS')
 
+      if(ibfms(acns)==1) acns = 7
+
 !  aircraft call ids
 !  -----------------
 
@@ -135,10 +138,10 @@
 !  CHECK THE DATE TIME ELEMENTS
 !  ----------------------------
 
-      if(ibfms(year)==1) call bort('bad year')
-      if(ibfms(mnth)==1) call bort('bad mnth')
-      if(ibfms(days)==1) call bort('bad days')
-      if(ibfms(hour)==1) call bort('bad hour')
+      if(ibfms(year)==1) year = 1 
+      if(ibfms(mnth)==1) mnth = 1 
+      if(ibfms(days)==1) days = 1 
+      if(ibfms(hour)==1) hour = 0 
       if(ibfms(minu)==1) minu = 0 
       if(ibfms(seco)==1) seco = 0 
 
@@ -150,15 +153,21 @@
          OVAT=TMDB
          IF(IBFMS(QMAT)==1) QMAT=2
       else
-         OVAT=fill
-         QMAT=fill 
+         OVAT=FILL
+         QMAT=FILL 
       ENDIF
 
 !  WIND AND QUALITY MARKS
 !  ----------------------
       
       IF(IBFMS(MAX(WDIR,WSPD))==0) THEN
-         CALL UV(WDIR,WSPD,OVEW,OVNW)
+         IF(WSPD<=0.0)  THEN
+            OVEW = 0.0
+            OVNW = 0.0
+         ELSE
+            OVEW = -WSPD*SIN(WDIR*PI180)
+            OVNW = -WSPD*COS(WDIR*PI180)
+         END IF
          IF(IBFMS(QMWN)==1) THEN
             QMEW=2
             QMNW=2
@@ -166,11 +175,11 @@
             QMEW=QMWN
             QMNW=QMWN
          ENDIF
-      else
-            ovew=fill
-            ovnw=fill
-            qmew=fill
-            qmnw=fill
+      ELSE
+         OVEW=FILL
+         OVNW=FILL
+         QMEW=FILL
+         QMNW=FILL
       ENDIF
 
 !  ASSIGN A REPORT TYPE EACH DUMPFILE SUBSET CATEGORY                          |
@@ -196,8 +205,8 @@
          IF(STYP==015) OTYP=32    ! MTYP 004-015  High density recconnaissance obs (HDOB)
          IF(STYP==103) OTYP=31    ! MTYP 004-103  All other automated AMDAR (BUFR)
       ELSE
-         call bort('rddump - no bufr message subype!')
-      endif
+         STYP=FILL; OTYP=FILL 
+      ENDIF
 
 !  IF LOW RES LAT/LON MISSING, REPORT LIKELY CONTAINS HI RES LAT/LON
 !  -----------------------------------------------------------------
@@ -223,12 +232,8 @@
          IF(PRLC.LT.22630) ELEV = HGTF_HI(PRLC*.01)
          IF(PRLC.GE.22630) ELEV = HGTF_LO(PRLC*.01)
       ELSEIF(IBFMS(IALT)==0)  THEN
-         ELEV = IALT         
-      ELSE
-         ELEV = FILL  
-      ENDIF
-
-      IF(IBFMS(PSAL)==0) THEN
+         ELEV = IALT + SIGN(tiny,IALT)
+      ELSEIF(IBFMS(PSAL)==0) THEN
          ELEV = PSAL + SIGN(tiny,PSAL)
       ELSEIF(IBFMS(FLVL)==0)  THEN
          ELEV = FLVL + SIGN(tiny,FLVL)
@@ -238,14 +243,14 @@
          ELEV = HMSL + SIGN(tiny,HMSL)
       ELSEIF(IBFMS(FLVLST)==0)  THEN
          ELEV = FLVLST + SIGN(tiny,FLVLST)
-      END IF
+      ENDIF
 
 !  CALCULATE PRESSURE IF PRLC IS MISSING
 !  -------------------------------------
 
       IF(IBFMS(PRLC)==1) THEN
-         IF(NINT(ELEV).LE.11000) pres = PR(ELEV)
-         IF(NINT(ELEV).GT.11000) pres = PRS(ELEV)
+         IF(NINT(ELEV).LE.11000) PRES = PR(ELEV)
+         IF(NINT(ELEV).GT.11000) PRES = PRS(ELEV)
       ELSE
          PRES = PRLC*0.1
       END If
@@ -254,16 +259,16 @@
 !  -----------------------------
 
       IF(IBFMS(MAX(MIXR,pres))==0) THEN
-         P=pres; W=MIXR
+         P=PRES; W=MIXR
          OVSH=QSPH(P,EMIX(P,W))*1.e3
       ELSEIF(IBFMS(MAX(REHU,pres,TMDB))==0) THEN
-         P=pres; R=REHU; T=TMDB
+         P=PRES; R=REHU; T=TMDB
          OVSH=QSPH(P,ERLH(P,R,T))*1.e3 
       ELSEIF(IBFMS(MAX(RAHU,pres,TMDB))==0) THEN
-         P=pres; R=RAHU; T=TMDB
+         P=PRES; R=RAHU; T=TMDB
          OVSH=QSPH(P,ERLH(P,R,T))*1.e3
       ELSEIF(IBFMS(MAX(TMDP,pres))==0) THEN
-         P=pres; D=TMDP
+         P=PRES; D=TMDP
          OVSH=QSPH(P,EDEW(D))*1.e3
       ELSE
          OVSH=FILL  
@@ -272,6 +277,7 @@
       IF(IBFMS(MSTQ)==0) QMSH=MSTQ 
       IF(IBFMS(QMDD)==0) QMSH=QMDD
       IF(OVSH==FILL)     QMSH=FILL
+      IF(OVSH/=FILL)     QMSH=2   
 
 C  GET PHASE OF FLIGHT from DPOF or POAF elements
 C  ----------------------------------------------
@@ -279,44 +285,12 @@ C  ----------------------------------------------
          CALL UFBINT(LUNIN,DPOF,1,1,IRET,'DPOF')
          CALL UFBINT(LUNIN,POAF,1,1,IRET,'POAF')
 
-         if(ibfms(dpof)==0) then
-           poaf = dpof
-           if(int(dpof)>=7 .and.int(dpof)<=10) poaf=5
-           if(int(dpof)>=11.and.int(dpof)<=14) poaf=6
-         endif
+         IF(IBFMS(DPOF)==0) THEN
+           POAF = DPOF
+           IF(INT(DPOF)>=7 .AND.INT(DPOF)<=10) POAF=5
+           IF(INT(DPOF)>=11.AND.INT(DPOF)<=14) POAF=6
+         ENDIF
 
       END SUBROUTINE
-!-----------------------------------------------------------------------
-!-----------------------------------------------------------------------
-      SUBROUTINE UV(DD,FF,U,V)
-      real(8) DD,FF,U,V
-      DATA  CONV2R/0.017453293/,FACTOR/0.5148/
-
-! IF WIND SPEED LESS THAN ZERO, WE HAVE A PROBLEM
-! -----------------------------------------------
-
-      IF(FF.LE.0.0)  THEN
-         U = 0.0
-         V = 0.0
-      ELSE
-         U = -FF * SIN(DD*CONV2R)
-         V = -FF * COS(DD*CONV2R)
-      END IF
-      RETURN
-
-         ENTRY DF(U,V,DD,FF)
-      IF(U.EQ.0.0)  THEN
-         DD = 0.
-         IF(V.GT.0.0)  DD = 180.
-      ELSE
-         IF(V.EQ.0.0)  THEN
-            DD =  90.
-            IF(U.GT.0.0)  DD = 270.
-         ELSE
-            DD = (ATAN2(U,V)/CONV2R) + 180.
-            DD = MOD(DD,360.)
-         END IF
-      END IF
-      FF = SQRT(U**2 + V**2)/FACTOR
-      
-      END subroutine
+!----------------------------------------------------------------------
+!----------------------------------------------------------------------
