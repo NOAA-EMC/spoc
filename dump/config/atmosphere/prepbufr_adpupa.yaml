@@ -26,6 +26,10 @@ bufr:
       query: "*/PRSLEVEL/CAT"
     obsTimeMinusCycleTime:
       query: "*/PRSLEVEL/DRFTINFO/HRDR"
+    restrictionFlag:
+      query: "*/RSRD_SEQ/RSRD"
+    restrictionExpiration:
+      query: "*/RSRD_SEQ/EXPRSRD"      
     longitude:
       query: "*/PRSLEVEL/DRFTINFO/XDR"
       transforms:
@@ -175,6 +179,16 @@ encoder:
       source: variables/stationIdentification
       longName: "Station Identification"
 
+    # Restriction on Redistribution
+    - name: "MetaData/restrictionFlag"
+      source: variables/restrictionFlag
+      longName: "Restriction on Redistribution"
+      
+    # Expiration of Restriction on Redistribution  
+    - name: "MetaData/restrictionExpiration"
+      source: variables/restrictionExpiration
+      longName: "Expiration of Restriction on Redistribution"
+    
     # MetaData: longitude
     - name: "MetaData/longitude"
       source: variables/longitude
