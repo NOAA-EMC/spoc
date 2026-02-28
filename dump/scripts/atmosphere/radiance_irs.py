@@ -8,9 +8,7 @@ import numpy as np
 from netCDF4 import Dataset
 from bufr.encoders import netcdf
 
-# ----------------------------------------------------------------------------------------------------------
-# define the apodising function
-# ----------------------------------------------------------------------------------------------------------
+#---define the apodising function
 
 def apply_hamming(x,nchan):
      hamming0 = np.float64(0.54); hamming1 = np.float64(0.23)
@@ -21,12 +19,9 @@ def apply_hamming(x,nchan):
           y[icn] = x[icn-1]*hamming1+x[icn]*hamming0+x[icn+1]*hamming1
      return y
 
-# ----------------------------------------------------------------------------------------------------------
-# read two arguments to define task
-# ---------------------------------
-# 1) the input data directory path
-# 2) the output path/filename
-# ----------------------------------------------------------------------------------------------------------
+#---read two arguments to define task
+#---1) the input data directory path
+#---2) the output path/filename
 
 if len(sys.argv) < 3:
     print(f"{sys.argv[0]} needs <inpdir> and <iodout> ")
@@ -35,9 +30,7 @@ if len(sys.argv) < 3:
 inpdir=sys.argv[1]; print(sys.argv[1])
 iodout=sys.argv[2]; print(sys.argv[2])
 
-# ----------------------------------------------------------------------------------------------------------
-# setup more filenames and parameters
-# ----------------------------------------------------------------------------------------------------------
+#---setup more filenames and parameters
 
 yamls   = "/scratch3/NCEPDEV/global/Jack.Woollen/spoc/dump/config/atmosphere"
 parms   = "/scratch3/NCEPDEV/global/Jack.Woollen/spoc/dump/scripts/atmosphere/parm"
@@ -46,16 +39,12 @@ mwchans = os.path.join(parms,"irs_coopman_mw_channels.txt")
 reconst = os.path.join(parms,"RSP_OPE_BASEEV_MTS1+IRS_20230925000000_V1_out.h5")
 yaml    = os.path.join(yamls,"radiance_irs.yaml")
 
-# ----------------------------------------------------------------------------------------------------------
-# read the channel data for lw and mw ir wave numbers
-# --------------------------------------------------
+#---read the channel data for lw and mw ir wave numbers
 
 chan_lw = np.loadtxt(lwchans,dtype=int); chan_lw = chan_lw[chan_lw != 0]; chns_lw = chan_lw.shape[0]
 chan_mw = np.loadtxt(mwchans,dtype=int); chan_mw = chan_mw[chan_mw != 0]; chns_mw = chan_mw.shape[0]
 
-# ----------------------------------------------------------------------------------------------------------
-# read reconstruction means and operators for lw and mw ir channels
-# ----------------------------------------------------------------------------------------------------------
+#---read reconstruction means and operators for lw and mw ir channels
 
 hd5file=Dataset(reconst)
 means = hd5file['lwir'].variables['Mean'][:][:]; means_lw = means[chan_lw]
@@ -63,9 +52,7 @@ means = hd5file['mwir'].variables['Mean'][:][:]; means_mw = means[chan_mw]
 recop = hd5file['lwir'].variables['ReconstructionOperator']; recop_lw = recop[:,chan_lw]; wnum_lw = recop.shape[1]
 recop = hd5file['mwir'].variables['ReconstructionOperator']; recop_mw = recop[:,chan_mw]; wnum_mw = recop.shape[1]
 
-# ----------------------------------------------------------------------------------------------------------
-# hamming the eigenvectors
-# ----------------------------------------------------------------------------------------------------------
+#---hamming the eigenvectors
 
 means_lw = apply_hamming(means_lw,chns_lw)
 means_mw = apply_hamming(means_mw,chns_mw)
@@ -73,9 +60,7 @@ for ipc in range(len(recop_lw)):
      recop_lw[ipc] = apply_hamming(recop_lw[ipc][:],chns_lw)
      recop_mw[ipc] = apply_hamming(recop_mw[ipc][:],chns_mw)
 
-# ----------------------------------------------------------------------------------------------------------
-# setup radiance channel output parameters 
-# ----------------------------------------------------------------------------------------------------------
+#---setup radiance channel output parameters 
 
 lw0 = 0
 lw1 = chns_lw
@@ -86,20 +71,14 @@ chans = np.full(nchan,0,dtype=int)
 chans[lw0:lw1] = chan_lw[:]
 chans[mw0:mw1] = chan_mw[:]+wnum_lw
 
-# ----------------------------------------------------------------------------------------------------------
-# working parameters and arrays
-# ----------------------------------------------------------------------------------------------------------
+#---working parameters and arrays
 
-iter   = 1
-itex   = -1        
-imax   = np.zeros(1024,dtype=int)
-jmax   = np.zeros(1024,dtype=int)
 kmax   = 1024 
+jmax   = np.zeros(kmax,dtype=int)
+imax   = np.zeros(kmax,dtype=int)
 fill   = 1.e300
 
-# ----------------------------------------------------------------------------------------------------------
-# check that the files in the list exist and are readable
-# ----------------------------------------------------------------------------------------------------------
+#---check that the files in the list exist and are readable
 
 try:
    file_list = os.listdir(inpdir)
@@ -114,7 +93,6 @@ if not netcdf_files:
    sys.exit(1)
 
 for filename in netcdf_files:
-   #print(iter, filename)
    try:
         irs  = Dataset(os.path.join(inpdir, filename))
         file_keep.append(filename)
@@ -122,12 +100,11 @@ for filename in netcdf_files:
         sys.stderr.write(f"Skipping file '{filename}': failed to open as NetCDF: {e}\n")
         continue
 
-# ----------------------------------------------------------------------------------------------------------
-# create numpy array for all the dwell groups
-# ----------------------------------------------------------------------------------------------------------
-
 nfil=len(file_keep)      ; print('nfiles=',nfil)
-nloc=len(file_keep)*kmax ; print('nlocs=',nloc)
+
+#---create empty numpy array for all the dwell groups
+
+nloc=0 # to start with 
 
 time=np.zeros(nloc)
 dwell_number=np.zeros(nloc)
@@ -150,29 +127,24 @@ lwir_global_pcr_scores=np.zeros(nloc)
 lwir_global_pcrs_quality=np.zeros(nloc)
 lwir_spatial_sample_quality=np.zeros(nloc)
 lwir_residual_energy=np.zeros(nloc)
-chan_num=np.zeros((nloc,nchan))
 radiance=np.zeros((nloc,nchan))
+chan_num=np.zeros((nloc,nchan))
 
-atime=0; btime=0;ctime=0
-
-# ----------------------------------------------------------------------------------------------------------
-# loop through the list of mtg-irs dwell files kept
-# ----------------------------------------------------------------------------------------------------------
+#---loop through the list of mtg-irs dwell files to be extracted
 
 for filename in file_keep:
-   print(iter,filename)
+   print(filename)
    irs  = Dataset(os.path.join(inpdir,filename))
    loca = irs['data']
    mwva = irs['data/mwir/compressed']
    lwva = irs['data/lwir/compressed']
 
-# ----------------------------------------------------------------------------------------------------------
-# select the hottest spot in each 5x5 box within the dwell
-# ----------------------------------------------------------------------------------------------------------
+#---select the hottest spot in each 5x5 box within the dwell
+
+   atime=0; atime=tm.time()
 
    source = lwva.variables["global_pc_scores"][:][:][:]
 
-   atime = tm.time()
    n = 0
    for a in range(0,160,5):
       for b in range(0,160,5):
@@ -187,69 +159,50 @@ for filename in file_keep:
                      jmax[n]=j+b
          n=n+1
 
-# ----------------------------------------------------------------------------------------------------------
-# save the soundings selected from this dwell
-# ----------------------------------------------------------------------------------------------------------
+#---save the soundings selected from this dwell
 
+   btime=0; btime=tm.time()
 
-   m = (iter-1)*kmax                               
-   btime = tm.time()
-   print(m)
+   scalar    = np.zeros(kmax)
+   scalar[:] = loca.variables["time"                       ]   [:]; time=np.concatenate((time,scalar))
+   scalar[:] = loca.variables["dwell_number"               ]   [:]; dwell_number=np.concatenate((dwell_number,scalar))
+   scalar[:] = loca.variables["stroke_direction"           ]   [:]; stroke_direction=np.concatenate((stroke_direction,scalar))
+   scalar[:] = mwva.variables["residual_energy"            ]   [:]; mwir_residual_energy=np.concatenate((lwir_residual_energy,scalar))
+   scalar[:] = lwva.variables["residual_energy"            ]   [:]; lwir_residual_energy=np.concatenate((lwir_residual_energy,scalar))
 
-   source = loca.variables["time"                          ]   [:]; time[m:m+kmax]=source
-   source = loca.variables["dwell_number"                  ]   [:]; dwell_number[m:m+kmax]=source
-   source = loca.variables["stroke_direction"              ]   [:]; stroke_direction[m:m+kmax]=source
-   source = loca.variables["latitude"                      ][:][:]; latitude[m:m+kmax]=source[imax,jmax]
-   source = loca.variables["longitude"                     ][:][:]; longitude[m:m+kmax]=source[imax,jmax]
-   source = loca.variables["satellite_azimuth_angle"       ][:][:]; satellite_azimuth_angle[m:m+kmax]=source[imax,jmax]
-   source = loca.variables["satellite_zenith_angle"        ][:][:]; satellite_zenith_angle[m:m+kmax]=source[imax,jmax]
-   source = loca.variables["solar_azimuth_angle"           ][:][:]; solar_azimuth_angle[m:m+kmax]=source[imax,jmax]
-   source = loca.variables["solar_zenith_angle"            ][:][:]; solar_zenith_angle[m:m+kmax]=source[imax,jmax]
-   source = loca.variables["cloud_signal"                  ][:][:]; cloud_signal[m:m+kmax]=source[imax,jmax]
-   source = loca.variables["cloud_fraction"                ][:][:]; cloud_fraction[m:m+kmax]=source[imax,jmax]
+   source = loca.variables["latitude"                      ][:][:]; latitude=np.concatenate((latitude,source[imax,jmax]))
+   source = loca.variables["longitude"                     ][:][:]; longitude=np.concatenate((longitude,source[imax,jmax]))
+   source = loca.variables["satellite_azimuth_angle"       ][:][:]; satellite_azimuth_angle=np.concatenate((satellite_azimuth_angle,source[imax,jmax]))
+   source = loca.variables["satellite_zenith_angle"        ][:][:]; satellite_zenith_angle=np.concatenate((satellite_zenith_angle,source[imax,jmax]))
+   source = loca.variables["solar_azimuth_angle"           ][:][:]; solar_azimuth_angle=np.concatenate((solar_azimuth_angle,source[imax,jmax]))
+   source = loca.variables["solar_zenith_angle"            ][:][:]; solar_zenith_angle=np.concatenate((solar_zenith_angle,source[imax,jmax]))
+   source = loca.variables["cloud_signal"                  ][:][:]; cloud_signal=np.concatenate((cloud_signal,source[imax,jmax]))
+   source = loca.variables["cloud_fraction"                ][:][:]; cloud_fraction=np.concatenate((cloud_fraction,source[imax,jmax]))
+   source = mwva.variables["global_pcr_scores"             ][:][:]; mwir_global_pcr_scores=np.concatenate((mwir_global_pcr_scores,source[imax,jmax]))
+   source = mwva.variables["global_pcrs_quality"           ][:][:]; mwir_global_pcrs_quality=np.concatenate((mwir_global_pcrs_quality,source[imax,jmax]))
+   source = mwva.variables["spatial_sample_quality"        ][:][:]; mwir_spatial_sample_quality=np.concatenate((mwir_spatial_sample_quality,source[imax,jmax]))
+   source = lwva.variables["global_pcr_scores"             ][:][:]; lwir_global_pcr_scores=np.concatenate((lwir_global_pcr_scores,source[imax,jmax]))
+   source = lwva.variables["global_pcrs_quality"           ][:][:]; lwir_global_pcrs_quality=np.concatenate((lwir_global_pcrs_quality,source[imax,jmax]))
+   source = lwva.variables["spatial_sample_quality"        ][:][:]; lwir_spatial_sample_quality=np.concatenate((lwir_spatial_sample_quality,source[imax,jmax]))
+   source = mwva.variables["global_pc_scores"           ][:][:][:]; mwir_global_pc_scores=np.concatenate((mwir_global_pc_scores,source[imax,jmax]))
+   source = lwva.variables["global_pc_scores"           ][:][:][:]; lwir_global_pc_scores=np.concatenate((lwir_global_pc_scores,source[imax,jmax]))
 
-   source = mwva.variables["global_pc_scores"           ][:][:][:]; mwir_global_pc_scores[m:m+kmax]=source[imax,jmax][:]
-   source = mwva.variables["global_pcr_scores"             ][:][:]; mwir_global_pcr_scores[m:m+kmax]=source[imax,jmax]
-   source = mwva.variables["global_pcrs_quality"           ][:][:]; mwir_global_pcrs_quality[m:m+kmax]=source[imax,jmax]
-   source = mwva.variables["spatial_sample_quality"        ][:][:]; mwir_spatial_sample_quality[m:m+kmax]=source[imax,jmax]
-   source = mwva.variables["residual_energy"               ]   [:]; mwir_residual_energy[m:m+kmax]=source
+#---reconstruct radiances from this dwell
 
-   source = lwva.variables["global_pc_scores"           ][:][:][:]; lwir_global_pc_scores[m:m+kmax]=source[imax,jmax][:]
-   source = lwva.variables["global_pcr_scores"             ][:][:]; lwir_global_pcr_scores[m:m+kmax]=source[imax,jmax]
-   source = lwva.variables["global_pcrs_quality"           ][:][:]; lwir_global_pcrs_quality[m:m+kmax]=source[imax,jmax]
-   source = lwva.variables["spatial_sample_quality"        ][:][:]; lwir_spatial_sample_quality[m:m+kmax]=source[imax,jmax]
-   source = lwva.variables["residual_energy"               ]   [:]; lwir_residual_energy[m:m+kmax]=source
+   rads=np.zeros((kmax,nchan))
+   chan=np.zeros((kmax,nchan))
 
+   for m in range(kmax):
+      rads[m][lw0:lw1] = 100.* (np.dot(lwir_global_pc_scores[m],recop_lw) + means_lw)
+      rads[m][mw0:mw1] = 100.* (np.dot(mwir_global_pc_scores[m],recop_mw) + means_mw)
+      chan[m] = chans[:]
 
+   radiance=np.concatenate((radiance,rads))
+   chan_num=np.concatenate((chan_num,chan))
 
-#  print(source.shape)
-#  print(source[0][0][0:10])
-#  print(mwva.variables["global_pc_scores"][0][0][0:10])
-#  print(mwva.variables["global_pc_scores"][imax[0]][jmax[0]][0:10])
-#  print(mwir_global_pc_scores[0][0:10])
+   ctime=0; ctime = tm.time(); ##print(btime-atime,ctime-btime); exit()
 
-   for m in range(nloc):
-      radiance[m][lw0:lw1] = 100.* (np.dot(lwir_global_pc_scores[m],recop_lw) + means_lw)
-      radiance[m][mw0:mw1] = 100.* (np.dot(mwir_global_pc_scores[m],recop_mw) + means_mw)
-      chan_num[m] = chans[:]
-
-   ctime = tm.time(); print(btime-atime,ctime-btime)
-   exit()
-
-
-   if iter==itex:
-      break
-   iter=iter+1
-
-#print(radiance.shape,lwir_global_pc_scores.shape,recop_lw.shape,means_lw.shape)
-#print(radiance.dtype,lwir_global_pc_scores.dtype,recop_lw.dtype,means_lw.dtype)
-#for i in range(300):
-#   print(radiance[0][i])
-#exit()
-
-# ----------------------------------------------------------------------------------------------------------
-# write into the container and the ioda dump file
-# ----------------------------------------------------------------------------------------------------------
+#---after all dwells are processed write into the container and dump the ioda file
 
 container = bufr.DataContainer()
 description = bufr.encoders.Description(yaml)
@@ -277,7 +230,4 @@ container.add('lwir_residual_energy', lwir_residual_energy, ['*'])
 container.add('chan_num', chan_num, ['*','*/RADCHN'])
 container.add('radiance', radiance, ['*','*/RADCHN'])
 netcdf.Encoder(description).encode(container,iodout)
-
-#for i in range(300):
-#     print(i,radiance[0][i])
 
