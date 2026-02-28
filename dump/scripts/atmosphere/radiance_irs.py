@@ -132,12 +132,15 @@ chan_num=np.zeros((nloc,nchan))
 
 #---loop through the list of mtg-irs dwell files to be extracted
 
+
+dwel=0
 for filename in file_keep:
    print(filename)
    irs  = Dataset(os.path.join(inpdir,filename))
    loca = irs['data']
    mwva = irs['data/mwir/compressed']
    lwva = irs['data/lwir/compressed']
+   dwel = dwel+1
 
 #---select the hottest spot in each 5x5 box within the dwell
 
@@ -193,8 +196,9 @@ for filename in file_keep:
    chan=np.zeros((kmax,nchan))
 
    for m in range(kmax):
-      rads[m][lw0:lw1] = 100.* (np.dot(lwir_global_pc_scores[m],recop_lw) + means_lw)
-      rads[m][mw0:mw1] = 100.* (np.dot(mwir_global_pc_scores[m],recop_mw) + means_mw)
+      mm = kmax*(dwel-1)+m
+      rads[m][lw0:lw1] = 100.* (np.dot(lwir_global_pc_scores[mm],recop_lw) + means_lw)
+      rads[m][mw0:mw1] = 100.* (np.dot(mwir_global_pc_scores[mm],recop_mw) + means_mw)
       chan[m] = chans[:]
 
    radiance=np.concatenate((radiance,rads))
