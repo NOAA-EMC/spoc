@@ -7,6 +7,7 @@ import time  as tm
 import numpy as np
 from netCDF4 import Dataset
 from bufr.encoders import netcdf
+from datetime import datetime, timezone
 
 #---define the apodising function
 
@@ -77,6 +78,7 @@ kmax   = 1024
 jmax   = np.zeros(kmax,dtype=int)
 imax   = np.zeros(kmax,dtype=int)
 fill   = 1.e300
+unix2000 = datetime(2000,1,1,0,0,0,tzinfo=timezone.utc).timestamp()
 
 #---check that the files in the list exist and are readable
 
@@ -130,8 +132,7 @@ lwir_residual_energy=np.zeros(nloc)
 radiance=np.zeros((nloc,nchan))
 chan_num=np.zeros((nloc,nchan))
 
-#---loop through the list of mtg-irs dwell files to be extracted
-
+#---loop through the list of mtg-irs dwell files to be processed
 
 dwel=0
 for filename in file_keep:
@@ -166,7 +167,7 @@ for filename in file_keep:
 
    btime=0; btime=tm.time()
 
-   scalar    = np.zeros(kmax)
+   scalar    = np.zeros(kmax)      
    scalar[:] = loca.variables["time"                       ]   [:]; time=np.concatenate((time,scalar))
    scalar[:] = loca.variables["dwell_number"               ]   [:]; dwell_number=np.concatenate((dwell_number,scalar))
    scalar[:] = loca.variables["stroke_direction"           ]   [:]; stroke_direction=np.concatenate((stroke_direction,scalar))
@@ -206,7 +207,11 @@ for filename in file_keep:
 
    ctime=0; ctime = tm.time(); ##print(btime-atime,ctime-btime); exit()
 
-#---after all dwells are processed write into the container and dump the ioda file
+#---after all dwells are processed change irs timestamp to unix timestamp
+
+time = time+unix2000
+
+#---write selected locations into into a container and dump the ioda file
 
 container = bufr.DataContainer()
 description = bufr.encoders.Description(yaml)
@@ -231,7 +236,7 @@ container.add('lwir_global_pcr_scores', lwir_global_pcr_scores, ['*'])
 container.add('lwir_global_pcrs_quality', lwir_global_pcrs_quality, ['*'])
 container.add('lwir_spatial_sample_quality', lwir_spatial_sample_quality, ['*'])
 container.add('lwir_residual_energy', lwir_residual_energy, ['*'])
-container.add('chan_num', chan_num, ['*','*/RADCHN'])
-container.add('radiance', radiance, ['*','*/RADCHN'])
+container.add('chan_num', chan_num, ['*','*/CHANNEL'])
+container.add('radiance', radiance, ['*','*/CHANNEL'])
 netcdf.Encoder(description).encode(container,iodout)
 

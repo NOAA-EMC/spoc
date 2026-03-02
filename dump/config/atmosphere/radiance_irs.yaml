@@ -3,8 +3,8 @@ encoder:
   dimensions:
     - name: pscore
       path: "*/PSCORE"
-    - name: radchn
-      path: "*/RADCHN"
+    - name: channel
+      path: "*/CHANNEL"
 
   globals:
 
@@ -14,17 +14,17 @@ encoder:
 
   variables:
 
-    - name: MetaData/time
+    - name: MetaData/dateTime
       source: variables/time
       longName: "UTC time at which the geometric metadata are calculated."
-      units: "seconds since 2000-01-01 00:00:00.0"
+      units: "seconds since 1970-01-01 00:00:00.0"
 
-    - name: MetaData/dwell_number
+    - name: MetaData/dwellNumber
       source: variables/dwell_number
       longName: "Dwell number based on fixed position across the full disc based on the current instrument scan law."
       units: "none"
 
-    - name: MetaData/stroke_direction
+    - name: MetaData/strokeDirection
       source: variables/stroke_direction
       longName: "Stroke direction for dwell acquisition"
       units: "none"
@@ -39,92 +39,92 @@ encoder:
       longName: "Geolocation longitude"
       units: "degrees_east"
 
-    - name: MetaData/satellite_azimuth_angle
+    - name: MetaData/sensorAzimuthAngle
       source: variables/satellite_azimuth_angle
       longName: "Satellite azimuth angle"
       units: "degrees"
 
-    - name: MetaData/satellite_zenith_angle
+    - name: MetaData/sensorZenithAngle
       source: variables/satellite_zenith_angle
       longName: "Satellite zenith angle"
       units: "degrees"
 
-    - name: MetaData/solar_azimuth_angle
+    - name: MetaData/solarAzimuthAngle
       source: variables/solar_azimuth_angle
       longName: "Solar azimuth angle"
       units: "degrees"
 
-    - name: MetaData/solar_zenith_angle
+    - name: MetaData/solarZenithAngle
       source: variables/solar_zenith_angle
       longName: "Solar zenith angle"
       units: "degrees"
 
-    - name: MetaData/cloud_signal
+    - name: MetaData/cloudSignal
       source: variables/cloud_signal
       longName: "Cloud signal for spatial sample"
       units: "none"
 
-    - name: MetaData/cloud_fraction
+    - name: MetaData/cloudCoverTotal
       source: variables/cloud_fraction
       longName: "Cloud fraction for spatial sample"
       units: "none"
 
-    - name: ObsValues/mwir_global_pc_scores
+    - name: ObsValues/mwGlobalPcScores
       source: variables/mwir_global_pc_scores
-      longName: "mwir_global_pc_scores"
+      longName: "Medium wave global pc scores"
       units: "none"
 
-    - name: ObsValues/mwir_global_pcr_scores
+    - name: ObsValues/mwGlobalPcrScores
       source: variables/mwir_global_pcr_scores
-      longName: "mwir_global_pcr_scores"
+      longName: "Medium wave global pcr scores"
       units: "none"
 
-    - name: ObsValues/mwir_global_pcrs_quality
+    - name: ObsValues/mwGlobalPcrsQuality
       source: variables/mwir_global_pcrs_quality
-      longName: "mwir_global_pcrs_quality"
+      longName: "Medium wave global pcrs quality"
       units: "none"
 
-    - name: ObsValues/mwir_spatial_sample_quality
+    - name: ObsValues/mwSpatialSampleQuality
       source: variables/mwir_spatial_sample_quality
-      longName: "mwir_spatial_sample_quality"
+      longName: "Medium wave spatial sample quality"
       units: "none"
 
-    - name: ObsValues/mwir_residual_energy
+    - name: ObsValues/mwResidualEnergy
       source: variables/mwir_residual_energy
-      longName: "mwir_residual_energy"
+      longName: "Medium wave residual energy"
       units: "none"
 
-    - name: ObsValues/lwir_global_pc_scores
+    - name: ObsValues/lwGlobalPcScores
       source: variables/lwir_global_pc_scores
-      longName: "lwir_global_pc_scores"
+      longName: "Long wave global pc scores"
       units: "none"
 
-    - name: ObsValues/lwir_global_pcr_scores
+    - name: ObsValues/lwGlobalPcrScores
       source: variables/lwir_global_pcr_scores
-      longName: "lwir_global_pcr_scores"
+      longName: "Long wave global pcr scores"
       units: "none"
 
-    - name: ObsValues/lwir_global_pcrs_quality
+    - name: ObsValues/lwGlobalPcrsQuality
       source: variables/lwir_global_pcrs_quality
-      longName: "lwir_global_pcrs_quality"
+      longName: "Long wave global pcrs quality"
       units: "none"
 
-    - name: ObsValues/lwir_spatial_sample_quality
+    - name: ObsValues/lwSpatialSampleQuality
       source: variables/lwir_spatial_sample_quality
-      longName: "lwir_spatial_sample_quality"
+      longName: "Long wave spatial sample quality"
       units: "none"
 
-    - name: ObsValues/lwir_residual_energy
+    - name: ObsValues/lwResidualEnergy
       source: variables/lwir_residual_energy
-      longName: "lwir_residual_energy"
+      longName: "Long wave residual energy"
       units: "none"
 
-    - name: ObsValues/chan_num                
+    - name: ObsValues/sensorChannelNumber     
       source: variables/chan_num                   
-      longName: "selected channel number"
+      longName: "Sensor channel number"
       units: "none"
 
     - name: ObsValues/radiance                
       source: variables/radiance                   
-      longName: "selected channel radiance"
+      longName: "Sensor channel radiance"
       units: "W/(m^2.sr.cm^-1)"
