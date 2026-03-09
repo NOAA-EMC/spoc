@@ -119,7 +119,7 @@ encoder:
       longName: "Long wave residual energy"
       units: "none"
 
-    - name: ObsValues/sensorChannelNumber     
+    - name: MetaData/sensorChannelNumber     
       source: variables/chan_num                   
       longName: "Sensor channel number"
       units: "none"
