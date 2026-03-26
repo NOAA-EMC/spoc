@@ -62,7 +62,7 @@ bufr:
     dataProviderOrigin:
       query: "*/GCLONG"
 
-    meterologicalFeature:
+    meteorologicalFeature:
       query: "*/RPSEQ10{4-11}/METFET"
 
     # ObsValue   
