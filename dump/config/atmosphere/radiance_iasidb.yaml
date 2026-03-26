@@ -112,7 +112,7 @@ encoder:
 
     - name: "sensorLongDescription"
       type: string
-      value: "Infrared Atmospheric Sounding Interferometer with 8461 channels with one embedded IR imaging channel; corss-track scanning"
+      value: "Infrared Atmospheric Sounding Interferometer with 8461 channels with one embedded IR imaging channel; cross-track scanning"
 
     - name: "source"
       type: string
