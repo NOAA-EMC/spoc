@@ -109,7 +109,7 @@ encoder:
       source: variables/incidenceAngle
       units: "degree"
 
-    - name: "MetaData/AzimuthAngle"
+    - name: "MetaData/azimuthAngle"
       longName: "Azimuth Angle"
       source: variables/azimuthAngle
       units: "degree"
