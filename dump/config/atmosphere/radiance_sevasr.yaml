@@ -204,9 +204,9 @@ encoder:
       source: variables/dataProviderOrigin
       longName: "Data Provider Origin"
 
-    - name: "MetaData/meterologicalFeature"
+    - name: "MetaData/meteorologicalFeature"
       source: variables/meterologicalFeature
-      longName: "Meterological Feature"
+      longName: "Meteorological Feature"
 
     # ObsValue  
     - name: "ObsValue/cloudAmount"
