@@ -33,6 +33,12 @@ bufr:
       query: "*/T29"
     aircraftFlightNumber:
       query: "[*/ACID, */ACID_SEQ/ACID]"
+
+    restrictionFlag:
+      query: "*/RSRD_SEQ/RSRD"
+    restrictionExpiration:
+      query: "*/RSRD_SEQ/EXPRSRD"      
+
     longitude:
       query: "*/PRSLEVLA/DRFTINFO/XDR"
       transforms:
@@ -159,6 +165,14 @@ encoder:
     - name: "MetaData/aircraftFlightNumber"
       source: variables/aircraftFlightNumber
       longName: "Aircraft Flight Number"
+
+    - name: "MetaData/restrictionFlag"
+      source: variables/restrictionFlag
+      longName: "Restriction on Redistribution"
+
+    - name: "MetaData/restrictionExpiration"
+      source: variables/restrictionExpiration
+      longName: "Expiration of Restriction on Redistribution"
 
     - name: "MetaData/latitude"
       source: variables/latitude
