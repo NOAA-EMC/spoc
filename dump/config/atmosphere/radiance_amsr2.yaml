@@ -101,7 +101,7 @@ encoder:
       range: [ 0, 360 ]
 
     - name: "MetaData/solarElevation"
-      source: variable/solarElevation
+      source: variables/solarElevation
       longName: "SOLAR ELEVATION"
 
     - name: "MetaData/sensorViewAngle"

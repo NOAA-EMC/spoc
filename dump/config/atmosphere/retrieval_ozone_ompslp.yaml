@@ -73,7 +73,7 @@ encoder:
 
     - name: "sourceFiles"
       type: string
-      value: "NCEP BUFR Dump - ompst8 NC008018"
+      value: "NCEP BUFR Dump - OMPS LP"
 
     - name: "processingLevel"
       type: string

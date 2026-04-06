@@ -10,7 +10,7 @@ from retrieval_ozone_obs_builder import BufrOzoneObsBuilder
 MAPPING_PATH = map_path('retrieval_ozone_ompslp.yaml')
 
 
-class BufrOzoneOmpstcObsBuilder(BufrOzoneObsBuilder):
+class BufrOzoneOmpslpObsBuilder(BufrOzoneObsBuilder):
     """
     Class for building observations from ompst8 BUFR data.
 
@@ -26,4 +26,4 @@ class BufrOzoneOmpstcObsBuilder(BufrOzoneObsBuilder):
 
 
 # Add main functions create_obs_file or create_obs_group
-add_main_functions(BufrOzoneOmpstcObsBuilder)
+add_main_functions(BufrOzoneOmpslpObsBuilder)

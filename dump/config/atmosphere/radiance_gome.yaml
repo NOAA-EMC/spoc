@@ -17,7 +17,7 @@ bufr:
     fieldOfViewNumber:
       query: '*/FOVN'
 
-    # A placeholder ro dummy variable
+    # A placeholder or dummy variable
     sacv:
       query: '*/FOVN'
 
@@ -75,11 +75,11 @@ encoder:
   globals:
   - name: platformCommonName
     type: string
-    value: AMSUA
+    value: GOME
 
   - name: platformLongDescription
     type: string
-    value: MTYP 021-023 PROC AMSU-A 1B Tb
+    value: GOME Level-1 radiances
 
   variables:
   - name: MetaData/satelliteIdentifier

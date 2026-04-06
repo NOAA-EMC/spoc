@@ -7,9 +7,9 @@ from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
 MAPPING_PATH = map_path('radiance_gome.yaml')
 
 
-class BufrAtmsObsBuilder(ObsBuilder):
+class BufrGomeObsBuilder(ObsBuilder):
     def __init__(self):
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
 
 
-add_main_functions(BufrAtmsObsBuilder)
+add_main_functions(BufrGomeObsBuilder)
