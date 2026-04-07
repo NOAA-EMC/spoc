@@ -3,8 +3,6 @@ bufr:
     satId:
       category:
         map:
-          _209: n18
-          _223: n19
           _3: metop-b
           _4: metop-a
           _5: metop-c
@@ -130,7 +128,6 @@ encoder:
 
   - name: ObsValue/brightnessTemperature
     longName: Brightness Temperature
-    chunks: [1000, 15]
     compressionLevel: 4
     coordinates: longitude latitude Channel
     range: [100, 500]
