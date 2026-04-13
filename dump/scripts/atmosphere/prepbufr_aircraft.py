@@ -93,6 +93,7 @@ class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):
 
         ialr_bc = self._compute_ialr_if_masked(uv_ot, ialr2)
 
+
         self.log.debug(f'Update variables in container')
         container.replace('instantaneousAltitudeRate', ialr_bc)
         container.replace('airTemperatureObservationType', ot_airTemperature)
@@ -104,6 +105,11 @@ class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):
 
         # Check
         self.log.debug(f'container list (updated): {container.list()}')
+
+        # Remove invalid samples
+        container.apply_mask(~container.get('latitude').mask)
+        container.apply_mask(~container.get('longitude').mask)
+        container.apply_mask(~container.get('timestamp').mask)
 
         return container
 
@@ -153,6 +159,8 @@ class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):
 
         ialr_bc = copy.deepcopy(ialr)
         ialr_bc[(ialr_bc.mask) & (typ >= 330) & (typ < 340)] = 0.0
+        ialr_bc.mask[(typ >= 330) & (typ < 340)] = False
+
 
         return ialr_bc
 

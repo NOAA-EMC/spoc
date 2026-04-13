@@ -26,6 +26,8 @@ bufr:
       query: "*/PRSLEVEL/CAT"
     obsTimeMinusCycleTime:
       query: "*/PRSLEVEL/DRFTINFO/HRDR"
+    launchTimeMinusCycleTime:
+      query: "*/DHR"
     longitude:
       query: "*/PRSLEVEL/DRFTINFO/XDR"
       transforms:
@@ -101,8 +103,16 @@ bufr:
       query: "*/PRSLEVEL/W___INFO/W__BACKG/WOE"
     specificHumidityError:
       query: "*/PRSLEVEL/Q___INFO/Q__BACKG/QOE"
-
-
+  splits:
+    obsType:
+      category:
+        variable: observationType
+        map:
+          _120: sonde_120
+          _132: sonde_132
+          _220: sonde_220
+          _221: pibal_221
+          _232: sonde_232
 encoder:
   globals:
     - name: "platformCommonName"
@@ -287,7 +297,6 @@ encoder:
     - name: "QualityMarker/specificHumidity"
       source: variables/specificHumidityQualityMarker
       longName: "Specific Humidity Quality Marker"
-
     # ObsError: pressure 
     - name: "ObsError/pressure"
       source: variables/pressureError
