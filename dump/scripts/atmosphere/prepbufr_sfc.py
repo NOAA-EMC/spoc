@@ -14,7 +14,8 @@ MAPPING_PATH = map_path('prepbufr_sfc.yaml')
 
 class SurfacePrepbufrObsBuilder(PrepbufrObsBuilder):
     def __init__(self):
-        super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
+        blacklist_path=os.path.join(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),'aux'),'gmao_global_blacklist.txt')
+        super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__),blacklist=blacklist_path)
 
     def _make_description(self):
         description = super()._make_description()

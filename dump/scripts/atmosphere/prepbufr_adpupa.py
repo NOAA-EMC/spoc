@@ -21,7 +21,8 @@ class AdpupaPrepbufrObsBuilder(PrepbufrObsBuilder):
     """
 
     def __init__(self):
-        super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__),blacklist_path='/discover/nobackup/jemccurr/bufr-query/custom_tests/gmao_global_blacklist.txt')
+        blacklist_path=os.path.join(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),'aux'),'gmao_global_blacklist.txt')
+        super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__),blacklist=blacklist_path)
 
 
     def make_obs(self, comm, input_path):
