@@ -72,6 +72,14 @@ class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):
         sequenceNum = self._compute_sequence_number(lon)
         self.log.debug(f'sequenceNum min/max =  {sequenceNum.min()} {sequenceNum.max()}')
 
+        self.log.debug(f'Change IALR to 0.0 based on masking and ObsType')
+        orig_ot = container.get('airTemperatureObservationType')
+        ialr = container.get('instantaneousAltitudeRate')
+        ialr_paths = container.get_paths('instantaneousAltitudeRate')
+        ialr2 = ma.array(ialr)
+
+        ialr_bc = self._compute_ialr_if_masked(orig_ot, ialr2)
+
         self.log.debug(f'Compute Obstypes')
         t_ot = container.get('airTemperatureObservationType')
         q_ot = container.get('specificHumidityObservationType')
@@ -85,13 +93,6 @@ class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):
         ot_airTemperature = self._compute_typ_other(t_ot, airTemperature)
         ot_specificHumidity = self._compute_typ_other(q_ot, specificHumidity)
         ot_wind = self._compute_typ_uv(uv_ot, wind)
-
-        self.log.debug(f'Change IALR to 0.0 if masked for bias correction.')
-        ialr = container.get('instantaneousAltitudeRate')
-        ialr_paths = container.get_paths('instantaneousAltitudeRate')
-        ialr2 = ma.array(ialr)
-
-        ialr_bc = self._compute_ialr_if_masked(uv_ot, ialr2)
 
         self.log.debug(f'Update variables in container')
         container.replace('instantaneousAltitudeRate', ialr_bc)
@@ -151,8 +152,13 @@ class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):
             Masked array of the updated instantaneousAltitudeRate
         """
 
-        ialr_bc = copy.deepcopy(ialr)
-        ialr_bc[(ialr_bc.mask) & (typ >= 330) & (typ < 340)] = 0.0
+
+        ialr_bc = ialr.copy()
+
+        cond = ialr_bc.mask & (typ >= 330) & (typ < 340)
+
+        ialr_bc.data[cond] = 0.0
+        ialr_bc.mask[cond] = False
 
         return ialr_bc
 
