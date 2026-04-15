@@ -43,9 +43,52 @@ bufr:
     stationElevation:
       query: "*/ELV"
       type: float
-    temperatureEventCode:
-      query: "*/T___INFO/T__EVENT{1}/TPC"
 
+    # Temperature event codes for each event level (to find Tdry vs Tv)
+    temperatureEventCode1:
+      query: "*/T___INFO/T__EVENT{1}/TPC"
+    temperatureEventCode2:
+      query: "*/T___INFO/T__EVENT{2}/TPC"
+    temperatureEventCode3:
+      query: "*/T___INFO/T__EVENT{3}/TPC"
+    temperatureEventCode4:
+      query: "*/T___INFO/T__EVENT{4}/TPC"
+    temperatureEventCode5:
+      query: "*/T___INFO/T__EVENT{5}/TPC"
+
+    # Temperature observations for each event level
+    temperatureOb1:
+      query: "*/T___INFO/T__EVENT{1}/TOB"
+      transforms:
+        - offset: 273.15
+    temperatureOb2:
+      query: "*/T___INFO/T__EVENT{2}/TOB"
+      transforms:
+        - offset: 273.15
+    temperatureOb3:
+      query: "*/T___INFO/T__EVENT{3}/TOB"
+      transforms:
+        - offset: 273.15
+    temperatureOb4:
+      query: "*/T___INFO/T__EVENT{4}/TOB"
+      transforms:
+        - offset: 273.15
+    temperatureOb5:
+      query: "*/T___INFO/T__EVENT{5}/TOB"
+      transforms:
+        - offset: 273.15
+
+    # Temperature quality markers for each event level
+    temperatureQM1:
+      query: "*/T___INFO/T__EVENT{1}/TQM"
+    temperatureQM2:
+      query: "*/T___INFO/T__EVENT{2}/TQM"
+    temperatureQM3:
+      query: "*/T___INFO/T__EVENT{3}/TQM"
+    temperatureQM4:
+      query: "*/T___INFO/T__EVENT{4}/TQM"
+    temperatureQM5:
+      query: "*/T___INFO/T__EVENT{5}/TQM"
 
     # ObsValue
     stationPressureObsValue:
@@ -207,10 +250,6 @@ encoder:
       source: variables/stationElevation
       longName: "Station Elevation"
       units: "m"
-
-    - name: "MetaData/temperatureEventCode"
-      source: variables/temperatureEventCode
-      longName: "Temperature Event Code"
 
     # ObsValue
     - name: "ObsValue/stationPressure"

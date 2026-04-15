@@ -11,6 +11,15 @@ from prepbufr_obs_builder import PrepbufrObsBuilder, map_path
 
 MAPPING_PATH = map_path('prepbufr_adpsfc.yaml')
 
+# Number of temperature event levels read from YAML
+NUM_T_EVENTS = 5
+
+# Flag to mimi GSI's TSENSIBLE option. 
+# True: Use sensible/dry temperature (Tdry) by searching through event stack
+# False: Use Tv if available (TPC=8), otherwise Tdry (TPC 1-7), 
+#        for testing against GSI only.
+TSENSIBLE = True
+
 
 class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
     def __init__(self):
@@ -65,6 +74,7 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
         - reads values
         - adds sequenceNum
         - adds ObsSubType
+        - extracts Tdry from event stack (peels back through events if top is Tv)
 
         Parameters
         ----------
@@ -92,28 +102,57 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
         sequenceNum = np.zeros(dhr.shape, dtype=np.int32)
         self.log.debug(f' sequenceNum min/max =  {sequenceNum.min()} {sequenceNum.max()}')
 
-        self.log.debug(f'Do tsen and tv calculation')
-        tpc = container.get('temperatureEventCode')
-        tob = container.get('airTemperatureObsValue')
-        tob_paths = container.get_paths('airTemperatureObsValue')
-        tsen = np.full(tob.shape[0], tob.fill_value)
-        tsen = np.where(((tpc >= 1) & (tpc < 8)), tob, tsen)
-        tvo = np.full(tob.shape[0], tob.fill_value)
-        tvo = np.where((tpc == 8), tob, tvo)
+        self.log.debug(f'Extract temperature from event stack (tsensible={TSENSIBLE})')
 
-        self.log.debug(f'Do tsen and tv QM calculations')
-        tobqm = container.get('airTemperatureQualityMarker')
-        tsenqm = np.full(tobqm.shape[0], tobqm.fill_value)
-        tsenqm = np.where(((tpc >= 1) & (tpc < 8)), tobqm, tsenqm)
-        tvoqm = np.full(tobqm.shape[0], tobqm.fill_value)
-        tvoqm = np.where((tpc == 8), tobqm, tvoqm)
+        # Get temperature data from all event levels
+        tpc_events = []
+        tob_events = []
+        tqm_events = []
+        for i in range(1, NUM_T_EVENTS + 1):
+            tpc_events.append(container.get(f'temperatureEventCode{i}'))
+            tob_events.append(container.get(f'temperatureOb{i}'))
+            tqm_events.append(container.get(f'temperatureQM{i}'))
 
-        self.log.debug(f'Do tsen and tv ObsError calculations')
+        # Get ObsError (from T__BACKG, not event-specific)
         toboe = container.get('airTemperatureObsError')
-        tsenoe = np.full(toboe.shape[0], toboe.fill_value)
-        tsenoe = np.where(((tpc >= 1) & (tpc < 8)), toboe, tsenoe)
-        tvooe = np.full(toboe.shape[0], toboe.fill_value)
-        tvooe = np.where((tpc == 8), toboe, tvooe)
+
+        # Get fill values from each variable type
+        tob_fill = tob_events[0].fill_value
+        tqm_fill = tqm_events[0].fill_value
+        toe_fill = toboe.fill_value
+
+        # Initialize output arrays with appropriate fill values
+        n_obs = tob_events[0].shape[0]
+        tsen = np.full(n_obs, tob_fill)
+        tsenqm = np.full(n_obs, tqm_fill)
+        tsenoe = np.full(n_obs, toe_fill)
+        tvo = np.full(n_obs, tob_fill)
+        tvoqm = np.full(n_obs, tqm_fill)
+        tvooe = np.full(n_obs, toe_fill)
+
+        # Search through events for each observation
+        for idx in range(n_obs):
+            for ev in range(NUM_T_EVENTS):
+                tpc_val = tpc_events[ev][idx]
+                tob_val = tob_events[ev][idx]
+                tqm_val = tqm_events[ev][idx]
+
+                # Skip if obs masked/missing
+                if ma.is_masked(tpc_val) or ma.is_masked(tob_val):
+                    continue
+
+                if tpc_val == 8 and ( not TSENSIBLE ):
+                    # use Tv if available
+                    tvo[idx] = tob_val
+                    tvoqm[idx] = tqm_val
+                    tvooe[idx] = toboe[idx]
+                    break
+                elif (tpc_val >= 1) and (tpc_val < 8):
+                    # Save Tdry
+                    tsen[idx] = tob_val
+                    tsenqm[idx] = tqm_val
+                    tsenoe[idx] = toboe[idx]
+                    break
 
         self.log.debug(f'Update variables in container')
         container.replace('airTemperatureObsValue', tsen)
@@ -134,3 +173,4 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
 
 
 add_main_functions(AdpsfcPrepbufrObsBuilder)
+
