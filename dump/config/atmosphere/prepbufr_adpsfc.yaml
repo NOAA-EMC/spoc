@@ -95,14 +95,8 @@ bufr:
       query: "*/P___INFO/P__EVENT{1}/POB"
       transforms:
         - scale: 100
-    airTemperatureObsValue:
-      query: "*/T___INFO/T__EVENT{1}/TOB"
-      transforms:
-        - offset: 273.15
-    virtualTemperatureObsValue:
-      query: "*/T___INFO/T__EVENT{1}/TOB"
-      transforms:
-        - offset: 273.15
+    # airTemperature and virtualTemperature ObsValues are computed in Python
+    # from temperatureOb{i} and temperatureEventCode{i} event stacks
     specificHumidityObsValue:
       type: float
       query: "*/Q___INFO/Q__EVENT{1}/QOB"
@@ -116,10 +110,6 @@ bufr:
     # QualityMarker
     stationPressureQualityMarker:
       query: "*/P___INFO/P__EVENT{1}/PQM"
-    airTemperatureQualityMarker:
-      query: "*/T___INFO/T__EVENT{1}/TQM"
-    virtualTemperatureQualityMarker:
-      query: "*/T___INFO/T__EVENT{1}/TQM"
     specificHumidityQualityMarker:
       query: "*/Q___INFO/Q__EVENT{1}/QQM"
     windEastwardQualityMarker:
@@ -134,8 +124,7 @@ bufr:
         - scale: 100
     airTemperatureObsError:
       query: "*/T___INFO/T__BACKG/TOE"
-    virtualTemperatureObsError:
-      query: "*/T___INFO/T__BACKG/TOE"
+    # virtualTemperatureObsError computed in Python from airTemperatureObsError
     relativeHumidityObsError:
       query: "*/Q___INFO/Q__BACKG/QOE"
       transforms:

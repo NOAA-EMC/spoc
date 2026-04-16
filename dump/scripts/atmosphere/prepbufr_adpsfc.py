@@ -3,6 +3,7 @@ import calendar
 import os
 import numpy as np
 import numpy.ma as ma
+import yaml
 
 import bufr
 from bufr.obs_builder import add_main_functions
@@ -14,12 +15,21 @@ MAPPING_PATH = map_path('prepbufr_adpsfc.yaml')
 # Number of temperature event levels read from YAML
 NUM_T_EVENTS = 5
 
-# Flag to mimi GSI's TSENSIBLE option. 
-# True: Use sensible/dry temperature (Tdry) by searching through event stack
-# False: Use Tv if available (TPC=8), otherwise Tdry (TPC 1-7), 
-#        for testing against GSI only.
-TSENSIBLE = True
+# - If ObsType/virtualTemperature is in the encoder variables, use Tv if available otherwise Tdry.
+#   This option mimics the GSI's TSENSIBLE=False default
+# - If ObsType/virtualTemperature not in encoder variables, always use Tdry
+#   This is what we want to do long-term
 
+# obs types 181, 183, 187 (land stations) always use Tdry to match GSI behavior
+TSENSIBLE_EXCEPTION_TYPES = [181, 183, 187]
+
+
+def _check_include_tv(yaml_path):
+    """Check if virtualTemperature should be included based on encoder variables in YAML."""
+    with open(yaml_path, 'r') as f:
+        config = yaml.safe_load(f)
+    encoder_vars = config.get('encoder', {}).get('variables', [])
+    return any(v.get('name') == 'ObsType/virtualTemperature' for v in encoder_vars)
 
 class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
     def __init__(self):
@@ -102,9 +112,14 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
         sequenceNum = np.zeros(dhr.shape, dtype=np.int32)
         self.log.debug(f' sequenceNum min/max =  {sequenceNum.min()} {sequenceNum.max()}')
 
-        self.log.debug(f'Extract temperature from event stack (tsensible={TSENSIBLE})')
+        include_tv = _check_include_tv(MAPPING_PATH)
+        self.log.debug(f'Extract temperature from event stack (include_tv={include_tv})')
 
-        # Get temperature data from all event levels
+        # get record-specific data
+        toboe = container.get('airTemperatureObsError')
+        obs_type = container.get('observationType')
+
+        # get event-specific data
         tpc_events = []
         tob_events = []
         tqm_events = []
@@ -113,15 +128,14 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
             tob_events.append(container.get(f'temperatureOb{i}'))
             tqm_events.append(container.get(f'temperatureQM{i}'))
 
-        # Get ObsError (from T__BACKG, not event-specific)
-        toboe = container.get('airTemperatureObsError')
+        # get paths for adding new variables
+        tob_paths = container.get_paths('temperatureOb1')
 
-        # Get fill values from each variable type
+        # create arrays with fill_value
         tob_fill = tob_events[0].fill_value
         tqm_fill = tqm_events[0].fill_value
         toe_fill = toboe.fill_value
 
-        # Initialize output arrays with appropriate fill values
         n_obs = tob_events[0].shape[0]
         tsen = np.full(n_obs, tob_fill)
         tsenqm = np.full(n_obs, tqm_fill)
@@ -130,18 +144,21 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
         tvoqm = np.full(n_obs, tqm_fill)
         tvooe = np.full(n_obs, toe_fill)
 
-        # Search through events for each observation
+        # loop through obs
         for idx in range(n_obs):
+            use_tv = include_tv and (int(obs_type[idx]) not in TSENSIBLE_EXCEPTION_TYPES)
+
+            # look back through events for desired T field
             for ev in range(NUM_T_EVENTS):
                 tpc_val = tpc_events[ev][idx]
                 tob_val = tob_events[ev][idx]
                 tqm_val = tqm_events[ev][idx]
 
-                # Skip if obs masked/missing
                 if ma.is_masked(tpc_val) or ma.is_masked(tob_val):
                     continue
 
-                if tpc_val == 8 and ( not TSENSIBLE ):
+                # select desired obs type, if present 
+                if tpc_val == 8 and use_tv:
                     # use Tv if available
                     tvo[idx] = tob_val
                     tvoqm[idx] = tqm_val
@@ -155,18 +172,19 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
                     break
 
         self.log.debug(f'Update variables in container')
-        container.replace('airTemperatureObsValue', tsen)
-        container.replace('airTemperatureQualityMarker', tsenqm)
+        container.add('airTemperatureObsValue', tsen, tob_paths)
+        container.add('airTemperatureQualityMarker', tsenqm, tob_paths)
         container.replace('airTemperatureObsError', tsenoe)
-        container.replace('virtualTemperatureObsValue', tvo)
-        container.replace('virtualTemperatureQualityMarker', tvoqm)
-        container.replace('virtualTemperatureObsError', tvooe)
+
+        if include_tv:
+            container.add('virtualTemperatureObsValue', tvo, tob_paths)
+            container.add('virtualTemperatureQualityMarker', tvoqm, tob_paths)
+            container.add('virtualTemperatureObsError', tvooe, tob_paths)
 
         self.log.debug(f'Add variables to container')
         container.add('sequenceNumber', sequenceNum, dhr_paths)
         container.add('obsSubType', sequenceNum, dhr_paths)
 
-        # Check
         self.log.debug(f'container list (updated): {container.list()}')
 
         return container
