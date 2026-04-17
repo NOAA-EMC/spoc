@@ -20,7 +20,7 @@ NUM_T_EVENTS = 5
 # - If ObsType/virtualTemperature not in encoder variables, always use Tdry
 #   This is what we want to do long-term
 
-# obs types 181, 183 (land stations) always use Tdry to match GSI behavior
+# obs types 181, 187 (land stations) always use Tdry to match GSI behavior
 TSENSIBLE_EXCEPTION_TYPES = [181, 187]
 
 
