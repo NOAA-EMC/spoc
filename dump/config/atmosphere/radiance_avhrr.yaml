@@ -75,7 +75,7 @@ encoder:
 
     - name: "sensorLongDescription"
       type: string
-      value: ""
+      value: "Advanced Very-High-Resolution Radiometer"
 
     - name: "source"
       type: string

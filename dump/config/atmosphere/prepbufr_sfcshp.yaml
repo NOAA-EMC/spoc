@@ -23,6 +23,10 @@ bufr:
         referenceTime: "1970-01-01T00:00:00Z"
     obsTimeMinusCycleTime:
       query: "*/DHR"
+    restrictionFlag:
+      query: "*/RSRD_SEQ/RSRD"
+    restrictionExpiration:
+      query: "*/RSRD_SEQ/EXPRSRD"      
     longitude:
       query: "*/XOB"
       transforms:
@@ -172,6 +176,14 @@ encoder:
     - name: "MetaData/observationSubTypeNum"
       source: variables/observationSubTypeNum
       longName: "Observation SubType Number"
+
+    - name: "MetaData/restrictionFlag"
+      source: variables/restrictionFlag
+      longName: "Restriction on Redistribution"
+
+    - name: "MetaData/restrictionExpiration"
+      source: variables/restrictionExpiration
+      longName: "Expiration of Restriction on Redistribution"
 
     - name: "MetaData/latitude"
       source: variables/latitude
