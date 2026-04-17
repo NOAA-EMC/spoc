@@ -152,7 +152,7 @@ encoder:
 
     - name: "source"
       type: string
-      value: "U.S. National Weather Service, National Centers for Environmental Prediction (NCEP))"
+      value: "U.S. National Weather Service, National Centers for Environmental Prediction (NCEP)"
 
     - name: "sourceFiles"
       type: string

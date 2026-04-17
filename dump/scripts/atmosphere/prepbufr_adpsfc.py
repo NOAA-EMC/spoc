@@ -12,7 +12,7 @@ from prepbufr_obs_builder import PrepbufrObsBuilder, map_path
 
 MAPPING_PATH = map_path('prepbufr_adpsfc.yaml')
 
-# Number of temperature event levels read from YAML
+# Fixed number of temperature event levels handled by this builder.
 NUM_T_EVENTS = 5
 
 # - If ObsType/virtualTemperature is in the encoder variables, use Tv if available otherwise Tdry.
