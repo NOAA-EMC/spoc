@@ -20,8 +20,8 @@ NUM_T_EVENTS = 5
 # - If ObsType/virtualTemperature not in encoder variables, always use Tdry
 #   This is what we want to do long-term
 
-# obs types 181, 183, 187 (land stations) always use Tdry to match GSI behavior
-TSENSIBLE_EXCEPTION_TYPES = [181, 183, 187]
+# obs types 181, 183 (land stations) always use Tdry to match GSI behavior
+TSENSIBLE_EXCEPTION_TYPES = [181, 187]
 
 
 def _check_include_tv(yaml_path):
@@ -38,7 +38,7 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
     def _make_description(self):
         description = super()._make_description()
 
-        description.add_variables([
+        variables = [
             {
                 'name': 'MetaData/sequenceNumber',
                 'source': 'sequenceNumber',
@@ -51,11 +51,6 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
             },
             {
                 'name': 'ObsSubType/airTemperature',
-                'source': 'obsSubType',
-                'longName': 'Observation SubType',
-            },
-            {
-                'name': 'ObsSubType/virtualTemperature',
                 'source': 'obsSubType',
                 'longName': 'Observation SubType',
             },
@@ -74,7 +69,16 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
                 'source': 'obsSubType',
                 'longName': 'Observation SubType',
             }
-        ])
+        ]
+
+        if _check_include_tv(MAPPING_PATH):
+            variables.append({
+                'name': 'ObsSubType/virtualTemperature',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
+            })
+
+        description.add_variables(variables)
 
         return description
 
@@ -131,18 +135,14 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
         # get paths for adding new variables
         tob_paths = container.get_paths('temperatureOb1')
 
-        # create arrays with fill_value
-        tob_fill = tob_events[0].fill_value
-        tqm_fill = tqm_events[0].fill_value
-        toe_fill = toboe.fill_value
-
+        # create arrays with fill_value (matching develop branch pattern)
         n_obs = tob_events[0].shape[0]
-        tsen = np.full(n_obs, tob_fill)
-        tsenqm = np.full(n_obs, tqm_fill)
-        tsenoe = np.full(n_obs, toe_fill)
-        tvo = np.full(n_obs, tob_fill)
-        tvoqm = np.full(n_obs, tqm_fill)
-        tvooe = np.full(n_obs, toe_fill)
+        tsen = np.full(n_obs, tob_events[0].fill_value)
+        tsenqm = np.full(n_obs, tqm_events[0].fill_value)
+        tsenoe = np.full(n_obs, toboe.fill_value)
+        tvo = np.full(n_obs, tob_events[0].fill_value)
+        tvoqm = np.full(n_obs, tqm_events[0].fill_value)
+        tvooe = np.full(n_obs, toboe.fill_value)
 
         # loop through obs
         for idx in range(n_obs):
@@ -161,14 +161,18 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
                 if tpc_val == 8 and use_tv:
                     # use Tv if available
                     tvo[idx] = tob_val
-                    tvoqm[idx] = tqm_val
-                    tvooe[idx] = toboe[idx]
+                    if not ma.is_masked(tqm_val):
+                        tvoqm[idx] = tqm_val
+                    if not ma.is_masked(toboe[idx]):
+                        tvooe[idx] = toboe[idx]
                     break
                 elif (tpc_val >= 1) and (tpc_val < 8):
                     # Save Tdry
                     tsen[idx] = tob_val
-                    tsenqm[idx] = tqm_val
-                    tsenoe[idx] = toboe[idx]
+                    if not ma.is_masked(tqm_val):
+                        tsenqm[idx] = tqm_val
+                    if not ma.is_masked(toboe[idx]):
+                        tsenoe[idx] = toboe[idx]
                     break
 
         self.log.debug(f'Update variables in container')
