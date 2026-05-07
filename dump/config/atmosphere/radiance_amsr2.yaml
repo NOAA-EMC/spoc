@@ -43,20 +43,12 @@ bufr:
     fieldOfViewNumber:
       query: '*/FOVN'
 
-    sensorScanAngle:
-      sensorScanAngle:
-        fieldOfViewNumber: '*/FOVN'
-        scanStart: -48.333
-        scanStep: 3.333
-        sensor: amsr2
-
 encoder:
   backend: netcdf
 
   dimensions:
   - name: Channel
     path: '*/AMSR2CHN'
-#    source: variables/sensorChannelNumber
 
   globals:
   - name: platformCommonName
@@ -104,7 +96,7 @@ encoder:
       source: variables/solarElevation
       longName: "SOLAR ELEVATION"
 
-    - name: "MetaData/sensorViewAngle"
+    - name: "MetaData/sensorZenithAngle"
       longName: "INCIDENCE ANGLE"
       source: variables/incidenceAngle
       units: "degree"
