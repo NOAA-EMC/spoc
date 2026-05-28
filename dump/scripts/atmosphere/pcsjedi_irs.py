@@ -324,9 +324,7 @@ def _process_dwell_file(irs, ibox, jbox, kmax, grid, thin, npcs, nvar, mpic, dat
         data[18, lpic:mpic_new] = np.array(loca.variables["satellite_zenith_angle"])[imax, jmax]
         data[19, lpic:mpic_new] = np.array(loca.variables["solar_azimuth_angle"])[imax, jmax]
         data[20, lpic:mpic_new] = np.array(loca.variables["solar_zenith_angle"])[imax, jmax]
-        data[21, lpic:mpic_new] = compute_scan_angle(
-            data[20, lpic:mpic_new], sat_alt * np.zeros(kpic)
-        )
+        data[21, lpic:mpic_new] = compute_scan_angle(np.array(loca.variables["satellite_zenith_angle"])[imax, jmax], sat_alt)  
         data[22, lpic:mpic_new] = np.array(lwva.variables["global_pcr_scores"])[imax, jmax]
         data[23, lpic:mpic_new] = np.array(mwva.variables["global_pcr_scores"])[imax, jmax]
 
@@ -367,7 +365,7 @@ def assign_WMO_ID(platform):
     return wmo_id
 
 
-def compute_scan_angle(sensor_altitude, sensor_zenith, qc_flag=None):
+def compute_scan_angle(sensor_zenith, sensor_altitude, qc_flag=None):
     """
     Compute satellite scan angle from altitude and zenith angle.
 
@@ -375,7 +373,7 @@ def compute_scan_angle(sensor_altitude, sensor_zenith, qc_flag=None):
     where R is Earth radius, h is altitude, θ is zenith angle.
 
     Args:
-        sensor_altitude: Sensor altitude in km
+        sensor_altitude: Sensor altitude in m
         sensor_zenith: Satellite zenith angle in degrees
         qc_flag: Optional QC flag array (default: all good)
 
@@ -387,18 +385,16 @@ def compute_scan_angle(sensor_altitude, sensor_zenith, qc_flag=None):
     d2r = np.pi / 180.0
     r2d = 180.0 / np.pi
 
-    ratio = np.empty_like(sensor_altitude)
+    ratio = np.empty_like(sensor_zenith)
 
     # Initialize QC flag if not provided
     if qc_flag is None:
-        qc_flag = np.zeros_like(sensor_altitude)
+        qc_flag = np.zeros_like(sensor_zenith)
 
     # Compute scan angle for good data
     good = qc_flag == 0
     if np.sum(good) > 0:
-        ratio[good] = earth_mean_radius_km / (
-            earth_mean_radius_km + sensor_altitude[good] / 1000.0
-        )
+        ratio[good] = earth_mean_radius_km / (earth_mean_radius_km + sensor_altitude / 1000.0)
 
     scanang = np.arcsin(ratio * np.sin(np.abs(sensor_zenith) * d2r)) * r2d
 
@@ -483,6 +479,10 @@ def thinparm(grid, outer, inner):
     """
     if grid % outer != 0:
         print(f'Error: outer box size {outer} does not divide grid size {grid}')
+        sys.exit(1)
+
+    if inner < 1 or inner > outer:
+        print(f'Error: inner and outer box sizes must be >= 1')
         sys.exit(1)
 
     kmax = (grid // outer) ** 2
@@ -584,9 +584,8 @@ def channel_data(file):
             waves = np.concatenate([wn_lw, wn_mw])
             chans = np.arange(1, len(waves) + 1, dtype='int32')
     except (OSError, KeyError) as e:
-        print(f"Warning: error reading channel data: {e}")
-        waves = np.array([], dtype='float32')
-        chans = np.array([], dtype='int32')
+        print(f"Erroi: error reading channel data: {e}")
+        sys.exit(1)
 
     return waves, chans
 
