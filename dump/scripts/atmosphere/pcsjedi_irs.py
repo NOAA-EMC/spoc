@@ -227,6 +227,8 @@ def _process_dwell_file(irs, ibox, jbox, kmax, grid, thin, npcs, nvar, mpic, dat
         Tuple of (processed_count, updated_mpic) or None if no valid data
     """
 
+    unix2000 = datetime(2000, 1, 1, 0, 0, 0, tzinfo=timezone.utc).timestamp()
+
     # Build composite quality score
     overall_quality = np.zeros([grid, grid], dtype='int32')
     
@@ -303,7 +305,7 @@ def _process_dwell_file(irs, ibox, jbox, kmax, grid, thin, npcs, nvar, mpic, dat
 
     # Extract and store data
     try:
-        data[0, lpic:mpic_new] = loca.variables["time"][:]
+        data[0, lpic:mpic_new] = loca.variables["time"][:] + unix2000  
         data[1, lpic:mpic_new] = loca.variables["dwell_number"][:]
         data[2, lpic:mpic_new] = loca.variables["dwell_type"][:]
         data[3, lpic:mpic_new] = np.array(lwva.variables["detector_sample_quality"])[imax, jmax]
