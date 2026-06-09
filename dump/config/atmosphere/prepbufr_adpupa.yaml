@@ -48,8 +48,39 @@ bufr:
     height:
       query: "*/PRSLEVEL/Z___INFO/Z__EVENT{1}/ZOB"
       type: float
+    temperatureEventCode1:
+      query: "*/PRSLEVEL/T___INFO/T__EVENT{1}/TPC"
+    temperatureEventCode2:
+      query: "*/PRSLEVEL/T___INFO/T__EVENT{2}/TPC"
+    temperatureEventCode3:
+      query: "*/PRSLEVEL/T___INFO/T__EVENT{3}/TPC"
+    temperatureEventCode4:
+      query: "*/PRSLEVEL/T___INFO/T__EVENT{4}/TPC"
+    temperatureEventCode5:
+      query: "*/PRSLEVEL/T___INFO/T__EVENT{5}/TPC"
     temperatureEventCode:
       query: "*/PRSLEVEL/T___INFO/T__EVENT{1}/TPC"
+
+    temperatureOb1:
+      query: "*/PRSLEVEL/T___INFO/T__EVENT{1}/TOB"
+      transforms:
+        - offset: 273.15
+    temperatureOb2:
+      query: "*/PRSLEVEL/T___INFO/T__EVENT{2}/TOB"
+      transforms:
+        - offset: 273.15
+    temperatureOb3:
+      query: "*/PRSLEVEL/T___INFO/T__EVENT{3}/TOB"
+      transforms:
+        - offset: 273.15
+    temperatureOb4:
+      query: "*/PRSLEVEL/T___INFO/T__EVENT{4}/TOB"
+      transforms:
+        - offset: 273.15
+    temperatureOb5:
+      query: "*/PRSLEVEL/T___INFO/T__EVENT{5}/TOB"
+      transforms:
+        - offset: 273.15
         
     # ObsValue
     airTemperature:
@@ -83,6 +114,16 @@ bufr:
       query: "*/PRSLEVEL/T___INFO/T__EVENT{1}/TQM"
     virtualTemperatureQualityMarker:
       query: "*/PRSLEVEL/T___INFO/T__EVENT{1}/TQM"
+    temperatureQM1:
+      query: "*/PRSLEVEL/T___INFO/T__EVENT{1}/TQM"
+    temperatureQM2:
+      query: "*/PRSLEVEL/T___INFO/T__EVENT{2}/TQM"
+    temperatureQM3:
+      query: "*/PRSLEVEL/T___INFO/T__EVENT{3}/TQM"
+    temperatureQM4:
+      query: "*/PRSLEVEL/T___INFO/T__EVENT{4}/TQM"
+    temperatureQM5:
+      query: "*/PRSLEVEL/T___INFO/T__EVENT{5}/TQM"
     windQualityMarker:
       query: "*/PRSLEVEL/W___INFO/W__EVENT{1}/WQM"
     specificHumidityQualityMarker:
