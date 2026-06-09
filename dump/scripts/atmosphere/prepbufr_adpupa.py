@@ -79,7 +79,6 @@ class AdpupaPrepbufrObsBuilder(PrepbufrObsBuilder):
             tob_events.append(container.get(f'temperatureOb{i}'))
             tqm_events.append(container.get(f'temperatureQM{i}'))
 
-        tob_paths = container.get_paths('temperatureOb1')
         n_obs = tob_events[0].shape[0]
         air_temperature = np.full(n_obs, tob_events[0].fill_value)
         air_temperatureQM = np.full(n_obs, tqm_events[0].fill_value)
