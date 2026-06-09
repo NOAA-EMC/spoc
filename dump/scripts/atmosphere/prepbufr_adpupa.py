@@ -132,8 +132,6 @@ class AdpupaPrepbufrObsBuilder(PrepbufrObsBuilder):
                     # With one metadata field, temperatureEventCode tracks the selected
                     # virtual-temperature output when enabled (Tv with Tdry fallback).
                     derived_temperature_event_code[idx] = tpc_val
-                elif selected_tdry is not None:
-                    derived_temperature_event_code[idx] = selected_tdry[0]
             elif selected_tdry is not None:
                 derived_temperature_event_code[idx] = selected_tdry[0]
 
