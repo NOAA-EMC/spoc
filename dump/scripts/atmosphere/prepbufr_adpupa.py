@@ -118,21 +118,19 @@ class AdpupaPrepbufrObsBuilder(PrepbufrObsBuilder):
                     air_temperatureQM[idx] = tqm_val
                 if not ma.is_masked(toboe[idx]):
                     air_temperatureError[idx] = toboe[idx]
+                derived_temperature_event_code[idx] = tpc_val
 
             if include_tv:
-                selected_output = selected_tv if selected_tv is not None else selected_tdry
-                if selected_output is not None:
-                    tpc_val, tob_val, tqm_val = selected_output
+                if selected_tv is not None:
+                    tpc_val, tob_val, tqm_val = selected_tv
                     virtual_temperature[idx] = tob_val
                     if not ma.is_masked(tqm_val):
                         virtual_temperatureQM[idx] = tqm_val
                     if not ma.is_masked(toboe[idx]):
                         virtual_temperatureError[idx] = toboe[idx]
                     # With one metadata field, temperatureEventCode tracks the selected
-                    # virtual-temperature output when enabled (Tv with Tdry fallback).
+                    # virtual-temperature output when present.
                     derived_temperature_event_code[idx] = tpc_val
-            elif selected_tdry is not None:
-                derived_temperature_event_code[idx] = selected_tdry[0]
 
         self.log.debug(f'Update variables into container')
         container.replace('airTemperature', air_temperature)
