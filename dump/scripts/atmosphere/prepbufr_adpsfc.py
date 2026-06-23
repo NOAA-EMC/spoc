@@ -55,7 +55,7 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
                 'longName': 'Observation SubType',
             },
             {
-                'name': 'ObsSubType/specificHumidity',
+                'name': 'ObsSubType/specificHumidityAt2M',
                 'source': 'obsSubType',
                 'longName': 'Observation SubType',
             },

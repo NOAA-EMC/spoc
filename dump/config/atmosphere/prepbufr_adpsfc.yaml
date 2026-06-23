@@ -126,7 +126,7 @@ bufr:
         - scale: 100
     airTemperatureObsError:
       query: "*/T___INFO/T__BACKG/TOE"
-    relativeHumidityObsError:
+    specificHumidityObsError:
       query: "*/Q___INFO/Q__BACKG/QOE"
       transforms:
         - scale: 0.1
@@ -322,8 +322,8 @@ encoder:
       units: "K"
 
     - name: "ObsError/specificHumidityAt2M"
-      source: variables/relativeHumidityObsError
-      longName: "Relative Humidity at 2m Error"
+      source: variables/specificHumidityObsError
+      longName: "Specific Humidity at 2m Error"
       units: "1"
 
     - name: "ObsError/windEastward"
