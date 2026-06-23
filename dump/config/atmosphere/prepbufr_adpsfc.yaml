@@ -126,7 +126,7 @@ bufr:
         - scale: 100
     airTemperatureObsError:
       query: "*/T___INFO/T__BACKG/TOE"
-    specificHumidityObsError:
+    relativeHumidityObsError:
       query: "*/Q___INFO/Q__BACKG/QOE"
       transforms:
         - scale: 0.1
@@ -321,8 +321,10 @@ encoder:
       longName: "Virtual Temperature at 2m Error"
       units: "K"
 
+    # note: in the PREPBUFR, this is specified in RH units
+    # will need to be cleaned up.
     - name: "ObsError/specificHumidityAt2M"
-      source: variables/specificHumidityObsError
+      source: variables/relativeHumidityObsError
       longName: "Specific Humidity at 2m Error"
       units: "1"
 
