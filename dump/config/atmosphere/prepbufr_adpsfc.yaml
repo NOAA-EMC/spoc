@@ -174,17 +174,17 @@ encoder:
       source: variables/observationType
       longName: "Station Pressure ObsType"
 
-    - name: "ObsType/airTemperature"
+    - name: "ObsType/airTemperatureAt2M"
       source: variables/observationType
-      longName: "airTemperature ObsType"
+      longName: "Air Temperature at 2m ObsType"
 
-    - name: "ObsType/virtualTemperature"
+    - name: "ObsType/virtualTemperatureAt2M"
       source: variables/observationType
-      longName: "virtualTemperature ObsType"
+      longName: "Virtual Temperature at 2m ObsType"
 
-    - name: "ObsType/specificHumidity"
+    - name: "ObsType/specificHumidityAt2M"
       source: variables/observationType
-      longName: "Specific Humidity ObsType"
+      longName: "Specific Humidity at 2m ObsType"
 
     - name: "ObsType/windEastward"
       source: variables/observationType
@@ -255,19 +255,19 @@ encoder:
       longName: "Station Pressure"
       units: "Pa"
 
-    - name: "ObsValue/airTemperature"
+    - name: "ObsValue/airTemperatureAt2M"
       source: variables/airTemperatureObsValue
-      longName: "airTemperature"
+      longName: "Air Temperature at 2m"
       units: "K"
 
-    - name: "ObsValue/virtualTemperature"
+    - name: "ObsValue/virtualTemperatureAt2M"
       source: variables/virtualTemperatureObsValue
-      longName: "virtualTemperature"
+      longName: "Virtual Temperature at 2m"
       units: "K"
 
-    - name: "ObsValue/specificHumidity"
+    - name: "ObsValue/specificHumidityAt2M"
       source: variables/specificHumidityObsValue
-      longName: "Specific Humidity"
+      longName: "Specific Humidity at 2m"
       units: "kg kg-1"
 
     - name: "ObsValue/windEastward"
@@ -285,17 +285,17 @@ encoder:
       source: variables/stationPressureQualityMarker
       longName: "Station Pressure Quality Marker"
 
-    - name: "QualityMarker/airTemperature"
+    - name: "QualityMarker/airTemperatureAt2M"
       source: variables/airTemperatureQualityMarker
-      longName: "airTemperature Quality Marker"
+      longName: "Air Temperature at 2m Quality Marker"
 
-    - name: "QualityMarker/virtualTemperature"
+    - name: "QualityMarker/virtualTemperatureAt2M"
       source: variables/virtualTemperatureQualityMarker
-      longName: "virtualTemperature Quality Marker"
+      longName: "Virtual Temperature at 2m Quality Marker"
 
-    - name: "QualityMarker/specificHumidity"
+    - name: "QualityMarker/specificHumidityAt2M"
       source: variables/specificHumidityQualityMarker
-      longName: "Specific Humidity Quality Marker"
+      longName: "Specific Humidity at 2m Quality Marker"
 
     - name: "QualityMarker/windEastward"
       source: variables/windEastwardQualityMarker
@@ -311,19 +311,21 @@ encoder:
       longName: "Station Pressure Error"
       units: "Pa"
 
-    - name: "ObsError/airTemperature"
+    - name: "ObsError/airTemperatureAt2M"
       source: variables/airTemperatureObsError
-      longName: "airTemperature Error"
+      longName: "Air Temperature at 2m Error"
       units: "K"
 
-    - name: "ObsError/virtualTemperature"
+    - name: "ObsError/virtualTemperatureAt2M"
       source: variables/virtualTemperatureObsError
-      longName: "virtualTemperature Error"
+      longName: "Virtual Temperature at 2m Error"
       units: "K"
 
-    - name: "ObsError/specificHumidity"
+    # note: in the PREPBUFR, this is specified in RH units
+    # will need to be cleaned up.
+    - name: "ObsError/specificHumidityAt2M"
       source: variables/relativeHumidityObsError
-      longName: "Relative Humidity Error"
+      longName: "Specific Humidity at 2m Error"
       units: "1"
 
     - name: "ObsError/windEastward"

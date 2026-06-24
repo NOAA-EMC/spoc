@@ -25,11 +25,11 @@ TSENSIBLE_EXCEPTION_TYPES = [181, 187]
 
 
 def _check_include_tv(yaml_path):
-    """Check if virtualTemperature should be included based on encoder variables in YAML."""
+    """Check if virtualTemperatureAt2M should be included based on encoder variables in YAML."""
     with open(yaml_path, 'r') as f:
         config = yaml.safe_load(f)
     encoder_vars = config.get('encoder', {}).get('variables', [])
-    return any(v.get('name') == 'ObsType/virtualTemperature' for v in encoder_vars)
+    return any(v.get('name') == 'ObsType/virtualTemperatureAt2M' for v in encoder_vars)
 
 class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
     def __init__(self):
@@ -50,12 +50,12 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
                 'longName': 'Observation SubType',
             },
             {
-                'name': 'ObsSubType/airTemperature',
+                'name': 'ObsSubType/airTemperatureAt2M',
                 'source': 'obsSubType',
                 'longName': 'Observation SubType',
             },
             {
-                'name': 'ObsSubType/specificHumidity',
+                'name': 'ObsSubType/specificHumidityAt2M',
                 'source': 'obsSubType',
                 'longName': 'Observation SubType',
             },
@@ -73,7 +73,7 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
 
         if _check_include_tv(MAPPING_PATH):
             variables.append({
-                'name': 'ObsSubType/virtualTemperature',
+                'name': 'ObsSubType/virtualTemperatureAt2M',
                 'source': 'obsSubType',
                 'longName': 'Observation SubType',
             })
