@@ -42,12 +42,12 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
                 'longName': 'Observation SubType',
             },
             {
-                'name': 'ObsSubType/airTemperature',
+                'name': 'ObsSubType/airTemperatureAt2M',
                 'source': 'obsSubType',
                 'longName': 'Observation SubType',
             },
             {
-                'name': 'ObsSubType/specificHumidity',
+                'name': 'ObsSubType/specificHumidityAt2M',
                 'source': 'obsSubType',
                 'longName': 'Observation SubType',
             },
@@ -65,7 +65,7 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
 
         if check_include_tv(MAPPING_PATH):
             variables.append({
-                'name': 'ObsSubType/virtualTemperature',
+                'name': 'ObsSubType/virtualTemperatureAt2M',
                 'source': 'obsSubType',
                 'longName': 'Observation SubType',
             })
