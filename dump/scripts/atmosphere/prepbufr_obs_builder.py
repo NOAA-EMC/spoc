@@ -23,7 +23,8 @@ def check_include_tv(yaml_path):
     with open(yaml_path, 'r') as f:
         config = yaml.safe_load(f)
     encoder_vars = config.get('encoder', {}).get('variables', [])
-    return any(v.get('name') == 'ObsType/virtualTemperature' for v in encoder_vars)
+    # search for virtualTemperature or virtualTemperatureAt2M
+    return any(v.get('name', '').startswith('ObsType/virtualTemperature') for v in encoder_vars)
 
 
 class PrepbufrObsBuilder(ObsBuilder):
