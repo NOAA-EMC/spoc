@@ -4,6 +4,7 @@ import os
 import re
 import numpy as np
 import numpy.ma as ma
+import yaml
 from pathlib import Path
 
 from datetime import datetime
@@ -15,6 +16,14 @@ from bufr.obs_builder import ObsBuilder
 def map_path(map_file_name):
     script_dir = os.path.dirname(os.path.abspath(__file__))
     return os.path.join(script_dir, map_file_name)
+
+
+def check_include_tv(yaml_path):
+    """Check if virtualTemperature should be included based on encoder variables in YAML."""
+    with open(yaml_path, 'r') as f:
+        config = yaml.safe_load(f)
+    encoder_vars = config.get('encoder', {}).get('variables', [])
+    return any(v.get('name') == 'ObsType/virtualTemperature' for v in encoder_vars)
 
 
 class PrepbufrObsBuilder(ObsBuilder):
@@ -91,3 +100,77 @@ class PrepbufrObsBuilder(ObsBuilder):
                                      dtype='datetime64[s]').astype('int64')
 
         container.replace('timestamp', timestamps)
+
+    def _select_temperature_events(self, tpc_events, tob_events, tqm_events, toboe, use_tv, num_events):
+        """
+        Select a single reported air temperature per observation from a
+        stack of PREPBUFR temperature events, mirroring the GSI's Tsensible
+        option: prefer the virtual-temperature event (temperatureEventCode
+        == 8) if present and desired, otherwise fall back to the first
+        sensible (Tdry) event (1 <= temperatureEventCode < 8). Exactly one
+        of the sensible/virtual outputs is populated per observation -
+        never both, since a Tv event is derived from an underlying Tdry
+        event and both are otherwise present in the same stack.
+
+        Parameters
+        ----------
+        tpc_events, tob_events, tqm_events: list of masked arrays
+            Event-stack values (temperatureEventCode, temperatureOb,
+            temperatureQM), one array per event level, ordered from the top
+            of the stack.
+        toboe: masked array
+            Per-observation temperature obs error (not stacked by event).
+        use_tv: bool or (n_obs,) bool array
+            Whether virtual temperature should be preferred. Pass a
+            per-observation array to exclude specific obs types (e.g. land
+            stations) even when virtual temperature is enabled overall.
+        num_events: int
+            Number of event-stack levels to search.
+
+        Returns
+        -------
+        tsen, tsenqm, tsenoe, tvo, tvoqm, tvooe: np.ndarray
+            Sensible/virtual temperature, QM, and error arrays, each
+            fill_value where not selected.
+        """
+
+        n_obs = tob_events[0].shape[0]
+        use_tv_arr = np.broadcast_to(np.asarray(use_tv), (n_obs,))
+
+        tsen = np.full(n_obs, tob_events[0].fill_value)
+        tsenqm = np.full(n_obs, tqm_events[0].fill_value)
+        tsenoe = np.full(n_obs, toboe.fill_value)
+        tvo = np.full(n_obs, tob_events[0].fill_value)
+        tvoqm = np.full(n_obs, tqm_events[0].fill_value)
+        tvooe = np.full(n_obs, toboe.fill_value)
+
+        for idx in range(n_obs):
+            use_tv_idx = bool(use_tv_arr[idx])
+
+            for ev in range(num_events):
+                tpc_val = tpc_events[ev][idx]
+                tob_val = tob_events[ev][idx]
+                tqm_val = tqm_events[ev][idx]
+
+                if ma.is_masked(tpc_val) or ma.is_masked(tob_val):
+                    continue
+
+                # select desired obs type, if present
+                if tpc_val == 8 and use_tv_idx:
+                    # use Tv if available
+                    tvo[idx] = tob_val
+                    if not ma.is_masked(tqm_val):
+                        tvoqm[idx] = tqm_val
+                    if not ma.is_masked(toboe[idx]):
+                        tvooe[idx] = toboe[idx]
+                    break
+                elif (tpc_val >= 1) and (tpc_val < 8):
+                    # Save Tdry
+                    tsen[idx] = tob_val
+                    if not ma.is_masked(tqm_val):
+                        tsenqm[idx] = tqm_val
+                    if not ma.is_masked(toboe[idx]):
+                        tsenoe[idx] = toboe[idx]
+                    break
+
+        return tsen, tsenqm, tsenoe, tvo, tvoqm, tvooe

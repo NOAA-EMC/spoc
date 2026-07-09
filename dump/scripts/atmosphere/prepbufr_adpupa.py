@@ -4,23 +4,14 @@ import numpy as np
 import numpy.ma as ma
 import time
 import calendar
-import yaml
 from datetime import datetime
 
 import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
-from prepbufr_obs_builder import PrepbufrObsBuilder
+from prepbufr_obs_builder import PrepbufrObsBuilder, check_include_tv
 
 MAPPING_PATH = map_path('prepbufr_adpupa.yaml')
 NUM_T_EVENTS = 5
-
-
-def _check_include_tv(yaml_path):
-    """Check if virtualTemperature should be included based on encoder variables in YAML."""
-    with open(yaml_path, 'r') as f:
-        config = yaml.safe_load(f)
-    encoder_vars = config.get('encoder', {}).get('variables', [])
-    return any(v.get('name') == 'ObsType/virtualTemperature' for v in encoder_vars)
 
 
 class AdpupaPrepbufrObsBuilder(PrepbufrObsBuilder):
@@ -67,7 +58,7 @@ class AdpupaPrepbufrObsBuilder(PrepbufrObsBuilder):
         station_pressureQM = self.compute_conditional_array(pqm, cat == 0)
         station_pressureError = self.compute_conditional_array(poe, cat == 0)
 
-        include_tv = _check_include_tv(MAPPING_PATH)
+        include_tv = check_include_tv(MAPPING_PATH)
         self.log.debug(f'Extract temperature from event stack (include_tv={include_tv})')
 
         toboe = container.get('airTemperatureError')
@@ -79,64 +70,15 @@ class AdpupaPrepbufrObsBuilder(PrepbufrObsBuilder):
             tob_events.append(container.get(f'temperatureOb{i}'))
             tqm_events.append(container.get(f'temperatureQM{i}'))
 
-        n_obs = tob_events[0].shape[0]
-        air_temperature = np.full(n_obs, tob_events[0].fill_value)
-        air_temperatureQM = np.full(n_obs, tqm_events[0].fill_value)
-        air_temperatureError = np.full(n_obs, toboe.fill_value)
-        derived_temperature_event_code = np.full(n_obs, tpc_events[0].fill_value)
-
-        if include_tv:
-            virtual_temperature = np.full(n_obs, tob_events[0].fill_value)
-            virtual_temperatureQM = np.full(n_obs, tqm_events[0].fill_value)
-            virtual_temperatureError = np.full(n_obs, toboe.fill_value)
-
-        for idx in range(n_obs):
-            selected_tdry = None
-            selected_tv = None
-
-            for ev in range(NUM_T_EVENTS):
-                tpc_val = tpc_events[ev][idx]
-                tob_val = tob_events[ev][idx]
-                tqm_val = tqm_events[ev][idx]
-
-                if ma.is_masked(tpc_val) or ma.is_masked(tob_val):
-                    continue
-
-                if selected_tdry is None and (tpc_val >= 1) and (tpc_val < 8):
-                    selected_tdry = (tpc_val, tob_val, tqm_val)
-                    if not include_tv:
-                        break
-                if include_tv and selected_tv is None and (tpc_val == 8):
-                    selected_tv = (tpc_val, tob_val, tqm_val)
-                    if selected_tdry is not None:
-                        break
-
-            if selected_tdry is not None:
-                tpc_val, tob_val, tqm_val = selected_tdry
-                air_temperature[idx] = tob_val
-                if not ma.is_masked(tqm_val):
-                    air_temperatureQM[idx] = tqm_val
-                if not ma.is_masked(toboe[idx]):
-                    air_temperatureError[idx] = toboe[idx]
-                derived_temperature_event_code[idx] = tpc_val
-
-            if include_tv:
-                if selected_tv is not None:
-                    tpc_val, tob_val, tqm_val = selected_tv
-                    virtual_temperature[idx] = tob_val
-                    if not ma.is_masked(tqm_val):
-                        virtual_temperatureQM[idx] = tqm_val
-                    if not ma.is_masked(toboe[idx]):
-                        virtual_temperatureError[idx] = toboe[idx]
-                    # With one metadata field, temperatureEventCode tracks the selected
-                    # virtual-temperature output when present.
-                    derived_temperature_event_code[idx] = tpc_val
+        air_temperature, air_temperatureQM, air_temperatureError, \
+            virtual_temperature, virtual_temperatureQM, virtual_temperatureError = \
+            self._select_temperature_events(
+                tpc_events, tob_events, tqm_events, toboe, include_tv, NUM_T_EVENTS)
 
         self.log.debug(f'Update variables into container')
         container.replace('airTemperature', air_temperature)
         container.replace('airTemperatureQualityMarker', air_temperatureQM)
         container.replace('airTemperatureError', air_temperatureError)
-        container.replace('temperatureEventCode', derived_temperature_event_code)
         if include_tv:
             container.replace('virtualTemperature', virtual_temperature)
             container.replace('virtualTemperatureQualityMarker', virtual_temperatureQM)
@@ -202,7 +144,7 @@ class AdpupaPrepbufrObsBuilder(PrepbufrObsBuilder):
             }
         ]
 
-        if _check_include_tv(MAPPING_PATH):
+        if check_include_tv(MAPPING_PATH):
             variables.append({
                 'name': 'ObsSubType/virtualTemperature',
                 'source': 'obsSubType',

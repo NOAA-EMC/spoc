@@ -58,8 +58,6 @@ bufr:
       query: "*/PRSLEVEL/T___INFO/T__EVENT{4}/TPC"
     temperatureEventCode5:
       query: "*/PRSLEVEL/T___INFO/T__EVENT{5}/TPC"
-    temperatureEventCode:
-      query: "*/PRSLEVEL/T___INFO/T__EVENT{1}/TPC"
 
     temperatureOb1:
       query: "*/PRSLEVEL/T___INFO/T__EVENT{1}/TOB"
@@ -266,11 +264,6 @@ encoder:
       source: variables/height
       longName: "Height of Observation"
       units: "m"
-
-    # MetaData: temperatureEventCode
-    - name: "MetaData/temperatureEventCode"
-      source: variables/temperatureEventCode
-      longName: "Temperature Event Program Code"
 
     # ObsValue: airTemperature
     - name: "ObsValue/airTemperature"
