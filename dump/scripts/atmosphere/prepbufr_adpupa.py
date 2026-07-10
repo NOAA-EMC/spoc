@@ -7,9 +7,10 @@ from datetime import datetime
 
 import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
-from prepbufr_obs_builder import PrepbufrObsBuilder
+from prepbufr_obs_builder import PrepbufrObsBuilder, check_include_tv
 
 MAPPING_PATH = map_path('prepbufr_adpupa.yaml')
+NUM_T_EVENTS = 5
 
 
 class AdpupaPrepbufrObsBuilder(PrepbufrObsBuilder):
@@ -56,28 +57,31 @@ class AdpupaPrepbufrObsBuilder(PrepbufrObsBuilder):
         station_pressureQM = self.compute_conditional_array(pqm, cat == 0)
         station_pressureError = self.compute_conditional_array(poe, cat == 0)
 
-        self.log.debug(f'Perform airTemperature, airTemperatureQM, and airTemperatureError calculations')
-        tpc = container.get('temperatureEventCode')
-        tob = container.get('airTemperature')
-        tobqm = container.get('airTemperatureQualityMarker')
+        include_tv = check_include_tv(MAPPING_PATH)
+        self.log.debug(f'Extract temperature from event stack (include_tv={include_tv})')
+
         toboe = container.get('airTemperatureError')
+        tpc_events = []
+        tob_events = []
+        tqm_events = []
+        for i in range(1, NUM_T_EVENTS + 1):
+            tpc_events.append(container.get(f'temperatureEventCode{i}'))
+            tob_events.append(container.get(f'temperatureOb{i}'))
+            tqm_events.append(container.get(f'temperatureQM{i}'))
 
-        air_temperature = self.compute_conditional_array(tob, (tpc >= 1) & (tpc < 8))
-        air_temperatureQM = self.compute_conditional_array(tobqm, (tpc >= 1) & (tpc < 8))
-        air_temperatureError = self.compute_conditional_array(toboe, (tpc >= 1) & (tpc < 8))
-
-        self.log.debug(f'Perform virtualTemperature, virtualTemperatureQM, and virtualTemperatureError calculations')
-        virtual_temperature = self.compute_conditional_array(tob, tpc == 8)
-        virtual_temperatureQM = self.compute_conditional_array(tobqm, tpc == 8)
-        virtual_temperatureError = self.compute_conditional_array(toboe, tpc == 8)
+        air_temperature, air_temperatureQM, air_temperatureError, \
+            virtual_temperature, virtual_temperatureQM, virtual_temperatureError = \
+            self._select_temperature_events(
+                tpc_events, tob_events, tqm_events, toboe, include_tv, NUM_T_EVENTS)
 
         self.log.debug(f'Update variables into container')
         container.replace('airTemperature', air_temperature)
-        container.replace('virtualTemperature', virtual_temperature)
         container.replace('airTemperatureQualityMarker', air_temperatureQM)
         container.replace('airTemperatureError', air_temperatureError)
-        container.replace('virtualTemperatureQualityMarker', virtual_temperatureQM)
-        container.replace('virtualTemperatureError', virtual_temperatureError)
+        if include_tv:
+            container.replace('virtualTemperature', virtual_temperature)
+            container.replace('virtualTemperatureQualityMarker', virtual_temperatureQM)
+            container.replace('virtualTemperatureError', virtual_temperatureError)
 
         self.log.debug(f'Add new/derived variables into container')
         ydr_paths = container.get_paths('latitude')
@@ -93,7 +97,7 @@ class AdpupaPrepbufrObsBuilder(PrepbufrObsBuilder):
     def _make_description(self):
         description = super()._make_description()
 
-        description.add_variables([
+        variables = [
             {
                 'name': 'ObsValue/stationPressure',
                 'source': 'stationPressure',
@@ -123,11 +127,6 @@ class AdpupaPrepbufrObsBuilder(PrepbufrObsBuilder):
                 'longName': 'Observation SubType',
             },
             {
-                'name': 'ObsSubType/virtualTemperature',
-                'source': 'obsSubType',
-                'longName': 'Observation SubType',
-            },
-            {
                 'name': 'ObsSubType/specificHumidity',
                 'source': 'obsSubType',
                 'longName': 'Observation SubType',
@@ -142,7 +141,16 @@ class AdpupaPrepbufrObsBuilder(PrepbufrObsBuilder):
                 'source': 'obsSubType',
                 'longName': 'Observation SubType',
             }
-        ])
+        ]
+
+        if check_include_tv(MAPPING_PATH):
+            variables.append({
+                'name': 'ObsSubType/virtualTemperature',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
+            })
+
+        description.add_variables(variables)
 
         return description
 
