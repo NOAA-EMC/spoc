@@ -47,22 +47,58 @@ bufr:
     heightMetaData:
       query: "*/Z___INFO/Z__EVENT{1}/ZOB"
       type: float
-    temperatureEventCode:
+
+    # Temperature event codes for each event level (to find Tdry vs Tv)
+    temperatureEventCode1:
       query: "*/T___INFO/T__EVENT{1}/TPC"
+    temperatureEventCode2:
+      query: "*/T___INFO/T__EVENT{2}/TPC"
+    temperatureEventCode3:
+      query: "*/T___INFO/T__EVENT{3}/TPC"
+    temperatureEventCode4:
+      query: "*/T___INFO/T__EVENT{4}/TPC"
+    temperatureEventCode5:
+      query: "*/T___INFO/T__EVENT{5}/TPC"
+
+    # Temperature observations for each event level
+    temperatureOb1:
+      query: "*/T___INFO/T__EVENT{1}/TOB"
+      transforms:
+        - offset: 273.15
+    temperatureOb2:
+      query: "*/T___INFO/T__EVENT{2}/TOB"
+      transforms:
+        - offset: 273.15
+    temperatureOb3:
+      query: "*/T___INFO/T__EVENT{3}/TOB"
+      transforms:
+        - offset: 273.15
+    temperatureOb4:
+      query: "*/T___INFO/T__EVENT{4}/TOB"
+      transforms:
+        - offset: 273.15
+    temperatureOb5:
+      query: "*/T___INFO/T__EVENT{5}/TOB"
+      transforms:
+        - offset: 273.15
+
+    # Temperature quality markers for each event level
+    temperatureQM1:
+      query: "*/T___INFO/T__EVENT{1}/TQM"
+    temperatureQM2:
+      query: "*/T___INFO/T__EVENT{2}/TQM"
+    temperatureQM3:
+      query: "*/T___INFO/T__EVENT{3}/TQM"
+    temperatureQM4:
+      query: "*/T___INFO/T__EVENT{4}/TQM"
+    temperatureQM5:
+      query: "*/T___INFO/T__EVENT{5}/TQM"
 
     # ObsValue
     stationPressureObsValue:
       query: "*/P___INFO/P__EVENT{1}/POB"
       transforms:
         - scale: 100
-    airTemperatureObsValue:
-      query: "*/T___INFO/T__EVENT{1}/TOB"
-      transforms:
-        - offset: 273.15
-    virtualTemperatureObsValue:
-      query: "*/T___INFO/T__EVENT{1}/TOB"
-      transforms:
-        - offset: 273.15
     specificHumidityObsValue:
       type: float
       query: "*/Q___INFO/Q__EVENT{1}/QOB"
@@ -76,10 +112,6 @@ bufr:
     # QualityMarker
     stationPressureQualityMarker:
       query: "*/P___INFO/P__EVENT{1}/PQM"
-    airTemperatureQualityMarker:
-      query: "*/T___INFO/T__EVENT{1}/TQM"
-    virtualTemperatureQualityMarker:
-      query: "*/T___INFO/T__EVENT{1}/TQM"
     specificHumidityQualityMarker:
       query: "*/Q___INFO/Q__EVENT{1}/QQM"
     windEastwardQualityMarker:
@@ -93,8 +125,6 @@ bufr:
       transforms:
         - scale: 100
     airTemperatureObsError:
-      query: "*/T___INFO/T__BACKG/TOE"
-    virtualTemperatureObsError:
       query: "*/T___INFO/T__BACKG/TOE"
     relativeHumidityObsError:
       query: "*/Q___INFO/Q__BACKG/QOE"
@@ -215,10 +245,6 @@ encoder:
       source: variables/heightMetaData
       longName: "Height"
       units: "m"
-
-    - name: "MetaData/temperatureEventCode"
-      source: variables/temperatureEventCode
-      longName: "Temperature Event Code"
 
     # ObsValue
     - name: "ObsValue/stationPressure"
