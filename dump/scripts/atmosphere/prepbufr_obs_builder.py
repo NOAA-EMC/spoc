@@ -144,44 +144,33 @@ class PrepbufrObsBuilder(ObsBuilder):
         tvoqm = np.full(n_obs, tqm_events[0].fill_value)
         tvooe = np.full(n_obs, toboe.fill_value)
 
-        if num_events == 0:
-            return tsen, tsenqm, tsenoe, tvo, tvoqm, tvooe
+        for idx in range(n_obs):
+            use_tv_idx = bool(use_tv_arr[idx])
 
-        # Stack the event-stack levels into (num_events, n_obs) arrays so the
-        # search over levels is a handful of NumPy ops instead of a Python
-        # loop over every observation.
-        tpc_stack = ma.stack(tpc_events[:num_events])
-        tob_stack = ma.stack(tob_events[:num_events])
-        tqm_stack = ma.stack(tqm_events[:num_events])
+            for ev in range(num_events):
+                tpc_val = tpc_events[ev][idx]
+                tob_val = tob_events[ev][idx]
+                tqm_val = tqm_events[ev][idx]
 
-        valid = ~ma.getmaskarray(tpc_stack) & ~ma.getmaskarray(tob_stack)
-        tpc_filled = ma.filled(tpc_stack, -1)
+                if ma.is_masked(tpc_val) or ma.is_masked(tob_val):
+                    continue
 
-        is_tv_code = valid & (tpc_filled == 8) & use_tv_arr[np.newaxis, :]
-        is_sen_code = valid & (tpc_filled >= 1) & (tpc_filled < 8)
-        match = is_tv_code | is_sen_code
-
-        # First matching event level per observation (top of stack wins);
-        # argmax returns the first True, and 0 (harmless) when none match.
-        has_match = match.any(axis=0)
-        first_ev = np.argmax(match, axis=0)
-        obs_idx = np.arange(n_obs)
-
-        sel_is_tv = has_match & is_tv_code[first_ev, obs_idx]
-        sel_is_sen = has_match & ~sel_is_tv
-
-        tob_sel = ma.filled(tob_stack, tob_events[0].fill_value)[first_ev, obs_idx]
-        tqm_sel = ma.filled(tqm_stack, tqm_events[0].fill_value)[first_ev, obs_idx]
-        tqm_valid = ~ma.getmaskarray(tqm_stack)[first_ev, obs_idx]
-        toboe_valid = ~ma.getmaskarray(toboe)
-        toboe_filled = ma.filled(toboe, toboe.fill_value)
-
-        tsen[sel_is_sen] = tob_sel[sel_is_sen]
-        tsenqm[sel_is_sen & tqm_valid] = tqm_sel[sel_is_sen & tqm_valid]
-        tsenoe[sel_is_sen & toboe_valid] = toboe_filled[sel_is_sen & toboe_valid]
-
-        tvo[sel_is_tv] = tob_sel[sel_is_tv]
-        tvoqm[sel_is_tv & tqm_valid] = tqm_sel[sel_is_tv & tqm_valid]
-        tvooe[sel_is_tv & toboe_valid] = toboe_filled[sel_is_tv & toboe_valid]
+                # select desired obs type, if present
+                if tpc_val == 8 and use_tv_idx:
+                    # use Tv if available
+                    tvo[idx] = tob_val
+                    if not ma.is_masked(tqm_val):
+                        tvoqm[idx] = tqm_val
+                    if not ma.is_masked(toboe[idx]):
+                        tvooe[idx] = toboe[idx]
+                    break
+                elif (tpc_val >= 1) and (tpc_val < 8):
+                    # Save Tdry
+                    tsen[idx] = tob_val
+                    if not ma.is_masked(tqm_val):
+                        tsenqm[idx] = tqm_val
+                    if not ma.is_masked(toboe[idx]):
+                        tsenoe[idx] = toboe[idx]
+                    break
 
         return tsen, tsenqm, tsenoe, tvo, tvoqm, tvooe
