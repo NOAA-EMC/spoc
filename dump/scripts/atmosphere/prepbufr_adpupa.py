@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import os
 import numpy as np
-import numpy.ma as ma
 import time
 import calendar
 from datetime import datetime

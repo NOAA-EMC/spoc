@@ -21,9 +21,8 @@ def map_path(map_file_name):
 def check_include_tv(yaml_path):
     """Check if virtualTemperature should be included based on encoder variables in YAML."""
     with open(yaml_path, 'r') as f:
-        config = yaml.safe_load(f)
+        config = yaml.safe_load(f) or {}
     encoder_vars = config.get('encoder', {}).get('variables', [])
-    # search for virtualTemperature or virtualTemperatureAt2M
     return any(v.get('name', '').startswith('ObsType/virtualTemperature') for v in encoder_vars)
 
 
