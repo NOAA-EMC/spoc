@@ -59,6 +59,12 @@ def main():
     npcs = args.npcs
     nwrk = args.nwrk
 
+    #kmax, ibox, jbox = thinparm(grid, thin, pick)
+    #print(kmax)
+    #print(ibox)
+    #print(jbox)
+    #quit()
+
     # Validate input directory
     if not os.path.isdir(inpdir):
         sys.stderr.write(f"Error: input directory '{inpdir}' does not exist\n")
@@ -86,7 +92,7 @@ def main():
     rtime = tm.time()
 
     with concurrent.futures.ProcessPoolExecutor(max_workers=nwrk) as executor:
-        results = list(executor.map(
+        data = np.array(list(executor.map(
             readloop,
             fbeg, fend,
             repeat(inpdir),
@@ -96,29 +102,28 @@ def main():
             repeat(npcs),
             repeat(nwrk),
             repeat(nvar)
-        ))
+        )))
 
     time_read = tm.time() - rtime
     rtime = tm.time()
 
-    # Concatenate arrays from parallel segments
-    total_reports = 0
-    for npic, data_segment in enumerate(results):
-        kpic = np.count_nonzero(data_segment[0, :])
-        if kpic == 0:
-            continue
+    # ---concatenate complete arrays from the parallel segments
 
+    mpic = 0
+    for npic in range(nwrk):
+        kpic = np.count_nonzero(data[npic,0,:])
         vpic = 0
         for aray in range(len(vlist)):
-            vlist[aray] = np.concatenate((vlist[aray], data_segment[vpic, 0:kpic]))
-            vpic += 1
-        total_reports += kpic
+            vlist[aray] = np.concatenate((vlist[aray],data[npic,vpic,0:kpic]))
+            vpic = vpic+1
+        mpic = mpic+kpic
 
-    # Ensure correct data types
+    # ---make sure resultant arrays are the desired data types
+
     vpic = 0
     for aray in range(len(vlist)):
         vlist[aray] = vlist[aray].astype(dlist[vpic])
-        vpic += 1
+        vpic = vpic+1
 
     time_concat = tm.time() - rtime
     rtime = tm.time()
@@ -135,8 +140,9 @@ def main():
 
     # Add channel data (wavenumber and channel numbers)
     sensorCentralWavenumber, sensorChannelNumber = channel_data(files[0])
-    container.add('sensorCentralWavenumber', sensorCentralWavenumber, ['CHANNEL'])
-    container.add('sensorChannelNumber', sensorChannelNumber, ['CHANNEL'])
+    print(sensorChannelNumber)
+    container.add('sensorCentralWavenumber', sensorCentralWavenumber, ['Channel'])
+    container.add('sensorChannelNumber', sensorChannelNumber, ['Channel'])
 
     # Encode container to IODA NetCDF file
     netcdf.Encoder(description).encode(container, iodout)
@@ -152,12 +158,11 @@ def main():
     print(f"Data concatenation:         {time_concat:8.2f} sec")
     print(f"IODA encoding:              {time_encode:8.2f} sec")
     print(f"Total processing time:      {time_read + time_concat + time_encode:8.2f} sec")
-    print(f"Total reports processed:    {total_reports:8d}")
+    #print(f"Total reports processed:    {total_reports:8d}")
     print("=" * 50)
     print()
 
-
-def readloop(fbeg, fend, inpdir, grid, thin, pick, npcs, nwork, nvar):
+def readloop(fbeg, fend, inpdir, grid, thin, pick, npcs, nwrk, nvar):
     """
     Read and process a range of MTG-IRS dwell files in parallel.
 
@@ -169,7 +174,7 @@ def readloop(fbeg, fend, inpdir, grid, thin, pick, npcs, nwork, nvar):
         thin: Thinning factor
         pick: Pick box size
         npcs: Number of principal components
-        nwork: Number of workers
+        nwrk: Number of workers
         nvar: Number of metadata variables
 
     Returns:
@@ -183,166 +188,127 @@ def readloop(fbeg, fend, inpdir, grid, thin, pick, npcs, nwork, nvar):
     jbox = np.array(jbox)
 
     # Set up storage arrays
-    chunk = (len(files) + nwork - 1) // nwork
+    chunk = (len(files) + nwrk - 1) // nwrk
     data = np.zeros((nvar + 2 * npcs, kmax * chunk), dtype=np.float32)
 
     mpic = 0
     print(f"Worker processing files {fbeg} to {fend-1} from {inpdir}")
 
-    for fidx in range(fbeg, fend):
-        if fidx >= len(files):
-            break
+    mpic = 0
+    uy2k = datetime(2000, 1, 1, 0, 0, 0, tzinfo=timezone.utc).timestamp()
+
+    #---process a range of input files
+
+    for fidx in range(fbeg,fend):
+
+        imax = np.full(kmax, -1, dtype=int)
+        jmax = np.full(kmax, -1, dtype=int)
+        kpic = 0
+        n = 0
 
         try:
-            with Dataset(files[fidx]) as irs:
-                data_segment = _process_dwell_file(
-                    irs, ibox, jbox, kmax, grid, thin, npcs, nvar, mpic, data
-                )
-                if data_segment is not None:
-                    processed_count, updated_mpic = data_segment
-                    mpic = updated_mpic
-        except (OSError, KeyError) as e:
-            print(f"Warning: skipping file {files[fidx]}: {e}")
-            continue
+            irs = Dataset(files[fidx])
+        except OSError as e:
+            break    
 
-    return data
-
-
-def _process_dwell_file(irs, ibox, jbox, kmax, grid, thin, npcs, nvar, mpic, data):
-    """
-    Extract and process data from a single MTG-IRS dwell file.
-
-    Args:
-        irs: netCDF Dataset object
-        ibox, jbox: Inner box indices
-        kmax: Maximum number of pixels per dwell
-        grid: Grid size
-        thin: Thinning factor
-        npcs: Number of principal components
-        nvar: Number of metadata variables
-        mpic: Current position in output array
-        data: Output data array (modified in place)
-
-    Returns:
-        Tuple of (processed_count, updated_mpic) or None if no valid data
-    """
-
-    unix2000 = datetime(2000, 1, 1, 0, 0, 0, tzinfo=timezone.utc).timestamp()
-
-    # Build composite quality score
-    overall_quality = np.zeros([grid, grid], dtype='int32')
-    
-    try:
-        lw_quality = {}
-        for k in irs['data/lwir/quality_band'].variables.keys():
-            if 'warning' in k and 'number' not in k:
-                lw_quality[k] = irs['data/lwir/quality_band/' + k][:]
-        
-        mw_quality = {}
-        for k in irs['data/mwir/quality_band'].variables.keys():
-            if 'warning' in k and 'number' not in k:
-                mw_quality[k] = irs['data/mwir/quality_band/' + k][:]
-        
-        for k in mw_quality.keys():
-            overall_quality += (mw_quality[k].astype('int32') + 
-                               lw_quality[k].astype('int32'))
-    except KeyError:
-        print("Warning: quality band data not found")
-
-    # Extract key variables
-    try:
         loca = irs['data']
         mwva = irs['data/mwir/compressed']
         lwva = irs['data/lwir/compressed']
 
-        pcsc = lwva.variables["global_pc_scores"][:, :, :]
-        lons = loca.variables["longitude"][:, :]
-        lats = loca.variables["latitude"][:, :]
-        satz = loca.variables["satellite_zenith_angle"][:, :]
-    except KeyError as e:
-        print(f"Warning: required variable missing: {e}")
-        return None
+        #---make a composite quality band score 
 
-    # Apply QC filters
-    fil = 2147483647  # Max int32
-    qc1 = np.abs(pcsc[:, :, :]) < fil
-    qc2_lon = np.abs(lons) <= 180
-    qc2_lat = np.abs(lats) <= 90
-    qc2_zen = np.abs(satz) <= 60
-    qc2 = qc2_lon & qc2_lat & qc2_zen
+        overall_quality = np.zeros([160,160],dtype='int32')
+        lw_quality = {}
+        for k in irs['data/lwir/quality_band'].variables.keys():
+            if ('warning' in k and 'number' not in k):
+                lw_quality[k] = irs['data/lwir/quality_band/'+k][:]
+        mw_quality = {}
+        for k in irs['data/mwir/quality_band'].variables.keys():
+            if ('warning' in k and 'number' not in k):
+                mw_quality[k] = irs['data/mwir/quality_band/'+k][:]
+        for k in mw_quality.keys():
+            overall_quality += mw_quality[k].astype('int32') + lw_quality[k].astype('int32')
 
-    pcsc = np.where(qc1, pcsc[:, :, :], 0)
-    pcsc[:, :, 0] = np.where(qc2, pcsc[:, :, 0], 0)
+        #---process the qc criteria and zero pcscores in rejected spots
 
-    # Get satellite altitude
-    try:
+        pcsc = lwva.variables["global_pc_scores"][:][:][:]
+        lons = loca.variables["longitude"][:][:]
+        lats = loca.variables["latitude"][:][:]
+        satz = loca.variables["satellite_zenith_angle"][:][:]
+
+        fil = 2147483647
+        qc1 = abs(pcsc[:,:,:]) <  fil
+        lon = abs(lons) <= 180
+        lat = abs(lats) <= 90 
+        zan = abs(satz) <= 65 
+        qc2 = lon & lat & zan
+
+        pcsc = np.where (qc1, pcsc[:,:,:], 0)
+        pcsc[:,:,0]  = np.where (qc2, pcsc[:,:,0], 0)
+
         sat_alt = irs['state/platform/platform_altitude'][0]
-    except KeyError:
-        sat_alt = 0.0
 
-    # Select hottest spot in each inner box
-    imax_list = []
-    jmax_list = []
-    
-    for a in range(0, grid, thin):
-        for b in range(0, grid, thin):
-            pc1 = np.abs(pcsc[a + ibox, b + jbox, 0])
-            pcm = np.max(pc1)
-            if pcm > 0:
-                inx = np.where(pc1 == pcm)[0]
-                imax_list.append(ibox[inx[0]])
-                jmax_list.append(jbox[inx[0]])
+        #---select the hottest spot in each inner box in the dwell
 
-    # Skip if no valid pixels found
-    if len(imax_list) == 0:
-        return None
+        for a in range(0, 160, thin):
+            for b in range(0, 160, thin):
+                imx = a + ibox
+                jmx = b + jbox
+                pc1 = np.abs(pcsc[imx,jmx,0])
+                pcm = np.max(pc1)
+                if pcm > 0:
+                    inx = np.where(pc1 == pcm)[0]
+                    imax[n] = imx[inx[0]]
+                    jmax[n] = jmx[inx[0]]
+                    n = n + 1
+        if n == 0:
+            continue 
 
-    imax = np.array(imax_list, dtype=int)
-    jmax = np.array(jmax_list, dtype=int)
-    kpic = len(imax)
-    lpic = mpic
-    mpic_new = mpic + kpic
+        #---save the soundings selected from this dwell
 
-    # Extract and store data
-    try:
-        data[0, lpic:mpic_new] = loca.variables["time"][:] + unix2000  
-        data[1, lpic:mpic_new] = loca.variables["dwell_number"][:]
-        data[2, lpic:mpic_new] = loca.variables["dwell_type"][:]
-        data[3, lpic:mpic_new] = np.array(lwva.variables["detector_sample_quality"])[imax, jmax]
-        data[4, lpic:mpic_new] = np.array(mwva.variables["detector_sample_quality"])[imax, jmax]
-        data[5, lpic:mpic_new] = np.array(lwva.variables["global_pcrs_quality"])[imax, jmax]
-        data[6, lpic:mpic_new] = np.array(mwva.variables["global_pcrs_quality"])[imax, jmax]
-        data[7, lpic:mpic_new] = np.array(lwva.variables["spatial_sample_quality"])[imax, jmax]
-        data[8, lpic:mpic_new] = np.array(mwva.variables["spatial_sample_quality"])[imax, jmax]
-        data[9, lpic:mpic_new] = overall_quality[imax, jmax]
-        data[10, lpic:mpic_new] = assign_WMO_ID(irs.platform)
-        data[11, lpic:mpic_new] = scan_pos(data[1, lpic:mpic_new], imax, jmax, kpic, grid)
-        data[12, lpic:mpic_new] = np.array(loca.variables["cloud_fraction"])[imax, jmax]
-        data[13, lpic:mpic_new] = np.array(loca.variables["cloud_signal"])[imax, jmax]
-        data[14, lpic:mpic_new] = np.array(loca.variables["dust_warning"])[imax, jmax]
-        data[15, lpic:mpic_new] = np.array(loca.variables["latitude"])[imax, jmax]
-        data[16, lpic:mpic_new] = np.array(loca.variables["longitude"])[imax, jmax]
-        data[17, lpic:mpic_new] = np.array(loca.variables["satellite_azimuth_angle"])[imax, jmax]
-        data[18, lpic:mpic_new] = np.array(loca.variables["satellite_zenith_angle"])[imax, jmax]
-        data[19, lpic:mpic_new] = np.array(loca.variables["solar_azimuth_angle"])[imax, jmax]
-        data[20, lpic:mpic_new] = np.array(loca.variables["solar_zenith_angle"])[imax, jmax]
-        data[21, lpic:mpic_new] = compute_scan_angle(np.array(loca.variables["satellite_zenith_angle"])[imax, jmax], sat_alt)  
-        data[22, lpic:mpic_new] = np.array(lwva.variables["global_pcr_scores"])[imax, jmax]
-        data[23, lpic:mpic_new] = np.array(mwva.variables["global_pcr_scores"])[imax, jmax]
+        imax = imax[imax >= 0]
+        jmax = jmax[jmax >= 0]
+        kpic = imax.shape[0]
+        lpic = mpic        
+        mpic = mpic+kpic       
 
-        # Extract principal component scores
+        data[ 0,lpic:mpic] = loca.variables["time"][:] + uy2k
+        data[ 1,lpic:mpic] = loca.variables["dwell_number"][:]
+        data[ 2,lpic:mpic] = loca.variables["dwell_type"][:]
+        data[ 3,lpic:mpic] = np.array(lwva.variables["detector_sample_quality"])[imax,jmax]
+        data[ 4,lpic:mpic] = np.array(mwva.variables["detector_sample_quality"])[imax,jmax]
+        data[ 5,lpic:mpic] = np.array(lwva.variables["global_pcrs_quality"])[imax,jmax]
+        data[ 6,lpic:mpic] = np.array(mwva.variables["global_pcrs_quality"])[imax,jmax]
+        data[ 7,lpic:mpic] = np.array(lwva.variables["spatial_sample_quality"])[imax,jmax]
+        data[ 8,lpic:mpic] = np.array(mwva.variables["spatial_sample_quality"])[imax,jmax]
+        data[ 9,lpic:mpic] = overall_quality[imax,jmax]
+        data[10,lpic:mpic] = assign_WMO_ID(irs.platform)
+        data[11,lpic:mpic] = scan_pos(data[1,lpic:mpic],imax,jmax,kpic,grid)
+        data[12,lpic:mpic] = np.array(loca.variables["cloud_fraction"])[imax,jmax]
+        data[13,lpic:mpic] = np.array(loca.variables["cloud_signal"])[imax,jmax]
+        data[14,lpic:mpic] = np.array(loca.variables["dust_warning"])[imax,jmax]
+        data[15,lpic:mpic] = np.array(loca.variables["latitude"])[imax,jmax]
+        data[16,lpic:mpic] = np.array(loca.variables["longitude"])[imax,jmax]
+        data[17,lpic:mpic] = np.array(loca.variables["satellite_azimuth_angle"])[imax,jmax]
+        data[18,lpic:mpic] = np.array(loca.variables["satellite_zenith_angle"])[imax,jmax]
+        data[19,lpic:mpic] = np.array(loca.variables["solar_azimuth_angle"])[imax,jmax]
+        data[20,lpic:mpic] = np.array(loca.variables["solar_zenith_angle"])[imax,jmax]
+        data[21,lpic:mpic] = compute_scan_angle(data[20,lpic:mpic],sat_alt*np.zeros(kpic))
+        data[22,lpic:mpic] = np.array(lwva.variables["global_pcr_scores"])[imax,jmax]
+        data[23,lpic:mpic] = np.array(mwva.variables["global_pcr_scores"])[imax,jmax]
+
+        # --- Extract and Map PC Scores ---
+        # Pull only the 150 scores for the selected pixels
         lw_scores = np.array(lwva.variables["global_pc_scores"])[imax, jmax, :npcs]
         mw_scores = np.array(mwva.variables["global_pc_scores"])[imax, jmax, :npcs]
+ 
+        # Assign to the data array (Indices 26 to 26+150 and 26+150 to 26+300)
+        data[nvar:nvar+npcs, lpic:mpic] = lw_scores.T
+        data[nvar+npcs:nvar+2*npcs, lpic:mpic] = mw_scores.T
 
-        data[nvar:nvar + npcs, lpic:mpic_new] = lw_scores.T
-        data[nvar + npcs:nvar + 2 * npcs, lpic:mpic_new] = mw_scores.T
+        irs.close()
 
-    except (KeyError, IndexError) as e:
-        print(f"Warning: error extracting data: {e}")
-        return None
-
-    return (kpic, mpic_new)
-
+    return data
 
 def assign_WMO_ID(platform):
     """
@@ -490,7 +456,7 @@ def thinparm(grid, outer, inner):
     kmax = (grid // outer) ** 2
 
     beg = outer // 2 - inner // 2
-    end = beg + inner
+    end = beg + inner 
 
     if end - beg != inner:
         print(f'Error: invalid inner box size {inner} for outer box {outer}')
@@ -502,6 +468,7 @@ def thinparm(grid, outer, inner):
         for j in range(beg, end):
             ibox.append(i)
             jbox.append(j)
+            
 
     return kmax, ibox, jbox
 
