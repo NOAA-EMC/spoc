@@ -44,20 +44,36 @@ encoder:
   globals:
     - name: "description"
       type: string
-      value: "Total number of flashes (thunderstorm), retrieved from Vaisala lightning (NLDN short-range)"
+      value: "NASA Langley high-resolution (1x1 field-of-view) cloud data"
 
     - name: "platformCommonName"
       type: string
-      value: "NASALaRC"
+      value: "GOES"
+
+    - name: "platformLongDescription"
+      type: string
+      value: "Geostationary Operational Environmental Satellites"
+  
+    - name: "sensorCommonName"
+      type: string
+      value: "ABI"
+
+    - name: "sensorLongDescription"
+      type: string
+      value: "Advanced Baseline Imager (ABI), a multi-channel passive imaging radiometer"
 
     - name: "source"
       type: string
-      value: "U.S. National Weather Service, National Centers for Environmental Prediction (NCEP))"
+      value: "NASA Langley Research Center"
 
     - name: "sourceFiles"
       type: string
-      value: "NCEP BUFR Dump - NC007001"
+      value: "GOES Level 1b radiances and Level 2 cloud parameter files processed by NASA LaRC algorithms prior to BUFR encoding"
 
+    - name: "processingLevel"
+      type: string
+      value: "Level 2 (L2) — Derived geophysical variables (e.g., cloud top temperature) mapped to the original satellite field-of-view"
+  
     - name: "converter"
       type: string
       value: "bufr-query"

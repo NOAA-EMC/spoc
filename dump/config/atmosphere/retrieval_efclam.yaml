@@ -29,19 +29,35 @@ encoder:
   globals:
     - name: "description"
       type: string
-      value: "University of Wisconsin GOES imager-effective cloud"
+      value: "GOES imager effective cloud amount data"
 
-    - name: "data category"
+    - name: "platformCommonName"
       type: string
-      value: "Surface data (satellite)"
+      value: "GOES"
+
+    - name: "platformLongDescription"
+      type: string
+      value: "Geostationary Operational Environmental Satellites"
+
+    - name: "sensorCommonName"
+      type: string
+      value: "Imager/Sounder"
+
+    - name: "sensorLongDescription"
+      type: string
+      value: "GOES Imager and Sounder instruments"
 
     - name: "source"
       type: string
-      value: "U.S. National Weather Service, National Centers for Environmental Prediction (NCEP))"
+      value: "University of Wisconsin"
 
     - name: "sourceFiles"
       type: string
-      value: "NCEP BUFR Dump - NC012160"
+      value: "GOES Level 1b radiances"
+
+    - name: "processingLevel"
+      type: string
+      value: "Level 2 (L2) — Derived geophysical variables retrieved from satellite radiances"
 
     - name: "converter"
       type: string

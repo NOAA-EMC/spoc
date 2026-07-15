@@ -22,9 +22,6 @@ bufr:
     polarityofstroke:
       query: "*/PLRTS"
 
-#    otherweatherphenomena:
-#      query: "*/OWEP"
-
     numberofflashes:
       query: "*/NOFL"
 
@@ -38,19 +35,35 @@ encoder:
   globals:
     - name: "description"
       type: string
-      value: "Total number of flashes (thunderstorm), retrieved from Vaisala lightning (NLDN short-range)"
+      value: "Total lightning strike and flash data"
 
     - name: "platformCommonName"
       type: string
-      value: "Vaisala"
+      value: "Lightning Detection Network (LDN)"
+
+    - name: "platformLongDescription"
+      type: string
+      value: "Ground-based lightning detection networks"
+
+    - name: "sensorCommonName"
+      type: string
+      value: "Lightning Sensors / GLM"
+
+    - name: "sensorLongDescription"
+      type: string
+      value: "Ground sensors using Magnetic Direction Finding (MDF) and Time-of-Arrival (TOA) techniques to detect electromagnetic pulses"
 
     - name: "source"
       type: string
-      value: "U.S. National Weather Service, National Centers for Environmental Prediction (NCEP))"
+      value: "Commercial vendors (Vaisala, Earth Networks)"
 
     - name: "sourceFiles"
       type: string
-      value: "NCEP BUFR Dump - NC007001"
+      value: "Binary or ASCII format defined by Vaisala"
+
+    - name: "processingLevel"
+      type: string
+      value: "Level 2 (L2) — Derived geophysical parameters (discrete lightning flash/strike points)"
 
     - name: "converter"
       type: string
