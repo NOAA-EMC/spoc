@@ -6,10 +6,13 @@ import numpy.ma as ma
 
 import bufr
 from bufr.obs_builder import add_main_functions
-from prepbufr_obs_builder import PrepbufrObsBuilder, map_path
+from prepbufr_obs_builder import PrepbufrObsBuilder, map_path, check_include_tv
 
 
 MAPPING_PATH = map_path('prepbufr_sfcshp.yaml')
+
+# Fixed number of temperature event levels handled by this builder.
+NUM_T_EVENTS = 5
 
 
 class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
@@ -19,7 +22,7 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
     def _make_description(self):
         description = super()._make_description()
 
-        description.add_variables([
+        variables = [
             {
                 'name': 'MetaData/sequenceNumber',
                 'source': 'sequenceNumber',
@@ -32,11 +35,6 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
             },
             {
                 'name': 'ObsSubType/airTemperature',
-                'source': 'obsSubType',
-                'longName': 'Observation SubType',
-            },
-            {
-                'name': 'ObsSubType/virtualTemperature',
                 'source': 'obsSubType',
                 'longName': 'Observation SubType',
             },
@@ -55,7 +53,17 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
                 'source': 'obsSubType',
                 'longName': 'Observation SubType',
             }
-        ])
+        ]
+
+        if check_include_tv(MAPPING_PATH):
+            variables.append({
+                'name': 'ObsSubType/virtualTemperature',
+                'source': 'obsSubType',
+                'longName': 'Observation SubType',
+            })
+
+        description.add_variables(variables)
+
         return description
 
     def make_obs(self, comm, input_path):
@@ -92,36 +100,36 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
         obsSubType = self._compute_obssubtype(typ, t29)
         self.log.debug(f' obsSubType min/max =  {obsSubType.min()} {obsSubType.max()}')
 
-        self.log.debug(f'Do tsen and tv calculation')
-        tpc = container.get('temperatureEventCode')
-        tob = container.get('airTemperatureObsValue')
-        tob_paths = container.get_paths('airTemperatureObsValue')
-        tsen = np.full(tob.shape[0], tob.fill_value)
-        tsen = np.where(((tpc >= 1) & (tpc < 8)), tob, tsen)
-        tvo = np.full(tob.shape[0], tob.fill_value)
-        tvo = np.where((tpc == 8), tob, tvo)
+        include_tv = check_include_tv(MAPPING_PATH)
+        self.log.debug(f'Extract temperature from event stack (include_tv={include_tv})')
 
-        self.log.debug(f'Do tsen and tv QM calculations')
-        tobqm = container.get('airTemperatureQualityMarker')
-        tsenqm = np.full(tobqm.shape[0], tobqm.fill_value)
-        tsenqm = np.where(((tpc >= 1) & (tpc < 8)), tobqm, tsenqm)
-        tvoqm = np.full(tobqm.shape[0], tobqm.fill_value)
-        tvoqm = np.where((tpc == 8), tobqm, tvoqm)
-
-        self.log.debug(f'Do tsen and tv ObsError calculations')
+        # get record-specific data
         toboe = container.get('airTemperatureObsError')
-        tsenoe = np.full(toboe.shape[0], toboe.fill_value)
-        tsenoe = np.where(((tpc >= 1) & (tpc < 8)), toboe, tsenoe)
-        tvooe = np.full(toboe.shape[0], toboe.fill_value)
-        tvooe = np.where((tpc == 8), toboe, tvooe)
+
+        # get event-specific data
+        tpc_events = []
+        tob_events = []
+        tqm_events = []
+        for i in range(1, NUM_T_EVENTS + 1):
+            tpc_events.append(container.get(f'temperatureEventCode{i}'))
+            tob_events.append(container.get(f'temperatureOb{i}'))
+            tqm_events.append(container.get(f'temperatureQM{i}'))
+
+        # get paths for adding new variables
+        tob_paths = container.get_paths('temperatureOb1')
+
+        tsen, tsenqm, tsenoe, tvo, tvoqm, tvooe = self._select_temperature_events(
+            tpc_events, tob_events, tqm_events, toboe, include_tv, NUM_T_EVENTS)
 
         self.log.debug(f'Update variables in container')
-        container.replace('airTemperatureObsValue', tsen)
-        container.replace('airTemperatureQualityMarker', tsenqm)
+        container.add('airTemperatureObsValue', tsen, tob_paths)
+        container.add('airTemperatureQualityMarker', tsenqm, tob_paths)
         container.replace('airTemperatureObsError', tsenoe)
-        container.replace('virtualTemperatureObsValue', tvo)
-        container.replace('virtualTemperatureQualityMarker', tvoqm)
-        container.replace('virtualTemperatureObsError', tvooe)
+
+        if include_tv:
+            container.add('virtualTemperatureObsValue', tvo, tob_paths)
+            container.add('virtualTemperatureQualityMarker', tvoqm, tob_paths)
+            container.add('virtualTemperatureObsError', tvooe, tob_paths)
 
         self.log.debug(f'Add variables to container')
         # Both 'sequenceNumber' and 'obsSubType' are populated with identical arrays.
