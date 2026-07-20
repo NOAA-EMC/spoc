@@ -41,6 +41,20 @@ class AdpupaPrepbufrObsBuilder(PrepbufrObsBuilder):
 
         self.log.debug(f'Perform DateTime calculation')
         hrdr = container.get('obsTimeMinusCycleTime')
+
+        # fixing empty container error
+        if hrdr.size == 0:
+            self.log.warning(f'No observations found in input, returning empty container')
+            # Add empty arrays for all derived fields so the container schema is complete
+            empty_int   = np.array([], dtype=np.int32)
+            empty_float = np.ma.array([], dtype=np.float32)
+            ydr_paths = container.get_paths('latitude')
+            container.add('stationPressure',                empty_float, ydr_paths)
+            container.add('stationPressureQualityMarker',   empty_int,   ydr_paths)
+            container.add('stationPressureError',           empty_float, ydr_paths)
+            container.add('obsSubType',                     empty_int,   ydr_paths)
+            return container
+
         self._replace_timestamp(container, self._get_reference_time(input_path))
 
         self.log.debug(f'Make an array of 0s for ObsSubType')

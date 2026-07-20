@@ -1,0 +1,97 @@
+bufr:
+  variables:
+    # MetaData
+    timestamp:
+      datetime:
+        year: "*/YEAR"
+        month: "*/MNTH"
+        day: "*/DAYS"
+        hour: "*/HOUR"
+        minute: "*/MINU"
+        second: "*/SECO"
+
+    latitude:
+      query: "*/CLATH"
+
+    longitude:
+      query: "*/CLONH"
+
+    satelliteId:
+      query: "*/SAID"
+
+    effcldamtcen:
+      query: "*/ECAS"
+
+    effcldamtavg:
+      query: "*/ECAM"
+
+encoder:
+  globals:
+    - name: "description"
+      type: string
+      value: "GOES imager effective cloud amount data"
+
+    - name: "platformCommonName"
+      type: string
+      value: "GOES"
+
+    - name: "platformLongDescription"
+      type: string
+      value: "Geostationary Operational Environmental Satellites"
+
+    - name: "sensorCommonName"
+      type: string
+      value: "ABI"
+
+    - name: "sensorLongDescription"
+      type: string
+      value: "Geostationary Operational Environmental Satellites (GOES) Advanced Baseline Imager (ABI) instruments"
+
+    - name: "source"
+      type: string
+      value: "University of Wisconsin"
+
+    - name: "sourceFiles"
+      type: string
+      value: "GOES Level 1b radiances"
+
+    - name: "processingLevel"
+      type: string
+      value: "Level 2 (L2) — Derived geophysical variables retrieved from satellite radiances"
+
+    - name: "converter"
+      type: string
+      value: "bufr-query"
+
+  variables:
+    # MetaData
+    - name: "MetaData/dateTime"
+      source: variables/timestamp
+      longName: "Datetime"
+      units: "seconds since 1970-01-01T00:00:00Z"
+
+    - name: "MetaData/latitude"
+      source: variables/latitude
+      longName: "Latitude"
+      units: "degree_north"
+      range: [-90, 90]
+
+    - name: "MetaData/longitude"
+      source: variables/longitude
+      longName: "Longitude"
+      units: "degree_east"
+
+    - name: "MetaData/satelliteIdentifier"
+      source: variables/satelliteId
+      longName: "Satellite Identifier"
+
+    # ObsValue
+    - name: "ObsValue/effcldamtcen"
+      source: variables/effcldamtcen
+      longName: "Effective Cloud Amount at Center"
+      units: "percent"
+
+    - name: "ObsValue/effcldamtavg"
+      source: variables/effcldamtavg
+      longName: "Effective Cloud Amount Average Multi Unit"
+      units: "percent"
