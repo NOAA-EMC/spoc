@@ -48,19 +48,19 @@ encoder:
 
     - name: "platformCommonName"
       type: string
-      value: "GOES"
+      value: "GOES or Himawari"
 
     - name: "platformLongDescription"
       type: string
-      value: "Geostationary Operational Environmental Satellites"
+      value: "Geostationary Operational Environmental Satellites/Himawari"
   
     - name: "sensorCommonName"
       type: string
-      value: "ABI"
+      value: "ABI/AHI"
 
     - name: "sensorLongDescription"
       type: string
-      value: "Advanced Baseline Imager (ABI), a multi-channel passive imaging radiometer"
+      value: "Advanced Baseline Imager (ABI)/ Advanced Himawari Imager (AHI) - a multi-channel passive imaging radiometer"
 
     - name: "source"
       type: string
@@ -68,7 +68,7 @@ encoder:
 
     - name: "sourceFiles"
       type: string
-      value: "GOES Level 1b radiances and Level 2 cloud parameter files processed by NASA LaRC algorithms prior to BUFR encoding"
+      value: "GOES/Himawari Level 1b radiances and Level 2 cloud parameter files processed by NASA LaRC algorithms prior to BUFR encoding"
 
     - name: "processingLevel"
       type: string

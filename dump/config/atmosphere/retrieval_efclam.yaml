@@ -41,11 +41,11 @@ encoder:
 
     - name: "sensorCommonName"
       type: string
-      value: "Imager/Sounder"
+      value: "ABI"
 
     - name: "sensorLongDescription"
       type: string
-      value: "GOES Imager and Sounder instruments"
+      value: "Geostationary Operational Environmental Satellites (GOES) Advanced Baseline Imager (ABI) instruments"
 
     - name: "source"
       type: string
