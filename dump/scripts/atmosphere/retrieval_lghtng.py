@@ -1,11 +1,7 @@
 #!/usr/bin/env python3
 import os
-#import numpy as np
-#import numpy.ma as ma
-
 import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
-#from retrieval_ozone_obs_builder import BufrOzoneObsBuilder
 
 MAPPING_PATH = map_path('retrieval_lghtng_vaisala.yaml')
 
