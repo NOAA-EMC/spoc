@@ -1,0 +1,7 @@
+12 converters, 14 tests
+marine insitu profiles and surface obs
+from gdasapp
+
+each test is run using a converter and 2 configuration yaml files
+for example, a converter can be run to extract tropical moorings from
+either dbuoy or mbouyb
