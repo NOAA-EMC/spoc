@@ -1,0 +1,199 @@
+bufr:
+  subsets:
+    - NC021051
+    - NC021053
+
+  variables:
+    # MetaData
+    timestamp:
+      datetime:
+        year: "*/YEAR"
+        month: "*/MNTH"
+        day: "*/DAYS"
+        hour: "*/HOUR"
+        minute: "*/MINU"
+        second: "*/SECO"
+
+    latitude:
+      query: "*/CLATH"
+
+    longitude:
+      query: "*/CLONH"
+
+    satelliteId:
+      query: "*/SAID"
+
+    sensorZenithAngle:
+      query: "*/SAZA"
+ 
+    solarZenithAngle:
+      query: "*/SOZA"
+
+    fieldOfViewNumber:
+      query: "*/FOVN"
+
+    cloudFromAVHRRCloudMask:
+      query: "*/CLAVR"
+
+    sensorChannelNumber:
+      query: "*/AVCSEQ/INCN"
+
+    albedo:
+      query: "*/AVCSEQ/ALBD"
+
+    # ObsValue
+    brightnessTemperature:
+      query: "*/AVCSEQ/TMBR"
+
+
+  splits:
+    satId:
+      category:
+        variable: satelliteId
+        map:
+          _3: metop-b
+          _4: metop-a
+          _5: metop-c
+
+encoder:
+
+  globals:
+    - name: "description"
+      type: string
+      value: "AVHRR data"
+
+    - name: "platformCommonName"
+      type: string
+      value: "EUMETSAT MetOp and NESDIS NOAA series"
+
+    - name: "platformLongDescription"
+      type: string
+      value: "IR Imager Cross-Scanning Polar-Orbiting - MetOp and NOAA series"
+
+    - name: "sensorCommonName"
+      type: string
+      value: "AVHRR"
+
+    - name: "sensorLongDescription"
+      type: string
+      value: "AVHRR"
+
+    - name: "source"
+      type: string
+      value: "U.S. National Weather Service, National Centres for Environmental Prediction (NCEP))"
+
+    - name: "sourceFiles"
+      type: string
+      value: "NCEP BUFR Dump - NC021051 (NOAA, MetOp); NC021051 (NOAA), NC005081 (MetOp)"
+
+    - name: "processingLevel"
+      type: string
+      value: "Level-2"
+
+    - name: "converter"
+      type: string
+      value: "bufr-query"
+
+    - name: "_ioda_layout"
+      type: string
+      value: "ObsGroup"
+
+    - name: "_ioda_layout_version"
+      type: int
+      value: 0
+
+  variables:
+
+    # MetaData 
+    - name: "MetaData/dateTime"
+      source: variables/timestamp
+      longName: "Datetime"
+      units: "seconds since 1970-01-01T00:00:00Z"
+
+    - name: "MetaData/latitude"
+      source: variables/latitude
+      longName: "Latitude"
+      units: "degrees_north"
+      range: [-90, 90]
+
+    - name: "MetaData/longitude"
+      source: variables/longitude
+      longName: "Longitude"
+      units: "degrees_east"
+      range: [-180, 180]
+
+    - name: "MetaData/satelliteIdentifier"
+      source: variables/satelliteId
+      longName: "Satellite Identifier"
+
+    - name: "MetaData/sensorZenithAngle"
+      source: variables/sensorZenithAngle
+      longName: "Sensor Zenith Angle"
+      units: "degree"
+      range: [0, 90]
+
+    - name: "MetaData/sensorAzimuthAngle"
+      source: variables/sensorAzimuthAngle
+      longName: "Sensor Azimuth Angle"
+      units: "degree"
+      range: [0, 360]
+
+    - name: "MetaData/solarAzimuthAngle"
+      source: variables/solarAzimuthAngle
+      longName: "Solar Azimuth Angle"
+      units: "degree"
+      range: [0, 360]
+
+    - name: "MetaData/solarZenithAngle"
+      source: variables/solarZenithAngle
+      longName: "Solar Zenith Angle"
+      units: "degree"
+      range: [0, 180]
+
+    - name: "MetaData/sensorScanPosition"
+      source: variables/sensorScanPosition
+      longName: "Sensor Scan Position"
+      units: ""
+      range: [-1.0, 1.0]
+
+    - name: "MetaData/sensorViewAngle"
+      source: variables/sensorViewAngle
+      longName: "Sensor View Angle"
+      units: "degree"
+      range: [-55.4, 55.4]
+
+    - name: "MetaData/fieldOfViewNumber"
+      source: variables/fieldOfViewNumber
+      longName: "Field Of View Number"
+      units: ""
+
+    - name: "MetaData/cloudFromAVHRRCloudMask"
+      source: variables/cloudFromAVHRRCloudMask
+      longName: "Cloud From AVHRR Cloud Mask"
+      units: ""
+
+    - name: "MetaData/sensorChannelNumber"
+      source: variables/sensorChannelNumber
+      longName: "sensor Channel Number"
+      units: ""
+
+    - name: "MetaData/albedo"
+      source: variables/albedo
+      longName: "Albedo"
+      units: "%"
+
+    # ObsValue
+    - name: "ObsValue/brightnessTemperature"
+      source: variables/brightnessTemperature
+      longName: "Brightness Temperature (Hight Accurcay)"
+      units: "K"
+
+    - name: "ObsError/brightnessTemperature"
+      source: variables/ObsErrorbrightnessTemperature
+      longName: "Brightness Temperature Error"
+      units: "K"
+
+    - name: "PreQC/brightnessTemperature"
+      source: variables/PreQCbrightnessTemperature
+      longName: "PreQC Brightness Temperature"
+      units: ""
