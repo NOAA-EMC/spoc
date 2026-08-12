@@ -14,4 +14,5 @@ class BufrAmsr2ObsBuilder(ObsBuilder):
     def __init__(self):
         super().__init__(MAPPING_PATH, log_name=os.path.basename(__file__))
 
+
 add_main_functions(BufrAmsr2ObsBuilder)

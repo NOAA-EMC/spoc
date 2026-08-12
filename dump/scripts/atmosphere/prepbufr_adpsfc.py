@@ -152,4 +152,3 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
 
 
 add_main_functions(AdpsfcPrepbufrObsBuilder)
-

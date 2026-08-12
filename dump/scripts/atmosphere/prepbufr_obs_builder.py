@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 import re
 import numpy as np
 import numpy.ma as ma
@@ -29,76 +30,50 @@ def check_include_tv(yaml_path):
 class PrepbufrObsBuilder(ObsBuilder):
     def __init__(self, mapping_path, log_name=os.path.basename(__file__)):
         super().__init__(mapping_path, log_name=log_name)
-    '''
+
     def _get_reference_time(self, input_path) -> np.datetime64:
+        """
+        Extract date and hour from the directory path.
+        Looking for YYYYMMDDHH or YYYYMMDD/HH, with optional
+        "cycle." prefix.
+        """
         path_components = Path(input_path).parts
 
-        # Match directory names like: rap.2026062605  (YYYYMMDDCC — 10 digits)
-        dump_regex = r'\w+\.(?P<year>\d{4})(?P<month>\d{2})(?P<day>\d{2})(?P<hour>\d{2})'
-        test_regex = r'(?P<year>\d{4})(?P<month>\d{2})(?P<day>\d{2})(?P<hour>\d{2})'
-
-        for idx, component in enumerate(reversed(path_components)):
-            dump_match = re.match(dump_regex, component)
-            test_match = re.match(test_regex, component)
-
-            if dump_match:
-                ref_time = datetime(year=int(dump_match.group('year')),
-                                    month=int(dump_match.group('month')),
-                                    day=int(dump_match.group('day')),
-                                    hour=int(dump_match.group('hour')))
-                break
-            elif test_match:
-                ref_time = datetime(year=int(test_match.group('year')),
-                                    month=int(test_match.group('month')),
-                                    day=int(test_match.group('day')),
-                                    hour=int(test_match.group('hour')))
-                break
-        else:
-            print(f'Reference date not found in path.')
-            ref_time = datetime(year=2020, month=1, day=1)
-
-        return np.datetime64(ref_time)
-    '''
-    def _get_reference_time(self, input_path) -> np.datetime64:
-        path_components = Path(input_path).parts
-
-        # Regional systems: rap.2026062605 (YYYYMMDDHH)
-        regional_regex = r'\w+\.(?P<year>\d{4})(?P<month>\d{2})(?P<day>\d{2})(?P<hour>\d{2})'
-
-        # Global systems: 2026062605 (YYYYMMDDHH)
-        global_regex = r'(?P<year>\d{4})(?P<month>\d{2})(?P<day>\d{2})(?P<hour>\d{2})'
+        ref_regex = re.compile(
+            r'(?P<prefix>\w+\.)?'
+            r'(?P<year>\d{4})(?P<month>\d{2})(?P<day>\d{2})'
+            r'(?P<hour>\d{2})?$'
+        )
 
         ref_time = None
 
-        for component in reversed(path_components):
-            # Try regional first (more specific)
-            reg = re.match(regional_regex, component)
-            if reg:
-                ref_time = datetime(
-                    year=int(reg.group('year')),
-                    month=int(reg.group('month')),
-                    day=int(reg.group('day')),
-                    hour=int(reg.group('hour'))
-                )
-                break
+        for idx, component in enumerate(reversed(path_components)):
+            match = ref_regex.match(component)
+            if not match:
+                continue
 
-            # Try global next
-            glob = re.match(global_regex, component)
-            if glob:
-                ref_time = datetime(
-                    year=int(glob.group('year')),
-                    month=int(glob.group('month')),
-                    day=int(glob.group('day')),
-                    hour=int(glob.group('hour'))
-                )
-                break
+            if match.group('hour') is not None:
+                hour = int(match.group('hour'))
+            else:
+                # Date-only dir: get hour from next component.
+                if idx == 0:
+                    continue
+                hour = int(path_components[-1 * (idx + 1) + 1])
+
+            ref_time = datetime(
+                year=int(match.group('year')),
+                month=int(match.group('month')),
+                day=int(match.group('day')),
+                hour=hour
+            )
+            break
 
         if ref_time is None:
-            print(f"Reference date not found in path: {input_path}")
-            ref_time = datetime(year=2020, month=1, day=1)
+            self.log.error(f"Reference date not found in path: {input_path}")
+            sys.exit(1)
 
         return np.datetime64(ref_time)
-    
+
     def _compute_datetime(self, cycleTimeSinceEpoch, dhr):
         """
         Compute dateTime using the cycleTimeSinceEpoch and Observation Time
