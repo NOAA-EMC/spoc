@@ -33,8 +33,8 @@ class PrepbufrObsBuilder(ObsBuilder):
 
     def _get_reference_time(self, input_path) -> np.datetime64:
         """
-        Extract date and hour from the directory path.  
-        Looking for YYYYMMDDHH or YYYYMMDD/HH, with optional 
+        Extract date and hour from the directory path.
+        Looking for YYYYMMDDHH or YYYYMMDD/HH, with optional
         "cycle." prefix.
         """
         path_components = Path(input_path).parts
@@ -73,7 +73,7 @@ class PrepbufrObsBuilder(ObsBuilder):
             sys.exit(1)
 
         return np.datetime64(ref_time)
-    
+
     def _compute_datetime(self, cycleTimeSinceEpoch, dhr):
         """
         Compute dateTime using the cycleTimeSinceEpoch and Observation Time

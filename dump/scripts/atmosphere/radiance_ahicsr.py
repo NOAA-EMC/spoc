@@ -73,4 +73,4 @@ class BufrAhicsrObsBuilder(ObsBuilder):
         return description
 
 
-add_main_functions(BufrAhicsrObsBuilder)                
+add_main_functions(BufrAhicsrObsBuilder)
