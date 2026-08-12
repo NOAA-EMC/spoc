@@ -32,9 +32,11 @@ class PrepbufrObsBuilder(ObsBuilder):
 
     def _get_reference_time(self, input_path) -> np.datetime64:
         path_components = Path(input_path).parts
-       """Extract date and hour from the directory path.  
-          Looking for YYYYMMDDHH or YYYYMMDD/HH, with optional 
-          "cycle." prefix."""
+        """
+        Extract date and hour from the directory path.  
+        Looking for YYYYMMDDHH or YYYYMMDD/HH, with optional 
+        "cycle." prefix.
+        """
 
         ref_regex = re.compile(
             r'(?P<prefix>\w+\.)?'
