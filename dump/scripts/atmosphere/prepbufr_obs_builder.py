@@ -30,7 +30,7 @@ class PrepbufrObsBuilder(ObsBuilder):
     def __init__(self, mapping_path, log_name=os.path.basename(__file__)):
         super().__init__(mapping_path, log_name=log_name)
 
-   def _get_reference_time(self, input_path) -> np.datetime64:
+    def _get_reference_time(self, input_path) -> np.datetime64:
         path_components = Path(input_path).parts
        """Extract date and hour from the directory path.  
           Looking for YYYYMMDDHH or YYYYMMDD/HH, with optional 
