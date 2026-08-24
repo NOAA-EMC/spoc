@@ -19,9 +19,6 @@ NUM_T_EVENTS = 5
 # - If ObsType/virtualTemperature not in encoder variables, always use Tdry
 #   This is what we want to do long-term
 
-# obs types 181, 187 (land stations) always use Tdry to match GSI behavior
-TSENSIBLE_EXCEPTION_TYPES = [181, 187]
-
 
 class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
     def __init__(self):
@@ -113,7 +110,6 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
 
         # get record-specific data
         toboe = container.get('airTemperatureObsError')
-        obs_type = container.get('observationType')
 
         # get event-specific data
         tpc_events = []
@@ -127,10 +123,8 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
         # get paths for adding new variables
         tob_paths = container.get_paths('temperatureOb1')
 
-        use_tv = include_tv & np.isin(obs_type.astype(int), TSENSIBLE_EXCEPTION_TYPES, invert=True)
-
         tsen, tsenqm, tsenoe, tvo, tvoqm, tvooe = self._select_temperature_events(
-            tpc_events, tob_events, tqm_events, toboe, use_tv, NUM_T_EVENTS)
+            tpc_events, tob_events, tqm_events, toboe, include_tv, NUM_T_EVENTS)
 
         self.log.debug(f'Update variables in container')
         container.add('airTemperatureObsValue', tsen, tob_paths)

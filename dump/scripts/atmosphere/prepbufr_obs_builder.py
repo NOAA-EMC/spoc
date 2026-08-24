@@ -117,14 +117,16 @@ class PrepbufrObsBuilder(ObsBuilder):
 
     def _select_temperature_events(self, tpc_events, tob_events, tqm_events, toboe, use_tv, num_events):
         """
-        Select a single reported air temperature per observation from a
-        stack of PREPBUFR temperature events, mirroring the GSI's Tsensible
-        option: prefer the virtual-temperature event (temperatureEventCode
-        == 8) if present and desired, otherwise fall back to the first
-        sensible (Tdry) event (1 <= temperatureEventCode < 8). Exactly one
-        of the sensible/virtual outputs is populated per observation -
-        never both, since a Tv event is derived from an underlying Tdry
-        event and both are otherwise present in the same stack.
+        Extract the reported air temperature(s) per observation from a
+        stack of PREPBUFR temperature events. The sensible (Tdry) output is
+        always taken from the first sensible event (1 <= temperatureEventCode
+        < 8). When virtual temperature is desired (use_tv), the virtual
+        (Tv) output is additionally taken from the virtual-temperature event
+        (temperatureEventCode == 8), which sits above its underlying Tdry
+        event in the same stack. Both outputs can therefore be populated for
+        the same observation: airTemperature carries Tdry, virtualTemperature
+        carries Tv. This mirrors the GSI's Tsensible option while keeping
+        Tdry available (e.g. for QC) even when Tv is assimilated.
 
         Parameters
         ----------
@@ -135,9 +137,8 @@ class PrepbufrObsBuilder(ObsBuilder):
         toboe: masked array
             Per-observation temperature obs error (not stacked by event).
         use_tv: bool or (n_obs,) bool array
-            Whether virtual temperature should be preferred. Pass a
-            per-observation array to exclude specific obs types (e.g. land
-            stations) even when virtual temperature is enabled overall.
+            Whether virtual temperature should be extracted. May be a
+            per-observation array to enable/disable Tv on a per-obs basis.
         num_events: int
             Number of event-stack levels to search.
 
@@ -160,6 +161,8 @@ class PrepbufrObsBuilder(ObsBuilder):
 
         for idx in range(n_obs):
             use_tv_idx = bool(use_tv_arr[idx])
+            tv_found = False
+            tsen_found = False
 
             for ev in range(num_events):
                 tpc_val = tpc_events[ev][idx]
@@ -169,22 +172,30 @@ class PrepbufrObsBuilder(ObsBuilder):
                 if ma.is_masked(tpc_val) or ma.is_masked(tob_val):
                     continue
 
-                # select desired obs type, if present
-                if tpc_val == 8 and use_tv_idx:
-                    # use Tv if available
-                    tvo[idx] = tob_val
-                    if not ma.is_masked(tqm_val):
-                        tvoqm[idx] = tqm_val
-                    if not ma.is_masked(toboe[idx]):
-                        tvooe[idx] = toboe[idx]
-                    break
+                if tpc_val == 8:
+                    # virtual-temperature (VIRTMP) event
+                    if use_tv_idx and not tv_found:
+                        # save Tv
+                        tvo[idx] = tob_val
+                        if not ma.is_masked(tqm_val):
+                            tvoqm[idx] = tqm_val
+                        if not ma.is_masked(toboe[idx]):
+                            tvooe[idx] = toboe[idx]
+                        tv_found = True
+                    # keep scanning for the underlying Tdry event
                 elif (tpc_val >= 1) and (tpc_val < 8):
-                    # Save Tdry
-                    tsen[idx] = tob_val
-                    if not ma.is_masked(tqm_val):
-                        tsenqm[idx] = tqm_val
-                    if not ma.is_masked(toboe[idx]):
-                        tsenoe[idx] = toboe[idx]
+                    # sensible (Tdry) event
+                    if not tsen_found:
+                        # save Tdry
+                        tsen[idx] = tob_val
+                        if not ma.is_masked(tqm_val):
+                            tsenqm[idx] = tqm_val
+                        if not ma.is_masked(toboe[idx]):
+                            tsenoe[idx] = toboe[idx]
+                        tsen_found = True
+
+                # done once Tdry is captured and Tv is captured (or not wanted)
+                if tsen_found and (tv_found or not use_tv_idx):
                     break
 
         return tsen, tsenqm, tsenoe, tvo, tvoqm, tvooe
