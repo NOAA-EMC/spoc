@@ -115,21 +115,23 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
             tob_events.append(container.get(f'temperatureOb{i}'))
             tqm_events.append(container.get(f'temperatureQM{i}'))
 
-        # get paths for adding new variables
-        tob_paths = container.get_paths('temperatureOb1')
-
+        # Attach the computed temperatures at the report level (typ_paths,
+        # */TYP) - one value per report, matching stationPressure and the
+        # other surface variables. Anchoring them to the temperature-event
+        # sub-sequence path instead lets their missing pattern reshape the
+        # shared Location dimension and drop obs from other variables.
         tsen, tsenqm, tsenoe, tvo, tvoqm, tvooe = self._select_temperature_events(
             tpc_events, tob_events, tqm_events, toboe, include_tv, NUM_T_EVENTS)
 
         self.log.debug(f'Update variables in container')
-        container.add('airTemperatureObsValue', tsen, tob_paths)
-        container.add('airTemperatureQualityMarker', tsenqm, tob_paths)
+        container.add('airTemperatureObsValue', tsen, typ_paths)
+        container.add('airTemperatureQualityMarker', tsenqm, typ_paths)
         container.replace('airTemperatureObsError', tsenoe)
 
         if include_tv:
-            container.add('virtualTemperatureObsValue', tvo, tob_paths)
-            container.add('virtualTemperatureQualityMarker', tvoqm, tob_paths)
-            container.add('virtualTemperatureObsError', tvooe, tob_paths)
+            container.add('virtualTemperatureObsValue', tvo, typ_paths)
+            container.add('virtualTemperatureQualityMarker', tvoqm, typ_paths)
+            container.add('virtualTemperatureObsError', tvooe, typ_paths)
 
         self.log.debug(f'Add variables to container')
         # Both 'sequenceNumber' and 'obsSubType' are populated with identical arrays.
