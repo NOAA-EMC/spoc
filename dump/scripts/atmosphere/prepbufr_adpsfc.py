@@ -19,9 +19,6 @@ NUM_T_EVENTS = 5
 # - If ObsType/virtualTemperature not in encoder variables, always use Tdry
 #   This is what we want to do long-term
 
-# obs types 181, 187 (land stations) always use Tdry to match GSI behavior
-TSENSIBLE_EXCEPTION_TYPES = [181, 187]
-
 
 class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
     def __init__(self):
@@ -113,7 +110,6 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
 
         # get record-specific data
         toboe = container.get('airTemperatureObsError')
-        obs_type = container.get('observationType')
 
         # get event-specific data
         tpc_events = []
@@ -124,23 +120,23 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
             tob_events.append(container.get(f'temperatureOb{i}'))
             tqm_events.append(container.get(f'temperatureQM{i}'))
 
-        # get paths for adding new variables
-        tob_paths = container.get_paths('temperatureOb1')
-
-        use_tv = include_tv & np.isin(obs_type.astype(int), TSENSIBLE_EXCEPTION_TYPES, invert=True)
-
+        # Attach the computed temperatures at the report level (dhr_paths,
+        # */DHR) - one value per report, matching stationPressure and the
+        # other surface variables. Anchoring them to the temperature-event
+        # sub-sequence path instead lets their missing pattern reshape the
+        # shared Location dimension and drop obs from other variables.
         tsen, tsenqm, tsenoe, tvo, tvoqm, tvooe = self._select_temperature_events(
-            tpc_events, tob_events, tqm_events, toboe, use_tv, NUM_T_EVENTS)
+            tpc_events, tob_events, tqm_events, toboe, include_tv, NUM_T_EVENTS)
 
         self.log.debug(f'Update variables in container')
-        container.add('airTemperatureObsValue', tsen, tob_paths)
-        container.add('airTemperatureQualityMarker', tsenqm, tob_paths)
+        container.add('airTemperatureObsValue', tsen, dhr_paths)
+        container.add('airTemperatureQualityMarker', tsenqm, dhr_paths)
         container.replace('airTemperatureObsError', tsenoe)
 
         if include_tv:
-            container.add('virtualTemperatureObsValue', tvo, tob_paths)
-            container.add('virtualTemperatureQualityMarker', tvoqm, tob_paths)
-            container.add('virtualTemperatureObsError', tvooe, tob_paths)
+            container.add('virtualTemperatureObsValue', tvo, dhr_paths)
+            container.add('virtualTemperatureQualityMarker', tvoqm, dhr_paths)
+            container.add('virtualTemperatureObsError', tvooe, dhr_paths)
 
         self.log.debug(f'Add variables to container')
         container.add('sequenceNumber', sequenceNum, dhr_paths)
