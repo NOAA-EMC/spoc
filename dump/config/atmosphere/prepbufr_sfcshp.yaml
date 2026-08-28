@@ -99,8 +99,8 @@ bufr:
       query: "*/P___INFO/P__EVENT{1}/POB"
       transforms:
         - scale: 100
-    # Read on the PMSL_SEQ sub-sequence path as a scratch variable; the .py
-    # re-anchors it to the report level (see prepbufr_sfcshp.py).
+    # Read here PMSL_SEQ sub-sequence path. Will re-anchor to report
+    # in prepbufr_sfcshp.py.
     meanSeaLevelPressureRaw:
       query: "*/PMSL_SEQ/PMO"
       transforms:

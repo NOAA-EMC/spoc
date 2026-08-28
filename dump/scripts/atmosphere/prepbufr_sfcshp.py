@@ -133,17 +133,9 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
             container.add('virtualTemperatureQualityMarker', tvoqm, typ_paths)
             container.add('virtualTemperatureObsError', tvooe, typ_paths)
 
-        # Re-anchor mean-sea-level pressure (read on the optional PMSL_SEQ
-        # sub-sequence path) to the report level (typ_paths, */TYP), matching
-        # stationPressure and the other surface variables. See the temperature
-        # note above: without this, the sub-sequence's missing pattern could
-        # reshape the shared Location dimension.
+        # Re-anchor mean-sea-level pressure to report level path, and check OK
         self.log.debug(f'Re-anchor mean-sea-level pressure to the report level')
         pmo_raw = container.get('meanSeaLevelPressureRaw')
-        # Tripwire: PMO must line up one-per-report (same length as */TYP). This
-        # catches a non-uniform PMSL_SEQ reshape loudly instead of silently.
-        # NOTE: it cannot detect a *uniform* reshape that drops obs from every
-        # variable equally - confirm that separately with a with/without-PMO run.
         assert pmo_raw.shape == typ.shape, (
             f'meanSeaLevelPressure length {pmo_raw.shape} != observationType '
             f'{typ.shape}: PMSL_SEQ reshaped the shared Location dimension.')
