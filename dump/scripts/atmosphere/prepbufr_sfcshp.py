@@ -133,6 +133,18 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
             container.add('virtualTemperatureQualityMarker', tvoqm, typ_paths)
             container.add('virtualTemperatureObsError', tvooe, typ_paths)
 
+        # Re-anchor mean-sea-level pressure to report level path, and check OK
+        self.log.debug(f'Re-anchor mean-sea-level pressure to the report level')
+        pmo_raw = container.get('meanSeaLevelPressureRaw')
+        pmq_raw = container.get('meanSeaLevelPressureQualityMarkerRaw')
+        if pmo_raw.shape != typ.shape or pmq_raw.shape != typ.shape:
+            raise ValueError(
+                f'meanSeaLevelPressure arrays have shape {pmo_raw.shape}/{pmq_raw.shape} '
+                f'but observationType has shape {typ.shape}; PMSL_SEQ likely reshaped the Location dimension.'
+            )
+        container.add('pressureReducedToMeanSeaLevelObsValue', pmo_raw, typ_paths)
+        container.add('pressureReducedToMeanSeaLevelQualityMarker', pmq_raw, typ_paths)
+
         self.log.debug(f'Add variables to container')
         # Both 'sequenceNumber' and 'obsSubType' are populated with identical arrays.
         # This is intentional for compatibility with downstream consumers that may expect either field.

@@ -99,6 +99,12 @@ bufr:
       query: "*/P___INFO/P__EVENT{1}/POB"
       transforms:
         - scale: 100
+    # Read here PMSL_SEQ sub-sequence path. Will re-anchor to report
+    # in prepbufr_sfcshp.py.
+    meanSeaLevelPressureRaw:
+      query: "*/PMSL_SEQ/PMO"
+      transforms:
+        - scale: 100
     specificHumidityObsValue:
       type: float
       query: "*/Q___INFO/Q__EVENT{1}/QOB"
@@ -112,6 +118,8 @@ bufr:
     # QualityMarker
     stationPressureQualityMarker:
       query: "*/P___INFO/P__EVENT{1}/PQM"
+    meanSeaLevelPressureQualityMarkerRaw:
+      query: "*/PMSL_SEQ/PMQ"
     specificHumidityQualityMarker:
       query: "*/Q___INFO/Q__EVENT{1}/QQM"
     windEastwardQualityMarker:
@@ -252,6 +260,11 @@ encoder:
       longName: "Pressure"
       units: "Pa"
 
+    - name: "ObsValue/pressureReducedToMeanSeaLevel"
+      source: variables/pressureReducedToMeanSeaLevelObsValue
+      longName: "Mean Sea-Level Pressure"
+      units: "Pa"
+
     - name: "ObsValue/airTemperature"
       source: variables/airTemperatureObsValue
       longName: "Air Temperature"
@@ -281,6 +294,10 @@ encoder:
     - name: "QualityMarker/stationPressure"
       source: variables/stationPressureQualityMarker
       longName: "Station Pressure Quality Marker"
+
+    - name: "QualityMarker/pressureReducedToMeanSeaLevel"
+      source: variables/pressureReducedToMeanSeaLevelQualityMarker
+      longName: "Mean Sea-Level Pressure Quality Marker"
 
     - name: "QualityMarker/airTemperature"
       source: variables/airTemperatureQualityMarker
