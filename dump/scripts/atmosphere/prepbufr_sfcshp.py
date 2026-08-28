@@ -136,12 +136,14 @@ class SfcshpPrepbufrObsBuilder(PrepbufrObsBuilder):
         # Re-anchor mean-sea-level pressure to report level path, and check OK
         self.log.debug(f'Re-anchor mean-sea-level pressure to the report level')
         pmo_raw = container.get('meanSeaLevelPressureRaw')
-        assert pmo_raw.shape == typ.shape, (
-            f'meanSeaLevelPressure length {pmo_raw.shape} != observationType '
-            f'{typ.shape}: PMSL_SEQ reshaped the shared Location dimension.')
+        pmq_raw = container.get('meanSeaLevelPressureQualityMarkerRaw')
+        if pmo_raw.shape != typ.shape or pmq_raw.shape != typ.shape:
+            raise ValueError(
+                f'meanSeaLevelPressure arrays have shape {pmo_raw.shape}/{pmq_raw.shape} '
+                f'but observationType has shape {typ.shape}; PMSL_SEQ likely reshaped the Location dimension.'
+            )
         container.add('pressureReducedToMeanSeaLevelObsValue', pmo_raw, typ_paths)
-        container.add('pressureReducedToMeanSeaLevelQualityMarker',
-                      container.get('meanSeaLevelPressureQualityMarkerRaw'), typ_paths)
+        container.add('pressureReducedToMeanSeaLevelQualityMarker', pmq_raw, typ_paths)
 
         self.log.debug(f'Add variables to container')
         # Both 'sequenceNumber' and 'obsSubType' are populated with identical arrays.
