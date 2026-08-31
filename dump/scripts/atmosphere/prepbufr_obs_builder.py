@@ -14,11 +14,6 @@ import bufr
 from bufr.obs_builder import ObsBuilder
 
 
-def map_path(map_file_name):
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    return os.path.join(script_dir, map_file_name)
-
-
 def check_include_tv(yaml_path):
     """Check if virtualTemperature should be included based on encoder variables in YAML."""
     with open(yaml_path, 'r') as f:

@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 import os
-from bufr.obs_builder import add_main_functions, map_path
+
+from bufr.obs_builder import add_main_functions
 
 from radiance_atovs_obs_builder import AtovsObsBuilder, NMFD, RARS
+from ..config_path import config_path
 
 
-NMFD_MAPPING = map_path('radiance_mhs_1bmhs.yaml')
-RARS_MAPPING = map_path('radiance_mhs_esmhs.yaml')
+NMFD_MAPPING = config_path("atmosphere", "radiance_mhs_1bmhs.yaml")
+RARS_MAPPING = config_path("atmosphere", "radiance_mhs_esmhs.yaml")
 
 
 class MhsObsBuilder(AtovsObsBuilder):

@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 import os
 import bufr
-from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
+from bufr.obs_builder import ObsBuilder, add_main_functions
 
-MAPPING_PATH = map_path('retrieval_efclam.yaml')
+from ..config_path import config_path
+
+
+MAPPING_PATH = config_path("atmosphere", "retrieval_efclam.yaml")
 
 
 class BufrefclamObsBuilder(ObsBuilder):

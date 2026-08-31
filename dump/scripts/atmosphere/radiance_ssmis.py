@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 import os
+from datetime import datetime
 import numpy as np
 import numpy.ma as ma
 
+
 import bufr
-from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
+from bufr.obs_builder import ObsBuilder, add_main_functions
 from bufr.obs_builder import nprocs_per_task, add_dummy_variable
 from bufr.transforms import compute_solar_angles
-from datetime import datetime
 
-MAPPING_PATH = map_path('radiance_ssmis.yaml')
+from ..config_path import config_path
+
+MAPPING_PATH = config_path("atmosphere", "radiance_ssmis.yaml")
 
 
 class BufrSsmisObsBuilder(ObsBuilder):

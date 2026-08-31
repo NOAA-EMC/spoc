@@ -4,7 +4,7 @@ import netCDF4 as nc
 import os
 
 import bufr
-from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
+from bufr.obs_builder import ObsBuilder, add_main_functions
 
 SPC_COEFF_VERSION = 1
 INVALID = 1000.0
