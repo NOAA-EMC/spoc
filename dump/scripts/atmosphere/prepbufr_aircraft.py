@@ -13,10 +13,11 @@ from datetime import datetime
 
 import bufr
 from bufr.obs_builder import add_main_functions
-from prepbufr_obs_builder import PrepbufrObsBuilder, map_path
+from prepbufr_obs_builder import PrepbufrObsBuilder
+from ..config_path import config_path
 
 
-MAPPING_PATH = map_path('prepbufr_aircraft.yaml')
+MAPPING_PATH = config_path("atmosphere", "prepbufr_aircraft.yaml")
 
 
 class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):

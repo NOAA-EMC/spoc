@@ -3,6 +3,8 @@ import json
 import netCDF4 as nc
 import os
 
+from importlib import resources
+
 import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions
 
@@ -15,7 +17,7 @@ RARS = 'es'   # Regional ATOVS Retransmission Services
 # Far-Infrared Absolute Spectrophotometer (FIRAS)"Astrophysical Journal, vol 512, pp 511-520
 COSMIC_BACKGROUND_TEMP = 2.7253
 
-nc_dir = './'
+nc_dir = str(resources.files("spoc.dump.aux")._paths[0])
 
 
 class ACCoeff:
