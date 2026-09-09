@@ -6,6 +6,7 @@
 bufr:
   subsets:
     - SFCSHP
+  legacy_tv_over_tdry: false
 
   variables:
     # ObsType
@@ -349,4 +350,3 @@ encoder:
       source: variables/windNorthwardObsError
       longName: "Northward Wind Error"
       units: "m s-1"
-

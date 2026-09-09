@@ -7,7 +7,7 @@ from datetime import datetime
 
 import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
-from prepbufr_obs_builder import PrepbufrObsBuilder, check_include_tv
+from prepbufr_obs_builder import PrepbufrObsBuilder, check_include_tv, check_legacy_tv_selection
 
 MAPPING_PATH = map_path('prepbufr_adpupa.yaml')
 NUM_T_EVENTS = 5
@@ -72,6 +72,7 @@ class AdpupaPrepbufrObsBuilder(PrepbufrObsBuilder):
         station_pressureError = self.compute_conditional_array(poe, cat == 0)
 
         include_tv = check_include_tv(MAPPING_PATH)
+        legacy_tv_over_tdry = check_legacy_tv_selection(MAPPING_PATH)
         self.log.debug(f'Extract temperature from event stack (include_tv={include_tv})')
 
         toboe = container.get('airTemperatureError')
@@ -86,7 +87,7 @@ class AdpupaPrepbufrObsBuilder(PrepbufrObsBuilder):
         air_temperature, air_temperatureQM, air_temperatureError, \
             virtual_temperature, virtual_temperatureQM, virtual_temperatureError = \
             self._select_temperature_events(
-                tpc_events, tob_events, tqm_events, toboe, include_tv, NUM_T_EVENTS)
+                tpc_events, tob_events, tqm_events, toboe, include_tv, NUM_T_EVENTS, legacy_tv_over_tdry)
 
         self.log.debug(f'Update variables into container')
         container.replace('airTemperature', air_temperature)
