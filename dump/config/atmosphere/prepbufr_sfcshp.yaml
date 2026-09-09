@@ -6,7 +6,6 @@
 bufr:
   subsets:
     - SFCSHP
-  legacy_tv_over_tdry: false
 
   variables:
     # ObsType

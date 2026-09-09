@@ -7,7 +7,6 @@ bufr:
   group_by_variable: prepbufrDataLevelCategory
   subsets:
     - ADPUPA
-  legacy_tv_over_tdry: false
 
   variables:
     # ObsType
