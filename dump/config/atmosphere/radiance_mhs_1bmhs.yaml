@@ -119,7 +119,7 @@ encoder:
     units: degree
 
   - name: MetaData/sensorScanAngle
-    longName: Sensor View Angle
+    longName: Sensor Scan Angle
     source: variables/sensorScanAngle
     units: degree
 
