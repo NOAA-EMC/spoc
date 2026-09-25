@@ -41,9 +41,9 @@ bufr:
     sensorScanAngle:
       sensorScanAngle:
         fieldOfViewNumber: '*/FOVN'
-        scanStart: -48.333
-        scanStep: 3.333
-        sensor: amsua
+        scanStart: -49.444
+        scanStep: 1.111
+        sensor: mhs
 
     sensorZenithAngle:
       query: '*/SAZA'
@@ -74,11 +74,11 @@ encoder:
   globals:
   - name: platformCommonName
     type: string
-    value: AMSUA
+    value: MHS
 
   - name: platformLongDescription
     type: string
-    value: MTYP 021-023 PROC AMSU-A 1B Tb
+    value: MTYP 021-027 PROCESSED MHS Tb
 
   variables:
   - name: MetaData/satelliteIdentifier
@@ -118,7 +118,7 @@ encoder:
     source: variables/sensorAzimuthAngle
     units: degree
 
-  - name: MetaData/sensorViewAngle
+  - name: MetaData/sensorScanAngle
     longName: Sensor View Angle
     source: variables/sensorScanAngle
     units: degree
