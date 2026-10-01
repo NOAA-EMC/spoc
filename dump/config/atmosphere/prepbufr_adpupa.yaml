@@ -134,12 +134,8 @@ bufr:
         - scale: 100
     airTemperatureError:
       query: "*/PRSLEVEL/T___INFO/T__BACKG/TOE"
-      transforms:
-        - offset: 273.15
     virtualTemperatureError:
       query: "*/PRSLEVEL/T___INFO/T__BACKG/TOE"
-      transforms:
-        - offset: 273.15
     windError:
       query: "*/PRSLEVEL/W___INFO/W__BACKG/WOE"
     specificHumidityError:
