@@ -331,7 +331,7 @@ encoder:
     # will need to be cleaned up.
     - name: "ObsError/specificHumidityAt2M"
       source: variables/relativeHumidityObsError
-      longName: "Specific Humidity at 2m Error"
+      longName: "Relative Humidity Error"
       units: "1"
 
     - name: "ObsError/windEastward"

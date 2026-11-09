@@ -138,8 +138,10 @@ bufr:
       query: "*/PRSLEVEL/T___INFO/T__BACKG/TOE"
     windError:
       query: "*/PRSLEVEL/W___INFO/W__BACKG/WOE"
-    specificHumidityError:
+    relativeHumidityObsError:
       query: "*/PRSLEVEL/Q___INFO/Q__BACKG/QOE"
+      transforms:
+        - scale: 0.1
 
 
 encoder:
@@ -364,6 +366,6 @@ encoder:
 
     # ObsError: specificHumidity
     - name: "ObsError/specificHumidity"
-      source: variables/specificHumidityError
-      longName: "Specific Humidity Error"
-      units: "kg kg-1"
+      source: variables/relativeHumidityObsError
+      longName: "Relative Humidity Error"
+      units: "1"
