@@ -140,6 +140,9 @@ bufr:
       query: "*/PRSLEVEL/W___INFO/W__BACKG/WOE"
     specificHumidityError:
       query: "*/PRSLEVEL/Q___INFO/Q__BACKG/QOE"
+      type: float
+      transforms:
+        - scale: 0.1
 
 
 encoder:
