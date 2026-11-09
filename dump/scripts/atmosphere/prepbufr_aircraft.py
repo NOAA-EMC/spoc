@@ -93,7 +93,8 @@ class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):
 
         ialr_bc = self._compute_ialr_if_masked(uv_ot, ialr2)
 
-        # GSI uses a single bias correction record for type 130 (no aircraft id), tail 'KX130'
+        # Type 130 reports carry a flight number, not a tail number, so GSI uses a single bias
+        # correction record, 'KX130', for all of them
         sid = container.get('stationIdentification')
         sid_bc = copy.deepcopy(sid)
         sid_bc[np.ma.filled(ot_airTemperature == 130, False)] = 'KX130'
@@ -157,10 +158,11 @@ class AcftProfilesPrepbufrObsBuilder(PrepbufrObsBuilder):
             Masked array of the updated instantaneousAltitudeRate
         """
 
-        # As GSI read_prepbufr: vertical velocity is zero for all 33x reports (levels flights)
+        # Set missing values for 33x (level-flight) reports to 0. Index with a plain boolean array,
+        # as indexing with a masked array sets the value but leaves it masked.
         ialr_bc = copy.deepcopy(ialr)
-        cruise = np.ma.filled((typ >= 330) & (typ < 340), False)
-        ialr_bc[cruise] = 0.0
+        missing_33x = np.ma.filled(ialr_bc.mask & (typ >= 330) & (typ < 340), False)
+        ialr_bc[missing_33x] = 0.0
         return ialr_bc
 
     def _compute_sequence_number(self, lon):
