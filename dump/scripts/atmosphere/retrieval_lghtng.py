@@ -6,7 +6,7 @@ from bufr.obs_builder import ObsBuilder, add_main_functions
 from ..config_path import config_path
 
 
-MAPPING_PATH = config_path("atmosphere", "retrieval_lghtng_vaisala.yaml")
+MAPPING_PATH = config_path("atmosphere", "retrieval_lghtng.yaml")
 
 
 class BufrlghtngObsBuilder(ObsBuilder):

@@ -6,7 +6,7 @@ import numpy as np
 import bufr
 from bufr.obs_builder import add_main_functions
 
-from retrieval_amv_obs_builder import SatWndAmvObsBuilder
+from .retrieval_amv_obs_builder import SatWndAmvObsBuilder
 from ..config_path import config_path
 
 MAPPING_PATH = config_path("atmosphere", "retrieval_amv_viirs.yaml")
