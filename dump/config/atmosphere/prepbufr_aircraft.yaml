@@ -197,7 +197,7 @@ encoder:
       units: "Pa"
 
     - name: "MetaData/height"
-      source: variables/height
+      source: variables/heightMetaData
       longName: "Height"
       units: "m"
 
