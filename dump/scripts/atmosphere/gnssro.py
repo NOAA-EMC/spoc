@@ -6,7 +6,7 @@ import numpy as np
 import bufr
 from bufr.obs_builder import add_main_functions, map_path
 from gnssro_obs_builder import BaseGnssroBufrObsBuilder
-from ..config_path import config_path
+from spoc.dump.scripts.config_path import config_path
 
 
 MAPPING_PATH = config_path("atmosphere", "gnssro.yaml")
