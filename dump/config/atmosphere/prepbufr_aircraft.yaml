@@ -47,7 +47,7 @@ bufr:
       query: "*/PRSLEVLA/DRFTINFO/YDR"
     obsTimeMinusCycleTime:
       query: "*/PRSLEVLA/DRFTINFO/HRDR"
-    heightOfStationMetaData: #Formerly aircraftFlightLevel
+    heightMetaData: #Formerly aircraftFlightLevel
       query: "*/PRSLEVLA/Z___INFO/Z__EVENT{1}/ZOB"
     stationElevationMetaData:
       query: "*/ELV"
@@ -196,9 +196,9 @@ encoder:
       longName: "Pressure"
       units: "Pa"
 
-    - name: "MetaData/heightOfStation"
-      source: variables/heightOfStationMetaData
-      longName: "Height Of Station"
+    - name: "MetaData/height"
+      source: variables/heightMetaData
+      longName: "Height"
       units: "m"
 
     - name: "MetaData/stationElevation"
@@ -237,6 +237,10 @@ encoder:
       units: "m s-1"
 
     #QualityMarker
+    - name: "QualityMarker/pressure"
+      source: variables/pressureQualityMarker
+      longName: "Pressure Quality Marker"
+
     - name: "QualityMarker/airTemperature"
       source: variables/airTemperatureQualityMarker
       longName: "Air Temperature Quality Marker"
