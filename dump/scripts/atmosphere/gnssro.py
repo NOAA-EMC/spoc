@@ -4,8 +4,8 @@ import os
 import numpy as np
 
 import bufr
-from bufr.obs_builder import add_main_functions, map_path
-from gnssro_obs_builder import BaseGnssroBufrObsBuilder
+from bufr.obs_builder import add_main_functions
+from .gnssro_obs_builder import BaseGnssroBufrObsBuilder
 from ..config_path import config_path
 
 

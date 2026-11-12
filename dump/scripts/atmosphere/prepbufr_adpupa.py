@@ -7,7 +7,7 @@ from datetime import datetime
 
 import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions
-from prepbufr_obs_builder import PrepbufrObsBuilder, check_include_tv
+from .prepbufr_obs_builder import PrepbufrObsBuilder, check_include_tv
 from ..config_path import config_path
 
 MAPPING_PATH = config_path("atmosphere", "prepbufr_adpupa.yaml")

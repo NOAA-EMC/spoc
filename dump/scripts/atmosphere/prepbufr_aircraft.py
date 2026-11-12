@@ -13,7 +13,7 @@ from datetime import datetime
 
 import bufr
 from bufr.obs_builder import add_main_functions
-from prepbufr_obs_builder import PrepbufrObsBuilder
+from .prepbufr_obs_builder import PrepbufrObsBuilder
 from ..config_path import config_path
 
 

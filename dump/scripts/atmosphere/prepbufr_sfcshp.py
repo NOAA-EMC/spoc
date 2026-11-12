@@ -6,7 +6,7 @@ import numpy.ma as ma
 
 import bufr
 from bufr.obs_builder import add_main_functions
-from prepbufr_obs_builder import PrepbufrObsBuilder, map_path, check_include_tv
+from .prepbufr_obs_builder import PrepbufrObsBuilder, check_include_tv
 from ..config_path import config_path
 
 

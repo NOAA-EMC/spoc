@@ -2,7 +2,7 @@
 import os
 from bufr.obs_builder import add_main_functions
 
-from radiance_atovs_obs_builder import AtovsObsBuilder, NMFD, RARS
+from .radiance_atovs_obs_builder import AtovsObsBuilder, NMFD, RARS
 from ..config_path import config_path
 
 
