@@ -952,168 +952,205 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/dataProviderOrigin1"
       source: variables/dataProviderOrigin1
+      chunks: [1000000]
       longName: "ORIGINATING/GENERATING Center"
 
     - name: "MetaData/generatingSubCenter"
       source: variables/generatingSubCenter
+      chunks: [1000000]
       longName: "Identification Of ORIGINATING/GENERATING SUB-CENTER"
 
     - name: "MetaData/softwareVersion"
       source: variables/softwareVersion
+      chunks: [1000000]
       longName: "Software Identification And Version Number"
 
     - name: "MetaData/databaseIdentification"
       source: variables/databaseIdentification
+      chunks: [1000000]
       longName: "Database Identification"
 
     - name: "MetaData/satelliteIdentifier"
       source: variables/satelliteIdentifier
+      chunks: [1000000]
       longName: "Satellite Identifier"
 
     - name: "MetaData/sensorCentralFrequency"
       source: variables/sensorCentralFrequency
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequecy"
       units: "Hz"
 
     - name: "MetaData/directionOfMotionOfMovingObservingPlatform"
       source: variables/directionOfMotionOfMovingObservingPlatform
+      chunks: [1000000]
       longName: "Direction Of Motion Of Moving Observing Platform"
       units: "degree"
 
     - name: "MetaData/crossTrackResolutionAtNadir"
       source: variables/crossTrackResolutionAtNadir
+      chunks: [1000000]
       longName: "CROSS-TRACK Resolution (AT NADIR)"
       units: "m"
 
     - name: "MetaData/alongTrackResolutionAtNadir"
       source: variables/alongTrackResolutionAtNadir
+      chunks: [1000000]
       longName: "ALONG-TRACK Resolution (AT NADIR)"
       units: "m"
 
     - name: "MetaData/segmentSizeAtNadirInXDirection"
       source: variables/segmentSizeAtNadirInXDirection
+      chunks: [1000000]
       longName: "Segment Size At Nadir In X Direction"
       units: "m"
 
     - name: "MetaData/segmentSizeAtNadirInYDirection"
       source: variables/segmentSizeAtNadirInYDirection
+      chunks: [1000000]
       longName: "Segment Size At Nadir In Y Direction"
       units: "m"
 
     - name: "MetaData/windProcessingMethod"
       source: variables/windProcessingMethod
+      chunks: [1000000]
       longName: "Wind Processing Method"
 
     - name: "MetaData/tracerCorrelationMethod"
       source: variables/tracerCorrelationMethod
+      chunks: [1000000]
       longName: "Tracer Correlation Method"
 
     - name: "MetaData/windComputationMethod"
       source: variables/windComputationMethod
+      chunks: [1000000]
       longName: "Satellite Derived Wind Calculation Method"
 
     - name: "MetaData/landOrSeaQualifier"
       source: variables/landOrSeaQualifier
+      chunks: [1000000]
       longName: "LAND/SEA Qualifier"
 
     - name: "MetaData/dayNightQualifier"
       source: variables/dayNightQualifier
+      chunks: [1000000]
       longName: "DAY/NIGHT Qualifier"
 
     - name: "MetaData/gridPointIdentifier"
       source: variables/gridPointIdentifier
+      chunks: [1000000]
       longName: "Grid Point Identifier"
 
     - name: "MetaData/longTimePeriodSeconds"
       source: variables/longTimePeriodSeconds
+      chunks: [1000000]
       longName: "Long Time Period Or Displacement (SECONDS)"
       units: "s"
 
     - name: "MetaData/windHeightAssignMethod"
       source: variables/windHeightAssignMethod
+      chunks: [1000000]
       longName: "Extended Height Assignment Method"
 
     - name: "MetaData/pressure1"
       source: variables/pressure1
+      chunks: [1000000]
       longName: "Pressure"
       units: "Pa"
 
     - name: "MetaData/satelliteZenithAngle"
       source: variables/satelliteZenithAngle
+      chunks: [1000000]
       longName: "Satellite Zenith Angle"
       units: "degree"
 
     - name: "MetaData/observationSequenceNumber"
       source: variables/observationSequenceNumber
+      chunks: [1000000]
       longName: "Observation Sequence Number"
 
     - name: "MetaData/windHeightAssignMethodAmvaha1"
       source: variables/windHeightAssignMethodAmvaha1
+      chunks: [1000000]
       longName: "Extended Height Assignment Method (1)"
 
     - name: "MetaData/windHeightAssignMethodAmvaha2"
       source: variables/windHeightAssignMethodAmvaha2
+      chunks: [1000000]
       longName: "Extended Height Assignment Method (2)"
 
     - name: "MetaData/windHeightAssignMethodAmvaha3"
       source: variables/windHeightAssignMethodAmvaha3
+      chunks: [1000000]
       longName: "Extended Height Assignment Method (3)"
 
     - name: "MetaData/windHeightAssignMethodAmvaha4"
       source: variables/windHeightAssignMethodAmvaha4
+      chunks: [1000000]
       longName: "Extended Height Assignment Method (4)"
 
     - name: "MetaData/windHeightAssignMethodAmvaha5"
       source: variables/windHeightAssignMethodAmvaha5
+      chunks: [1000000]
       longName: "Extended Height Assignment Method (5)"
 
     - name: "MetaData/windHeightAssignMethodAmvaha6"
       source: variables/windHeightAssignMethodAmvaha6
+      chunks: [1000000]
       longName: "Extended Height Assignment Method (6)"
 
     - name: "MetaData/pressureAmvaha1"
       source: variables/pressureAmvaha1
+      chunks: [1000000]
       longName: "Pressure (1)"
       units: "Pa"
 
     - name: "MetaData/pressureAmvaha2"
       source: variables/pressureAmvaha2
+      chunks: [1000000]
       longName: "Pressure (2)"
       units: "Pa"
 
     - name: "MetaData/pressureAmvaha3"
       source: variables/pressureAmvaha3
+      chunks: [1000000]
       longName: "Pressure (3)"
       units: "Pa"
 
     - name: "MetaData/pressureAmvaha4"
       source: variables/pressureAmvaha4
+      chunks: [1000000]
       longName: "Pressure (4)"
       units: "Pa"
 
     - name: "MetaData/pressureAmvaha5"
       source: variables/pressureAmvaha5
+      chunks: [1000000]
       longName: "Pressure (5)"
       units: "Pa"
 
     - name: "MetaData/pressureAmvaha6"
       source: variables/pressureAmvaha6
+      chunks: [1000000]
       longName: "Pressure (6)"
       units: "Pa"
 
@@ -1168,528 +1205,647 @@ encoder:
 
     - name: "MetaData/longTimePeriodSeconds11"
       source: variables/longTimePeriodSeconds11
+      chunks: [1000000]
       longName: "Long Time Period Or Displacement (SECONDS) (1)"
       units: "s"
 
     - name: "MetaData/longTimePeriodSeconds12"
       source: variables/longTimePeriodSeconds12
+      chunks: [1000000]
       longName: "Long Time Period Or Displacement (SECONDS) (2)"
       units: "s"
 
     - name: "MetaData/longTimePeriodSeconds13"
       source: variables/longTimePeriodSeconds13
+      chunks: [1000000]
       longName: "Long Time Period Or Displacement (SECONDS) (3)"
       units: "s"
 
     - name: "MetaData/longTimePeriodSeconds14"
       source: variables/longTimePeriodSeconds14
+      chunks: [1000000]
       longName: "Long Time Period Or Displacement (SECONDS) (4)"
       units: "s"
 
     - name: "MetaData/longTimePeriodSeconds15"
       source: variables/longTimePeriodSeconds15
+      chunks: [1000000]
       longName: "Long Time Period Or Displacement (SECONDS) (5)"
       units: "s"
 
     - name: "MetaData/longTimePeriodSeconds16"
       source: variables/longTimePeriodSeconds16
+      chunks: [1000000]
       longName: "Long Time Period Or Displacement (SECONDS) (6)"
       units: "s"
 
     - name: "MetaData/longTimePeriodSeconds21"
       source: variables/longTimePeriodSeconds21
+      chunks: [1000000]
       longName: "Long Time Period Or Displacement (SECONDS) (1)"
       units: "s"
 
     - name: "MetaData/longTimePeriodSeconds22"
       source: variables/longTimePeriodSeconds22
+      chunks: [1000000]
       longName: "Long Time Period Or Displacement (SECONDS) (2)"
       units: "s"
 
     - name: "MetaData/longTimePeriodSeconds23"
       source: variables/longTimePeriodSeconds23
+      chunks: [1000000]
       longName: "Long Time Period Or Displacement (SECONDS) (3)"
       units: "s"
 
     - name: "MetaData/longTimePeriodSeconds24"
       source: variables/longTimePeriodSeconds24
+      chunks: [1000000]
       longName: "Long Time Period Or Displacement (SECONDS) (4)"
       units: "s"
 
     - name: "MetaData/longTimePeriodSeconds25"
       source: variables/longTimePeriodSeconds25
+      chunks: [1000000]
       longName: "Long Time Period Or Displacement (SECONDS) (5)"
       units: "s"
 
     - name: "MetaData/longTimePeriodSeconds26"
       source: variables/longTimePeriodSeconds26
+      chunks: [1000000]
       longName: "Long Time Period Or Displacement (SECONDS) (6)"
       units: "s"
 
     - name: "MetaData/latitude21"
       source: variables/latitude21
+      chunks: [1000000]
       longName: "Latitude (HIGH ACCURACY) (1)"
       units: "degree"
 
     - name: "MetaData/latitude22"
       source: variables/latitude22
+      chunks: [1000000]
       longName: "Latitude (HIGH ACCURACY) (2)"
       units: "degree"
 
     - name: "MetaData/latitude23"
       source: variables/latitude23
+      chunks: [1000000]
       longName: "Latitude (HIGH ACCURACY) (3)"
       units: "degree"
 
     - name: "MetaData/latitude24"
       source: variables/latitude24
+      chunks: [1000000]
       longName: "Latitude (HIGH ACCURACY) (4)"
       units: "degree"
 
     - name: "MetaData/latitude25"
       source: variables/latitude25
+      chunks: [1000000]
       longName: "Latitude (HIGH ACCURACY) (5)"
       units: "degree"
 
     - name: "MetaData/latitude26"
       source: variables/latitude26
+      chunks: [1000000]
       longName: "Latitude (HIGH ACCURACY) (6)"
       units: "degree"
 
     - name: "MetaData/longitude21"
       source: variables/longitude21
+      chunks: [1000000]
       longName: "Longitude (HIGH ACCURACY) (1)"
       units: "degree"
 
     - name: "MetaData/longitude22"
       source: variables/longitude22
+      chunks: [1000000]
       longName: "Longitude (HIGH ACCURACY) (2)"
       units: "degree"
 
     - name: "MetaData/longitude23"
       source: variables/longitude23
+      chunks: [1000000]
       longName: "Longitude (HIGH ACCURACY) (3)"
       units: "degree"
 
     - name: "MetaData/longitude24"
       source: variables/longitude24
+      chunks: [1000000]
       longName: "Longitude (HIGH ACCURACY) (4)"
       units: "degree"
 
     - name: "MetaData/longitude25"
       source: variables/longitude25
+      chunks: [1000000]
       longName: "Longitude (HIGH ACCURACY) (5)"
       units: "degree"
 
     - name: "MetaData/longitude26"
       source: variables/longitude26
+      chunks: [1000000]
       longName: "Longitude (HIGH ACCURACY) (6)"
       units: "degree"
 
     - name: "MetaData/coefficientOfVariation1"
       source: variables/coefficientOfVariation1
+      chunks: [1000000]
       longName: "Coefficient Of Variation (1)"
 
     - name: "MetaData/coefficientOfVariation2"
       source: variables/coefficientOfVariation2
+      chunks: [1000000]
       longName: "Coefficient Of Variation (2)"
 
     - name: "MetaData/coefficientOfVariation3"
       source: variables/coefficientOfVariation3
+      chunks: [1000000]
       longName: "Coefficient Of Variation (3)"
 
     - name: "MetaData/coefficientOfVariation4"
       source: variables/coefficientOfVariation4
+      chunks: [1000000]
       longName: "Coefficient Of Variation (4)"
 
     - name: "MetaData/coefficientOfVariation5"
       source: variables/coefficientOfVariation5
+      chunks: [1000000]
       longName: "Coefficient Of Variation (5)"
 
     - name: "MetaData/coefficientOfVariation6"
       source: variables/coefficientOfVariation6
+      chunks: [1000000]
       longName: "Coefficient Of Variation (6)"
 
     - name: "MetaData/firstOrderStatisticsAmvivs1_1"
       source: variables/firstOrderStatisticsAmvivs1_1
+      chunks: [1000000]
       longName: "First Order Statistics (1, 1)"
 
     - name: "MetaData/firstOrderStatisticsAmvivs1_2"
       source: variables/firstOrderStatisticsAmvivs1_2
+      chunks: [1000000]
       longName: "First Order Statistics (1, 2)"
 
     - name: "MetaData/firstOrderStatisticsAmvivs2_1"
       source: variables/firstOrderStatisticsAmvivs2_1
+      chunks: [1000000]
       longName: "First Order Statistics (2, 1)"
 
     - name: "MetaData/firstOrderStatisticsAmvivs2_2"
       source: variables/firstOrderStatisticsAmvivs2_2
+      chunks: [1000000]
       longName: "First Order Statistics (2, 2)"
 
     - name: "MetaData/firstOrderStatisticsAmvivs3_1"
       source: variables/firstOrderStatisticsAmvivs3_1
+      chunks: [1000000]
       longName: "First Order Statistics (3, 1)"
 
     - name: "MetaData/firstOrderStatisticsAmvivs3_2"
       source: variables/firstOrderStatisticsAmvivs3_2
+      chunks: [1000000]
       longName: "First Order Statistics (3, 2)"
 
     - name: "MetaData/firstOrderStatisticsAmvivs4_1"
       source: variables/firstOrderStatisticsAmvivs4_1
+      chunks: [1000000]
       longName: "First Order Statistics (4, 1)"
 
     - name: "MetaData/firstOrderStatisticsAmvivs4_2"
       source: variables/firstOrderStatisticsAmvivs4_2
+      chunks: [1000000]
       longName: "First Order Statistics (4, 2)"
 
     - name: "MetaData/firstOrderStatisticsAmvivs5_1"
       source: variables/firstOrderStatisticsAmvivs5_1
+      chunks: [1000000]
       longName: "First Order Statistics (5, 1)"
 
     - name: "MetaData/firstOrderStatisticsAmvivs5_2"
       source: variables/firstOrderStatisticsAmvivs5_2
+      chunks: [1000000]
       longName: "First Order Statistics (5, 2)"
 
     - name: "MetaData/firstOrderStatisticsAmvivs6_1"
       source: variables/firstOrderStatisticsAmvivs6_1
+      chunks: [1000000]
       longName: "First Order Statistics (6, 1)"
 
     - name: "MetaData/firstOrderStatisticsAmvivs6_2"
       source: variables/firstOrderStatisticsAmvivs6_2
+      chunks: [1000000]
       longName: "First Order Statistics (6, 2)"
 
     - name: "MetaData/firstOrderStatisticsAmvivr1"
       source: variables/firstOrderStatisticsAmvivr1
+      chunks: [1000000]
       longName: "First Order Statistics (1)"
 
     - name: "MetaData/firstOrderStatisticsAmvivr2"
       source: variables/firstOrderStatisticsAmvivr2
+      chunks: [1000000]
       longName: "First Order Statistics (2)"
 
     - name: "MetaData/firstOrderStatisticsAmvivr3"
       source: variables/firstOrderStatisticsAmvivr3
+      chunks: [1000000]
       longName: "First Order Statistics (3)"
 
     - name: "MetaData/firstOrderStatisticsAmvivr4"
       source: variables/firstOrderStatisticsAmvivr4
+      chunks: [1000000]
       longName: "First Order Statistics (4)"
 
     - name: "MetaData/firstOrderStatisticsAmvivr5"
       source: variables/firstOrderStatisticsAmvivr5
+      chunks: [1000000]
       longName: "First Order Statistics (5)"
 
     - name: "MetaData/firstOrderStatisticsAmvivr6"
       source: variables/firstOrderStatisticsAmvivr6
+      chunks: [1000000]
       longName: "First Order Statistics (6)"
 
     - name: "MetaData/dataProviderOrigin2"
       source: variables/dataProviderOrigin2
+      chunks: [1000000]
       longName: "ORIGINATING/GENERATING Center"
 
     - name: "MetaData/timeSignificance1"
       source: variables/timeSignificance1
+      chunks: [1000000]
       longName: "Time Significance"
 
     - name: "MetaData/pressure2"
       source: variables/pressure2
+      chunks: [1000000]
       longName: "Pressure"
       units: "Pa"
 
     - name: "MetaData/timeSignificance2"
       source: variables/timeSignificance2
+      chunks: [1000000]
       longName: "Time Significance"
 
     - name: "MetaData/pressure3"
       source: variables/pressure3
+      chunks: [1000000]
       longName: "Pressure"
       units: "Pa"
 
     - name: "MetaData/timeSignificance3"
       source: variables/timeSignificance3
+      chunks: [1000000]
       longName: "Time Significance"
 
     - name: "MetaData/verticalSignificanceNwp1"
       source: variables/verticalSignificanceNwp1
+      chunks: [1000000]
       longName: "Vertical Significance For Nwp"
 
     - name: "MetaData/pressure4"
       source: variables/pressure4
+      chunks: [1000000]
       longName: "Pressure"
       units: "Pa"
 
     - name: "MetaData/verticalSignificanceNwp2"
       source: variables/verticalSignificanceNwp2
+      chunks: [1000000]
       longName: "Vertical Significance For Nwp"
 
     - name: "MetaData/windGeneratingApplication1"
       source: variables/windGeneratingApplication1
+      chunks: [1000000]
       longName: "Standard generating application (1)"
 
     - name: "MetaData/windGeneratingApplication2"
       source: variables/windGeneratingApplication2
+      chunks: [1000000]
       longName: "Standard generating application (2)"
 
     - name: "MetaData/windGeneratingApplication3"
       source: variables/windGeneratingApplication3
+      chunks: [1000000]
       longName: "Standard generating application (3)"
 
     - name: "MetaData/windGeneratingApplication4"
       source: variables/windGeneratingApplication4
+      chunks: [1000000]
       longName: "Standard generating application (4)"
 
     - name: "MetaData/qiWithoutForecast1"
       source: variables/qiWithoutForecast1
+      chunks: [1000000]
       longName: "Percent Confidence (1)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast2"
       source: variables/qiWithoutForecast2
+      chunks: [1000000]
       longName: "Percent Confidence (2)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast3"
       source: variables/qiWithoutForecast3
+      chunks: [1000000]
       longName: "Percent Confidence (3)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast4"
       source: variables/qiWithoutForecast4
+      chunks: [1000000]
       longName: "Percent Confidence (4)"
       units: "%"
 
     - name: "MetaData/measurementUncertaintyExpression1"
       source: variables/measurementUncertaintyExpression1
+      chunks: [1000000]
       longName: "Measurement Uncertainty Expression"
 
     - name: "MetaData/pressure5"
       source: variables/pressure5
+      chunks: [1000000]
       longName: "Pressure"
       units: "Pa"
 
     - name: "MetaData/measurementUncertaintyExpression2"
       source: variables/measurementUncertaintyExpression2
+      chunks: [1000000]
       longName: "Measurement Uncertainty Expression"
 
     - name: "MetaData/firstOrderStatisticsAmvcld1"
       source: variables/firstOrderStatisticsAmvcld1
+      chunks: [1000000]
       longName: "First Order Statistics (1)"
 
     - name: "MetaData/firstOrderStatisticsAmvcld2"
       source: variables/firstOrderStatisticsAmvcld2
+      chunks: [1000000]
       longName: "First Order Statistics (2)"
 
     - name: "MetaData/firstOrderStatisticsAmvcld3"
       source: variables/firstOrderStatisticsAmvcld3
+      chunks: [1000000]
       longName: "First Order Statistics (3)"
 
     - name: "MetaData/firstOrderStatisticsAmvcld4"
       source: variables/firstOrderStatisticsAmvcld4
+      chunks: [1000000]
       longName: "First Order Statistics (4)"
 
     - name: "MetaData/measurementUncertaintyExpression1Amvcld1"
       source: variables/measurementUncertaintyExpression1Amvcld1
+      chunks: [1000000]
       longName: "Measurement Uncertainty Expression (1)"
 
     - name: "MetaData/measurementUncertaintyExpression1Amvcld2"
       source: variables/measurementUncertaintyExpression1Amvcld2
+      chunks: [1000000]
       longName: "Measurement Uncertainty Expression (2)"
 
     - name: "MetaData/measurementUncertaintyExpression1Amvcld3"
       source: variables/measurementUncertaintyExpression1Amvcld3
+      chunks: [1000000]
       longName: "Measurement Uncertainty Expression (3)"
 
     - name: "MetaData/measurementUncertaintyExpression1Amvcld4"
       source: variables/measurementUncertaintyExpression1Amvcld4
+      chunks: [1000000]
       longName: "Measurement Uncertainty Expression (4)"
 
     - name: "MetaData/verticalSignificanceSatellite11"
       source: variables/verticalSignificanceSatellite11
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (1)"
 
     - name: "MetaData/verticalSignificanceSatellite12"
       source: variables/verticalSignificanceSatellite12
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (2)"
 
     - name: "MetaData/verticalSignificanceSatellite13"
       source: variables/verticalSignificanceSatellite13
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (3)"
 
     - name: "MetaData/verticalSignificanceSatellite14"
       source: variables/verticalSignificanceSatellite14
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (4)"
 
     - name: "MetaData/verticalSignificanceSatellite21"
       source: variables/verticalSignificanceSatellite21
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (1)"
 
     - name: "MetaData/verticalSignificanceSatellite22"
       source: variables/verticalSignificanceSatellite22
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (2)"
 
     - name: "MetaData/verticalSignificanceSatellite23"
       source: variables/verticalSignificanceSatellite23
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (3)"
 
     - name: "MetaData/verticalSignificanceSatellite24"
       source: variables/verticalSignificanceSatellite24
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (4)"
 
     - name: "MetaData/measurementUncertaintyExpression2Amvcld1"
       source: variables/measurementUncertaintyExpression2Amvcld1
+      chunks: [1000000]
       longName: "Measurement Uncertainty Expression (1)"
 
     - name: "MetaData/measurementUncertaintyExpression2Amvcld2"
       source: variables/measurementUncertaintyExpression2Amvcld2
+      chunks: [1000000]
       longName: "Measurement Uncertainty Expression (2)"
 
     - name: "MetaData/measurementUncertaintyExpression2Amvcld3"
       source: variables/measurementUncertaintyExpression2Amvcld3
+      chunks: [1000000]
       longName: "Measurement Uncertainty Expression (3)"
 
     - name: "MetaData/measurementUncertaintyExpression2Amvcld4"
       source: variables/measurementUncertaintyExpression2Amvcld4
+      chunks: [1000000]
       longName: "Measurement Uncertainty Expression (4)"
 
     - name: "MetaData/optimalEstimateCost1"
       source: variables/optimalEstimateCost1
+      chunks: [1000000]
       longName: "Optimal Estimate Cost (1)"
 
     - name: "MetaData/optimalEstimateCost2"
       source: variables/optimalEstimateCost2
+      chunks: [1000000]
       longName: "Optimal Estimate Cost (2)"
 
     - name: "MetaData/optimalEstimateCost3"
       source: variables/optimalEstimateCost3
+      chunks: [1000000]
       longName: "Optimal Estimate Cost (3)"
 
     - name: "MetaData/optimalEstimateCost4"
       source: variables/optimalEstimateCost4
+      chunks: [1000000]
       longName: "Optimal Estimate Cost (4)"
 
     - name: "MetaData/meteorologicalFeature11"
       source: variables/meteorologicalFeature11
+      chunks: [1000000]
       longName: "Meteorological Feature (1)"
 
     - name: "MetaData/meteorologicalFeature12"
       source: variables/meteorologicalFeature12
+      chunks: [1000000]
       longName: "Meteorological Feature (2)"
 
     - name: "MetaData/meteorologicalFeature13"
       source: variables/meteorologicalFeature13
+      chunks: [1000000]
       longName: "Meteorological Feature (3)"
 
     - name: "MetaData/meteorologicalFeature14"
       source: variables/meteorologicalFeature14
+      chunks: [1000000]
       longName: "Meteorological Feature (4)"
 
     - name: "MetaData/meteorologicalFeature21"
       source: variables/meteorologicalFeature21
+      chunks: [1000000]
       longName: "Meteorological Feature (1)"
 
     - name: "MetaData/meteorologicalFeature22"
       source: variables/meteorologicalFeature22
+      chunks: [1000000]
       longName: "Meteorological Feature (2)"
 
     - name: "MetaData/meteorologicalFeature23"
       source: variables/meteorologicalFeature23
+      chunks: [1000000]
       longName: "Meteorological Feature (3)"
 
     - name: "MetaData/meteorologicalFeature24"
       source: variables/meteorologicalFeature24
+      chunks: [1000000]
       longName: "Meteorological Feature (4)"
 
     - name: "MetaData/firstOrderStatistics"
       source: variables/firstOrderStatistics
+      chunks: [1000000]
       longName: "First Order Statistics"
 
     # ObsValue
     - name: "ObsValue/windDirection"
       source: variables/windDirection
+      chunks: [1000000]
       longName: "Wind Direction"
       units: "degree"
 
     - name: "ObsValue/windSpeed"
       source: variables/windSpeed
+      chunks: [1000000]
       longName: "Wind Speed"
       units: "m s-1"
 
     - name: "ObsValue/windEastward1"
       source: variables/windEastward1
+      chunks: [1000000]
       longName: "U-COMPONENT"
       units: "m s-1"
 
     - name: "ObsValue/windNorthward1"
       source: variables/windNorthward1
+      chunks: [1000000]
       longName: "V-COMPONENT"
       units: "m s-1"
 
     - name: "ObsValue/airTemperature"
       source: variables/airTemperature
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature"
       units: "K"
 
     - name: "ObsValue/heightOfTopOfCloud"
       source: variables/heightOfTopOfCloud
+      chunks: [1000000]
       longName: "Height Of Top Of Cloud"
       units: "m"
 
     - name: "ObsValue/airTemperatureAmvaha1"
       source: variables/airTemperatureAmvaha1
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (1)"
       units: "K"
 
     - name: "ObsValue/airTemperatureAmvaha2"
       source: variables/airTemperatureAmvaha2
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (2)"
       units: "K"
 
     - name: "ObsValue/airTemperatureAmvaha3"
       source: variables/airTemperatureAmvaha3
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (3)"
       units: "K"
 
     - name: "ObsValue/airTemperatureAmvaha4"
       source: variables/airTemperatureAmvaha4
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (4)"
       units: "K"
 
     - name: "ObsValue/airTemperatureAmvaha5"
       source: variables/airTemperatureAmvaha5
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (5)"
       units: "K"
 
     - name: "ObsValue/airTemperatureAmvaha6"
       source: variables/airTemperatureAmvaha6
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (6)"
       units: "K"
 
     - name: "ObsValue/heightOfTopOfCloudAmvaha1"
       source: variables/heightOfTopOfCloudAmvaha1
+      chunks: [1000000]
       longName: "Height Of Top Of Cloud (1)"
       units: "m"
 
     - name: "ObsValue/heightOfTopOfCloudAmvaha2"
       source: variables/heightOfTopOfCloudAmvaha2
+      chunks: [1000000]
       longName: "Height Of Top Of Cloud (2)"
       units: "m"
 
     - name: "ObsValue/heightOfTopOfCloudAmvaha3"
       source: variables/heightOfTopOfCloudAmvaha3
+      chunks: [1000000]
       longName: "Height Of Top Of Cloud (3)"
       units: "m"
 
     - name: "ObsValue/heightOfTopOfCloudAmvaha4"
       source: variables/heightOfTopOfCloudAmvaha4
+      chunks: [1000000]
       longName: "Height Of Top Of Cloud (4)"
       units: "m"
 
     - name: "ObsValue/heightOfTopOfCloudAmvaha5"
       source: variables/heightOfTopOfCloudAmvaha5
+      chunks: [1000000]
       longName: "Height Of Top Of Cloud (5)"
       units: "m"
 
     - name: "ObsValue/heightOfTopOfCloudAmvaha6"
       source: variables/heightOfTopOfCloudAmvaha6
+      chunks: [1000000]
       longName: "Height Of Top Of Cloud (6)"
       units: "m"
 
@@ -1705,618 +1861,744 @@ encoder:
 
     - name: "ObsValue/windEastwardAmvivr1"
       source: variables/windEastwardAmvivr1
+      chunks: [1000000]
       longName: "U-COMPONENT (1)"
       units: "m s-1"
 
     - name: "ObsValue/windEastwardAmvivr2"
       source: variables/windEastwardAmvivr2
+      chunks: [1000000]
       longName: "U-COMPONENT (2)"
       units: "m s-1"
 
     - name: "ObsValue/windEastwardAmvivr3"
       source: variables/windEastwardAmvivr3
+      chunks: [1000000]
       longName: "U-COMPONENT (3)"
       units: "m s-1"
 
     - name: "ObsValue/windEastwardAmvivr4"
       source: variables/windEastwardAmvivr4
+      chunks: [1000000]
       longName: "U-COMPONENT (4)"
       units: "m s-1"
 
     - name: "ObsValue/windEastwardAmvivr5"
       source: variables/windEastwardAmvivr5
+      chunks: [1000000]
       longName: "U-COMPONENT (5)"
       units: "m s-1"
 
     - name: "ObsValue/windEastwardAmvivr6"
       source: variables/windEastwardAmvivr6
+      chunks: [1000000]
       longName: "U-COMPONENT (6)"
       units: "m s-1"
 
     - name: "ObsValue/windNorthwardAmvivr1"
       source: variables/windNorthwardAmvivr1
+      chunks: [1000000]
       longName: "V-COMPONENT (1)"
       units: "m s-1"
 
     - name: "ObsValue/windNorthwardAmvivr2"
       source: variables/windNorthwardAmvivr2
+      chunks: [1000000]
       longName: "V-COMPONENT (2)"
       units: "m s-1"
 
     - name: "ObsValue/windNorthwardAmvivr3"
       source: variables/windNorthwardAmvivr3
+      chunks: [1000000]
       longName: "V-COMPONENT (3)"
       units: "m s-1"
 
     - name: "ObsValue/windNorthwardAmvivr4"
       source: variables/windNorthwardAmvivr4
+      chunks: [1000000]
       longName: "V-COMPONENT (4)"
       units: "m s-1"
 
     - name: "ObsValue/windNorthwardAmvivr5"
       source: variables/windNorthwardAmvivr5
+      chunks: [1000000]
       longName: "V-COMPONENT (5)"
       units: "m s-1"
 
     - name: "ObsValue/windNorthwardAmvivr6"
       source: variables/windNorthwardAmvivr6
+      chunks: [1000000]
       longName: "V-COMPONENT (6)"
       units: "m s-1"
 
     - name: "ObsValue/trackingCorrelationOfVector1"
       source: variables/trackingCorrelationOfVector1
+      chunks: [1000000]
       longName: "Tracking Correlation Of Vector (1)"
 
     - name: "ObsValue/trackingCorrelationOfVector2"
       source: variables/trackingCorrelationOfVector2
+      chunks: [1000000]
       longName: "Tracking Correlation Of Vector (2)"
 
     - name: "ObsValue/trackingCorrelationOfVector3"
       source: variables/trackingCorrelationOfVector3
+      chunks: [1000000]
       longName: "Tracking Correlation Of Vector (3)"
 
     - name: "ObsValue/trackingCorrelationOfVector4"
       source: variables/trackingCorrelationOfVector4
+      chunks: [1000000]
       longName: "Tracking Correlation Of Vector (4)"
 
     - name: "ObsValue/trackingCorrelationOfVector5"
       source: variables/trackingCorrelationOfVector5
+      chunks: [1000000]
       longName: "Tracking Correlation Of Vector (5)"
 
     - name: "ObsValue/trackingCorrelationOfVector6"
       source: variables/trackingCorrelationOfVector6
+      chunks: [1000000]
       longName: "Tracking Correlation Of Vector (6)"
 
     - name: "ObsValue/windEastwardAmvivs1_1"
       source: variables/windEastwardAmvivs1_1
+      chunks: [1000000]
       longName: "U-COMPONENT (1, 1)"
       units: "m s-1"
 
     - name: "ObsValue/windEastwardAmvivs1_2"
       source: variables/windEastwardAmvivs1_2
+      chunks: [1000000]
       longName: "U-COMPONENT (1, 2)"
       units: "m s-1"
 
     - name: "ObsValue/windEastwardAmvivs2_1"
       source: variables/windEastwardAmvivs2_1
+      chunks: [1000000]
       longName: "U-COMPONENT (2, 1)"
       units: "m s-1"
 
     - name: "ObsValue/windEastwardAmvivs2_2"
       source: variables/windEastwardAmvivs2_2
+      chunks: [1000000]
       longName: "U-COMPONENT (2, 2)"
       units: "m s-1"
 
     - name: "ObsValue/windEastwardAmvivs3_1"
       source: variables/windEastwardAmvivs3_1
+      chunks: [1000000]
       longName: "U-COMPONENT (3, 1)"
       units: "m s-1"
 
     - name: "ObsValue/windEastwardAmvivs3_2"
       source: variables/windEastwardAmvivs3_2
+      chunks: [1000000]
       longName: "U-COMPONENT (3, 2)"
       units: "m s-1"
 
     - name: "ObsValue/windEastwardAmvivs4_1"
       source: variables/windEastwardAmvivs4_1
+      chunks: [1000000]
       longName: "U-COMPONENT (4, 1)"
       units: "m s-1"
 
     - name: "ObsValue/windEastwardAmvivs4_2"
       source: variables/windEastwardAmvivs4_2
+      chunks: [1000000]
       longName: "U-COMPONENT (4, 2)"
       units: "m s-1"
 
     - name: "ObsValue/windEastwardAmvivs5_1"
       source: variables/windEastwardAmvivs5_1
+      chunks: [1000000]
       longName: "U-COMPONENT (5, 1)"
       units: "m s-1"
 
     - name: "ObsValue/windEastwardAmvivs5_2"
       source: variables/windEastwardAmvivs5_2
+      chunks: [1000000]
       longName: "U-COMPONENT (5, 2)"
       units: "m s-1"
 
     - name: "ObsValue/windEastwardAmvivs6_1"
       source: variables/windEastwardAmvivs6_1
+      chunks: [1000000]
       longName: "U-COMPONENT (6, 1)"
       units: "m s-1"
 
     - name: "ObsValue/windEastwardAmvivs6_2"
       source: variables/windEastwardAmvivs6_2
+      chunks: [1000000]
       longName: "U-COMPONENT (6, 2)"
       units: "m s-1"
 
     - name: "ObsValue/windNorthwardAmvivs1_1"
       source: variables/windNorthwardAmvivs1_1
+      chunks: [1000000]
       longName: "V-COMPONENT (1, 1)"
       units: "m s-1"
 
     - name: "ObsValue/windNorthwardAmvivs1_2"
       source: variables/windNorthwardAmvivs1_2
+      chunks: [1000000]
       longName: "V-COMPONENT (1, 2)"
       units: "m s-1"
 
     - name: "ObsValue/windNorthwardAmvivs2_1"
       source: variables/windNorthwardAmvivs2_1
+      chunks: [1000000]
       longName: "V-COMPONENT (2, 1)"
       units: "m s-1"
 
     - name: "ObsValue/windNorthwardAmvivs2_2"
       source: variables/windNorthwardAmvivs2_2
+      chunks: [1000000]
       longName: "V-COMPONENT (2, 2)"
       units: "m s-1"
 
     - name: "ObsValue/windNorthwardAmvivs3_1"
       source: variables/windNorthwardAmvivs3_1
+      chunks: [1000000]
       longName: "V-COMPONENT (3, 1)"
       units: "m s-1"
 
     - name: "ObsValue/windNorthwardAmvivs3_2"
       source: variables/windNorthwardAmvivs3_2
+      chunks: [1000000]
       longName: "V-COMPONENT (3, 2)"
       units: "m s-1"
 
     - name: "ObsValue/windNorthwardAmvivs4_1"
       source: variables/windNorthwardAmvivs4_1
+      chunks: [1000000]
       longName: "V-COMPONENT (4, 1)"
       units: "m s-1"
 
     - name: "ObsValue/windNorthwardAmvivs4_2"
       source: variables/windNorthwardAmvivs4_2
+      chunks: [1000000]
       longName: "V-COMPONENT (4, 2)"
       units: "m s-1"
 
     - name: "ObsValue/windNorthwardAmvivs5_1"
       source: variables/windNorthwardAmvivs5_1
+      chunks: [1000000]
       longName: "V-COMPONENT (5, 1)"
       units: "m s-1"
 
     - name: "ObsValue/windNorthwardAmvivs5_2"
       source: variables/windNorthwardAmvivs5_2
+      chunks: [1000000]
       longName: "V-COMPONENT (5, 2)"
       units: "m s-1"
 
     - name: "ObsValue/windNorthwardAmvivs6_1"
       source: variables/windNorthwardAmvivs6_1
+      chunks: [1000000]
       longName: "V-COMPONENT (6, 1)"
       units: "m s-1"
 
     - name: "ObsValue/windNorthwardAmvivs6_2"
       source: variables/windNorthwardAmvivs6_2
+      chunks: [1000000]
       longName: "V-COMPONENT (6, 2)"
       units: "m s-1"
 
     - name: "ObsValue/xAxisErrorEllipseMajorComponent1_1"
       source: variables/xAxisErrorEllipseMajorComponent1_1
+      chunks: [1000000]
       longName: "X-AXIS Error Ellipse Major Component (1, 1)"
       units: "m"
 
     - name: "ObsValue/xAxisErrorEllipseMajorComponent1_2"
       source: variables/xAxisErrorEllipseMajorComponent1_2
+      chunks: [1000000]
       longName: "X-AXIS Error Ellipse Major Component (1, 2)"
       units: "m"
 
     - name: "ObsValue/xAxisErrorEllipseMajorComponent2_1"
       source: variables/xAxisErrorEllipseMajorComponent2_1
+      chunks: [1000000]
       longName: "X-AXIS Error Ellipse Major Component (2, 1)"
       units: "m"
 
     - name: "ObsValue/xAxisErrorEllipseMajorComponent2_2"
       source: variables/xAxisErrorEllipseMajorComponent2_2
+      chunks: [1000000]
       longName: "X-AXIS Error Ellipse Major Component (2, 2)"
       units: "m"
 
     - name: "ObsValue/xAxisErrorEllipseMajorComponent3_1"
       source: variables/xAxisErrorEllipseMajorComponent3_1
+      chunks: [1000000]
       longName: "X-AXIS Error Ellipse Major Component (3, 1)"
       units: "m"
 
     - name: "ObsValue/xAxisErrorEllipseMajorComponent3_2"
       source: variables/xAxisErrorEllipseMajorComponent3_2
+      chunks: [1000000]
       longName: "X-AXIS Error Ellipse Major Component (3, 2)"
       units: "m"
 
     - name: "ObsValue/xAxisErrorEllipseMajorComponent4_1"
       source: variables/xAxisErrorEllipseMajorComponent4_1
+      chunks: [1000000]
       longName: "X-AXIS Error Ellipse Major Component (4, 1)"
       units: "m"
 
     - name: "ObsValue/xAxisErrorEllipseMajorComponent4_2"
       source: variables/xAxisErrorEllipseMajorComponent4_2
+      chunks: [1000000]
       longName: "X-AXIS Error Ellipse Major Component (4, 2)"
       units: "m"
 
     - name: "ObsValue/xAxisErrorEllipseMajorComponent5_1"
       source: variables/xAxisErrorEllipseMajorComponent5_1
+      chunks: [1000000]
       longName: "X-AXIS Error Ellipse Major Component (5, 1)"
       units: "m"
 
     - name: "ObsValue/xAxisErrorEllipseMajorComponent5_2"
       source: variables/xAxisErrorEllipseMajorComponent5_2
+      chunks: [1000000]
       longName: "X-AXIS Error Ellipse Major Component (5, 2)"
       units: "m"
 
     - name: "ObsValue/xAxisErrorEllipseMajorComponent6_1"
       source: variables/xAxisErrorEllipseMajorComponent6_1
+      chunks: [1000000]
       longName: "X-AXIS Error Ellipse Major Component (6, 1)"
       units: "m"
 
     - name: "ObsValue/xAxisErrorEllipseMajorComponent6_2"
       source: variables/xAxisErrorEllipseMajorComponent6_2
+      chunks: [1000000]
       longName: "X-AXIS Error Ellipse Major Component (6, 2)"
       units: "m"
 
     - name: "ObsValue/yAxisErrorEllipseMinorComponent1_1"
       source: variables/yAxisErrorEllipseMinorComponent1_1
+      chunks: [1000000]
       longName: "Y-AXIS Error Ellipse Minor Component (1, 1)"
       units: "m"
 
     - name: "ObsValue/yAxisErrorEllipseMinorComponent1_2"
       source: variables/yAxisErrorEllipseMinorComponent1_2
+      chunks: [1000000]
       longName: "Y-AXIS Error Ellipse Minor Component (1, 2)"
       units: "m"
 
     - name: "ObsValue/yAxisErrorEllipseMinorComponent2_1"
       source: variables/yAxisErrorEllipseMinorComponent2_1
+      chunks: [1000000]
       longName: "Y-AXIS Error Ellipse Minor Component (2, 1)"
       units: "m"
 
     - name: "ObsValue/yAxisErrorEllipseMinorComponent2_2"
       source: variables/yAxisErrorEllipseMinorComponent2_2
+      chunks: [1000000]
       longName: "Y-AXIS Error Ellipse Minor Component (2, 2)"
       units: "m"
 
     - name: "ObsValue/yAxisErrorEllipseMinorComponent3_1"
       source: variables/yAxisErrorEllipseMinorComponent3_1
+      chunks: [1000000]
       longName: "Y-AXIS Error Ellipse Minor Component (3, 1)"
       units: "m"
 
     - name: "ObsValue/yAxisErrorEllipseMinorComponent3_2"
       source: variables/yAxisErrorEllipseMinorComponent3_2
+      chunks: [1000000]
       longName: "Y-AXIS Error Ellipse Minor Component (3, 2)"
       units: "m"
 
     - name: "ObsValue/yAxisErrorEllipseMinorComponent4_1"
       source: variables/yAxisErrorEllipseMinorComponent4_1
+      chunks: [1000000]
       longName: "Y-AXIS Error Ellipse Minor Component (4, 1)"
       units: "m"
 
     - name: "ObsValue/yAxisErrorEllipseMinorComponent4_2"
       source: variables/yAxisErrorEllipseMinorComponent4_2
+      chunks: [1000000]
       longName: "Y-AXIS Error Ellipse Minor Component (4, 2)"
       units: "m"
 
     - name: "ObsValue/yAxisErrorEllipseMinorComponent5_1"
       source: variables/yAxisErrorEllipseMinorComponent5_1
+      chunks: [1000000]
       longName: "Y-AXIS Error Ellipse Minor Component (5, 1)"
       units: "m"
 
     - name: "ObsValue/yAxisErrorEllipseMinorComponent5_2"
       source: variables/yAxisErrorEllipseMinorComponent5_2
+      chunks: [1000000]
       longName: "Y-AXIS Error Ellipse Minor Component (5, 2)"
       units: "m"
 
     - name: "ObsValue/yAxisErrorEllipseMinorComponent6_1"
       source: variables/yAxisErrorEllipseMinorComponent6_1
+      chunks: [1000000]
       longName: "Y-AXIS Error Ellipse Minor Component (6, 1)"
       units: "m"
 
     - name: "ObsValue/yAxisErrorEllipseMinorComponent6_2"
       source: variables/yAxisErrorEllipseMinorComponent6_2
+      chunks: [1000000]
       longName: "Y-AXIS Error Ellipse Minor Component (6, 2)"
       units: "m"
 
     - name: "ObsValue/angleOfXAxisInErrorEllipse1_1"
       source: variables/angleOfXAxisInErrorEllipse1_1
+      chunks: [1000000]
       longName: "Angle Of X-AXIS In Error Ellipse (1, 1)"
       units: "degree"
 
     - name: "ObsValue/angleOfXAxisInErrorEllipse1_2"
       source: variables/angleOfXAxisInErrorEllipse1_2
+      chunks: [1000000]
       longName: "Angle Of X-AXIS In Error Ellipse (1, 2)"
       units: "degree"
 
     - name: "ObsValue/angleOfXAxisInErrorEllipse2_1"
       source: variables/angleOfXAxisInErrorEllipse2_1
+      chunks: [1000000]
       longName: "Angle Of X-AXIS In Error Ellipse (2, 1)"
       units: "degree"
 
     - name: "ObsValue/angleOfXAxisInErrorEllipse2_2"
       source: variables/angleOfXAxisInErrorEllipse2_2
+      chunks: [1000000]
       longName: "Angle Of X-AXIS In Error Ellipse (2, 2)"
       units: "degree"
 
     - name: "ObsValue/angleOfXAxisInErrorEllipse3_1"
       source: variables/angleOfXAxisInErrorEllipse3_1
+      chunks: [1000000]
       longName: "Angle Of X-AXIS In Error Ellipse (3, 1)"
       units: "degree"
 
     - name: "ObsValue/angleOfXAxisInErrorEllipse3_2"
       source: variables/angleOfXAxisInErrorEllipse3_2
+      chunks: [1000000]
       longName: "Angle Of X-AXIS In Error Ellipse (3, 2)"
       units: "degree"
 
     - name: "ObsValue/angleOfXAxisInErrorEllipse4_1"
       source: variables/angleOfXAxisInErrorEllipse4_1
+      chunks: [1000000]
       longName: "Angle Of X-AXIS In Error Ellipse (4, 1)"
       units: "degree"
 
     - name: "ObsValue/angleOfXAxisInErrorEllipse4_2"
       source: variables/angleOfXAxisInErrorEllipse4_2
+      chunks: [1000000]
       longName: "Angle Of X-AXIS In Error Ellipse (4, 2)"
       units: "degree"
 
     - name: "ObsValue/angleOfXAxisInErrorEllipse5_1"
       source: variables/angleOfXAxisInErrorEllipse5_1
+      chunks: [1000000]
       longName: "Angle Of X-AXIS In Error Ellipse (5, 1)"
       units: "degree"
 
     - name: "ObsValue/angleOfXAxisInErrorEllipse5_2"
       source: variables/angleOfXAxisInErrorEllipse5_2
+      chunks: [1000000]
       longName: "Angle Of X-AXIS In Error Ellipse (5, 2)"
       units: "degree"
 
     - name: "ObsValue/angleOfXAxisInErrorEllipse6_1"
       source: variables/angleOfXAxisInErrorEllipse6_1
+      chunks: [1000000]
       longName: "Angle Of X-AXIS In Error Ellipse (6, 1)"
       units: "degree"
 
     - name: "ObsValue/angleOfXAxisInErrorEllipse6_2"
       source: variables/angleOfXAxisInErrorEllipse6_2
+      chunks: [1000000]
       longName: "Angle Of X-AXIS In Error Ellipse (6, 2)"
       units: "degree"
 
     - name: "ObsValue/modelWindEastward1"
       source: variables/modelWindEastward1
+      chunks: [1000000]
       longName: "U-COMPONENT Of The Model Wind Vector"
       units: "m s-1"
 
     - name: "ObsValue/modelWindNorthward1"
       source: variables/modelWindNorthward1
+      chunks: [1000000]
       longName: "V-COMPONENT Of The Model Wind Vector"
       units: "m s-1"
 
     - name: "ObsValue/modelWindEastward2"
       source: variables/modelWindEastward2
+      chunks: [1000000]
       longName: "U-COMPONENT Of The Model Wind Vector"
       units: "m s-1"
 
     - name: "ObsValue/modelWindNorthward2"
       source: variables/modelWindNorthward2
+      chunks: [1000000]
       longName: "V-COMPONENT Of The Model Wind Vector"
       units: "m s-1"
 
     - name: "ObsValue/modelWindEastward3"
       source: variables/modelWindEastward3
+      chunks: [1000000]
       longName: "U-COMPONENT Of The Model Wind Vector"
       units: "m s-1"
 
     - name: "ObsValue/modelWindNorthward3"
       source: variables/modelWindNorthward3
+      chunks: [1000000]
       longName: "V-COMPONENT Of The Model Wind Vector"
       units: "m s-1"
 
     - name: "ObsValue/windEastward2"
       source: variables/windEastward2
+      chunks: [1000000]
       longName: "U-COMPONENT"
       units: "m s-1"
 
     - name: "ObsValue/windNorthward2"
       source: variables/windNorthward2
+      chunks: [1000000]
       longName: "V-COMPONENT"
       units: "m s-1"
 
     - name: "ObsValue/cloudAmount"
       source: variables/cloudAmount
+      chunks: [1000000]
       longName: "Cloud Amount In Segment"
       units: "%"
 
     - name: "ObsValue/cloudType"
       source: variables/cloudType
+      chunks: [1000000]
       longName: "Cloud Type"
 
     - name: "ObsValue/cloudphase"
       source: variables/cloudphase
+      chunks: [1000000]
       longName: "Cloud Phase"
 
     - name: "ObsValue/presstopcloud11"
       source: variables/presstopcloud11
+      chunks: [1000000]
       longName: "Pressure At The Top Of Cloud (1)"
       units: "Pa"
 
     - name: "ObsValue/presstopcloud12"
       source: variables/presstopcloud12
+      chunks: [1000000]
       longName: "Pressure At The Top Of Cloud (2)"
       units: "Pa"
 
     - name: "ObsValue/presstopcloud13"
       source: variables/presstopcloud13
+      chunks: [1000000]
       longName: "Pressure At The Top Of Cloud (3)"
       units: "Pa"
 
     - name: "ObsValue/presstopcloud14"
       source: variables/presstopcloud14
+      chunks: [1000000]
       longName: "Pressure At The Top Of Cloud (4)"
       units: "Pa"
 
     - name: "ObsValue/airTemperatureAmvcld1"
       source: variables/airTemperatureAmvcld1
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (1)"
       units: "K"
 
     - name: "ObsValue/airTemperatureAmvcld2"
       source: variables/airTemperatureAmvcld2
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (2)"
       units: "K"
 
     - name: "ObsValue/airTemperatureAmvcld3"
       source: variables/airTemperatureAmvcld3
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (3)"
       units: "K"
 
     - name: "ObsValue/airTemperatureAmvcld4"
       source: variables/airTemperatureAmvcld4
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (4)"
       units: "K"
 
     - name: "ObsValue/presstopcloud21"
       source: variables/presstopcloud21
+      chunks: [1000000]
       longName: "Pressure At The Top Of Cloud (1)"
       units: "Pa"
 
     - name: "ObsValue/presstopcloud22"
       source: variables/presstopcloud22
+      chunks: [1000000]
       longName: "Pressure At The Top Of Cloud (2)"
       units: "Pa"
 
     - name: "ObsValue/presstopcloud23"
       source: variables/presstopcloud23
+      chunks: [1000000]
       longName: "Pressure At The Top Of Cloud (3)"
       units: "Pa"
 
     - name: "ObsValue/presstopcloud24"
       source: variables/presstopcloud24
+      chunks: [1000000]
       longName: "Pressure At The Top Of Cloud (4)"
       units: "Pa"
 
     - name: "ObsValue/presstopcloud31"
       source: variables/presstopcloud31
+      chunks: [1000000]
       longName: "Pressure At The Top Of Cloud (1)"
       units: "Pa"
 
     - name: "ObsValue/presstopcloud32"
       source: variables/presstopcloud32
+      chunks: [1000000]
       longName: "Pressure At The Top Of Cloud (2)"
       units: "Pa"
 
     - name: "ObsValue/presstopcloud33"
       source: variables/presstopcloud33
+      chunks: [1000000]
       longName: "Pressure At The Top Of Cloud (3)"
       units: "Pa"
 
     - name: "ObsValue/presstopcloud34"
       source: variables/presstopcloud34
+      chunks: [1000000]
       longName: "Pressure At The Top Of Cloud (4)"
       units: "Pa"
 
     - name: "ObsValue/heightOfTopOfCloudAmvcld1"
       source: variables/heightOfTopOfCloudAmvcld1
+      chunks: [1000000]
       longName: "Height Of Top Of Cloud (1)"
       units: "m"
 
     - name: "ObsValue/heightOfTopOfCloudAmvcld2"
       source: variables/heightOfTopOfCloudAmvcld2
+      chunks: [1000000]
       longName: "Height Of Top Of Cloud (2)"
       units: "m"
 
     - name: "ObsValue/heightOfTopOfCloudAmvcld3"
       source: variables/heightOfTopOfCloudAmvcld3
+      chunks: [1000000]
       longName: "Height Of Top Of Cloud (3)"
       units: "m"
 
     - name: "ObsValue/heightOfTopOfCloudAmvcld4"
       source: variables/heightOfTopOfCloudAmvcld4
+      chunks: [1000000]
       longName: "Height Of Top Of Cloud (4)"
       units: "m"
 
     - name: "ObsValue/cloudOpticalThickness1"
       source: variables/cloudOpticalThickness1
+      chunks: [1000000]
       longName: "Cloud Optical Thickness (1)"
 
     - name: "ObsValue/cloudOpticalThickness2"
       source: variables/cloudOpticalThickness2
+      chunks: [1000000]
       longName: "Cloud Optical Thickness (2)"
 
     - name: "ObsValue/cloudOpticalThickness3"
       source: variables/cloudOpticalThickness3
+      chunks: [1000000]
       longName: "Cloud Optical Thickness (3)"
 
     - name: "ObsValue/cloudOpticalThickness4"
       source: variables/cloudOpticalThickness4
+      chunks: [1000000]
       longName: "Cloud Optical Thickness (4)"
 
     - name: "ObsValue/iceLiquidWaterPath1"
       source: variables/iceLiquidWaterPath1
+      chunks: [1000000]
       longName: "ICE/LIQUID Water Path (1)"
       units: "kg m-2"
 
     - name: "ObsValue/iceLiquidWaterPath2"
       source: variables/iceLiquidWaterPath2
+      chunks: [1000000]
       longName: "ICE/LIQUID Water Path (2)"
       units: "kg m-2"
 
     - name: "ObsValue/iceLiquidWaterPath3"
       source: variables/iceLiquidWaterPath3
+      chunks: [1000000]
       longName: "ICE/LIQUID Water Path (3)"
       units: "kg m-2"
 
     - name: "ObsValue/iceLiquidWaterPath4"
       source: variables/iceLiquidWaterPath4
+      chunks: [1000000]
       longName: "ICE/LIQUID Water Path (4)"
       units: "kg m-2"
 
     - name: "ObsValue/cloudParticleSize1"
       source: variables/cloudParticleSize1
+      chunks: [1000000]
       longName: "Cloud Particle Size (1)"
       units: "m"
 
     - name: "ObsValue/cloudParticleSize2"
       source: variables/cloudParticleSize2
+      chunks: [1000000]
       longName: "Cloud Particle Size (2)"
       units: "m"
 
     - name: "ObsValue/cloudParticleSize3"
       source: variables/cloudParticleSize3
+      chunks: [1000000]
       longName: "Cloud Particle Size (3)"
       units: "m"
 
     - name: "ObsValue/cloudParticleSize4"
       source: variables/cloudParticleSize4
+      chunks: [1000000]
       longName: "Cloud Particle Size (4)"
       units: "m"
 
     - name: "ObsValue/emissivity1"
       source: variables/emissivity1
+      chunks: [1000000]
       longName: "Emissivity (1)"
       units: "%"
 
     - name: "ObsValue/emissivity2"
       source: variables/emissivity2
+      chunks: [1000000]
       longName: "Emissivity (2)"
       units: "%"
 
     - name: "ObsValue/emissivity3"
       source: variables/emissivity3
+      chunks: [1000000]
       longName: "Emissivity (3)"
       units: "%"
 
     - name: "ObsValue/emissivity4"
       source: variables/emissivity4
+      chunks: [1000000]
       longName: "Emissivity (4)"
       units: "%"
 
     # QualityMarker
     - name: "QualityMarker/amvQualityFlag"
       source: variables/amvQualityFlag
+      chunks: [1000000]
       longName: "Amv Quality Flag"

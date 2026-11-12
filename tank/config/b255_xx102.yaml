@@ -470,593 +470,729 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/receiptTime"
       source: variables/receiptTime
+      chunks: [1000000]
       longName: "Receipt Time"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/timePeriodMonths"
       source: variables/timePeriodMonths
+      chunks: [1000000]
       longName: "Time Period Or Displacement"
       units: "month"
 
     - name: "MetaData/timePeriodHours"
       source: variables/timePeriodHours
+      chunks: [1000000]
       longName: "Time Period Or Displacement"
       units: "h"
 
     - name: "MetaData/timePeriodMinutes"
       source: variables/timePeriodMinutes
+      chunks: [1000000]
       longName: "Time Period Or Displacement"
       units: "min"
 
     - name: "MetaData/sequenceNumber"
       source: variables/sequenceNumber
+      chunks: [1000000]
       longName: "Channel Sequence Number"
 
     - name: "MetaData/bulletinHeader"
       source: variables/bulletinHeader
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (TTAAii)"
 
     - name: "MetaData/bulletinOriginator"
       source: variables/bulletinOriginator
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (CCCC)"
 
     - name: "MetaData/bulletinTime"
       source: variables/bulletinTime
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (YYGGgg)"
 
     - name: "MetaData/bulletinBBB"
       source: variables/bulletinBBB
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (BBB)"
 
     - name: "MetaData/receiptTimeSignificance"
       source: variables/receiptTimeSignificance
+      chunks: [1000000]
       longName: "Receipt Time Significance"
 
     - name: "MetaData/stationIdentification"
       source: variables/stationIdentification
+      chunks: [1000000]
       longName: "Report Identifier"
 
     - name: "MetaData/stationElevation"
       source: variables/stationElevation
+      chunks: [1000000]
       longName: "Height Of Station Ground Above Msl"
       units: "m"
 
     - name: "MetaData/albedo"
       source: variables/albedo
+      chunks: [1000000]
       longName: "Albedo"
       units: "%"
 
     - name: "MetaData/riverStageHeightGageHeight"
       source: variables/riverStageHeightGageHeight
+      chunks: [1000000]
       longName: "River Stage Height (GAGE HEIGHT)"
       units: "m"
 
     - name: "MetaData/depthBelowLandSurfaceShstm1sq"
       source: variables/depthBelowLandSurfaceShstm1sq
+      chunks: [1000000]
       longName: "Depth Below Land Surface"
       units: "m"
 
     - name: "MetaData/depthBelowLandSurfaceShstm2sq"
       source: variables/depthBelowLandSurfaceShstm2sq
+      chunks: [1000000]
       longName: "Depth Below Land Surface"
       units: "m"
 
     - name: "MetaData/depthBelowLandSurfaceShxst1sq"
       source: variables/depthBelowLandSurfaceShxst1sq
+      chunks: [1000000]
       longName: "Depth Below Land Surface"
       units: "m"
 
     - name: "MetaData/depthBelowLandSurfaceShxst2sq"
       source: variables/depthBelowLandSurfaceShxst2sq
+      chunks: [1000000]
       longName: "Depth Below Land Surface"
       units: "m"
 
     - name: "MetaData/depthBelowLandSurfaceShist1sq"
       source: variables/depthBelowLandSurfaceShist1sq
+      chunks: [1000000]
       longName: "Depth Below Land Surface"
       units: "m"
 
     - name: "MetaData/depthBelowLandSurfaceShist2sq"
       source: variables/depthBelowLandSurfaceShist2sq
+      chunks: [1000000]
       longName: "Depth Below Land Surface"
       units: "m"
 
     # ObsValue
     - name: "ObsValue/airPressure"
       source: variables/airPressure
+      chunks: [1000000]
       longName: "Pressure"
       units: "Pa"
 
     - name: "ObsValue/pressureReducedToMeanSeaLevel"
       source: variables/pressureReducedToMeanSeaLevel
+      chunks: [1000000]
       longName: "Pressure Reduced To Msl"
       units: "Pa"
 
     - name: "ObsValue/totalPrecipitation"
       source: variables/totalPrecipitation
+      chunks: [1000000]
       longName: "Total PRECIPITATION/TOTAL Water Equivalent"
       units: "kg m-2"
 
     - name: "ObsValue/typeOfPrecipitation"
       source: variables/typeOfPrecipitation
+      chunks: [1000000]
       longName: "Type Of Precipitation"
 
     - name: "ObsValue/depthOfFreshSnow"
       source: variables/depthOfFreshSnow
+      chunks: [1000000]
       longName: "Depth Of Fresh Snow"
       units: "m"
 
     - name: "ObsValue/totalSnowDepth"
       source: variables/totalSnowDepth
+      chunks: [1000000]
       longName: "Total Snow Depth"
       units: "m"
 
     - name: "ObsValue/snowWaterEquivalent"
       source: variables/snowWaterEquivalent
+      chunks: [1000000]
       longName: "Snow Water Equivalent"
       units: "kg m-2"
 
     - name: "ObsValue/airTemperatureTMDB"
       source: variables/airTemperatureTMDB
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature"
       units: "K"
 
     - name: "ObsValue/maximumTemperature"
       source: variables/maximumTemperature
+      chunks: [1000000]
       longName: "Maximum Temperature"
       units: "K"
 
     - name: "ObsValue/minimumTemperature"
       source: variables/minimumTemperature
+      chunks: [1000000]
       longName: "Minimum Temperature"
       units: "K"
 
     - name: "ObsValue/waterTemperature"
       source: variables/waterTemperature
+      chunks: [1000000]
       longName: "Water Temperature"
       units: "K"
 
     - name: "ObsValue/wetBulbTemperature"
       source: variables/wetBulbTemperature
+      chunks: [1000000]
       longName: "Wet Bulb Temperature"
       units: "K"
 
     - name: "ObsValue/relativeHumidity"
       source: variables/relativeHumidity
+      chunks: [1000000]
       longName: "Relative Humidity"
       units: "%"
 
     - name: "ObsValue/maximumRelativeHumidity"
       source: variables/maximumRelativeHumidity
+      chunks: [1000000]
       longName: "Maximum Relative Humidity"
       units: "%"
 
     - name: "ObsValue/minimumRelativeHumidity"
       source: variables/minimumRelativeHumidity
+      chunks: [1000000]
       longName: "Minimum Relative Humidity"
       units: "%"
 
     - name: "ObsValue/dewPointTemperature"
       source: variables/dewPointTemperature
+      chunks: [1000000]
       longName: "Dew Point Temperature"
       units: "K"
 
     - name: "ObsValue/waterConductivity"
       source: variables/waterConductivity
+      chunks: [1000000]
       longName: "Water Conductivity"
       units: "S m-1"
 
     - name: "ObsValue/windDirection"
       source: variables/windDirection
+      chunks: [1000000]
       longName: "Wind Direction"
       units: "degree"
 
     - name: "ObsValue/windSpeed"
       source: variables/windSpeed
+      chunks: [1000000]
       longName: "Wind Speed"
       units: "m s-1"
 
     - name: "ObsValue/maximumWindGustSpeed"
       source: variables/maximumWindGustSpeed
+      chunks: [1000000]
       longName: "Max Wind Speed (GUSTS)"
       units: "m s-1"
 
     - name: "ObsValue/peakWindDirection"
       source: variables/peakWindDirection
+      chunks: [1000000]
       longName: "Peak Wind Direction"
       units: "degree"
 
     - name: "ObsValue/peakWindSpeed"
       source: variables/peakWindSpeed
+      chunks: [1000000]
       longName: "Peak Wind Speed"
       units: "m s-1"
 
     - name: "ObsValue/presentWeather"
       source: variables/presentWeather
+      chunks: [1000000]
       longName: "Present Weather"
 
     - name: "ObsValue/pastWeather1"
       source: variables/pastWeather1
+      chunks: [1000000]
       longName: "Past Weather (1)"
 
     - name: "ObsValue/cloudAmount"
       source: variables/cloudAmount
+      chunks: [1000000]
       longName: "Cloud Amount"
 
     - name: "ObsValue/horizontalVisibility"
       source: variables/horizontalVisibility
+      chunks: [1000000]
       longName: "Horizontal Visibility"
       units: "m"
 
     - name: "ObsValue/totalSunshine"
       source: variables/totalSunshine
+      chunks: [1000000]
       longName: "Total Sunshine"
       units: "h"
 
     - name: "ObsValue/groundState"
       source: variables/groundState
+      chunks: [1000000]
       longName: "State Of The Ground"
 
     - name: "ObsValue/tideElevWithRespectToMeanLowerLowWater"
       source: variables/tideElevWithRespectToMeanLowerLowWater
+      chunks: [1000000]
       longName: "Tide ELEV. With Respect To Mean Lower Low Water"
       units: "m"
 
     - name: "ObsValue/soilTemperatureShstm1sq"
       source: variables/soilTemperatureShstm1sq
+      chunks: [1000000]
       longName: "Soil Temperature"
       units: "K"
 
     - name: "ObsValue/soilTemperatureShstm2sq"
       source: variables/soilTemperatureShstm2sq
+      chunks: [1000000]
       longName: "Soil Temperature"
       units: "K"
 
     - name: "ObsValue/maximumSoilTemperatureShxst1sq"
       source: variables/maximumSoilTemperatureShxst1sq
+      chunks: [1000000]
       longName: "Maximum Soil Temperature"
       units: "K"
 
     - name: "ObsValue/maximumSoilTemperatureShxst2sq"
       source: variables/maximumSoilTemperatureShxst2sq
+      chunks: [1000000]
       longName: "Maximum Soil Temperature"
       units: "K"
 
     - name: "ObsValue/minimumSoilTemperatureShist1sq"
       source: variables/minimumSoilTemperatureShist1sq
+      chunks: [1000000]
       longName: "Minimum Soil Temperature"
       units: "K"
 
     - name: "ObsValue/minimumSoilTemperatureShist2sq"
       source: variables/minimumSoilTemperatureShist2sq
+      chunks: [1000000]
       longName: "Minimum Soil Temperature"
       units: "K"
 
     # QualityMarker
     - name: "QualityMarker/shefRevisionFlagShpressq"
       source: variables/shefRevisionFlagShpressq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShpressq"
       source: variables/shefQualifierFlagShpressq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/pressure"
       source: variables/pressure
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Pressure"
 
     - name: "QualityMarker/shefRevisionFlagShpmslsq"
       source: variables/shefRevisionFlagShpmslsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShpmslsq"
       source: variables/shefQualifierFlagShpmslsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShtopcsq"
       source: variables/shefRevisionFlagShtopcsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShtopcsq"
       source: variables/shefQualifierFlagShtopcsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShprtpsq"
       source: variables/shefRevisionFlagShprtpsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShprtpsq"
       source: variables/shefQualifierFlagShprtpsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShdofssq"
       source: variables/shefRevisionFlagShdofssq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShdofssq"
       source: variables/shefQualifierFlagShdofssq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShtosdsq"
       source: variables/shefRevisionFlagShtosdsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShtosdsq"
       source: variables/shefQualifierFlagShtosdsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShswemsq"
       source: variables/shefRevisionFlagShswemsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShswemsq"
       source: variables/shefQualifierFlagShswemsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShtmdbsq"
       source: variables/shefRevisionFlagShtmdbsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShtmdbsq"
       source: variables/shefQualifierFlagShtmdbsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/airTemperature"
       source: variables/airTemperature
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature"
 
     - name: "QualityMarker/shefRevisionFlagShmxtmsq"
       source: variables/shefRevisionFlagShmxtmsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShmxtmsq"
       source: variables/shefQualifierFlagShmxtmsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShmitmsq"
       source: variables/shefRevisionFlagShmitmsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShmitmsq"
       source: variables/shefQualifierFlagShmitmsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShwatmsq"
       source: variables/shefRevisionFlagShwatmsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShwatmsq"
       source: variables/shefQualifierFlagShwatmsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShtmwbsq"
       source: variables/shefRevisionFlagShtmwbsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShtmwbsq"
       source: variables/shefQualifierFlagShtmwbsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShrehusq"
       source: variables/shefRevisionFlagShrehusq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShrehusq"
       source: variables/shefQualifierFlagShrehusq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShmxrhsq"
       source: variables/shefRevisionFlagShmxrhsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShmxrhsq"
       source: variables/shefQualifierFlagShmxrhsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShmirhsq"
       source: variables/shefRevisionFlagShmirhsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShmirhsq"
       source: variables/shefQualifierFlagShmirhsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShtmdpsq"
       source: variables/shefRevisionFlagShtmdpsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShtmdpsq"
       source: variables/shefQualifierFlagShtmdpsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/moisture"
       source: variables/moisture
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Moisture"
 
     - name: "QualityMarker/shefRevisionFlagShwacnsq"
       source: variables/shefRevisionFlagShwacnsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShwacnsq"
       source: variables/shefQualifierFlagShwacnsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShwdirsq"
       source: variables/shefRevisionFlagShwdirsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShwdirsq"
       source: variables/shefQualifierFlagShwdirsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShwspdsq"
       source: variables/shefRevisionFlagShwspdsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShwspdsq"
       source: variables/shefQualifierFlagShwspdsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/wind"
       source: variables/wind
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Wind"
 
     - name: "QualityMarker/shefRevisionFlagShmxgssq"
       source: variables/shefRevisionFlagShmxgssq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShmxgssq"
       source: variables/shefQualifierFlagShmxgssq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShpkwdsq"
       source: variables/shefRevisionFlagShpkwdsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShpkwdsq"
       source: variables/shefQualifierFlagShpkwdsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShpkwssq"
       source: variables/shefRevisionFlagShpkwssq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShpkwssq"
       source: variables/shefQualifierFlagShpkwssq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShprwesq"
       source: variables/shefRevisionFlagShprwesq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShprwesq"
       source: variables/shefQualifierFlagShprwesq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShpsw1sq"
       source: variables/shefRevisionFlagShpsw1sq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShpsw1sq"
       source: variables/shefQualifierFlagShpsw1sq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShclamsq"
       source: variables/shefRevisionFlagShclamsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShclamsq"
       source: variables/shefQualifierFlagShclamsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShhovisq"
       source: variables/shefRevisionFlagShhovisq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShhovisq"
       source: variables/shefQualifierFlagShhovisq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShalbdsq"
       source: variables/shefRevisionFlagShalbdsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShalbdsq"
       source: variables/shefQualifierFlagShalbdsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShtoshsq"
       source: variables/shefRevisionFlagShtoshsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShtoshsq"
       source: variables/shefQualifierFlagShtoshsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShsogrsq"
       source: variables/shefRevisionFlagShsogrsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShsogrsq"
       source: variables/shefQualifierFlagShsogrsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShrshmsq"
       source: variables/shefRevisionFlagShrshmsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShrshmsq"
       source: variables/shefQualifierFlagShrshmsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShtllwsq"
       source: variables/shefRevisionFlagShtllwsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShtllwsq"
       source: variables/shefQualifierFlagShtllwsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShstm1sq"
       source: variables/shefRevisionFlagShstm1sq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShstm1sq"
       source: variables/shefQualifierFlagShstm1sq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShstm2sq"
       source: variables/shefRevisionFlagShstm2sq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShstm2sq"
       source: variables/shefQualifierFlagShstm2sq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShxst1sq"
       source: variables/shefRevisionFlagShxst1sq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShxst1sq"
       source: variables/shefQualifierFlagShxst1sq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShxst2sq"
       source: variables/shefRevisionFlagShxst2sq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShxst2sq"
       source: variables/shefQualifierFlagShxst2sq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShist1sq"
       source: variables/shefRevisionFlagShist1sq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShist1sq"
       source: variables/shefQualifierFlagShist1sq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShist2sq"
       source: variables/shefRevisionFlagShist2sq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShist2sq"
       source: variables/shefQualifierFlagShist2sq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"

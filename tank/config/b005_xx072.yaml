@@ -470,358 +470,435 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/satelliteIdentifier"
       source: variables/satelliteIdentifier
+      chunks: [1000000]
       longName: "Satellite Identifier"
 
     - name: "MetaData/generatingCenterLong"
       source: variables/generatingCenterLong
+      chunks: [1000000]
       longName: "ORIGINATING/GENERATING Center"
 
     - name: "MetaData/satelliteConstellationRO"
       source: variables/satelliteConstellationRO
+      chunks: [1000000]
       longName: "Satellite Classification"
 
     - name: "MetaData/segmentSizeAtNadirInXDirection"
       source: variables/segmentSizeAtNadirInXDirection
+      chunks: [1000000]
       longName: "Segment Size At Nadir In X Direction"
       units: "m"
 
     - name: "MetaData/segmentSizeAtNadirInYDirection"
       source: variables/segmentSizeAtNadirInYDirection
+      chunks: [1000000]
       longName: "Segment Size At Nadir In Y Direction"
       units: "m"
 
     - name: "MetaData/satelliteInstrumentData"
       source: variables/satelliteInstrumentData
+      chunks: [1000000]
       longName: "Satellite Instrument Used In Data Processing"
 
     - name: "MetaData/windComputationMethod"
       source: variables/windComputationMethod
+      chunks: [1000000]
       longName: "Satellite Derived Wind Calculation Method"
 
     - name: "MetaData/pressure"
       source: variables/pressure
+      chunks: [1000000]
       longName: "Pressure"
       units: "Pa"
 
     - name: "MetaData/sensorCentralFrequency"
       source: variables/sensorCentralFrequency
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequecy"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidth"
       source: variables/sensorBandWidth
+      chunks: [1000000]
       longName: "Satellite Channel Band Width"
       units: "Hz"
 
     - name: "MetaData/heightAssignmentMethod"
       source: variables/heightAssignmentMethod
+      chunks: [1000000]
       longName: "Height Assignment Method"
 
     - name: "MetaData/tracerCorrelationMethod"
       source: variables/tracerCorrelationMethod
+      chunks: [1000000]
       longName: "Tracer Correlation Method"
 
     - name: "MetaData/landOrSeaQualifier"
       source: variables/landOrSeaQualifier
+      chunks: [1000000]
       longName: "LAND/SEA Qualifier"
 
     - name: "MetaData/satelliteZenithAngle"
       source: variables/satelliteZenithAngle
+      chunks: [1000000]
       longName: "Satellite Zenith Angle"
       units: "degree"
 
     - name: "MetaData/originOfFirstGuessInformation"
       source: variables/originOfFirstGuessInformation
+      chunks: [1000000]
       longName: "Origin Of First Guess Information"
 
     - name: "MetaData/timeSignificance1"
       source: variables/timeSignificance1
+      chunks: [1000000]
       longName: "Time Significance"
 
     - name: "MetaData/year"
       source: variables/year
+      chunks: [1000000]
       longName: "Year"
       units: "year"
 
     - name: "MetaData/month"
       source: variables/month
+      chunks: [1000000]
       longName: "Month"
       units: "month"
 
     - name: "MetaData/day"
       source: variables/day
+      chunks: [1000000]
       longName: "Day"
       units: "day"
 
     - name: "MetaData/hour"
       source: variables/hour
+      chunks: [1000000]
       longName: "Hour"
       units: "h"
 
     - name: "MetaData/timeSignificance2"
       source: variables/timeSignificance2
+      chunks: [1000000]
       longName: "Time Significance"
 
     - name: "MetaData/timePeriodHours"
       source: variables/timePeriodHours
+      chunks: [1000000]
       longName: "Time Period Or Displacement"
       units: "h"
 
     - name: "MetaData/timeSignificance1Lgrsq11"
       source: variables/timeSignificance1Lgrsq11
+      chunks: [1000000]
       longName: "Time Significance (1)"
 
     - name: "MetaData/timeSignificance1Lgrsq12"
       source: variables/timeSignificance1Lgrsq12
+      chunks: [1000000]
       longName: "Time Significance (2)"
 
     - name: "MetaData/timeSignificance1Lgrsq13"
       source: variables/timeSignificance1Lgrsq13
+      chunks: [1000000]
       longName: "Time Significance (3)"
 
     - name: "MetaData/timeSignificance1Lgrsq14"
       source: variables/timeSignificance1Lgrsq14
+      chunks: [1000000]
       longName: "Time Significance (4)"
 
     - name: "MetaData/hour11"
       source: variables/hour11
+      chunks: [1000000]
       longName: "Hour (1)"
       units: "h"
 
     - name: "MetaData/hour12"
       source: variables/hour12
+      chunks: [1000000]
       longName: "Hour (2)"
       units: "h"
 
     - name: "MetaData/hour13"
       source: variables/hour13
+      chunks: [1000000]
       longName: "Hour (3)"
       units: "h"
 
     - name: "MetaData/hour14"
       source: variables/hour14
+      chunks: [1000000]
       longName: "Hour (4)"
       units: "h"
 
     - name: "MetaData/minutes11"
       source: variables/minutes11
+      chunks: [1000000]
       longName: "Minutes (1)"
       units: "min"
 
     - name: "MetaData/minutes12"
       source: variables/minutes12
+      chunks: [1000000]
       longName: "Minutes (2)"
       units: "min"
 
     - name: "MetaData/minutes13"
       source: variables/minutes13
+      chunks: [1000000]
       longName: "Minutes (3)"
       units: "min"
 
     - name: "MetaData/minutes14"
       source: variables/minutes14
+      chunks: [1000000]
       longName: "Minutes (4)"
       units: "min"
 
     - name: "MetaData/seconds11"
       source: variables/seconds11
+      chunks: [1000000]
       longName: "Seconds (1)"
       units: "s"
 
     - name: "MetaData/seconds12"
       source: variables/seconds12
+      chunks: [1000000]
       longName: "Seconds (2)"
       units: "s"
 
     - name: "MetaData/seconds13"
       source: variables/seconds13
+      chunks: [1000000]
       longName: "Seconds (3)"
       units: "s"
 
     - name: "MetaData/seconds14"
       source: variables/seconds14
+      chunks: [1000000]
       longName: "Seconds (4)"
       units: "s"
 
     - name: "MetaData/timeSignificance2Lgrsq11"
       source: variables/timeSignificance2Lgrsq11
+      chunks: [1000000]
       longName: "Time Significance (1)"
 
     - name: "MetaData/timeSignificance2Lgrsq12"
       source: variables/timeSignificance2Lgrsq12
+      chunks: [1000000]
       longName: "Time Significance (2)"
 
     - name: "MetaData/timeSignificance2Lgrsq13"
       source: variables/timeSignificance2Lgrsq13
+      chunks: [1000000]
       longName: "Time Significance (3)"
 
     - name: "MetaData/timeSignificance2Lgrsq14"
       source: variables/timeSignificance2Lgrsq14
+      chunks: [1000000]
       longName: "Time Significance (4)"
 
     - name: "MetaData/hour21"
       source: variables/hour21
+      chunks: [1000000]
       longName: "Hour (1)"
       units: "h"
 
     - name: "MetaData/hour22"
       source: variables/hour22
+      chunks: [1000000]
       longName: "Hour (2)"
       units: "h"
 
     - name: "MetaData/hour23"
       source: variables/hour23
+      chunks: [1000000]
       longName: "Hour (3)"
       units: "h"
 
     - name: "MetaData/hour24"
       source: variables/hour24
+      chunks: [1000000]
       longName: "Hour (4)"
       units: "h"
 
     - name: "MetaData/minutes21"
       source: variables/minutes21
+      chunks: [1000000]
       longName: "Minutes (1)"
       units: "min"
 
     - name: "MetaData/minutes22"
       source: variables/minutes22
+      chunks: [1000000]
       longName: "Minutes (2)"
       units: "min"
 
     - name: "MetaData/minutes23"
       source: variables/minutes23
+      chunks: [1000000]
       longName: "Minutes (3)"
       units: "min"
 
     - name: "MetaData/minutes24"
       source: variables/minutes24
+      chunks: [1000000]
       longName: "Minutes (4)"
       units: "min"
 
     - name: "MetaData/seconds21"
       source: variables/seconds21
+      chunks: [1000000]
       longName: "Seconds (1)"
       units: "s"
 
     - name: "MetaData/seconds22"
       source: variables/seconds22
+      chunks: [1000000]
       longName: "Seconds (2)"
       units: "s"
 
     - name: "MetaData/seconds23"
       source: variables/seconds23
+      chunks: [1000000]
       longName: "Seconds (3)"
       units: "s"
 
     - name: "MetaData/seconds24"
       source: variables/seconds24
+      chunks: [1000000]
       longName: "Seconds (4)"
       units: "s"
 
     - name: "MetaData/heightAssignmentMethodLgrsq21"
       source: variables/heightAssignmentMethodLgrsq21
+      chunks: [1000000]
       longName: "Height Assignment Method (1)"
 
     - name: "MetaData/heightAssignmentMethodLgrsq22"
       source: variables/heightAssignmentMethodLgrsq22
+      chunks: [1000000]
       longName: "Height Assignment Method (2)"
 
     - name: "MetaData/heightAssignmentMethodLgrsq23"
       source: variables/heightAssignmentMethodLgrsq23
+      chunks: [1000000]
       longName: "Height Assignment Method (3)"
 
     - name: "MetaData/heightAssignmentMethodLgrsq24"
       source: variables/heightAssignmentMethodLgrsq24
+      chunks: [1000000]
       longName: "Height Assignment Method (4)"
 
     - name: "MetaData/heightAssignmentMethodLgrsq25"
       source: variables/heightAssignmentMethodLgrsq25
+      chunks: [1000000]
       longName: "Height Assignment Method (5)"
 
     - name: "MetaData/heightAssignmentMethodLgrsq26"
       source: variables/heightAssignmentMethodLgrsq26
+      chunks: [1000000]
       longName: "Height Assignment Method (6)"
 
     - name: "MetaData/heightAssignmentMethodLgrsq27"
       source: variables/heightAssignmentMethodLgrsq27
+      chunks: [1000000]
       longName: "Height Assignment Method (7)"
 
     - name: "MetaData/heightAssignmentMethodLgrsq28"
       source: variables/heightAssignmentMethodLgrsq28
+      chunks: [1000000]
       longName: "Height Assignment Method (8)"
 
     - name: "MetaData/heightAssignmentMethodLgrsq29"
       source: variables/heightAssignmentMethodLgrsq29
+      chunks: [1000000]
       longName: "Height Assignment Method (9)"
 
     - name: "MetaData/heightAssignmentMethodLgrsq210"
       source: variables/heightAssignmentMethodLgrsq210
+      chunks: [1000000]
       longName: "Height Assignment Method (10)"
 
     - name: "MetaData/pressureLgrsq21"
       source: variables/pressureLgrsq21
+      chunks: [1000000]
       longName: "Pressure (1)"
       units: "Pa"
 
     - name: "MetaData/pressureLgrsq22"
       source: variables/pressureLgrsq22
+      chunks: [1000000]
       longName: "Pressure (2)"
       units: "Pa"
 
     - name: "MetaData/pressureLgrsq23"
       source: variables/pressureLgrsq23
+      chunks: [1000000]
       longName: "Pressure (3)"
       units: "Pa"
 
     - name: "MetaData/pressureLgrsq24"
       source: variables/pressureLgrsq24
+      chunks: [1000000]
       longName: "Pressure (4)"
       units: "Pa"
 
     - name: "MetaData/pressureLgrsq25"
       source: variables/pressureLgrsq25
+      chunks: [1000000]
       longName: "Pressure (5)"
       units: "Pa"
 
     - name: "MetaData/pressureLgrsq26"
       source: variables/pressureLgrsq26
+      chunks: [1000000]
       longName: "Pressure (6)"
       units: "Pa"
 
     - name: "MetaData/pressureLgrsq27"
       source: variables/pressureLgrsq27
+      chunks: [1000000]
       longName: "Pressure (7)"
       units: "Pa"
 
     - name: "MetaData/pressureLgrsq28"
       source: variables/pressureLgrsq28
+      chunks: [1000000]
       longName: "Pressure (8)"
       units: "Pa"
 
     - name: "MetaData/pressureLgrsq29"
       source: variables/pressureLgrsq29
+      chunks: [1000000]
       longName: "Pressure (9)"
       units: "Pa"
 
     - name: "MetaData/pressureLgrsq210"
       source: variables/pressureLgrsq210
+      chunks: [1000000]
       longName: "Pressure (10)"
       units: "Pa"
 
@@ -831,280 +908,337 @@ encoder:
 
     - name: "MetaData/generatingCenterLong1"
       source: variables/generatingCenterLong1
+      chunks: [1000000]
       longName: "ORIGINATING/GENERATING Center"
 
     - name: "MetaData/windGeneratingApplication1"
       source: variables/windGeneratingApplication1
+      chunks: [1000000]
       longName: "Generating Application"
 
     - name: "MetaData/qiWithoutForecastLgrsq411"
       source: variables/qiWithoutForecastLgrsq411
+      chunks: [1000000]
       longName: "Percent Confidence (1)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq412"
       source: variables/qiWithoutForecastLgrsq412
+      chunks: [1000000]
       longName: "Percent Confidence (2)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq413"
       source: variables/qiWithoutForecastLgrsq413
+      chunks: [1000000]
       longName: "Percent Confidence (3)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq414"
       source: variables/qiWithoutForecastLgrsq414
+      chunks: [1000000]
       longName: "Percent Confidence (4)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq415"
       source: variables/qiWithoutForecastLgrsq415
+      chunks: [1000000]
       longName: "Percent Confidence (5)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq416"
       source: variables/qiWithoutForecastLgrsq416
+      chunks: [1000000]
       longName: "Percent Confidence (6)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq417"
       source: variables/qiWithoutForecastLgrsq417
+      chunks: [1000000]
       longName: "Percent Confidence (7)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq418"
       source: variables/qiWithoutForecastLgrsq418
+      chunks: [1000000]
       longName: "Percent Confidence (8)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq419"
       source: variables/qiWithoutForecastLgrsq419
+      chunks: [1000000]
       longName: "Percent Confidence (9)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq4110"
       source: variables/qiWithoutForecastLgrsq4110
+      chunks: [1000000]
       longName: "Percent Confidence (10)"
       units: "%"
 
     - name: "MetaData/generatingCenterLong2"
       source: variables/generatingCenterLong2
+      chunks: [1000000]
       longName: "ORIGINATING/GENERATING Center"
 
     - name: "MetaData/windGeneratingApplication2"
       source: variables/windGeneratingApplication2
+      chunks: [1000000]
       longName: "Generating Application"
 
     - name: "MetaData/qiWithoutForecastLgrsq421"
       source: variables/qiWithoutForecastLgrsq421
+      chunks: [1000000]
       longName: "Percent Confidence (1)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq422"
       source: variables/qiWithoutForecastLgrsq422
+      chunks: [1000000]
       longName: "Percent Confidence (2)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq423"
       source: variables/qiWithoutForecastLgrsq423
+      chunks: [1000000]
       longName: "Percent Confidence (3)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq424"
       source: variables/qiWithoutForecastLgrsq424
+      chunks: [1000000]
       longName: "Percent Confidence (4)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq425"
       source: variables/qiWithoutForecastLgrsq425
+      chunks: [1000000]
       longName: "Percent Confidence (5)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq426"
       source: variables/qiWithoutForecastLgrsq426
+      chunks: [1000000]
       longName: "Percent Confidence (6)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq427"
       source: variables/qiWithoutForecastLgrsq427
+      chunks: [1000000]
       longName: "Percent Confidence (7)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq428"
       source: variables/qiWithoutForecastLgrsq428
+      chunks: [1000000]
       longName: "Percent Confidence (8)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq429"
       source: variables/qiWithoutForecastLgrsq429
+      chunks: [1000000]
       longName: "Percent Confidence (9)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq4210"
       source: variables/qiWithoutForecastLgrsq4210
+      chunks: [1000000]
       longName: "Percent Confidence (10)"
       units: "%"
 
     - name: "MetaData/generatingCenterLong3"
       source: variables/generatingCenterLong3
+      chunks: [1000000]
       longName: "ORIGINATING/GENERATING Center"
 
     - name: "MetaData/windGeneratingApplication3"
       source: variables/windGeneratingApplication3
+      chunks: [1000000]
       longName: "Generating Application"
 
     - name: "MetaData/qiWithoutForecastLgrsq431"
       source: variables/qiWithoutForecastLgrsq431
+      chunks: [1000000]
       longName: "Percent Confidence (1)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq432"
       source: variables/qiWithoutForecastLgrsq432
+      chunks: [1000000]
       longName: "Percent Confidence (2)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq433"
       source: variables/qiWithoutForecastLgrsq433
+      chunks: [1000000]
       longName: "Percent Confidence (3)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq434"
       source: variables/qiWithoutForecastLgrsq434
+      chunks: [1000000]
       longName: "Percent Confidence (4)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq435"
       source: variables/qiWithoutForecastLgrsq435
+      chunks: [1000000]
       longName: "Percent Confidence (5)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq436"
       source: variables/qiWithoutForecastLgrsq436
+      chunks: [1000000]
       longName: "Percent Confidence (6)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq437"
       source: variables/qiWithoutForecastLgrsq437
+      chunks: [1000000]
       longName: "Percent Confidence (7)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq438"
       source: variables/qiWithoutForecastLgrsq438
+      chunks: [1000000]
       longName: "Percent Confidence (8)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq439"
       source: variables/qiWithoutForecastLgrsq439
+      chunks: [1000000]
       longName: "Percent Confidence (9)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastLgrsq4310"
       source: variables/qiWithoutForecastLgrsq4310
+      chunks: [1000000]
       longName: "Percent Confidence (10)"
       units: "%"
 
     # ObsValue
     - name: "ObsValue/windDirection"
       source: variables/windDirection
+      chunks: [1000000]
       longName: "Wind Direction"
       units: "degree"
 
     - name: "ObsValue/windSpeed"
       source: variables/windSpeed
+      chunks: [1000000]
       longName: "Wind Speed"
       units: "m s-1"
 
     - name: "ObsValue/coldestClusterTemperature"
       source: variables/coldestClusterTemperature
+      chunks: [1000000]
       longName: "Coldest Cluster Temperature"
       units: "K"
 
     - name: "ObsValue/windDirectionLgrsq11"
       source: variables/windDirectionLgrsq11
+      chunks: [1000000]
       longName: "Wind Direction (1)"
       units: "degree"
 
     - name: "ObsValue/windDirectionLgrsq12"
       source: variables/windDirectionLgrsq12
+      chunks: [1000000]
       longName: "Wind Direction (2)"
       units: "degree"
 
     - name: "ObsValue/windDirectionLgrsq13"
       source: variables/windDirectionLgrsq13
+      chunks: [1000000]
       longName: "Wind Direction (3)"
       units: "degree"
 
     - name: "ObsValue/windDirectionLgrsq14"
       source: variables/windDirectionLgrsq14
+      chunks: [1000000]
       longName: "Wind Direction (4)"
       units: "degree"
 
     - name: "ObsValue/windSpeedLgrsq11"
       source: variables/windSpeedLgrsq11
+      chunks: [1000000]
       longName: "Wind Speed (1)"
       units: "m s-1"
 
     - name: "ObsValue/windSpeedLgrsq12"
       source: variables/windSpeedLgrsq12
+      chunks: [1000000]
       longName: "Wind Speed (2)"
       units: "m s-1"
 
     - name: "ObsValue/windSpeedLgrsq13"
       source: variables/windSpeedLgrsq13
+      chunks: [1000000]
       longName: "Wind Speed (3)"
       units: "m s-1"
 
     - name: "ObsValue/windSpeedLgrsq14"
       source: variables/windSpeedLgrsq14
+      chunks: [1000000]
       longName: "Wind Speed (4)"
       units: "m s-1"
 
     - name: "ObsValue/airTemperature1"
       source: variables/airTemperature1
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (1)"
       units: "K"
 
     - name: "ObsValue/airTemperature2"
       source: variables/airTemperature2
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (2)"
       units: "K"
 
     - name: "ObsValue/airTemperature3"
       source: variables/airTemperature3
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (3)"
       units: "K"
 
     - name: "ObsValue/airTemperature4"
       source: variables/airTemperature4
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (4)"
       units: "K"
 
     - name: "ObsValue/airTemperature5"
       source: variables/airTemperature5
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (5)"
       units: "K"
 
     - name: "ObsValue/airTemperature6"
       source: variables/airTemperature6
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (6)"
       units: "K"
 
     - name: "ObsValue/airTemperature7"
       source: variables/airTemperature7
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (7)"
       units: "K"
 
     - name: "ObsValue/airTemperature8"
       source: variables/airTemperature8
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (8)"
       units: "K"
 
     - name: "ObsValue/airTemperature9"
       source: variables/airTemperature9
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (9)"
       units: "K"
 
     - name: "ObsValue/airTemperature10"
       source: variables/airTemperature10
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature (10)"
       units: "K"

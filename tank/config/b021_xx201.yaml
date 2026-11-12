@@ -230,42 +230,51 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/satelliteIdentifier"
       source: variables/satelliteIdentifier
+      chunks: [1000000]
       longName: "Satellite Identifier"
 
     - name: "MetaData/timeSignificance1"
       source: variables/timeSignificance1
+      chunks: [1000000]
       longName: "Time Significance"
 
     - name: "MetaData/scanLineNumber"
       source: variables/scanLineNumber
+      chunks: [1000000]
       longName: "Scan Line Number"
 
     - name: "MetaData/sensorScanPosition"
       source: variables/sensorScanPosition
+      chunks: [1000000]
       longName: "Field Of View Number"
 
     - name: "MetaData/earthSurfaceType"
       source: variables/earthSurfaceType
+      chunks: [1000000]
       longName: "Surface Flag"
 
     - name: "MetaData/rainFlag"
       source: variables/rainFlag
+      chunks: [1000000]
       longName: "Rain Flag"
 
     - name: "MetaData/sensorChannelNumber"
@@ -274,168 +283,202 @@ encoder:
 
     - name: "MetaData/year1"
       source: variables/year1
+      chunks: [1000000]
       longName: "Year (1)"
       units: "year"
 
     - name: "MetaData/year2"
       source: variables/year2
+      chunks: [1000000]
       longName: "Year (2)"
       units: "year"
 
     - name: "MetaData/year3"
       source: variables/year3
+      chunks: [1000000]
       longName: "Year (3)"
       units: "year"
 
     - name: "MetaData/month1"
       source: variables/month1
+      chunks: [1000000]
       longName: "Month (1)"
       units: "month"
 
     - name: "MetaData/month2"
       source: variables/month2
+      chunks: [1000000]
       longName: "Month (2)"
       units: "month"
 
     - name: "MetaData/month3"
       source: variables/month3
+      chunks: [1000000]
       longName: "Month (3)"
       units: "month"
 
     - name: "MetaData/day1"
       source: variables/day1
+      chunks: [1000000]
       longName: "Day (1)"
       units: "day"
 
     - name: "MetaData/day2"
       source: variables/day2
+      chunks: [1000000]
       longName: "Day (2)"
       units: "day"
 
     - name: "MetaData/day3"
       source: variables/day3
+      chunks: [1000000]
       longName: "Day (3)"
       units: "day"
 
     - name: "MetaData/timePeriodOrDisplacement1"
       source: variables/timePeriodOrDisplacement1
+      chunks: [1000000]
       longName: "Time Period Or Displacement (1)"
       units: "s"
 
     - name: "MetaData/timePeriodOrDisplacement2"
       source: variables/timePeriodOrDisplacement2
+      chunks: [1000000]
       longName: "Time Period Or Displacement (2)"
       units: "s"
 
     - name: "MetaData/timePeriodOrDisplacement3"
       source: variables/timePeriodOrDisplacement3
+      chunks: [1000000]
       longName: "Time Period Or Displacement (3)"
       units: "s"
 
     - name: "MetaData/latitudeCLATH1"
       source: variables/latitudeCLATH1
+      chunks: [1000000]
       longName: "Latitude (HIGH ACCURACY) (1)"
       units: "degree"
 
     - name: "MetaData/latitudeCLATH2"
       source: variables/latitudeCLATH2
+      chunks: [1000000]
       longName: "Latitude (HIGH ACCURACY) (2)"
       units: "degree"
 
     - name: "MetaData/latitudeCLATH3"
       source: variables/latitudeCLATH3
+      chunks: [1000000]
       longName: "Latitude (HIGH ACCURACY) (3)"
       units: "degree"
 
     - name: "MetaData/longitudeCLONH1"
       source: variables/longitudeCLONH1
+      chunks: [1000000]
       longName: "Longitude (HIGH ACCURACY) (1)"
       units: "degree"
 
     - name: "MetaData/longitudeCLONH2"
       source: variables/longitudeCLONH2
+      chunks: [1000000]
       longName: "Longitude (HIGH ACCURACY) (2)"
       units: "degree"
 
     - name: "MetaData/longitudeCLONH3"
       source: variables/longitudeCLONH3
+      chunks: [1000000]
       longName: "Longitude (HIGH ACCURACY) (3)"
       units: "degree"
 
     - name: "MetaData/stationElevation1"
       source: variables/stationElevation1
+      chunks: [1000000]
       longName: "Height Of Station (1)"
       units: "m"
 
     - name: "MetaData/stationElevation2"
       source: variables/stationElevation2
+      chunks: [1000000]
       longName: "Height Of Station (2)"
       units: "m"
 
     - name: "MetaData/stationElevation3"
       source: variables/stationElevation3
+      chunks: [1000000]
       longName: "Height Of Station (3)"
       units: "m"
 
     - name: "MetaData/timeSignificance2"
       source: variables/timeSignificance2
+      chunks: [1000000]
       longName: "Time Significance"
 
     - name: "MetaData/year2_2"
       source: variables/year2_2
+      chunks: [1000000]
       longName: "Year"
       units: "year"
 
     - name: "MetaData/month2_2"
       source: variables/month2_2
+      chunks: [1000000]
       longName: "Month"
       units: "month"
 
     - name: "MetaData/day2_2"
       source: variables/day2_2
+      chunks: [1000000]
       longName: "Day"
       units: "day"
 
     - name: "MetaData/hour"
       source: variables/hour
+      chunks: [1000000]
       longName: "Hour"
       units: "h"
 
     - name: "MetaData/minute"
       source: variables/minute
+      chunks: [1000000]
       longName: "Minute"
       units: "min"
 
     - name: "MetaData/orbitNumber"
       source: variables/orbitNumber
+      chunks: [1000000]
       longName: "Orbit Number"
 
     - name: "MetaData/ssmisSubframeIdNumber"
       source: variables/ssmisSubframeIdNumber
+      chunks: [1000000]
       longName: "Ssmis Subframe Id Number"
 
     - name: "MetaData/multiplexorHousekeeping1"
       source: variables/multiplexorHousekeeping1
+      chunks: [1000000]
       longName: "Multiplexor Housekeeping (1)"
       units: "K"
 
     - name: "MetaData/multiplexorHousekeeping2"
       source: variables/multiplexorHousekeeping2
+      chunks: [1000000]
       longName: "Multiplexor Housekeeping (2)"
       units: "K"
 
     - name: "MetaData/multiplexorHousekeeping3"
       source: variables/multiplexorHousekeeping3
+      chunks: [1000000]
       longName: "Multiplexor Housekeeping (3)"
       units: "K"
 
     - name: "MetaData/multiplexorHousekeeping4"
       source: variables/multiplexorHousekeeping4
+      chunks: [1000000]
       longName: "Multiplexor Housekeeping (4)"
       units: "K"
 
     - name: "MetaData/dimensionalSignificance"
       source: variables/dimensionalSignificance
+      chunks: [1000000]
       longName: "Dimensional Significance"
 
     - name: "MetaData/latitude2"
@@ -474,15 +517,18 @@ encoder:
 
     - name: "ObsValue/warmLoadTemperature1"
       source: variables/warmLoadTemperature1
+      chunks: [1000000]
       longName: "Warm Load Temperature (1)"
       units: "K"
 
     - name: "ObsValue/warmLoadTemperature2"
       source: variables/warmLoadTemperature2
+      chunks: [1000000]
       longName: "Warm Load Temperature (2)"
       units: "K"
 
     - name: "ObsValue/warmLoadTemperature3"
       source: variables/warmLoadTemperature3
+      chunks: [1000000]
       longName: "Warm Load Temperature (3)"
       units: "K"

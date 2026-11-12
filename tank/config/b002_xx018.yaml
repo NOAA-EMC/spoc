@@ -177,166 +177,203 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/receiptTime"
       source: variables/receiptTime
+      chunks: [1000000]
       longName: "Receipt Time"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/wigosIdentifierSeries"
       source: variables/wigosIdentifierSeries
+      chunks: [1000000]
       longName: "Wigos Identifier Series"
 
     - name: "MetaData/wigosIssuerOfIdentifier"
       source: variables/wigosIssuerOfIdentifier
+      chunks: [1000000]
       longName: "Wigos Issuer Of Identifier"
 
     - name: "MetaData/wigosIssueNumber"
       source: variables/wigosIssueNumber
+      chunks: [1000000]
       longName: "Wigos Issue Number"
 
     - name: "MetaData/wigosLocalIdentifierCharacter"
       source: variables/wigosLocalIdentifierCharacter
+      chunks: [1000000]
       longName: "Wigos Local Identifier (CHARACTER)"
 
     - name: "MetaData/stationIdentification"
       source: variables/stationIdentification
+      chunks: [1000000]
       longName: "Report Identifier"
 
     - name: "MetaData/wmoBlockNumber"
       source: variables/wmoBlockNumber
+      chunks: [1000000]
       longName: "Wmo Block Number"
 
     - name: "MetaData/wmoStationNumber"
       source: variables/wmoStationNumber
+      chunks: [1000000]
       longName: "Wmo Station Number"
 
     - name: "MetaData/shipOrMobileStationIdentifier"
       source: variables/shipOrMobileStationIdentifier
+      chunks: [1000000]
       longName: "Ship Or Mobile Land Station Identifier"
 
     - name: "MetaData/measuringEquipmentType"
       source: variables/measuringEquipmentType
+      chunks: [1000000]
       longName: "Type Of Measuring Equipment Used"
 
     - name: "MetaData/typeOfAntenna"
       source: variables/typeOfAntenna
+      chunks: [1000000]
       longName: "Type Of Antenna"
 
     - name: "MetaData/frequency"
       source: variables/frequency
+      chunks: [1000000]
       longName: "Mean Frequency"
       units: "Hz"
 
     - name: "MetaData/pulseRepetitionFrequency"
       source: variables/pulseRepetitionFrequency
+      chunks: [1000000]
       longName: "Pulse Repetition Frequency"
       units: "Hz"
 
     - name: "MetaData/numberOfIntegratedPulses"
       source: variables/numberOfIntegratedPulses
+      chunks: [1000000]
       longName: "Number Of Integrated Pulses"
 
     - name: "MetaData/stationElevation"
       source: variables/stationElevation
+      chunks: [1000000]
       longName: "Height Of Station Ground Above Mean Sea Level"
       units: "m"
 
     - name: "MetaData/timeSignificance"
       source: variables/timeSignificance
+      chunks: [1000000]
       longName: "Time Significance"
 
     - name: "MetaData/timePeriodMinutes"
       source: variables/timePeriodMinutes
+      chunks: [1000000]
       longName: "Time Period Or Displacement"
       units: "min"
 
     - name: "MetaData/height"
       source: variables/height
+      chunks: [1000000]
       longName: "Height"
       units: "m"
 
     - name: "MetaData/receiptTimeSignificance"
       source: variables/receiptTimeSignificance
+      chunks: [1000000]
       longName: "Receipt Time Significance"
 
     - name: "MetaData/sequenceNumber"
       source: variables/sequenceNumber
+      chunks: [1000000]
       longName: "Channel Sequence Number"
 
     - name: "MetaData/bulletinHeader"
       source: variables/bulletinHeader
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (TTAAii)"
 
     - name: "MetaData/bulletinOriginator"
       source: variables/bulletinOriginator
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (CCCC)"
 
     - name: "MetaData/bulletinTime"
       source: variables/bulletinTime
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (YYGGgg)"
 
     - name: "MetaData/bulletinBBB"
       source: variables/bulletinBBB
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (BBB)"
 
     # ObsValue
     - name: "ObsValue/windDirection"
       source: variables/windDirection
+      chunks: [1000000]
       longName: "Wind Direction"
       units: "degree"
 
     - name: "ObsValue/windSpeed"
       source: variables/windSpeed
+      chunks: [1000000]
       longName: "Wind Speed"
       units: "m s-1"
 
     - name: "ObsValue/windUpward"
       source: variables/windUpward
+      chunks: [1000000]
       longName: "W Component"
       units: "m s-1"
 
     - name: "ObsValue/signalToNoiseRatio"
       source: variables/signalToNoiseRatio
+      chunks: [1000000]
       longName: "Signal To Noise Ratio"
       units: "dB"
 
     - name: "ObsValue/standardDeviationHorizontalWindSpeed"
       source: variables/standardDeviationHorizontalWindSpeed
+      chunks: [1000000]
       longName: "Standard Deviation Horizontal Wind Speed"
       units: "m s-1"
 
     - name: "ObsValue/standardDeviationVerticalWindSpeed"
       source: variables/standardDeviationVerticalWindSpeed
+      chunks: [1000000]
       longName: "Standard Deviation Vertical Wind Speed"
       units: "m s-1"
 
     # QualityMarker
     - name: "QualityMarker/qualityInformation1"
       source: variables/qualityInformation1
+      chunks: [1000000]
       longName: "Quality Information"
 
     - name: "QualityMarker/wind"
       source: variables/wind
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Wind"
 
     - name: "QualityMarker/qualityInformation2"
       source: variables/qualityInformation2
+      chunks: [1000000]
       longName: "Quality Information"
 
     - name: "QualityMarker/correctedReportIndicator"
       source: variables/correctedReportIndicator
+      chunks: [1000000]
       longName: "Corrected Report Indicator"

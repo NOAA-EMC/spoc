@@ -247,69 +247,84 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/receiptTime"
       source: variables/receiptTime
+      chunks: [1000000]
       longName: "Receipt Time"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/receiptTimeSignificance"
       source: variables/receiptTimeSignificance
+      chunks: [1000000]
       longName: "Receipt Time Significance"
 
     - name: "MetaData/restrictionFlag"
       source: variables/restrictionFlag
+      chunks: [1000000]
       longName: "Restrictions On Redistribution"
 
     - name: "MetaData/restrictionExpiration"
       source: variables/restrictionExpiration
+      chunks: [1000000]
       longName: "Expiration Of Restrictions On Redistribution"
       units: "h"
 
     - name: "MetaData/sequenceNumber"
       source: variables/sequenceNumber
+      chunks: [1000000]
       longName: "Channel Sequence Number"
 
     - name: "MetaData/bulletinHeader"
       source: variables/bulletinHeader
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (TTAAii)"
 
     - name: "MetaData/bulletinOriginator"
       source: variables/bulletinOriginator
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (CCCC)"
 
     - name: "MetaData/bulletinTime"
       source: variables/bulletinTime
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (YYGGgg)"
 
     - name: "MetaData/bulletinBBB"
       source: variables/bulletinBBB
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (BBB)"
 
     - name: "MetaData/stationIdentification"
       source: variables/stationIdentification
+      chunks: [1000000]
       longName: "Report Identifier"
 
     - name: "MetaData/flightLevel"
       source: variables/flightLevel
+      chunks: [1000000]
       longName: "Flight Level"
       units: "m"
 
     - name: "MetaData/pressureAltitude"
       source: variables/pressureAltitude
+      chunks: [1000000]
       longName: "Pressure Altitude Relative To Mean Sea Level"
       units: "m"
 
@@ -319,167 +334,204 @@ encoder:
 
     - name: "MetaData/phaseOfAircraftFlight"
       source: variables/phaseOfAircraftFlight
+      chunks: [1000000]
       longName: "Phase Of Aircraft Flight"
 
     - name: "MetaData/aircraftNavigationSystem"
       source: variables/aircraftNavigationSystem
+      chunks: [1000000]
       longName: "Aircraft Navigation System"
 
     - name: "MetaData/typeOfAircraftDataRelaySystem"
       source: variables/typeOfAircraftDataRelaySystem
+      chunks: [1000000]
       longName: "Type Of Aircraft Data Relay System"
 
     - name: "MetaData/precisionOfTemperatureObservation"
       source: variables/precisionOfTemperatureObservation
+      chunks: [1000000]
       longName: "Precision Of Temperature Observation"
       units: "K"
 
     - name: "MetaData/aircraftFlightNumber"
       source: variables/aircraftFlightNumber
+      chunks: [1000000]
       longName: "Aircraft Flight Number"
 
     # ObsValue
     - name: "ObsValue/airTemperatureTMDB"
       source: variables/airTemperatureTMDB
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature"
       units: "K"
 
     - name: "ObsValue/windDirection"
       source: variables/windDirection
+      chunks: [1000000]
       longName: "Wind Direction"
       units: "degree"
 
     - name: "ObsValue/windSpeed"
       source: variables/windSpeed
+      chunks: [1000000]
       longName: "Wind Speed"
       units: "m s-1"
 
     - name: "ObsValue/dewPointTemperature"
       source: variables/dewPointTemperature
+      chunks: [1000000]
       longName: "Dew Point Temperature"
       units: "K"
 
     - name: "ObsValue/relativeHumidity"
       source: variables/relativeHumidity
+      chunks: [1000000]
       longName: "Relative Humidity"
       units: "%"
 
     - name: "ObsValue/maximumDerivedEquivalentVerticalGustSpeed"
       source: variables/maximumDerivedEquivalentVerticalGustSpeed
+      chunks: [1000000]
       longName: "Maximum Derived Equivalent Vertical Gust Speed"
       units: "m s-1"
 
     - name: "ObsValue/degreeOfTurbulence"
       source: variables/degreeOfTurbulence
+      chunks: [1000000]
       longName: "Degree Of Turbulence"
 
     # QualityMarker
     - name: "QualityMarker/correctedReportIndicator"
       source: variables/correctedReportIndicator
+      chunks: [1000000]
       longName: "Corrected Report Indicator"
 
     - name: "QualityMarker/airTemperature"
       source: variables/airTemperature
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature"
 
     - name: "QualityMarker/wind"
       source: variables/wind
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Wind"
 
     - name: "QualityMarker/moisture"
       source: variables/moisture
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Moisture"
 
     # Not in this tank: read as missing so the dataset has one set of variables
     - name: "MetaData/originationAirport"
       source: variables/originationAirport
+      chunks: [1000000]
       longName: "Origination Airport"
 
     - name: "MetaData/destinationAirport"
       source: variables/destinationAirport
+      chunks: [1000000]
       longName: "Destination Airport"
 
     - name: "MetaData/aircraftTailNumber"
       source: variables/aircraftTailNumber
+      chunks: [1000000]
       longName: "Aircraft Registration Number (TAIL NUMBER)"
 
     - name: "MetaData/detailedPhaseOfFlight"
       source: variables/detailedPhaseOfFlight
+      chunks: [1000000]
       longName: "Detailed Phase Of Flight"
 
     - name: "MetaData/observationSequenceNumber"
       source: variables/observationSequenceNumber
+      chunks: [1000000]
       longName: "Observation Sequence Number"
 
     - name: "MetaData/wigosIdentifierSeries"
       source: variables/wigosIdentifierSeries
+      chunks: [1000000]
       longName: "Wigos Identifier Series"
 
     - name: "MetaData/wigosIssuerOfIdentifier"
       source: variables/wigosIssuerOfIdentifier
+      chunks: [1000000]
       longName: "Wigos Issuer Of Identifier"
 
     - name: "MetaData/wigosIssueNumber"
       source: variables/wigosIssueNumber
+      chunks: [1000000]
       longName: "Wigos Issue Number"
 
     - name: "MetaData/wigosLocalIdentifierCharacter"
       source: variables/wigosLocalIdentifierCharacter
+      chunks: [1000000]
       longName: "Wigos Local Identifier (CHARACTER)"
 
     - name: "MetaData/latitude2"
       source: variables/latitude2
+      chunks: [1000000]
       longName: "Latitude (HIGH ACCURACY)"
       units: "degree"
 
     - name: "MetaData/longitude2"
       source: variables/longitude2
+      chunks: [1000000]
       longName: "Longitude (HIGH ACCURACY)"
       units: "degree"
 
     - name: "MetaData/aircraftRollAngleQuality"
       source: variables/aircraftRollAngleQuality
+      chunks: [1000000]
       longName: "Aircraft Roll Angle Quality"
 
     - name: "ObsValue/mixingRatio"
       source: variables/mixingRatio
+      chunks: [1000000]
       longName: "Mixing Ratio"
       units: "kg kg-1"
 
     - name: "ObsValue/heightOfBaseOfTurbulence"
       source: variables/heightOfBaseOfTurbulence
+      chunks: [1000000]
       longName: "Height Of Base Of Turbulence"
       units: "m"
 
     - name: "ObsValue/heightOfTopOfTurbulence"
       source: variables/heightOfTopOfTurbulence
+      chunks: [1000000]
       longName: "Height Of Top Of Turbulence"
       units: "m"
 
     - name: "ObsValue/airframeIcing"
       source: variables/airframeIcing
+      chunks: [1000000]
       longName: "Airframe Icing"
 
     - name: "ObsValue/aircraftTrueAirspeed"
       source: variables/aircraftTrueAirspeed
+      chunks: [1000000]
       longName: "Aircraft True Airspeed"
       units: "m s-1"
 
     - name: "ObsValue/aircraftGroundSpeedUComponent"
       source: variables/aircraftGroundSpeedUComponent
+      chunks: [1000000]
       longName: "Aircraft Ground Speed U-COMPONENT"
       units: "m s-1"
 
     - name: "ObsValue/aircraftGroundSpeedVComponent"
       source: variables/aircraftGroundSpeedVComponent
+      chunks: [1000000]
       longName: "Aircraft Ground Speed V-COMPONENT"
       units: "m s-1"
 
     - name: "ObsValue/trueHeadingOfAircraftShipOrOtherMobile"
       source: variables/trueHeadingOfAircraftShipOrOtherMobile
+      chunks: [1000000]
       longName: "True Heading Of AIRCRAFT, Ship Or Other Mobile Platfor"
       units: "degree"
 
     - name: "QualityMarker/acarsInterpolatedValues"
       source: variables/acarsInterpolatedValues
+      chunks: [1000000]
       longName: "Acars Interpolated Values"

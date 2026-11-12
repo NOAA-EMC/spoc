@@ -362,449 +362,549 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/receiptTime"
       source: variables/receiptTime
+      chunks: [1000000]
       longName: "Receipt Time"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/receiptTimeSignificance"
       source: variables/receiptTimeSignificance
+      chunks: [1000000]
       longName: "Receipt Time Significance"
 
     - name: "MetaData/sequenceNumber"
       source: variables/sequenceNumber
+      chunks: [1000000]
       longName: "Channel Sequence Number"
 
     - name: "MetaData/bulletinHeader"
       source: variables/bulletinHeader
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (TTAAii)"
 
     - name: "MetaData/bulletinOriginator"
       source: variables/bulletinOriginator
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (CCCC)"
 
     - name: "MetaData/bulletinTime"
       source: variables/bulletinTime
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (YYGGgg)"
 
     - name: "MetaData/bulletinBBB"
       source: variables/bulletinBBB
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (BBB)"
 
     - name: "MetaData/wmoBlockNumber"
       source: variables/wmoBlockNumber
+      chunks: [1000000]
       longName: "Wmo Block Number"
 
     - name: "MetaData/wmoStationNumber"
       source: variables/wmoStationNumber
+      chunks: [1000000]
       longName: "Wmo Station Number"
 
     - name: "MetaData/stationIdentification"
       source: variables/stationIdentification
+      chunks: [1000000]
       longName: "Report Identifier"
 
     - name: "MetaData/stationType"
       source: variables/stationType
+      chunks: [1000000]
       longName: "Type Of Station"
 
     - name: "MetaData/radarStationIdentifier"
       source: variables/radarStationIdentifier
+      chunks: [1000000]
       longName: "Short Station Or Site Name"
 
     - name: "MetaData/measuringEquipmentType"
       source: variables/measuringEquipmentType
+      chunks: [1000000]
       longName: "Type Of Measuring Equipment Used"
 
     - name: "MetaData/stationElevation"
       source: variables/stationElevation
+      chunks: [1000000]
       longName: "Height Of Station"
       units: "m"
 
     - name: "MetaData/timeSignificance"
       source: variables/timeSignificance
+      chunks: [1000000]
       longName: "Time Significance"
 
     - name: "MetaData/timePeriodOrDisplacement"
       source: variables/timePeriodOrDisplacement
+      chunks: [1000000]
       longName: "Time Period Or Displacement"
       units: "s"
 
     - name: "MetaData/height1"
       source: variables/height1
+      chunks: [1000000]
       longName: "Height (1)"
       units: "m"
 
     - name: "MetaData/height2"
       source: variables/height2
+      chunks: [1000000]
       longName: "Height (2)"
       units: "m"
 
     - name: "MetaData/height3"
       source: variables/height3
+      chunks: [1000000]
       longName: "Height (3)"
       units: "m"
 
     - name: "MetaData/height4"
       source: variables/height4
+      chunks: [1000000]
       longName: "Height (4)"
       units: "m"
 
     - name: "MetaData/height5"
       source: variables/height5
+      chunks: [1000000]
       longName: "Height (5)"
       units: "m"
 
     - name: "MetaData/height6"
       source: variables/height6
+      chunks: [1000000]
       longName: "Height (6)"
       units: "m"
 
     - name: "MetaData/height7"
       source: variables/height7
+      chunks: [1000000]
       longName: "Height (7)"
       units: "m"
 
     - name: "MetaData/height8"
       source: variables/height8
+      chunks: [1000000]
       longName: "Height (8)"
       units: "m"
 
     - name: "MetaData/height9"
       source: variables/height9
+      chunks: [1000000]
       longName: "Height (9)"
       units: "m"
 
     - name: "MetaData/height10"
       source: variables/height10
+      chunks: [1000000]
       longName: "Height (10)"
       units: "m"
 
     - name: "MetaData/height11"
       source: variables/height11
+      chunks: [1000000]
       longName: "Height (11)"
       units: "m"
 
     - name: "MetaData/height12"
       source: variables/height12
+      chunks: [1000000]
       longName: "Height (12)"
       units: "m"
 
     - name: "MetaData/height13"
       source: variables/height13
+      chunks: [1000000]
       longName: "Height (13)"
       units: "m"
 
     - name: "MetaData/height14"
       source: variables/height14
+      chunks: [1000000]
       longName: "Height (14)"
       units: "m"
 
     - name: "MetaData/height15"
       source: variables/height15
+      chunks: [1000000]
       longName: "Height (15)"
       units: "m"
 
     - name: "MetaData/height16"
       source: variables/height16
+      chunks: [1000000]
       longName: "Height (16)"
       units: "m"
 
     - name: "MetaData/height17"
       source: variables/height17
+      chunks: [1000000]
       longName: "Height (17)"
       units: "m"
 
     - name: "MetaData/height18"
       source: variables/height18
+      chunks: [1000000]
       longName: "Height (18)"
       units: "m"
 
     - name: "MetaData/height19"
       source: variables/height19
+      chunks: [1000000]
       longName: "Height (19)"
       units: "m"
 
     - name: "MetaData/height20"
       source: variables/height20
+      chunks: [1000000]
       longName: "Height (20)"
       units: "m"
 
     - name: "MetaData/noaaWindProfilerQCTestResults1"
       source: variables/noaaWindProfilerQCTestResults1
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (1)"
 
     - name: "MetaData/noaaWindProfilerQCTestResults2"
       source: variables/noaaWindProfilerQCTestResults2
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (2)"
 
     - name: "MetaData/noaaWindProfilerQCTestResults3"
       source: variables/noaaWindProfilerQCTestResults3
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (3)"
 
     - name: "MetaData/noaaWindProfilerQCTestResults4"
       source: variables/noaaWindProfilerQCTestResults4
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (4)"
 
     - name: "MetaData/noaaWindProfilerQCTestResults5"
       source: variables/noaaWindProfilerQCTestResults5
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (5)"
 
     - name: "MetaData/noaaWindProfilerQCTestResults6"
       source: variables/noaaWindProfilerQCTestResults6
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (6)"
 
     - name: "MetaData/noaaWindProfilerQCTestResults7"
       source: variables/noaaWindProfilerQCTestResults7
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (7)"
 
     - name: "MetaData/noaaWindProfilerQCTestResults8"
       source: variables/noaaWindProfilerQCTestResults8
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (8)"
 
     - name: "MetaData/noaaWindProfilerQCTestResults9"
       source: variables/noaaWindProfilerQCTestResults9
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (9)"
 
     - name: "MetaData/noaaWindProfilerQCTestResults10"
       source: variables/noaaWindProfilerQCTestResults10
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (10)"
 
     - name: "MetaData/noaaWindProfilerQCTestResults11"
       source: variables/noaaWindProfilerQCTestResults11
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (11)"
 
     - name: "MetaData/noaaWindProfilerQCTestResults12"
       source: variables/noaaWindProfilerQCTestResults12
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (12)"
 
     - name: "MetaData/noaaWindProfilerQCTestResults13"
       source: variables/noaaWindProfilerQCTestResults13
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (13)"
 
     - name: "MetaData/noaaWindProfilerQCTestResults14"
       source: variables/noaaWindProfilerQCTestResults14
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (14)"
 
     - name: "MetaData/noaaWindProfilerQCTestResults15"
       source: variables/noaaWindProfilerQCTestResults15
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (15)"
 
     - name: "MetaData/noaaWindProfilerQCTestResults16"
       source: variables/noaaWindProfilerQCTestResults16
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (16)"
 
     - name: "MetaData/noaaWindProfilerQCTestResults17"
       source: variables/noaaWindProfilerQCTestResults17
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (17)"
 
     - name: "MetaData/noaaWindProfilerQCTestResults18"
       source: variables/noaaWindProfilerQCTestResults18
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (18)"
 
     - name: "MetaData/noaaWindProfilerQCTestResults19"
       source: variables/noaaWindProfilerQCTestResults19
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (19)"
 
     - name: "MetaData/noaaWindProfilerQCTestResults20"
       source: variables/noaaWindProfilerQCTestResults20
+      chunks: [1000000]
       longName: "Noaa Wind Profiler Q/C Test Results (20)"
 
     # ObsValue
     - name: "ObsValue/virtualTemperature1"
       source: variables/virtualTemperature1
+      chunks: [1000000]
       longName: "Virtual Temperature (1)"
       units: "K"
 
     - name: "ObsValue/virtualTemperature2"
       source: variables/virtualTemperature2
+      chunks: [1000000]
       longName: "Virtual Temperature (2)"
       units: "K"
 
     - name: "ObsValue/virtualTemperature3"
       source: variables/virtualTemperature3
+      chunks: [1000000]
       longName: "Virtual Temperature (3)"
       units: "K"
 
     - name: "ObsValue/virtualTemperature4"
       source: variables/virtualTemperature4
+      chunks: [1000000]
       longName: "Virtual Temperature (4)"
       units: "K"
 
     - name: "ObsValue/virtualTemperature5"
       source: variables/virtualTemperature5
+      chunks: [1000000]
       longName: "Virtual Temperature (5)"
       units: "K"
 
     - name: "ObsValue/virtualTemperature6"
       source: variables/virtualTemperature6
+      chunks: [1000000]
       longName: "Virtual Temperature (6)"
       units: "K"
 
     - name: "ObsValue/virtualTemperature7"
       source: variables/virtualTemperature7
+      chunks: [1000000]
       longName: "Virtual Temperature (7)"
       units: "K"
 
     - name: "ObsValue/virtualTemperature8"
       source: variables/virtualTemperature8
+      chunks: [1000000]
       longName: "Virtual Temperature (8)"
       units: "K"
 
     - name: "ObsValue/virtualTemperature9"
       source: variables/virtualTemperature9
+      chunks: [1000000]
       longName: "Virtual Temperature (9)"
       units: "K"
 
     - name: "ObsValue/virtualTemperature10"
       source: variables/virtualTemperature10
+      chunks: [1000000]
       longName: "Virtual Temperature (10)"
       units: "K"
 
     - name: "ObsValue/virtualTemperature11"
       source: variables/virtualTemperature11
+      chunks: [1000000]
       longName: "Virtual Temperature (11)"
       units: "K"
 
     - name: "ObsValue/virtualTemperature12"
       source: variables/virtualTemperature12
+      chunks: [1000000]
       longName: "Virtual Temperature (12)"
       units: "K"
 
     - name: "ObsValue/virtualTemperature13"
       source: variables/virtualTemperature13
+      chunks: [1000000]
       longName: "Virtual Temperature (13)"
       units: "K"
 
     - name: "ObsValue/virtualTemperature14"
       source: variables/virtualTemperature14
+      chunks: [1000000]
       longName: "Virtual Temperature (14)"
       units: "K"
 
     - name: "ObsValue/virtualTemperature15"
       source: variables/virtualTemperature15
+      chunks: [1000000]
       longName: "Virtual Temperature (15)"
       units: "K"
 
     - name: "ObsValue/virtualTemperature16"
       source: variables/virtualTemperature16
+      chunks: [1000000]
       longName: "Virtual Temperature (16)"
       units: "K"
 
     - name: "ObsValue/virtualTemperature17"
       source: variables/virtualTemperature17
+      chunks: [1000000]
       longName: "Virtual Temperature (17)"
       units: "K"
 
     - name: "ObsValue/virtualTemperature18"
       source: variables/virtualTemperature18
+      chunks: [1000000]
       longName: "Virtual Temperature (18)"
       units: "K"
 
     - name: "ObsValue/virtualTemperature19"
       source: variables/virtualTemperature19
+      chunks: [1000000]
       longName: "Virtual Temperature (19)"
       units: "K"
 
     - name: "ObsValue/virtualTemperature20"
       source: variables/virtualTemperature20
+      chunks: [1000000]
       longName: "Virtual Temperature (20)"
       units: "K"
 
     # QualityMarker
     - name: "QualityMarker/correctedReportIndicator"
       source: variables/correctedReportIndicator
+      chunks: [1000000]
       longName: "Corrected Report Indicator"
 
     - name: "QualityMarker/airTemperature1"
       source: variables/airTemperature1
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (1)"
 
     - name: "QualityMarker/airTemperature2"
       source: variables/airTemperature2
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (2)"
 
     - name: "QualityMarker/airTemperature3"
       source: variables/airTemperature3
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (3)"
 
     - name: "QualityMarker/airTemperature4"
       source: variables/airTemperature4
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (4)"
 
     - name: "QualityMarker/airTemperature5"
       source: variables/airTemperature5
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (5)"
 
     - name: "QualityMarker/airTemperature6"
       source: variables/airTemperature6
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (6)"
 
     - name: "QualityMarker/airTemperature7"
       source: variables/airTemperature7
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (7)"
 
     - name: "QualityMarker/airTemperature8"
       source: variables/airTemperature8
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (8)"
 
     - name: "QualityMarker/airTemperature9"
       source: variables/airTemperature9
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (9)"
 
     - name: "QualityMarker/airTemperature10"
       source: variables/airTemperature10
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (10)"
 
     - name: "QualityMarker/airTemperature11"
       source: variables/airTemperature11
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (11)"
 
     - name: "QualityMarker/airTemperature12"
       source: variables/airTemperature12
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (12)"
 
     - name: "QualityMarker/airTemperature13"
       source: variables/airTemperature13
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (13)"
 
     - name: "QualityMarker/airTemperature14"
       source: variables/airTemperature14
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (14)"
 
     - name: "QualityMarker/airTemperature15"
       source: variables/airTemperature15
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (15)"
 
     - name: "QualityMarker/airTemperature16"
       source: variables/airTemperature16
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (16)"
 
     - name: "QualityMarker/airTemperature17"
       source: variables/airTemperature17
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (17)"
 
     - name: "QualityMarker/airTemperature18"
       source: variables/airTemperature18
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (18)"
 
     - name: "QualityMarker/airTemperature19"
       source: variables/airTemperature19
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (19)"
 
     - name: "QualityMarker/airTemperature20"
       source: variables/airTemperature20
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature (20)"

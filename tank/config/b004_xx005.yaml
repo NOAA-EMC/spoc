@@ -273,60 +273,73 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/receiptTime"
       source: variables/receiptTime
+      chunks: [1000000]
       longName: "Receipt Time"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/receiptTimeSignificance"
       source: variables/receiptTimeSignificance
+      chunks: [1000000]
       longName: "Receipt Time Significance"
 
     - name: "MetaData/sequenceNumber"
       source: variables/sequenceNumber
+      chunks: [1000000]
       longName: "Channel Sequence Number"
 
     - name: "MetaData/bulletinHeader"
       source: variables/bulletinHeader
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (TTAAii)"
 
     - name: "MetaData/bulletinOriginator"
       source: variables/bulletinOriginator
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (CCCC)"
 
     - name: "MetaData/bulletinTime"
       source: variables/bulletinTime
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (YYGGgg)"
 
     - name: "MetaData/bulletinBBB"
       source: variables/bulletinBBB
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (BBB)"
 
     - name: "MetaData/stationIdentification"
       source: variables/stationIdentification
+      chunks: [1000000]
       longName: "Report Identifier"
 
     - name: "MetaData/flightLevel"
       source: variables/flightLevel
+      chunks: [1000000]
       longName: "Flight Level"
       units: "m"
 
     - name: "MetaData/pressureAltitude"
       source: variables/pressureAltitude
+      chunks: [1000000]
       longName: "Pressure Altitude Relative To Mean Sea Level"
       units: "m"
 
@@ -336,244 +349,297 @@ encoder:
 
     - name: "MetaData/verticalSoundingSignificance"
       source: variables/verticalSoundingSignificance
+      chunks: [1000000]
       longName: "Vertical Sounding Significance"
 
     - name: "MetaData/pressure"
       source: variables/pressure
+      chunks: [1000000]
       longName: "Pressure"
       units: "Pa"
 
     - name: "MetaData/dayOfTheWeek"
       source: variables/dayOfTheWeek
+      chunks: [1000000]
       longName: "Day Of The Week"
 
     # ObsValue
     - name: "ObsValue/airTemperatureTMDB"
       source: variables/airTemperatureTMDB
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature"
       units: "K"
 
     - name: "ObsValue/windDirection"
       source: variables/windDirection
+      chunks: [1000000]
       longName: "Wind Direction"
       units: "degree"
 
     - name: "ObsValue/windSpeed"
       source: variables/windSpeed
+      chunks: [1000000]
       longName: "Wind Speed"
       units: "m s-1"
 
     - name: "ObsValue/cloudAmount1"
       source: variables/cloudAmount1
+      chunks: [1000000]
       longName: "Cloud Amount (1)"
 
     - name: "ObsValue/cloudAmount2"
       source: variables/cloudAmount2
+      chunks: [1000000]
       longName: "Cloud Amount (2)"
 
     - name: "ObsValue/cloudAmount3"
       source: variables/cloudAmount3
+      chunks: [1000000]
       longName: "Cloud Amount (3)"
 
     - name: "ObsValue/cloudAmount4"
       source: variables/cloudAmount4
+      chunks: [1000000]
       longName: "Cloud Amount (4)"
 
     - name: "ObsValue/cloudAmount5"
       source: variables/cloudAmount5
+      chunks: [1000000]
       longName: "Cloud Amount (5)"
 
     - name: "ObsValue/cloudAmount6"
       source: variables/cloudAmount6
+      chunks: [1000000]
       longName: "Cloud Amount (6)"
 
     - name: "ObsValue/cloudType1"
       source: variables/cloudType1
+      chunks: [1000000]
       longName: "Cloud Type (1)"
 
     - name: "ObsValue/cloudType2"
       source: variables/cloudType2
+      chunks: [1000000]
       longName: "Cloud Type (2)"
 
     - name: "ObsValue/cloudType3"
       source: variables/cloudType3
+      chunks: [1000000]
       longName: "Cloud Type (3)"
 
     - name: "ObsValue/cloudType4"
       source: variables/cloudType4
+      chunks: [1000000]
       longName: "Cloud Type (4)"
 
     - name: "ObsValue/cloudType5"
       source: variables/cloudType5
+      chunks: [1000000]
       longName: "Cloud Type (5)"
 
     - name: "ObsValue/cloudType6"
       source: variables/cloudType6
+      chunks: [1000000]
       longName: "Cloud Type (6)"
 
     - name: "ObsValue/heightbasecloud1"
       source: variables/heightbasecloud1
+      chunks: [1000000]
       longName: "Height Of Base Of Cloud (1)"
       units: "m"
 
     - name: "ObsValue/heightbasecloud2"
       source: variables/heightbasecloud2
+      chunks: [1000000]
       longName: "Height Of Base Of Cloud (2)"
       units: "m"
 
     - name: "ObsValue/heightbasecloud3"
       source: variables/heightbasecloud3
+      chunks: [1000000]
       longName: "Height Of Base Of Cloud (3)"
       units: "m"
 
     - name: "ObsValue/heightbasecloud4"
       source: variables/heightbasecloud4
+      chunks: [1000000]
       longName: "Height Of Base Of Cloud (4)"
       units: "m"
 
     - name: "ObsValue/heightbasecloud5"
       source: variables/heightbasecloud5
+      chunks: [1000000]
       longName: "Height Of Base Of Cloud (5)"
       units: "m"
 
     - name: "ObsValue/heightbasecloud6"
       source: variables/heightbasecloud6
+      chunks: [1000000]
       longName: "Height Of Base Of Cloud (6)"
       units: "m"
 
     - name: "ObsValue/heightOfTopOfCloud1"
       source: variables/heightOfTopOfCloud1
+      chunks: [1000000]
       longName: "Height Of Top Of Cloud (1)"
       units: "m"
 
     - name: "ObsValue/heightOfTopOfCloud2"
       source: variables/heightOfTopOfCloud2
+      chunks: [1000000]
       longName: "Height Of Top Of Cloud (2)"
       units: "m"
 
     - name: "ObsValue/heightOfTopOfCloud3"
       source: variables/heightOfTopOfCloud3
+      chunks: [1000000]
       longName: "Height Of Top Of Cloud (3)"
       units: "m"
 
     - name: "ObsValue/heightOfTopOfCloud4"
       source: variables/heightOfTopOfCloud4
+      chunks: [1000000]
       longName: "Height Of Top Of Cloud (4)"
       units: "m"
 
     - name: "ObsValue/heightOfTopOfCloud5"
       source: variables/heightOfTopOfCloud5
+      chunks: [1000000]
       longName: "Height Of Top Of Cloud (5)"
       units: "m"
 
     - name: "ObsValue/heightOfTopOfCloud6"
       source: variables/heightOfTopOfCloud6
+      chunks: [1000000]
       longName: "Height Of Top Of Cloud (6)"
       units: "m"
 
     - name: "ObsValue/airframeIcing"
       source: variables/airframeIcing
+      chunks: [1000000]
       longName: "Airframe Icing"
 
     - name: "ObsValue/heightOfBaseOfIcing"
       source: variables/heightOfBaseOfIcing
+      chunks: [1000000]
       longName: "Height Of Base Of Icing"
       units: "m"
 
     - name: "ObsValue/heightOfTopOfIcing"
       source: variables/heightOfTopOfIcing
+      chunks: [1000000]
       longName: "Height Of Top Of Icing"
       units: "m"
 
     - name: "ObsValue/dewPointTemperature"
       source: variables/dewPointTemperature
+      chunks: [1000000]
       longName: "Dew Point Temperature"
       units: "K"
 
     - name: "ObsValue/relativeHumidity"
       source: variables/relativeHumidity
+      chunks: [1000000]
       longName: "Relative Humidity"
       units: "%"
 
     - name: "ObsValue/surfaceWindDirection"
       source: variables/surfaceWindDirection
+      chunks: [1000000]
       longName: "Surface Wind Direction"
       units: "degree"
 
     - name: "ObsValue/surfaceWindSpeed"
       source: variables/surfaceWindSpeed
+      chunks: [1000000]
       longName: "Surface Wind Speed"
       units: "m s-1"
 
     - name: "ObsValue/geopotential10"
       source: variables/geopotential10
+      chunks: [1000000]
       longName: "Geopotential"
       units: "m2 s-2"
 
     - name: "ObsValue/degreeOfTurbulence"
       source: variables/degreeOfTurbulence
+      chunks: [1000000]
       longName: "Degree Of Turbulence"
 
     - name: "ObsValue/presentWeather"
       source: variables/presentWeather
+      chunks: [1000000]
       longName: "Present Weather"
 
     - name: "ObsValue/horizontalVisibility"
       source: variables/horizontalVisibility
+      chunks: [1000000]
       longName: "Horizontal Visibility"
       units: "m"
 
     - name: "ObsValue/pressureReducedToMeanSeaLevel"
       source: variables/pressureReducedToMeanSeaLevel
+      chunks: [1000000]
       longName: "Pressure At Mean Sea Level"
       units: "Pa"
 
     - name: "ObsValue/seaSurfaceTemperatureSST1"
       source: variables/seaSurfaceTemperatureSST1
+      chunks: [1000000]
       longName: "Sea Temperature"
       units: "K"
 
     # QualityMarker
     - name: "QualityMarker/correctedReportIndicator"
       source: variables/correctedReportIndicator
+      chunks: [1000000]
       longName: "Corrected Report Indicator"
 
     - name: "QualityMarker/airTemperature"
       source: variables/airTemperature
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature"
 
     - name: "QualityMarker/wind"
       source: variables/wind
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Wind"
 
     - name: "QualityMarker/moisture"
       source: variables/moisture
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Moisture"
 
     - name: "QualityMarker/seaSurfaceTemperature"
       source: variables/seaSurfaceTemperature
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Sea Surface Temperature"
 
     # Not in this tank: read as missing so the dataset has one set of variables
     - name: "ObsValue/peakWindSpeed"
       source: variables/peakWindSpeed
+      chunks: [1000000]
       longName: "Peak Wind Speed"
       units: "m s-1"
 
     - name: "ObsValue/peakSurfaceWindSpeed"
       source: variables/peakSurfaceWindSpeed
+      chunks: [1000000]
       longName: "Peak Surface Wind Speed"
       units: "m s-1"
 
     - name: "ObsValue/totalRainRate"
       source: variables/totalRainRate
+      chunks: [1000000]
       longName: "Total Rain Rate"
       units: "mm h-1"
 
     - name: "QualityMarker/qualityForHdobPositional"
       source: variables/qualityForHdobPositional
+      chunks: [1000000]
       longName: "Quality For Hdob Positional"
 
     - name: "QualityMarker/qualityForHdobMeterologicalStatus"
       source: variables/qualityForHdobMeterologicalStatus
+      chunks: [1000000]
       longName: "Quality For Hdob Meterological Status"

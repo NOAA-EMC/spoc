@@ -180,84 +180,102 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/receiptTime"
       source: variables/receiptTime
+      chunks: [1000000]
       longName: "Receipt Time"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/satelliteIdentifier"
       source: variables/satelliteIdentifier
+      chunks: [1000000]
       longName: "Satellite Identifier"
 
     - name: "MetaData/dataProviderOrigin"
       source: variables/dataProviderOrigin
+      chunks: [1000000]
       longName: "Identification Of ORIGINATING/GENERATING Center"
 
     - name: "MetaData/generatingSubCenter"
       source: variables/generatingSubCenter
+      chunks: [1000000]
       longName: "Identification Of ORIGINATING/GENERATING SUB-CENTER"
 
     - name: "MetaData/instrumentIdentifier"
       source: variables/instrumentIdentifier
+      chunks: [1000000]
       longName: "Satellite Instruments"
 
     - name: "MetaData/satelliteConstellationRO"
       source: variables/satelliteConstellationRO
+      chunks: [1000000]
       longName: "Satellite Classification"
 
     - name: "MetaData/orbitNumber"
       source: variables/orbitNumber
+      chunks: [1000000]
       longName: "Orbit Number"
 
     - name: "MetaData/scanLineNumber"
       source: variables/scanLineNumber
+      chunks: [1000000]
       longName: "Scan Line Number"
 
     - name: "MetaData/sensorScanPosition"
       source: variables/sensorScanPosition
+      chunks: [1000000]
       longName: "Field Of View Number"
 
     - name: "MetaData/heightOfStation"
       source: variables/heightOfStation
+      chunks: [1000000]
       longName: "Height Or Altitude"
       units: "m"
 
     - name: "MetaData/satelliteZenithAngle"
       source: variables/satelliteZenithAngle
+      chunks: [1000000]
       longName: "Satellite Zenith Angle"
       units: "degree"
 
     - name: "MetaData/sensorAzimuthAngle"
       source: variables/sensorAzimuthAngle
+      chunks: [1000000]
       longName: "Bearing Or Azimuth"
       units: "degree"
 
     - name: "MetaData/solarZenithAngle"
       source: variables/solarZenithAngle
+      chunks: [1000000]
       longName: "Solar Zenith Angle"
       units: "degree"
 
     - name: "MetaData/solarAzimuthAngle"
       source: variables/solarAzimuthAngle
+      chunks: [1000000]
       longName: "Solar Azimuth"
       units: "degree"
 
     - name: "MetaData/satelliteAntennaCorrectionsVersionNumber"
       source: variables/satelliteAntennaCorrectionsVersionNumber
+      chunks: [1000000]
       longName: "Satellite Antenna Corrections Version Number"
 
     - name: "MetaData/sensorChannelNumber"
@@ -280,26 +298,32 @@ encoder:
 
     - name: "MetaData/sequenceNumber"
       source: variables/sequenceNumber
+      chunks: [1000000]
       longName: "Channel Sequence Number"
 
     - name: "MetaData/bulletinHeader"
       source: variables/bulletinHeader
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (TTAAii)"
 
     - name: "MetaData/bulletinOriginator"
       source: variables/bulletinOriginator
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (CCCC)"
 
     - name: "MetaData/bulletinTime"
       source: variables/bulletinTime
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (YYGGgg)"
 
     - name: "MetaData/bulletinBBB"
       source: variables/bulletinBBB
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (BBB)"
 
     - name: "MetaData/receiptTimeSignificance"
       source: variables/receiptTimeSignificance
+      chunks: [1000000]
       longName: "Receipt Time Significance"
 
     # ObsValue
@@ -326,14 +350,17 @@ encoder:
     # QualityMarker
     - name: "QualityMarker/granuleLevelQualityFlags"
       source: variables/granuleLevelQualityFlags
+      chunks: [1000000]
       longName: "Granule Level Quality Flags"
 
     - name: "QualityMarker/scanLevelQualityFlags"
       source: variables/scanLevelQualityFlags
+      chunks: [1000000]
       longName: "Scan Level Quality Flags"
 
     - name: "QualityMarker/geolocationQuality"
       source: variables/geolocationQuality
+      chunks: [1000000]
       longName: "Geolocation Quality"
 
     - name: "QualityMarker/channelDataQualityFlags"

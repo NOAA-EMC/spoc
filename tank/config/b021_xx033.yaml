@@ -292,331 +292,406 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/receiptTime"
       source: variables/receiptTime
+      chunks: [1000000]
       longName: "Receipt Time"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/tovsAtovsProductIdentifier1"
       source: variables/tovsAtovsProductIdentifier1
+      chunks: [1000000]
       longName: "TOVS/ATOVS Product Identifier"
 
     - name: "MetaData/dataProviderOrigin1"
       source: variables/dataProviderOrigin1
+      chunks: [1000000]
       longName: "Identification Of ORIGINATING/GENERATING Center"
 
     - name: "MetaData/generatingSubCenter1"
       source: variables/generatingSubCenter1
+      chunks: [1000000]
       longName: "Identification Of ORIGINATING/GENERATING SUB-CENTER"
 
     - name: "MetaData/tovsAtovsProductIdentifier2"
       source: variables/tovsAtovsProductIdentifier2
+      chunks: [1000000]
       longName: "TOVS/ATOVS Product Identifier"
 
     - name: "MetaData/dataProviderOrigin2"
       source: variables/dataProviderOrigin2
+      chunks: [1000000]
       longName: "Identification Of ORIGINATING/GENERATING Center"
 
     - name: "MetaData/generatingSubCenter2"
       source: variables/generatingSubCenter2
+      chunks: [1000000]
       longName: "Identification Of ORIGINATING/GENERATING SUB-CENTER"
 
     - name: "MetaData/satelliteIdentifier"
       source: variables/satelliteIdentifier
+      chunks: [1000000]
       longName: "Satellite Identifier"
 
     - name: "MetaData/satelliteSensorIndicator"
       source: variables/satelliteSensorIndicator
+      chunks: [1000000]
       longName: "Satellite Sensor Indicator"
 
     - name: "MetaData/orbitNumber"
       source: variables/orbitNumber
+      chunks: [1000000]
       longName: "Orbit Number"
 
     - name: "MetaData/satelliteAntennaCorrectionsVersionNumber"
       source: variables/satelliteAntennaCorrectionsVersionNumber
+      chunks: [1000000]
       longName: "Satellite Antenna Corrections Version Number"
 
     - name: "MetaData/scanLineNumber"
       source: variables/scanLineNumber
+      chunks: [1000000]
       longName: "Scan Line Number"
 
     - name: "MetaData/sensorScanPosition"
       source: variables/sensorScanPosition
+      chunks: [1000000]
       longName: "Field Of View Number"
 
     - name: "MetaData/majorFrameCount"
       source: variables/majorFrameCount
+      chunks: [1000000]
       longName: "Major Frame Count"
 
     - name: "MetaData/stationElevation"
       source: variables/stationElevation
+      chunks: [1000000]
       longName: "Height Of Station"
       units: "m"
 
     - name: "MetaData/satelliteZenithAngle"
       source: variables/satelliteZenithAngle
+      chunks: [1000000]
       longName: "Satellite Zenith Angle"
       units: "degree"
 
     - name: "MetaData/sensorAzimuthAngle"
       source: variables/sensorAzimuthAngle
+      chunks: [1000000]
       longName: "Bearing Or Azimuth"
       units: "degree"
 
     - name: "MetaData/solarZenithAngle"
       source: variables/solarZenithAngle
+      chunks: [1000000]
       longName: "Solar Zenith Angle"
       units: "degree"
 
     - name: "MetaData/solarAzimuthAngle"
       source: variables/solarAzimuthAngle
+      chunks: [1000000]
       longName: "Solar Azimuth"
       units: "degree"
 
     - name: "MetaData/radiometerIdentifier1"
       source: variables/radiometerIdentifier1
+      chunks: [1000000]
       longName: "Radiometer Identifier"
 
     - name: "MetaData/radiometerIdentifier2"
       source: variables/radiometerIdentifier2
+      chunks: [1000000]
       longName: "Radiometer Identifier"
 
     - name: "MetaData/radiometerIdentifier3"
       source: variables/radiometerIdentifier3
+      chunks: [1000000]
       longName: "Radiometer Identifier"
 
     - name: "MetaData/radiometerIdentifier4"
       source: variables/radiometerIdentifier4
+      chunks: [1000000]
       longName: "Radiometer Identifier"
 
     - name: "MetaData/sensorChannelNumber1"
       source: variables/sensorChannelNumber1
+      chunks: [1000000]
       longName: "TOVS/ATOVS/AVHRR Instrumentation Channel Number (1)"
 
     - name: "MetaData/sensorChannelNumber2"
       source: variables/sensorChannelNumber2
+      chunks: [1000000]
       longName: "TOVS/ATOVS/AVHRR Instrumentation Channel Number (2)"
 
     - name: "MetaData/sensorChannelNumber3"
       source: variables/sensorChannelNumber3
+      chunks: [1000000]
       longName: "TOVS/ATOVS/AVHRR Instrumentation Channel Number (3)"
 
     - name: "MetaData/sensorChannelNumber4"
       source: variables/sensorChannelNumber4
+      chunks: [1000000]
       longName: "TOVS/ATOVS/AVHRR Instrumentation Channel Number (4)"
 
     - name: "MetaData/sensorChannelNumber5"
       source: variables/sensorChannelNumber5
+      chunks: [1000000]
       longName: "TOVS/ATOVS/AVHRR Instrumentation Channel Number (5)"
 
     - name: "MetaData/log10OfTemperatureRadianceCentralWavenumber1"
       source: variables/log10OfTemperatureRadianceCentralWavenumber1
+      chunks: [1000000]
       longName: "LOG-10 Of (TEMPERATURE-RADIANCE Central WAVENUMBER) (1)"
       units: "log(m-1)"
 
     - name: "MetaData/log10OfTemperatureRadianceCentralWavenumber2"
       source: variables/log10OfTemperatureRadianceCentralWavenumber2
+      chunks: [1000000]
       longName: "LOG-10 Of (TEMPERATURE-RADIANCE Central WAVENUMBER) (2)"
       units: "log(m-1)"
 
     - name: "MetaData/log10OfTemperatureRadianceCentralWavenumber3"
       source: variables/log10OfTemperatureRadianceCentralWavenumber3
+      chunks: [1000000]
       longName: "LOG-10 Of (TEMPERATURE-RADIANCE Central WAVENUMBER) (3)"
       units: "log(m-1)"
 
     - name: "MetaData/log10OfTemperatureRadianceCentralWavenumber4"
       source: variables/log10OfTemperatureRadianceCentralWavenumber4
+      chunks: [1000000]
       longName: "LOG-10 Of (TEMPERATURE-RADIANCE Central WAVENUMBER) (4)"
       units: "log(m-1)"
 
     - name: "MetaData/log10OfTemperatureRadianceCentralWavenumber5"
       source: variables/log10OfTemperatureRadianceCentralWavenumber5
+      chunks: [1000000]
       longName: "LOG-10 Of (TEMPERATURE-RADIANCE Central WAVENUMBER) (5)"
       units: "log(m-1)"
 
     - name: "MetaData/bandwidthCorrectionCoefficient1ForAtovs1"
       source: variables/bandwidthCorrectionCoefficient1ForAtovs1
+      chunks: [1000000]
       longName: "Bandwidth Correction Coefficient 1 For Atovs (1)"
 
     - name: "MetaData/bandwidthCorrectionCoefficient1ForAtovs2"
       source: variables/bandwidthCorrectionCoefficient1ForAtovs2
+      chunks: [1000000]
       longName: "Bandwidth Correction Coefficient 1 For Atovs (2)"
 
     - name: "MetaData/bandwidthCorrectionCoefficient1ForAtovs3"
       source: variables/bandwidthCorrectionCoefficient1ForAtovs3
+      chunks: [1000000]
       longName: "Bandwidth Correction Coefficient 1 For Atovs (3)"
 
     - name: "MetaData/bandwidthCorrectionCoefficient1ForAtovs4"
       source: variables/bandwidthCorrectionCoefficient1ForAtovs4
+      chunks: [1000000]
       longName: "Bandwidth Correction Coefficient 1 For Atovs (4)"
 
     - name: "MetaData/bandwidthCorrectionCoefficient1ForAtovs5"
       source: variables/bandwidthCorrectionCoefficient1ForAtovs5
+      chunks: [1000000]
       longName: "Bandwidth Correction Coefficient 1 For Atovs (5)"
 
     - name: "MetaData/bandwidthCorrectionCoefficient2ForAtovs1"
       source: variables/bandwidthCorrectionCoefficient2ForAtovs1
+      chunks: [1000000]
       longName: "Bandwidth Correction Coefficient 2 For Atovs (1)"
 
     - name: "MetaData/bandwidthCorrectionCoefficient2ForAtovs2"
       source: variables/bandwidthCorrectionCoefficient2ForAtovs2
+      chunks: [1000000]
       longName: "Bandwidth Correction Coefficient 2 For Atovs (2)"
 
     - name: "MetaData/bandwidthCorrectionCoefficient2ForAtovs3"
       source: variables/bandwidthCorrectionCoefficient2ForAtovs3
+      chunks: [1000000]
       longName: "Bandwidth Correction Coefficient 2 For Atovs (3)"
 
     - name: "MetaData/bandwidthCorrectionCoefficient2ForAtovs4"
       source: variables/bandwidthCorrectionCoefficient2ForAtovs4
+      chunks: [1000000]
       longName: "Bandwidth Correction Coefficient 2 For Atovs (4)"
 
     - name: "MetaData/bandwidthCorrectionCoefficient2ForAtovs5"
       source: variables/bandwidthCorrectionCoefficient2ForAtovs5
+      chunks: [1000000]
       longName: "Bandwidth Correction Coefficient 2 For Atovs (5)"
 
     - name: "MetaData/softwareIdentification"
       source: variables/softwareIdentification
+      chunks: [1000000]
       longName: "Software identification"
 
     - name: "MetaData/sequenceNumber"
       source: variables/sequenceNumber
+      chunks: [1000000]
       longName: "Channel Sequence Number"
 
     - name: "MetaData/bulletinHeader"
       source: variables/bulletinHeader
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (TTAAii)"
 
     - name: "MetaData/bulletinOriginator"
       source: variables/bulletinOriginator
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (CCCC)"
 
     - name: "MetaData/bulletinTime"
       source: variables/bulletinTime
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (YYGGgg)"
 
     - name: "MetaData/bulletinBBB"
       source: variables/bulletinBBB
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (BBB)"
 
     - name: "MetaData/receiptTimeSignificance"
       source: variables/receiptTimeSignificance
+      chunks: [1000000]
       longName: "Receipt Time Significance"
 
     # ObsValue
     - name: "ObsValue/instrumentTemperature1"
       source: variables/instrumentTemperature1
+      chunks: [1000000]
       longName: "Instrument Temperature"
       units: "K"
 
     - name: "ObsValue/instrumentTemperature2"
       source: variables/instrumentTemperature2
+      chunks: [1000000]
       longName: "Instrument Temperature"
       units: "K"
 
     - name: "ObsValue/instrumentTemperature3"
       source: variables/instrumentTemperature3
+      chunks: [1000000]
       longName: "Instrument Temperature"
       units: "K"
 
     - name: "ObsValue/instrumentTemperature4"
       source: variables/instrumentTemperature4
+      chunks: [1000000]
       longName: "Instrument Temperature"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature1"
       source: variables/brightnessTemperature1
+      chunks: [1000000]
       longName: "Brightness Temperature (1)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature2"
       source: variables/brightnessTemperature2
+      chunks: [1000000]
       longName: "Brightness Temperature (2)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature3"
       source: variables/brightnessTemperature3
+      chunks: [1000000]
       longName: "Brightness Temperature (3)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature4"
       source: variables/brightnessTemperature4
+      chunks: [1000000]
       longName: "Brightness Temperature (4)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature5"
       source: variables/brightnessTemperature5
+      chunks: [1000000]
       longName: "Brightness Temperature (5)"
       units: "K"
 
     # QualityMarker
     - name: "QualityMarker/scanLineStatusFlagsForAtovs"
       source: variables/scanLineStatusFlagsForAtovs
+      chunks: [1000000]
       longName: "Scan Line Status Flags For Atovs"
 
     - name: "QualityMarker/scanLineQualityFlagsForAtovs"
       source: variables/scanLineQualityFlagsForAtovs
+      chunks: [1000000]
       longName: "Scan Line Quality Flags For Atovs"
 
     - name: "QualityMarker/fieldOfViewQualityFlagsForAtovs"
       source: variables/fieldOfViewQualityFlagsForAtovs
+      chunks: [1000000]
       longName: "Field Of View Quality Flags For Atovs"
 
     - name: "QualityMarker/channelQualityFlagsForAtovs1"
       source: variables/channelQualityFlagsForAtovs1
+      chunks: [1000000]
       longName: "Channel Quality Flags For Atovs (1)"
 
     - name: "QualityMarker/channelQualityFlagsForAtovs2"
       source: variables/channelQualityFlagsForAtovs2
+      chunks: [1000000]
       longName: "Channel Quality Flags For Atovs (2)"
 
     - name: "QualityMarker/channelQualityFlagsForAtovs3"
       source: variables/channelQualityFlagsForAtovs3
+      chunks: [1000000]
       longName: "Channel Quality Flags For Atovs (3)"
 
     - name: "QualityMarker/channelQualityFlagsForAtovs4"
       source: variables/channelQualityFlagsForAtovs4
+      chunks: [1000000]
       longName: "Channel Quality Flags For Atovs (4)"
 
     - name: "QualityMarker/channelQualityFlagsForAtovs5"
       source: variables/channelQualityFlagsForAtovs5
+      chunks: [1000000]
       longName: "Channel Quality Flags For Atovs (5)"
 
     - name: "QualityMarker/noiseEquivalentDeltaTemperatureNedtQuality1"
       source: variables/noiseEquivalentDeltaTemperatureNedtQuality1
+      chunks: [1000000]
       longName: "Noise equivalent delta temperature (NEdT) quality indi (1)"
       units: "K"
 
     - name: "QualityMarker/noiseEquivalentDeltaTemperatureNedtQuality2"
       source: variables/noiseEquivalentDeltaTemperatureNedtQuality2
+      chunks: [1000000]
       longName: "Noise equivalent delta temperature (NEdT) quality indi (2)"
       units: "K"
 
     - name: "QualityMarker/noiseEquivalentDeltaTemperatureNedtQuality3"
       source: variables/noiseEquivalentDeltaTemperatureNedtQuality3
+      chunks: [1000000]
       longName: "Noise equivalent delta temperature (NEdT) quality indi (3)"
       units: "K"
 
     - name: "QualityMarker/noiseEquivalentDeltaTemperatureNedtQuality4"
       source: variables/noiseEquivalentDeltaTemperatureNedtQuality4
+      chunks: [1000000]
       longName: "Noise equivalent delta temperature (NEdT) quality indi (4)"
       units: "K"
 
     - name: "QualityMarker/noiseEquivalentDeltaTemperatureNedtQuality5"
       source: variables/noiseEquivalentDeltaTemperatureNedtQuality5
+      chunks: [1000000]
       longName: "Noise equivalent delta temperature (NEdT) quality indi (5)"
       units: "K"

@@ -130,109 +130,132 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/satelliteIdentifier"
       source: variables/satelliteIdentifier
+      chunks: [1000000]
       longName: "Satellite Identifier"
 
     - name: "MetaData/sensorScanPosition"
       source: variables/sensorScanPosition
+      chunks: [1000000]
       longName: "Field Of View Number"
 
     - name: "MetaData/satelliteZenithAngle"
       source: variables/satelliteZenithAngle
+      chunks: [1000000]
       longName: "Satellite Zenith Angle"
       units: "degree"
 
     - name: "MetaData/solarZenithAngle"
       source: variables/solarZenithAngle
+      chunks: [1000000]
       longName: "Solar Zenith Angle"
       units: "degree"
 
     - name: "MetaData/cloudFromAVHRRCloudMask"
       source: variables/cloudFromAVHRRCloudMask
+      chunks: [1000000]
       longName: "Cloud From Avhrr (CLAVR) Cloud Mask"
 
     - name: "MetaData/sensorChannelNumber1"
       source: variables/sensorChannelNumber1
+      chunks: [1000000]
       longName: "TOVS/ATOVS/AVHRR Instrumentation Channel Number (1)"
 
     - name: "MetaData/sensorChannelNumber2"
       source: variables/sensorChannelNumber2
+      chunks: [1000000]
       longName: "TOVS/ATOVS/AVHRR Instrumentation Channel Number (2)"
 
     - name: "MetaData/sensorChannelNumber3"
       source: variables/sensorChannelNumber3
+      chunks: [1000000]
       longName: "TOVS/ATOVS/AVHRR Instrumentation Channel Number (3)"
 
     - name: "MetaData/sensorChannelNumber4"
       source: variables/sensorChannelNumber4
+      chunks: [1000000]
       longName: "TOVS/ATOVS/AVHRR Instrumentation Channel Number (4)"
 
     - name: "MetaData/sensorChannelNumber5"
       source: variables/sensorChannelNumber5
+      chunks: [1000000]
       longName: "TOVS/ATOVS/AVHRR Instrumentation Channel Number (5)"
 
     - name: "MetaData/albedo1"
       source: variables/albedo1
+      chunks: [1000000]
       longName: "Albedo (1)"
       units: "%"
 
     - name: "MetaData/albedo2"
       source: variables/albedo2
+      chunks: [1000000]
       longName: "Albedo (2)"
       units: "%"
 
     - name: "MetaData/albedo3"
       source: variables/albedo3
+      chunks: [1000000]
       longName: "Albedo (3)"
       units: "%"
 
     - name: "MetaData/albedo4"
       source: variables/albedo4
+      chunks: [1000000]
       longName: "Albedo (4)"
       units: "%"
 
     - name: "MetaData/albedo5"
       source: variables/albedo5
+      chunks: [1000000]
       longName: "Albedo (5)"
       units: "%"
 
     # ObsValue
     - name: "ObsValue/brightnessTemperature1"
       source: variables/brightnessTemperature1
+      chunks: [1000000]
       longName: "Brightness Temperature (HIGH ACCURACY) (1)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature2"
       source: variables/brightnessTemperature2
+      chunks: [1000000]
       longName: "Brightness Temperature (HIGH ACCURACY) (2)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature3"
       source: variables/brightnessTemperature3
+      chunks: [1000000]
       longName: "Brightness Temperature (HIGH ACCURACY) (3)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature4"
       source: variables/brightnessTemperature4
+      chunks: [1000000]
       longName: "Brightness Temperature (HIGH ACCURACY) (4)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature5"
       source: variables/brightnessTemperature5
+      chunks: [1000000]
       longName: "Brightness Temperature (HIGH ACCURACY) (5)"
       units: "K"

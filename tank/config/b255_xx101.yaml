@@ -314,364 +314,447 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/receiptTime"
       source: variables/receiptTime
+      chunks: [1000000]
       longName: "Receipt Time"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/receiptTimeSignificance"
       source: variables/receiptTimeSignificance
+      chunks: [1000000]
       longName: "Receipt Time Significance"
 
     - name: "MetaData/restrictionFlag"
       source: variables/restrictionFlag
+      chunks: [1000000]
       longName: "Restrictions On Redistribution"
 
     - name: "MetaData/restrictionExpiration"
       source: variables/restrictionExpiration
+      chunks: [1000000]
       longName: "Expiration Of Restrictions On Redistribution"
       units: "h"
 
     - name: "MetaData/stationIdentification"
       source: variables/stationIdentification
+      chunks: [1000000]
       longName: "Report Identifier"
 
     - name: "MetaData/providerIdentifier1"
       source: variables/providerIdentifier1
+      chunks: [1000000]
       longName: "Mesonet Provider Id String (1)"
 
     - name: "MetaData/providerIdentifier2"
       source: variables/providerIdentifier2
+      chunks: [1000000]
       longName: "Mesonet Provider Id String (2)"
 
     - name: "MetaData/platformType"
       source: variables/platformType
+      chunks: [1000000]
       longName: "Platform Type"
 
     - name: "MetaData/stationElevation"
       source: variables/stationElevation
+      chunks: [1000000]
       longName: "Height Of Station"
       units: "m"
 
     - name: "MetaData/depthBelowLandSurface1"
       source: variables/depthBelowLandSurface1
+      chunks: [1000000]
       longName: "Depth Below Land Surface (1)"
       units: "m"
 
     - name: "MetaData/depthBelowLandSurface2"
       source: variables/depthBelowLandSurface2
+      chunks: [1000000]
       longName: "Depth Below Land Surface (2)"
       units: "m"
 
     - name: "MetaData/timePeriodHoursMntopcsq1"
       source: variables/timePeriodHoursMntopcsq1
+      chunks: [1000000]
       longName: "Time Period Or Displacement (1)"
       units: "h"
 
     - name: "MetaData/timePeriodHoursMntopcsq2"
       source: variables/timePeriodHoursMntopcsq2
+      chunks: [1000000]
       longName: "Time Period Or Displacement (2)"
       units: "h"
 
     - name: "MetaData/timePeriodHoursMntopcsq3"
       source: variables/timePeriodHoursMntopcsq3
+      chunks: [1000000]
       longName: "Time Period Or Displacement (3)"
       units: "h"
 
     - name: "MetaData/timePeriodHoursMntopcsq4"
       source: variables/timePeriodHoursMntopcsq4
+      chunks: [1000000]
       longName: "Time Period Or Displacement (4)"
       units: "h"
 
     - name: "MetaData/timePeriodHoursMndofssq1"
       source: variables/timePeriodHoursMndofssq1
+      chunks: [1000000]
       longName: "Time Period Or Displacement (1)"
       units: "h"
 
     - name: "MetaData/timePeriodHoursMndofssq2"
       source: variables/timePeriodHoursMndofssq2
+      chunks: [1000000]
       longName: "Time Period Or Displacement (2)"
       units: "h"
 
     # ObsValue
     - name: "ObsValue/airTemperatureTMDB"
       source: variables/airTemperatureTMDB
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature"
       units: "K"
 
     - name: "ObsValue/dewPointTemperature"
       source: variables/dewPointTemperature
+      chunks: [1000000]
       longName: "Dew Point Temperature"
       units: "K"
 
     - name: "ObsValue/windDirection"
       source: variables/windDirection
+      chunks: [1000000]
       longName: "Wind Direction"
       units: "degree"
 
     - name: "ObsValue/windSpeed"
       source: variables/windSpeed
+      chunks: [1000000]
       longName: "Wind Speed"
       units: "m s-1"
 
     - name: "ObsValue/soilMoistureAvailability1"
       source: variables/soilMoistureAvailability1
+      chunks: [1000000]
       longName: "Soil Moisture Availability (1)"
       units: "%"
 
     - name: "ObsValue/soilMoistureAvailability2"
       source: variables/soilMoistureAvailability2
+      chunks: [1000000]
       longName: "Soil Moisture Availability (2)"
       units: "%"
 
     - name: "ObsValue/soilTemperature1"
       source: variables/soilTemperature1
+      chunks: [1000000]
       longName: "Soil Temperature (1)"
       units: "K"
 
     - name: "ObsValue/soilTemperature2"
       source: variables/soilTemperature2
+      chunks: [1000000]
       longName: "Soil Temperature (2)"
       units: "K"
 
     - name: "ObsValue/totalPrecipitation1"
       source: variables/totalPrecipitation1
+      chunks: [1000000]
       longName: "Total PRECIPITATION/TOTAL Water Equivalent (1)"
       units: "kg m-2"
 
     - name: "ObsValue/totalPrecipitation2"
       source: variables/totalPrecipitation2
+      chunks: [1000000]
       longName: "Total PRECIPITATION/TOTAL Water Equivalent (2)"
       units: "kg m-2"
 
     - name: "ObsValue/totalPrecipitation3"
       source: variables/totalPrecipitation3
+      chunks: [1000000]
       longName: "Total PRECIPITATION/TOTAL Water Equivalent (3)"
       units: "kg m-2"
 
     - name: "ObsValue/totalPrecipitation4"
       source: variables/totalPrecipitation4
+      chunks: [1000000]
       longName: "Total PRECIPITATION/TOTAL Water Equivalent (4)"
       units: "kg m-2"
 
     - name: "ObsValue/depthOfFreshSnow1"
       source: variables/depthOfFreshSnow1
+      chunks: [1000000]
       longName: "Depth Of Fresh Snow (1)"
       units: "m"
 
     - name: "ObsValue/depthOfFreshSnow2"
       source: variables/depthOfFreshSnow2
+      chunks: [1000000]
       longName: "Depth Of Fresh Snow (2)"
       units: "m"
 
     - name: "ObsValue/totalSnowDepth"
       source: variables/totalSnowDepth
+      chunks: [1000000]
       longName: "Total Snow Depth"
       units: "m"
 
     # QualityMarker
     - name: "QualityMarker/fslQcDataMntmdbsq"
       source: variables/fslQcDataMntmdbsq
+      chunks: [1000000]
       longName: "Fsl \"QC DATA\" Flag"
 
     - name: "QualityMarker/fslQcAppliedMntmdbsq"
       source: variables/fslQcAppliedMntmdbsq
+      chunks: [1000000]
       longName: "Fsl \"QC APPLIED\" Flag"
 
     - name: "QualityMarker/fslQcResultsMntmdbsq"
       source: variables/fslQcResultsMntmdbsq
+      chunks: [1000000]
       longName: "Fsl \"QC RESULTS\" Flag"
 
     - name: "QualityMarker/airTemperature"
       source: variables/airTemperature
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Temperature"
 
     - name: "QualityMarker/fslQcDataMntmdpsq"
       source: variables/fslQcDataMntmdpsq
+      chunks: [1000000]
       longName: "Fsl \"QC DATA\" Flag"
 
     - name: "QualityMarker/fslQcAppliedMntmdpsq"
       source: variables/fslQcAppliedMntmdpsq
+      chunks: [1000000]
       longName: "Fsl \"QC APPLIED\" Flag"
 
     - name: "QualityMarker/fslQcResultsMntmdpsq"
       source: variables/fslQcResultsMntmdpsq
+      chunks: [1000000]
       longName: "Fsl \"QC RESULTS\" Flag"
 
     - name: "QualityMarker/moisture"
       source: variables/moisture
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Moisture"
 
     - name: "QualityMarker/fslQcDataMnwdirsq"
       source: variables/fslQcDataMnwdirsq
+      chunks: [1000000]
       longName: "Fsl \"QC DATA\" Flag"
 
     - name: "QualityMarker/fslQcAppliedMnwdirsq"
       source: variables/fslQcAppliedMnwdirsq
+      chunks: [1000000]
       longName: "Fsl \"QC APPLIED\" Flag"
 
     - name: "QualityMarker/fslQcResultsMnwdirsq"
       source: variables/fslQcResultsMnwdirsq
+      chunks: [1000000]
       longName: "Fsl \"QC RESULTS\" Flag"
 
     - name: "QualityMarker/fslQcDataMnwspdsq"
       source: variables/fslQcDataMnwspdsq
+      chunks: [1000000]
       longName: "Fsl \"QC DATA\" Flag"
 
     - name: "QualityMarker/fslQcAppliedMnwspdsq"
       source: variables/fslQcAppliedMnwspdsq
+      chunks: [1000000]
       longName: "Fsl \"QC APPLIED\" Flag"
 
     - name: "QualityMarker/fslQcResultsMnwspdsq"
       source: variables/fslQcResultsMnwspdsq
+      chunks: [1000000]
       longName: "Fsl \"QC RESULTS\" Flag"
 
     - name: "QualityMarker/wind"
       source: variables/wind
+      chunks: [1000000]
       longName: "Sdmedit Quality Mark For Wind"
 
     - name: "QualityMarker/fslQcData11"
       source: variables/fslQcData11
+      chunks: [1000000]
       longName: "Fsl \"QC DATA\" Flag (1)"
 
     - name: "QualityMarker/fslQcData12"
       source: variables/fslQcData12
+      chunks: [1000000]
       longName: "Fsl \"QC DATA\" Flag (2)"
 
     - name: "QualityMarker/fslQcApplied11"
       source: variables/fslQcApplied11
+      chunks: [1000000]
       longName: "Fsl \"QC APPLIED\" Flag (1)"
 
     - name: "QualityMarker/fslQcApplied12"
       source: variables/fslQcApplied12
+      chunks: [1000000]
       longName: "Fsl \"QC APPLIED\" Flag (2)"
 
     - name: "QualityMarker/fslQcResults11"
       source: variables/fslQcResults11
+      chunks: [1000000]
       longName: "Fsl \"QC RESULTS\" Flag (1)"
 
     - name: "QualityMarker/fslQcResults12"
       source: variables/fslQcResults12
+      chunks: [1000000]
       longName: "Fsl \"QC RESULTS\" Flag (2)"
 
     - name: "QualityMarker/fslQcData21"
       source: variables/fslQcData21
+      chunks: [1000000]
       longName: "Fsl \"QC DATA\" Flag (1)"
 
     - name: "QualityMarker/fslQcData22"
       source: variables/fslQcData22
+      chunks: [1000000]
       longName: "Fsl \"QC DATA\" Flag (2)"
 
     - name: "QualityMarker/fslQcApplied21"
       source: variables/fslQcApplied21
+      chunks: [1000000]
       longName: "Fsl \"QC APPLIED\" Flag (1)"
 
     - name: "QualityMarker/fslQcApplied22"
       source: variables/fslQcApplied22
+      chunks: [1000000]
       longName: "Fsl \"QC APPLIED\" Flag (2)"
 
     - name: "QualityMarker/fslQcResults21"
       source: variables/fslQcResults21
+      chunks: [1000000]
       longName: "Fsl \"QC RESULTS\" Flag (1)"
 
     - name: "QualityMarker/fslQcResults22"
       source: variables/fslQcResults22
+      chunks: [1000000]
       longName: "Fsl \"QC RESULTS\" Flag (2)"
 
     - name: "QualityMarker/fslQcDataMntopcsq1"
       source: variables/fslQcDataMntopcsq1
+      chunks: [1000000]
       longName: "Fsl \"QC DATA\" Flag (1)"
 
     - name: "QualityMarker/fslQcDataMntopcsq2"
       source: variables/fslQcDataMntopcsq2
+      chunks: [1000000]
       longName: "Fsl \"QC DATA\" Flag (2)"
 
     - name: "QualityMarker/fslQcDataMntopcsq3"
       source: variables/fslQcDataMntopcsq3
+      chunks: [1000000]
       longName: "Fsl \"QC DATA\" Flag (3)"
 
     - name: "QualityMarker/fslQcDataMntopcsq4"
       source: variables/fslQcDataMntopcsq4
+      chunks: [1000000]
       longName: "Fsl \"QC DATA\" Flag (4)"
 
     - name: "QualityMarker/fslQcAppliedMntopcsq1"
       source: variables/fslQcAppliedMntopcsq1
+      chunks: [1000000]
       longName: "Fsl \"QC APPLIED\" Flag (1)"
 
     - name: "QualityMarker/fslQcAppliedMntopcsq2"
       source: variables/fslQcAppliedMntopcsq2
+      chunks: [1000000]
       longName: "Fsl \"QC APPLIED\" Flag (2)"
 
     - name: "QualityMarker/fslQcAppliedMntopcsq3"
       source: variables/fslQcAppliedMntopcsq3
+      chunks: [1000000]
       longName: "Fsl \"QC APPLIED\" Flag (3)"
 
     - name: "QualityMarker/fslQcAppliedMntopcsq4"
       source: variables/fslQcAppliedMntopcsq4
+      chunks: [1000000]
       longName: "Fsl \"QC APPLIED\" Flag (4)"
 
     - name: "QualityMarker/fslQcResultsMntopcsq1"
       source: variables/fslQcResultsMntopcsq1
+      chunks: [1000000]
       longName: "Fsl \"QC RESULTS\" Flag (1)"
 
     - name: "QualityMarker/fslQcResultsMntopcsq2"
       source: variables/fslQcResultsMntopcsq2
+      chunks: [1000000]
       longName: "Fsl \"QC RESULTS\" Flag (2)"
 
     - name: "QualityMarker/fslQcResultsMntopcsq3"
       source: variables/fslQcResultsMntopcsq3
+      chunks: [1000000]
       longName: "Fsl \"QC RESULTS\" Flag (3)"
 
     - name: "QualityMarker/fslQcResultsMntopcsq4"
       source: variables/fslQcResultsMntopcsq4
+      chunks: [1000000]
       longName: "Fsl \"QC RESULTS\" Flag (4)"
 
     - name: "QualityMarker/fslQcDataMndofssq1"
       source: variables/fslQcDataMndofssq1
+      chunks: [1000000]
       longName: "Fsl \"QC DATA\" Flag (1)"
 
     - name: "QualityMarker/fslQcDataMndofssq2"
       source: variables/fslQcDataMndofssq2
+      chunks: [1000000]
       longName: "Fsl \"QC DATA\" Flag (2)"
 
     - name: "QualityMarker/fslQcAppliedMndofssq1"
       source: variables/fslQcAppliedMndofssq1
+      chunks: [1000000]
       longName: "Fsl \"QC APPLIED\" Flag (1)"
 
     - name: "QualityMarker/fslQcAppliedMndofssq2"
       source: variables/fslQcAppliedMndofssq2
+      chunks: [1000000]
       longName: "Fsl \"QC APPLIED\" Flag (2)"
 
     - name: "QualityMarker/fslQcResultsMndofssq1"
       source: variables/fslQcResultsMndofssq1
+      chunks: [1000000]
       longName: "Fsl \"QC RESULTS\" Flag (1)"
 
     - name: "QualityMarker/fslQcResultsMndofssq2"
       source: variables/fslQcResultsMndofssq2
+      chunks: [1000000]
       longName: "Fsl \"QC RESULTS\" Flag (2)"
 
     - name: "QualityMarker/fslQcDataMntosdsq"
       source: variables/fslQcDataMntosdsq
+      chunks: [1000000]
       longName: "Fsl \"QC DATA\" Flag"
 
     - name: "QualityMarker/fslQcAppliedMntosdsq"
       source: variables/fslQcAppliedMntosdsq
+      chunks: [1000000]
       longName: "Fsl \"QC APPLIED\" Flag"
 
     - name: "QualityMarker/fslQcResultsMntosdsq"
       source: variables/fslQcResultsMntosdsq
+      chunks: [1000000]
       longName: "Fsl \"QC RESULTS\" Flag"

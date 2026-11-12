@@ -937,1156 +937,1409 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/receiptTime"
       source: variables/receiptTime
+      chunks: [1000000]
       longName: "Receipt Time"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/timePeriodMonths"
       source: variables/timePeriodMonths
+      chunks: [1000000]
       longName: "Time Period Or Displacement"
       units: "month"
 
     - name: "MetaData/timePeriodHours"
       source: variables/timePeriodHours
+      chunks: [1000000]
       longName: "Time Period Or Displacement"
       units: "h"
 
     - name: "MetaData/timePeriodMinutes"
       source: variables/timePeriodMinutes
+      chunks: [1000000]
       longName: "Time Period Or Displacement"
       units: "min"
 
     - name: "MetaData/sequenceNumber"
       source: variables/sequenceNumber
+      chunks: [1000000]
       longName: "Channel Sequence Number"
 
     - name: "MetaData/bulletinHeader"
       source: variables/bulletinHeader
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (TTAAii)"
 
     - name: "MetaData/bulletinOriginator"
       source: variables/bulletinOriginator
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (CCCC)"
 
     - name: "MetaData/bulletinTime"
       source: variables/bulletinTime
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (YYGGgg)"
 
     - name: "MetaData/bulletinBBB"
       source: variables/bulletinBBB
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (BBB)"
 
     - name: "MetaData/receiptTimeSignificance"
       source: variables/receiptTimeSignificance
+      chunks: [1000000]
       longName: "Receipt Time Significance"
 
     - name: "MetaData/stationIdentification"
       source: variables/stationIdentification
+      chunks: [1000000]
       longName: "Report Identifier"
 
     - name: "MetaData/stationElevation"
       source: variables/stationElevation
+      chunks: [1000000]
       longName: "Height Of Station Ground Above Msl"
       units: "m"
 
     - name: "MetaData/albedo"
       source: variables/albedo
+      chunks: [1000000]
       longName: "Albedo"
       units: "%"
 
     - name: "MetaData/riverStageHeightGageHeight"
       source: variables/riverStageHeightGageHeight
+      chunks: [1000000]
       longName: "River Stage Height (GAGE HEIGHT)"
       units: "m"
 
     - name: "MetaData/depthBelowLandSurfaceShstm1sq"
       source: variables/depthBelowLandSurfaceShstm1sq
+      chunks: [1000000]
       longName: "Depth Below Land Surface"
       units: "m"
 
     - name: "MetaData/depthBelowLandSurfaceShstm2sq"
       source: variables/depthBelowLandSurfaceShstm2sq
+      chunks: [1000000]
       longName: "Depth Below Land Surface"
       units: "m"
 
     - name: "MetaData/depthBelowLandSurfaceShxst1sq"
       source: variables/depthBelowLandSurfaceShxst1sq
+      chunks: [1000000]
       longName: "Depth Below Land Surface"
       units: "m"
 
     - name: "MetaData/depthBelowLandSurfaceShxst2sq"
       source: variables/depthBelowLandSurfaceShxst2sq
+      chunks: [1000000]
       longName: "Depth Below Land Surface"
       units: "m"
 
     - name: "MetaData/depthBelowLandSurfaceShist1sq"
       source: variables/depthBelowLandSurfaceShist1sq
+      chunks: [1000000]
       longName: "Depth Below Land Surface"
       units: "m"
 
     - name: "MetaData/depthBelowLandSurfaceShist2sq"
       source: variables/depthBelowLandSurfaceShist2sq
+      chunks: [1000000]
       longName: "Depth Below Land Surface"
       units: "m"
 
     # ObsValue
     - name: "ObsValue/airPressure"
       source: variables/airPressure
+      chunks: [1000000]
       longName: "Pressure"
       units: "Pa"
 
     - name: "ObsValue/pressureReducedToMeanSeaLevel"
       source: variables/pressureReducedToMeanSeaLevel
+      chunks: [1000000]
       longName: "Pressure Reduced To Msl"
       units: "Pa"
 
     - name: "ObsValue/totalPrecipitation"
       source: variables/totalPrecipitation
+      chunks: [1000000]
       longName: "Total PRECIPITATION/TOTAL Water Equivalent"
       units: "kg m-2"
 
     - name: "ObsValue/typeOfPrecipitation"
       source: variables/typeOfPrecipitation
+      chunks: [1000000]
       longName: "Type Of Precipitation"
 
     - name: "ObsValue/depthOfFreshSnow"
       source: variables/depthOfFreshSnow
+      chunks: [1000000]
       longName: "Depth Of Fresh Snow"
       units: "m"
 
     - name: "ObsValue/totalSnowDepth"
       source: variables/totalSnowDepth
+      chunks: [1000000]
       longName: "Total Snow Depth"
       units: "m"
 
     - name: "ObsValue/snowWaterEquivalent"
       source: variables/snowWaterEquivalent
+      chunks: [1000000]
       longName: "Snow Water Equivalent"
       units: "kg m-2"
 
     - name: "ObsValue/airTemperature"
       source: variables/airTemperature
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature"
       units: "K"
 
     - name: "ObsValue/maximumTemperature"
       source: variables/maximumTemperature
+      chunks: [1000000]
       longName: "Maximum Temperature"
       units: "K"
 
     - name: "ObsValue/minimumTemperature"
       source: variables/minimumTemperature
+      chunks: [1000000]
       longName: "Minimum Temperature"
       units: "K"
 
     - name: "ObsValue/waterTemperature"
       source: variables/waterTemperature
+      chunks: [1000000]
       longName: "Water Temperature"
       units: "K"
 
     - name: "ObsValue/wetBulbTemperature"
       source: variables/wetBulbTemperature
+      chunks: [1000000]
       longName: "Wet Bulb Temperature"
       units: "K"
 
     - name: "ObsValue/relativeHumidity"
       source: variables/relativeHumidity
+      chunks: [1000000]
       longName: "Relative Humidity"
       units: "%"
 
     - name: "ObsValue/maximumRelativeHumidity"
       source: variables/maximumRelativeHumidity
+      chunks: [1000000]
       longName: "Maximum Relative Humidity"
       units: "%"
 
     - name: "ObsValue/minimumRelativeHumidity"
       source: variables/minimumRelativeHumidity
+      chunks: [1000000]
       longName: "Minimum Relative Humidity"
       units: "%"
 
     - name: "ObsValue/dewPointTemperature"
       source: variables/dewPointTemperature
+      chunks: [1000000]
       longName: "Dew Point Temperature"
       units: "K"
 
     - name: "ObsValue/waterConductivity"
       source: variables/waterConductivity
+      chunks: [1000000]
       longName: "Water Conductivity"
       units: "S m-1"
 
     - name: "ObsValue/windDirection"
       source: variables/windDirection
+      chunks: [1000000]
       longName: "Wind Direction"
       units: "degree"
 
     - name: "ObsValue/windSpeed"
       source: variables/windSpeed
+      chunks: [1000000]
       longName: "Wind Speed"
       units: "m s-1"
 
     - name: "ObsValue/maximumWindGustSpeed"
       source: variables/maximumWindGustSpeed
+      chunks: [1000000]
       longName: "Maximum Wind Speed (GUSTS)"
       units: "m s-1"
 
     - name: "ObsValue/peakWindDirection"
       source: variables/peakWindDirection
+      chunks: [1000000]
       longName: "Peak Wind Direction"
       units: "degree"
 
     - name: "ObsValue/peakWindSpeed"
       source: variables/peakWindSpeed
+      chunks: [1000000]
       longName: "Peak Wind Speed"
       units: "m s-1"
 
     - name: "ObsValue/presentWeather"
       source: variables/presentWeather
+      chunks: [1000000]
       longName: "Present Weather"
 
     - name: "ObsValue/pastWeather1"
       source: variables/pastWeather1
+      chunks: [1000000]
       longName: "Past Weather (1)"
 
     - name: "ObsValue/cloudAmount"
       source: variables/cloudAmount
+      chunks: [1000000]
       longName: "Cloud Amount"
 
     - name: "ObsValue/horizontalVisibility"
       source: variables/horizontalVisibility
+      chunks: [1000000]
       longName: "Horizontal Visibility"
       units: "m"
 
     - name: "ObsValue/totalSunshine"
       source: variables/totalSunshine
+      chunks: [1000000]
       longName: "Total Sunshine"
       units: "h"
 
     - name: "ObsValue/groundState"
       source: variables/groundState
+      chunks: [1000000]
       longName: "State Of The Ground"
 
     - name: "ObsValue/tideElevWithRespectToMeanLowerLowWater"
       source: variables/tideElevWithRespectToMeanLowerLowWater
+      chunks: [1000000]
       longName: "Tide ELEV. With Respect To Mean Lower Low Water"
       units: "m"
 
     - name: "ObsValue/speedOfCurrent"
       source: variables/speedOfCurrent
+      chunks: [1000000]
       longName: "Speed Of Current"
       units: "m s-1"
 
     - name: "ObsValue/tidalElevWithRespectToChart"
       source: variables/tidalElevWithRespectToChart
+      chunks: [1000000]
       longName: "Tidal Elev With Respect To Chart"
       units: "m"
 
     - name: "ObsValue/soilTemperatureShstm1sq"
       source: variables/soilTemperatureShstm1sq
+      chunks: [1000000]
       longName: "Soil Temperature"
       units: "K"
 
     - name: "ObsValue/soilTemperatureShstm2sq"
       source: variables/soilTemperatureShstm2sq
+      chunks: [1000000]
       longName: "Soil Temperature"
       units: "K"
 
     - name: "ObsValue/maximumSoilTemperatureShxst1sq"
       source: variables/maximumSoilTemperatureShxst1sq
+      chunks: [1000000]
       longName: "Maximum Soil Temperature"
       units: "K"
 
     - name: "ObsValue/maximumSoilTemperatureShxst2sq"
       source: variables/maximumSoilTemperatureShxst2sq
+      chunks: [1000000]
       longName: "Maximum Soil Temperature"
       units: "K"
 
     - name: "ObsValue/minimumSoilTemperatureShist1sq"
       source: variables/minimumSoilTemperatureShist1sq
+      chunks: [1000000]
       longName: "Minimum Soil Temperature"
       units: "K"
 
     - name: "ObsValue/minimumSoilTemperatureShist2sq"
       source: variables/minimumSoilTemperatureShist2sq
+      chunks: [1000000]
       longName: "Minimum Soil Temperature"
       units: "K"
 
     # QualityMarker
     - name: "QualityMarker/shefRevisionFlagShpressq"
       source: variables/shefRevisionFlagShpressq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShpressq"
       source: variables/shefQualifierFlagShpressq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShpmslsq"
       source: variables/shefRevisionFlagShpmslsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShpmslsq"
       source: variables/shefQualifierFlagShpmslsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShtopcsq"
       source: variables/shefRevisionFlagShtopcsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShtopcsq"
       source: variables/shefQualifierFlagShtopcsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShprtpsq"
       source: variables/shefRevisionFlagShprtpsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShprtpsq"
       source: variables/shefQualifierFlagShprtpsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShdofssq"
       source: variables/shefRevisionFlagShdofssq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShdofssq"
       source: variables/shefQualifierFlagShdofssq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShtosdsq"
       source: variables/shefRevisionFlagShtosdsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShtosdsq"
       source: variables/shefQualifierFlagShtosdsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShswemsq"
       source: variables/shefRevisionFlagShswemsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShswemsq"
       source: variables/shefQualifierFlagShswemsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShtmdbsq"
       source: variables/shefRevisionFlagShtmdbsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShtmdbsq"
       source: variables/shefQualifierFlagShtmdbsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShmxtmsq"
       source: variables/shefRevisionFlagShmxtmsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShmxtmsq"
       source: variables/shefQualifierFlagShmxtmsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShmitmsq"
       source: variables/shefRevisionFlagShmitmsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShmitmsq"
       source: variables/shefQualifierFlagShmitmsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShwatmsq"
       source: variables/shefRevisionFlagShwatmsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShwatmsq"
       source: variables/shefQualifierFlagShwatmsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShtmwbsq"
       source: variables/shefRevisionFlagShtmwbsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShtmwbsq"
       source: variables/shefQualifierFlagShtmwbsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShrehusq"
       source: variables/shefRevisionFlagShrehusq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShrehusq"
       source: variables/shefQualifierFlagShrehusq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShmxrhsq"
       source: variables/shefRevisionFlagShmxrhsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShmxrhsq"
       source: variables/shefQualifierFlagShmxrhsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShmirhsq"
       source: variables/shefRevisionFlagShmirhsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShmirhsq"
       source: variables/shefQualifierFlagShmirhsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShtmdpsq"
       source: variables/shefRevisionFlagShtmdpsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShtmdpsq"
       source: variables/shefQualifierFlagShtmdpsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShwacnsq"
       source: variables/shefRevisionFlagShwacnsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShwacnsq"
       source: variables/shefQualifierFlagShwacnsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShwdirsq"
       source: variables/shefRevisionFlagShwdirsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShwdirsq"
       source: variables/shefQualifierFlagShwdirsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShwspdsq"
       source: variables/shefRevisionFlagShwspdsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShwspdsq"
       source: variables/shefQualifierFlagShwspdsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShmxgssq"
       source: variables/shefRevisionFlagShmxgssq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShmxgssq"
       source: variables/shefQualifierFlagShmxgssq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShpkwdsq"
       source: variables/shefRevisionFlagShpkwdsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShpkwdsq"
       source: variables/shefQualifierFlagShpkwdsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShpkwssq"
       source: variables/shefRevisionFlagShpkwssq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShpkwssq"
       source: variables/shefQualifierFlagShpkwssq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShprwesq"
       source: variables/shefRevisionFlagShprwesq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShprwesq"
       source: variables/shefQualifierFlagShprwesq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShpsw1sq"
       source: variables/shefRevisionFlagShpsw1sq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShpsw1sq"
       source: variables/shefQualifierFlagShpsw1sq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShclamsq"
       source: variables/shefRevisionFlagShclamsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShclamsq"
       source: variables/shefQualifierFlagShclamsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShhovisq"
       source: variables/shefRevisionFlagShhovisq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShhovisq"
       source: variables/shefQualifierFlagShhovisq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShalbdsq"
       source: variables/shefRevisionFlagShalbdsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShalbdsq"
       source: variables/shefQualifierFlagShalbdsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShtoshsq"
       source: variables/shefRevisionFlagShtoshsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShtoshsq"
       source: variables/shefQualifierFlagShtoshsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShsogrsq"
       source: variables/shefRevisionFlagShsogrsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShsogrsq"
       source: variables/shefQualifierFlagShsogrsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShrshmsq"
       source: variables/shefRevisionFlagShrshmsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShrshmsq"
       source: variables/shefQualifierFlagShrshmsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShtllwsq"
       source: variables/shefRevisionFlagShtllwsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShtllwsq"
       source: variables/shefQualifierFlagShtllwsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShspocsq"
       source: variables/shefRevisionFlagShspocsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShspocsq"
       source: variables/shefQualifierFlagShspocsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShtercsq"
       source: variables/shefRevisionFlagShtercsq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShtercsq"
       source: variables/shefQualifierFlagShtercsq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShstm1sq"
       source: variables/shefRevisionFlagShstm1sq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShstm1sq"
       source: variables/shefQualifierFlagShstm1sq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShstm2sq"
       source: variables/shefRevisionFlagShstm2sq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShstm2sq"
       source: variables/shefQualifierFlagShstm2sq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShxst1sq"
       source: variables/shefRevisionFlagShxst1sq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShxst1sq"
       source: variables/shefQualifierFlagShxst1sq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShxst2sq"
       source: variables/shefRevisionFlagShxst2sq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShxst2sq"
       source: variables/shefQualifierFlagShxst2sq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShist1sq"
       source: variables/shefRevisionFlagShist1sq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShist1sq"
       source: variables/shefQualifierFlagShist1sq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     - name: "QualityMarker/shefRevisionFlagShist2sq"
       source: variables/shefRevisionFlagShist2sq
+      chunks: [1000000]
       longName: "Shef Data Revision Flag"
 
     - name: "QualityMarker/shefQualifierFlagShist2sq"
       source: variables/shefQualifierFlagShist2sq
+      chunks: [1000000]
       longName: "Shef Data Qualifier Flag"
 
     # Not in this tank: read as missing so the dataset has one set of variables
     - name: "MetaData/stationType"
       source: variables/stationType
+      chunks: [1000000]
       longName: "Type Of Station"
 
     - name: "MetaData/timeIncrementInMinutes"
       source: variables/timeIncrementInMinutes
+      chunks: [1000000]
       longName: "Time Increment In Minutes"
       units: "min"
 
     - name: "MetaData/rawReportString"
       source: variables/rawReportString
+      chunks: [1000000]
       longName: "Raw Report String"
 
     - name: "ObsValue/seaSurfaceTemperatureSST1"
       source: variables/seaSurfaceTemperatureSST1
+      chunks: [1000000]
       longName: "Sea Temperature"
       units: "K"
 
     - name: "ObsValue/tideStationAutomatedWaterDataCheck"
       source: variables/tideStationAutomatedWaterDataCheck
+      chunks: [1000000]
       longName: "Tide Station Automated Water Data Check"
 
     - name: "ObsValue/tideStationManualWaterDataCheck"
       source: variables/tideStationManualWaterDataCheck
+      chunks: [1000000]
       longName: "Tide Station Manual Water Data Check"
 
     - name: "ObsValue/tidalElevWithRespectToChart1"
       source: variables/tidalElevWithRespectToChart1
+      chunks: [1000000]
       longName: "Tidal Elev With Respect To Chart (1)"
       units: "m"
 
     - name: "ObsValue/tidalElevWithRespectToChart2"
       source: variables/tidalElevWithRespectToChart2
+      chunks: [1000000]
       longName: "Tidal Elev With Respect To Chart (2)"
       units: "m"
 
     - name: "ObsValue/tidalElevWithRespectToChart3"
       source: variables/tidalElevWithRespectToChart3
+      chunks: [1000000]
       longName: "Tidal Elev With Respect To Chart (3)"
       units: "m"
 
     - name: "ObsValue/tidalElevWithRespectToChart4"
       source: variables/tidalElevWithRespectToChart4
+      chunks: [1000000]
       longName: "Tidal Elev With Respect To Chart (4)"
       units: "m"
 
     - name: "ObsValue/tidalElevWithRespectToChart5"
       source: variables/tidalElevWithRespectToChart5
+      chunks: [1000000]
       longName: "Tidal Elev With Respect To Chart (5)"
       units: "m"
 
     - name: "ObsValue/tidalElevWithRespectToChart6"
       source: variables/tidalElevWithRespectToChart6
+      chunks: [1000000]
       longName: "Tidal Elev With Respect To Chart (6)"
       units: "m"
 
     - name: "ObsValue/tidalElevWithRespectToChart7"
       source: variables/tidalElevWithRespectToChart7
+      chunks: [1000000]
       longName: "Tidal Elev With Respect To Chart (7)"
       units: "m"
 
     - name: "ObsValue/tidalElevWithRespectToChart8"
       source: variables/tidalElevWithRespectToChart8
+      chunks: [1000000]
       longName: "Tidal Elev With Respect To Chart (8)"
       units: "m"
 
     - name: "ObsValue/tidalElevWithRespectToChart9"
       source: variables/tidalElevWithRespectToChart9
+      chunks: [1000000]
       longName: "Tidal Elev With Respect To Chart (9)"
       units: "m"
 
     - name: "ObsValue/tidalElevWithRespectToChart10"
       source: variables/tidalElevWithRespectToChart10
+      chunks: [1000000]
       longName: "Tidal Elev With Respect To Chart (10)"
       units: "m"
 
     - name: "ObsValue/tidalElevWithRespectToChart11"
       source: variables/tidalElevWithRespectToChart11
+      chunks: [1000000]
       longName: "Tidal Elev With Respect To Chart (11)"
       units: "m"
 
     - name: "ObsValue/tidalElevWithRespectToChart12"
       source: variables/tidalElevWithRespectToChart12
+      chunks: [1000000]
       longName: "Tidal Elev With Respect To Chart (12)"
       units: "m"
 
     - name: "ObsValue/meteorologicalResidualTidalElevation1"
       source: variables/meteorologicalResidualTidalElevation1
+      chunks: [1000000]
       longName: "Meteorological Residual Tidal Elevation (1)"
       units: "m"
 
     - name: "ObsValue/meteorologicalResidualTidalElevation2"
       source: variables/meteorologicalResidualTidalElevation2
+      chunks: [1000000]
       longName: "Meteorological Residual Tidal Elevation (2)"
       units: "m"
 
     - name: "ObsValue/meteorologicalResidualTidalElevation3"
       source: variables/meteorologicalResidualTidalElevation3
+      chunks: [1000000]
       longName: "Meteorological Residual Tidal Elevation (3)"
       units: "m"
 
     - name: "ObsValue/meteorologicalResidualTidalElevation4"
       source: variables/meteorologicalResidualTidalElevation4
+      chunks: [1000000]
       longName: "Meteorological Residual Tidal Elevation (4)"
       units: "m"
 
     - name: "ObsValue/meteorologicalResidualTidalElevation5"
       source: variables/meteorologicalResidualTidalElevation5
+      chunks: [1000000]
       longName: "Meteorological Residual Tidal Elevation (5)"
       units: "m"
 
     - name: "ObsValue/meteorologicalResidualTidalElevation6"
       source: variables/meteorologicalResidualTidalElevation6
+      chunks: [1000000]
       longName: "Meteorological Residual Tidal Elevation (6)"
       units: "m"
 
     - name: "ObsValue/meteorologicalResidualTidalElevation7"
       source: variables/meteorologicalResidualTidalElevation7
+      chunks: [1000000]
       longName: "Meteorological Residual Tidal Elevation (7)"
       units: "m"
 
     - name: "ObsValue/meteorologicalResidualTidalElevation8"
       source: variables/meteorologicalResidualTidalElevation8
+      chunks: [1000000]
       longName: "Meteorological Residual Tidal Elevation (8)"
       units: "m"
 
     - name: "ObsValue/meteorologicalResidualTidalElevation9"
       source: variables/meteorologicalResidualTidalElevation9
+      chunks: [1000000]
       longName: "Meteorological Residual Tidal Elevation (9)"
       units: "m"
 
     - name: "ObsValue/meteorologicalResidualTidalElevation10"
       source: variables/meteorologicalResidualTidalElevation10
+      chunks: [1000000]
       longName: "Meteorological Residual Tidal Elevation (10)"
       units: "m"
 
     - name: "ObsValue/meteorologicalResidualTidalElevation11"
       source: variables/meteorologicalResidualTidalElevation11
+      chunks: [1000000]
       longName: "Meteorological Residual Tidal Elevation (11)"
       units: "m"
 
     - name: "ObsValue/meteorologicalResidualTidalElevation12"
       source: variables/meteorologicalResidualTidalElevation12
+      chunks: [1000000]
       longName: "Meteorological Residual Tidal Elevation (12)"
       units: "m"
 
     - name: "ObsValue/tideStationAutomatedMeteorologicalDataCheck"
       source: variables/tideStationAutomatedMeteorologicalDataCheck
+      chunks: [1000000]
       longName: "Tide Station Automated Meteorological Data Check"
 
     - name: "ObsValue/tideStationManualMeteorologicalDataCheck"
       source: variables/tideStationManualMeteorologicalDataCheck
+      chunks: [1000000]
       longName: "Tide Station Manual Meteorological Data Check"
 
     - name: "ObsValue/airTemperatureTMDB"
       source: variables/airTemperatureTMDB
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature"
       units: "K"
 
     - name: "QualityMarker/correctedReportIndicator"
       source: variables/correctedReportIndicator
+      chunks: [1000000]
       longName: "Corrected Report Indicator"
 
     - name: "QualityMarker/seaSurfaceTemperature"
       source: variables/seaSurfaceTemperature
+      chunks: [1000000]
       longName: "SDMEDIT/QUIPS Quality Mark For Sea Surface Temperature"
 
     - name: "QualityMarker/airTemperature"
       source: variables/QualityMarker_airTemperature
+      chunks: [1000000]
       longName: "SDMEDIT/QUIPS Quality Mark For Temperature"
 
     - name: "QualityMarker/pressure"
       source: variables/pressure
+      chunks: [1000000]
       longName: "SDMEDIT/QUIPS Quality Mark For Pressure"
 
     - name: "QualityMarker/wind"
       source: variables/wind
+      chunks: [1000000]
       longName: "SDMEDIT/QUIPS Quality Mark For Wind"
 
     - name: "MetaData/shipCallSign"
       source: variables/shipCallSign
+      chunks: [1000000]
       longName: "Ship Call Sign (8 CHARACTERS)"
 
     - name: "MetaData/buoyPlatformIdentifier"
       source: variables/buoyPlatformIdentifier
+      chunks: [1000000]
       longName: "BUOY/PLATFORM Identifier"
 
     - name: "MetaData/stationaryBuoyIdentifier"
       source: variables/stationaryBuoyIdentifier
+      chunks: [1000000]
       longName: "Stationary Buoy Platform Id"
 
     - name: "MetaData/indTypeOfStationOperationPastPresentWeather"
       source: variables/indTypeOfStationOperationPastPresentWeather
+      chunks: [1000000]
       longName: "Ind Type Of Station Operation PAST/PRESENT Weather"
 
     - name: "MetaData/windInstrumentationType"
       source: variables/windInstrumentationType
+      chunks: [1000000]
       longName: "Type Of Instrumentation For Wind Measurement"
 
     - name: "MetaData/methodOfSeaSurfaceTemperatureMeasurement"
       source: variables/methodOfSeaSurfaceTemperatureMeasurement
+      chunks: [1000000]
       longName: "Method Of Sea Surface Temperature Measurement"
 
     - name: "MetaData/methodOfWetBulbTemperatureMeasurement"
       source: variables/methodOfWetBulbTemperatureMeasurement
+      chunks: [1000000]
       longName: "Method Of Wet Bulb Temperature Measurement"
 
     - name: "MetaData/year"
       source: variables/year
+      chunks: [1000000]
       longName: "Year"
       units: "year"
 
     - name: "MetaData/month"
       source: variables/month
+      chunks: [1000000]
       longName: "Month"
       units: "month"
 
     - name: "MetaData/day"
       source: variables/day
+      chunks: [1000000]
       longName: "Day"
       units: "day"
 
     - name: "MetaData/hour"
       source: variables/hour
+      chunks: [1000000]
       longName: "Hour"
       units: "h"
 
     - name: "MetaData/minute"
       source: variables/minute
+      chunks: [1000000]
       longName: "Minute"
       units: "min"
 
     - name: "MetaData/timePeriodMinutes1"
       source: variables/timePeriodMinutes1
+      chunks: [1000000]
       longName: "Time Period Or Displacement (1)"
       units: "min"
 
     - name: "MetaData/timePeriodMinutes2"
       source: variables/timePeriodMinutes2
+      chunks: [1000000]
       longName: "Time Period Or Displacement (2)"
       units: "min"
 
     - name: "MetaData/timePeriodMinutes3"
       source: variables/timePeriodMinutes3
+      chunks: [1000000]
       longName: "Time Period Or Displacement (3)"
       units: "min"
 
     - name: "MetaData/timePeriodMinutes4"
       source: variables/timePeriodMinutes4
+      chunks: [1000000]
       longName: "Time Period Or Displacement (4)"
       units: "min"
 
     - name: "MetaData/timePeriodMinutes5"
       source: variables/timePeriodMinutes5
+      chunks: [1000000]
       longName: "Time Period Or Displacement (5)"
       units: "min"
 
     - name: "MetaData/timePeriodMinutes6"
       source: variables/timePeriodMinutes6
+      chunks: [1000000]
       longName: "Time Period Or Displacement (6)"
       units: "min"
 
     - name: "MetaData/timePeriodMinutes7"
       source: variables/timePeriodMinutes7
+      chunks: [1000000]
       longName: "Time Period Or Displacement (7)"
       units: "min"
 
     - name: "MetaData/timePeriodMinutes8"
       source: variables/timePeriodMinutes8
+      chunks: [1000000]
       longName: "Time Period Or Displacement (8)"
       units: "min"
 
     - name: "MetaData/timePeriodMinutes9"
       source: variables/timePeriodMinutes9
+      chunks: [1000000]
       longName: "Time Period Or Displacement (9)"
       units: "min"
 
     - name: "MetaData/timePeriodMinutes10"
       source: variables/timePeriodMinutes10
+      chunks: [1000000]
       longName: "Time Period Or Displacement (10)"
       units: "min"
 
     - name: "MetaData/timePeriodMinutes11"
       source: variables/timePeriodMinutes11
+      chunks: [1000000]
       longName: "Time Period Or Displacement (11)"
       units: "min"
 
     - name: "MetaData/timePeriodMinutes12"
       source: variables/timePeriodMinutes12
+      chunks: [1000000]
       longName: "Time Period Or Displacement (12)"
       units: "min"
 
     - name: "ObsValue/indicInclusionOmissionOfPrec"
       source: variables/indicInclusionOmissionOfPrec
+      chunks: [1000000]
       longName: "Indic INCLUSION/OMISSION Of Prec"
 
     - name: "ObsValue/v10MeterExtrapolatedWindSpeed"
       source: variables/v10MeterExtrapolatedWindSpeed
+      chunks: [1000000]
       longName: "10 Meter Extrapolated Wind Speed"
       units: "m s-1"
 
     - name: "ObsValue/v20MeterExtrapolatedWindSpeed"
       source: variables/v20MeterExtrapolatedWindSpeed
+      chunks: [1000000]
       longName: "20 Meter Extrapolated Wind Speed"
       units: "m s-1"
 
     - name: "ObsValue/pressureTendencyCharacteristic"
       source: variables/pressureTendencyCharacteristic
+      chunks: [1000000]
       longName: "Characteristic Of Pressure Tendency"
 
     - name: "ObsValue/pressureChange3Hour"
       source: variables/pressureChange3Hour
+      chunks: [1000000]
       longName: "3 Hour Pressure Change"
       units: "Pa"
 
     - name: "ObsValue/totalPrecipitationPast6Hours"
       source: variables/totalPrecipitationPast6Hours
+      chunks: [1000000]
       longName: "Total Precipitation Past 6 Hours"
       units: "kg m-2"
 
     - name: "ObsValue/totalPrecipitationPast1Hour"
       source: variables/totalPrecipitationPast1Hour
+      chunks: [1000000]
       longName: "Total Precipitation Past 1 Hour"
       units: "kg m-2"
 
     - name: "ObsValue/totalPrecipitationPast3Hours"
       source: variables/totalPrecipitationPast3Hours
+      chunks: [1000000]
       longName: "Total Precipitation Past 3 Hours"
       units: "kg m-2"
 
     - name: "ObsValue/totalPrecipitationPast12Hours"
       source: variables/totalPrecipitationPast12Hours
+      chunks: [1000000]
       longName: "Total Precipitation Past 12 Hours"
       units: "kg m-2"
 
     - name: "ObsValue/totalPrecipitationPast24Hours"
       source: variables/totalPrecipitationPast24Hours
+      chunks: [1000000]
       longName: "Total Precipitation Past 24 Hours"
       units: "kg m-2"
 
     - name: "ObsValue/pastWeather2"
       source: variables/pastWeather2
+      chunks: [1000000]
       longName: "Past Weather (2)"
 
     - name: "ObsValue/wavePeriod"
       source: variables/wavePeriod
+      chunks: [1000000]
       longName: "Period Of Waves"
       units: "s"
 
     - name: "ObsValue/waveHeight"
       source: variables/waveHeight
+      chunks: [1000000]
       longName: "Height Of Waves"
       units: "m"
 
     - name: "ObsValue/windWavePeriod"
       source: variables/windWavePeriod
+      chunks: [1000000]
       longName: "Period Of Wind Waves"
       units: "s"
 
     - name: "ObsValue/windWaveHeight"
       source: variables/windWaveHeight
+      chunks: [1000000]
       longName: "Height Of Wind Waves"
       units: "m"
 
     - name: "ObsValue/swellWaveDirection1"
       source: variables/swellWaveDirection1
+      chunks: [1000000]
       longName: "Direction Of Swell Waves (1)"
       units: "degree"
 
     - name: "ObsValue/swellWaveDirection2"
       source: variables/swellWaveDirection2
+      chunks: [1000000]
       longName: "Direction Of Swell Waves (2)"
       units: "degree"
 
     - name: "ObsValue/swellWaveDirection3"
       source: variables/swellWaveDirection3
+      chunks: [1000000]
       longName: "Direction Of Swell Waves (3)"
       units: "degree"
 
     - name: "ObsValue/swellWaveDirection4"
       source: variables/swellWaveDirection4
+      chunks: [1000000]
       longName: "Direction Of Swell Waves (4)"
       units: "degree"
 
     - name: "ObsValue/swellWavePeriod1"
       source: variables/swellWavePeriod1
+      chunks: [1000000]
       longName: "Period Of Swell Waves (1)"
       units: "s"
 
     - name: "ObsValue/swellWavePeriod2"
       source: variables/swellWavePeriod2
+      chunks: [1000000]
       longName: "Period Of Swell Waves (2)"
       units: "s"
 
     - name: "ObsValue/swellWavePeriod3"
       source: variables/swellWavePeriod3
+      chunks: [1000000]
       longName: "Period Of Swell Waves (3)"
       units: "s"
 
     - name: "ObsValue/swellWavePeriod4"
       source: variables/swellWavePeriod4
+      chunks: [1000000]
       longName: "Period Of Swell Waves (4)"
       units: "s"
 
     - name: "ObsValue/swellWaveHeight1"
       source: variables/swellWaveHeight1
+      chunks: [1000000]
       longName: "Height Of Swell Waves (1)"
       units: "m"
 
     - name: "ObsValue/swellWaveHeight2"
       source: variables/swellWaveHeight2
+      chunks: [1000000]
       longName: "Height Of Swell Waves (2)"
       units: "m"
 
     - name: "ObsValue/swellWaveHeight3"
       source: variables/swellWaveHeight3
+      chunks: [1000000]
       longName: "Height Of Swell Waves (3)"
       units: "m"
 
     - name: "ObsValue/swellWaveHeight4"
       source: variables/swellWaveHeight4
+      chunks: [1000000]
       longName: "Height Of Swell Waves (4)"
       units: "m"
 
     - name: "ObsValue/continuousWindDirectionInDegrees1"
       source: variables/continuousWindDirectionInDegrees1
+      chunks: [1000000]
       longName: "Continuous Wind Direction In Degrees (1)"
       units: "degree"
 
     - name: "ObsValue/continuousWindDirectionInDegrees2"
       source: variables/continuousWindDirectionInDegrees2
+      chunks: [1000000]
       longName: "Continuous Wind Direction In Degrees (2)"
       units: "degree"
 
     - name: "ObsValue/continuousWindDirectionInDegrees3"
       source: variables/continuousWindDirectionInDegrees3
+      chunks: [1000000]
       longName: "Continuous Wind Direction In Degrees (3)"
       units: "degree"
 
     - name: "ObsValue/continuousWindDirectionInDegrees4"
       source: variables/continuousWindDirectionInDegrees4
+      chunks: [1000000]
       longName: "Continuous Wind Direction In Degrees (4)"
       units: "degree"
 
     - name: "ObsValue/continuousWindDirectionInDegrees5"
       source: variables/continuousWindDirectionInDegrees5
+      chunks: [1000000]
       longName: "Continuous Wind Direction In Degrees (5)"
       units: "degree"
 
     - name: "ObsValue/continuousWindDirectionInDegrees6"
       source: variables/continuousWindDirectionInDegrees6
+      chunks: [1000000]
       longName: "Continuous Wind Direction In Degrees (6)"
       units: "degree"
 
     - name: "ObsValue/continuousWindDirectionInDegrees7"
       source: variables/continuousWindDirectionInDegrees7
+      chunks: [1000000]
       longName: "Continuous Wind Direction In Degrees (7)"
       units: "degree"
 
     - name: "ObsValue/continuousWindDirectionInDegrees8"
       source: variables/continuousWindDirectionInDegrees8
+      chunks: [1000000]
       longName: "Continuous Wind Direction In Degrees (8)"
       units: "degree"
 
     - name: "ObsValue/continuousWindDirectionInDegrees9"
       source: variables/continuousWindDirectionInDegrees9
+      chunks: [1000000]
       longName: "Continuous Wind Direction In Degrees (9)"
       units: "degree"
 
     - name: "ObsValue/continuousWindDirectionInDegrees10"
       source: variables/continuousWindDirectionInDegrees10
+      chunks: [1000000]
       longName: "Continuous Wind Direction In Degrees (10)"
       units: "degree"
 
     - name: "ObsValue/continuousWindDirectionInDegrees11"
       source: variables/continuousWindDirectionInDegrees11
+      chunks: [1000000]
       longName: "Continuous Wind Direction In Degrees (11)"
       units: "degree"
 
     - name: "ObsValue/continuousWindDirectionInDegrees12"
       source: variables/continuousWindDirectionInDegrees12
+      chunks: [1000000]
       longName: "Continuous Wind Direction In Degrees (12)"
       units: "degree"
 
     - name: "ObsValue/continuousWindSpeedInMSec1"
       source: variables/continuousWindSpeedInMSec1
+      chunks: [1000000]
       longName: "Continuous Wind Speed In M/SEC (1)"
       units: "m s-1"
 
     - name: "ObsValue/continuousWindSpeedInMSec2"
       source: variables/continuousWindSpeedInMSec2
+      chunks: [1000000]
       longName: "Continuous Wind Speed In M/SEC (2)"
       units: "m s-1"
 
     - name: "ObsValue/continuousWindSpeedInMSec3"
       source: variables/continuousWindSpeedInMSec3
+      chunks: [1000000]
       longName: "Continuous Wind Speed In M/SEC (3)"
       units: "m s-1"
 
     - name: "ObsValue/continuousWindSpeedInMSec4"
       source: variables/continuousWindSpeedInMSec4
+      chunks: [1000000]
       longName: "Continuous Wind Speed In M/SEC (4)"
       units: "m s-1"
 
     - name: "ObsValue/continuousWindSpeedInMSec5"
       source: variables/continuousWindSpeedInMSec5
+      chunks: [1000000]
       longName: "Continuous Wind Speed In M/SEC (5)"
       units: "m s-1"
 
     - name: "ObsValue/continuousWindSpeedInMSec6"
       source: variables/continuousWindSpeedInMSec6
+      chunks: [1000000]
       longName: "Continuous Wind Speed In M/SEC (6)"
       units: "m s-1"
 
     - name: "ObsValue/continuousWindSpeedInMSec7"
       source: variables/continuousWindSpeedInMSec7
+      chunks: [1000000]
       longName: "Continuous Wind Speed In M/SEC (7)"
       units: "m s-1"
 
     - name: "ObsValue/continuousWindSpeedInMSec8"
       source: variables/continuousWindSpeedInMSec8
+      chunks: [1000000]
       longName: "Continuous Wind Speed In M/SEC (8)"
       units: "m s-1"
 
     - name: "ObsValue/continuousWindSpeedInMSec9"
       source: variables/continuousWindSpeedInMSec9
+      chunks: [1000000]
       longName: "Continuous Wind Speed In M/SEC (9)"
       units: "m s-1"
 
     - name: "ObsValue/continuousWindSpeedInMSec10"
       source: variables/continuousWindSpeedInMSec10
+      chunks: [1000000]
       longName: "Continuous Wind Speed In M/SEC (10)"
       units: "m s-1"
 
     - name: "ObsValue/continuousWindSpeedInMSec11"
       source: variables/continuousWindSpeedInMSec11
+      chunks: [1000000]
       longName: "Continuous Wind Speed In M/SEC (11)"
       units: "m s-1"
 
     - name: "ObsValue/continuousWindSpeedInMSec12"
       source: variables/continuousWindSpeedInMSec12
+      chunks: [1000000]
       longName: "Continuous Wind Speed In M/SEC (12)"
       units: "m s-1"
 
     - name: "QualityMarker/moisture"
       source: variables/moisture
+      chunks: [1000000]
       longName: "SDMEDIT/QUIPS Quality Mark For Moisture"
 
     - name: "QualityMarker/waveHeightQMWH"
       source: variables/waveHeightQMWH
+      chunks: [1000000]
       longName: "SDMEDIT/QUIPS Quality Mark For Wave Height"

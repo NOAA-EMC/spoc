@@ -471,172 +471,210 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/receiptTime"
       source: variables/receiptTime
+      chunks: [1000000]
       longName: "Receipt Time"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/satelliteIdentifier"
       source: variables/satelliteIdentifier
+      chunks: [1000000]
       longName: "Satellite Identifier"
 
     - name: "MetaData/dataProviderOrigin"
       source: variables/dataProviderOrigin
+      chunks: [1000000]
       longName: "Identification Of ORIGINATING/GENERATING Center"
 
     - name: "MetaData/instrumentIdentifier"
       source: variables/instrumentIdentifier
+      chunks: [1000000]
       longName: "Satellite Instruments"
 
     - name: "MetaData/satelliteConstellationRO"
       source: variables/satelliteConstellationRO
+      chunks: [1000000]
       longName: "Satellite Classification"
 
     - name: "MetaData/inDirectionOf0DegEDistanceFromEarthsCenter"
       source: variables/inDirectionOf0DegEDistanceFromEarthsCenter
+      chunks: [1000000]
       longName: "In Direction Of 0 Deg E, Distance From EARTH'S Center"
       units: "m"
 
     - name: "MetaData/inDirectionOf90DegEDistanceFromEarthsCenter"
       source: variables/inDirectionOf90DegEDistanceFromEarthsCenter
+      chunks: [1000000]
       longName: "In Direction Of 90 Deg E, Distance From EARTH'S Center"
       units: "m"
 
     - name: "MetaData/satelliteZenithAngle"
       source: variables/satelliteZenithAngle
+      chunks: [1000000]
       longName: "Satellite Zenith Angle"
       units: "degree"
 
     - name: "MetaData/sensorAzimuthAngle"
       source: variables/sensorAzimuthAngle
+      chunks: [1000000]
       longName: "Bearing Or Azimuth"
       units: "degree"
 
     - name: "MetaData/solarZenithAngle"
       source: variables/solarZenithAngle
+      chunks: [1000000]
       longName: "Solar Zenith Angle"
       units: "degree"
 
     - name: "MetaData/solarAzimuthAngle"
       source: variables/solarAzimuthAngle
+      chunks: [1000000]
       longName: "Solar Azimuth"
       units: "degree"
 
     - name: "MetaData/ascendingDescendingOrbitQualifier"
       source: variables/ascendingDescendingOrbitQualifier
+      chunks: [1000000]
       longName: "ASCENDING/DESCENDING Orbit Qualifier"
 
     - name: "MetaData/scanLineNumber"
       source: variables/scanLineNumber
+      chunks: [1000000]
       longName: "Scan Line Number"
 
     - name: "MetaData/fieldOfRegardNumber"
       source: variables/fieldOfRegardNumber
+      chunks: [1000000]
       longName: "Field Of Regard Number"
 
     - name: "MetaData/sensorScanPosition"
       source: variables/sensorScanPosition
+      chunks: [1000000]
       longName: "Field Of View Number"
 
     - name: "MetaData/orbitNumber"
       source: variables/orbitNumber
+      chunks: [1000000]
       longName: "Orbit Number"
 
     - name: "MetaData/heightOfStation"
       source: variables/heightOfStation
+      chunks: [1000000]
       longName: "Height Or Altitude"
       units: "m"
 
     - name: "MetaData/landOrSeaQualifier"
       source: variables/landOrSeaQualifier
+      chunks: [1000000]
       longName: "LAND/SEA Qualifier"
 
     - name: "MetaData/radianceTypeFlags"
       source: variables/radianceTypeFlags
+      chunks: [1000000]
       longName: "Radiance Type Flags"
 
     - name: "MetaData/typeOfBandBcfqfsq1"
       source: variables/typeOfBandBcfqfsq1
+      chunks: [1000000]
       longName: "Type Of Band (1)"
 
     - name: "MetaData/typeOfBandBcfqfsq2"
       source: variables/typeOfBandBcfqfsq2
+      chunks: [1000000]
       longName: "Type Of Band (2)"
 
     - name: "MetaData/typeOfBandBcfqfsq3"
       source: variables/typeOfBandBcfqfsq3
+      chunks: [1000000]
       longName: "Type Of Band (3)"
 
     - name: "MetaData/waveNumber11"
       source: variables/waveNumber11
+      chunks: [1000000]
       longName: "Wave Number (1)"
       units: "m-1"
 
     - name: "MetaData/waveNumber12"
       source: variables/waveNumber12
+      chunks: [1000000]
       longName: "Wave Number (2)"
       units: "m-1"
 
     - name: "MetaData/waveNumber13"
       source: variables/waveNumber13
+      chunks: [1000000]
       longName: "Wave Number (3)"
       units: "m-1"
 
     - name: "MetaData/waveNumber21"
       source: variables/waveNumber21
+      chunks: [1000000]
       longName: "Wave Number (1)"
       units: "m-1"
 
     - name: "MetaData/waveNumber22"
       source: variables/waveNumber22
+      chunks: [1000000]
       longName: "Wave Number (2)"
       units: "m-1"
 
     - name: "MetaData/waveNumber23"
       source: variables/waveNumber23
+      chunks: [1000000]
       longName: "Wave Number (3)"
       units: "m-1"
 
     - name: "MetaData/startChannel1"
       source: variables/startChannel1
+      chunks: [1000000]
       longName: "Start Channel (1)"
 
     - name: "MetaData/startChannel2"
       source: variables/startChannel2
+      chunks: [1000000]
       longName: "Start Channel (2)"
 
     - name: "MetaData/startChannel3"
       source: variables/startChannel3
+      chunks: [1000000]
       longName: "Start Channel (3)"
 
     - name: "MetaData/endChannel1"
       source: variables/endChannel1
+      chunks: [1000000]
       longName: "End Channel (1)"
 
     - name: "MetaData/endChannel2"
       source: variables/endChannel2
+      chunks: [1000000]
       longName: "End Channel (2)"
 
     - name: "MetaData/endChannel3"
       source: variables/endChannel3
+      chunks: [1000000]
       longName: "End Channel (3)"
 
     - name: "MetaData/typeOfBand"
       source: variables/typeOfBand
+      chunks: [1000000]
       longName: "Type Of Band"
 
     - name: "MetaData/sensorChannelNumberCrchn"
@@ -649,10 +687,12 @@ encoder:
 
     - name: "MetaData/measurementType"
       source: variables/measurementType
+      chunks: [1000000]
       longName: "Measurement Type"
 
     - name: "MetaData/typeOfBand1"
       source: variables/typeOfBand1
+      chunks: [1000000]
       longName: "Type Of Band"
 
     - name: "MetaData/sensorChannelNumberGcrchn"
@@ -661,79 +701,95 @@ encoder:
 
     - name: "MetaData/typeOfBand2"
       source: variables/typeOfBand2
+      chunks: [1000000]
       longName: "Type Of Band"
 
     - name: "MetaData/instrumentIdentifierCrisn20"
       source: variables/instrumentIdentifierCrisn20
+      chunks: [1000000]
       longName: "Satellite Instruments"
 
     - name: "MetaData/yAngularPositionFromCentreOfGravity1"
       source: variables/yAngularPositionFromCentreOfGravity1
+      chunks: [1000000]
       longName: "Y Angular Position From Centre Of Gravity (1)"
       units: "degree"
 
     - name: "MetaData/yAngularPositionFromCentreOfGravity2"
       source: variables/yAngularPositionFromCentreOfGravity2
+      chunks: [1000000]
       longName: "Y Angular Position From Centre Of Gravity (2)"
       units: "degree"
 
     - name: "MetaData/yAngularPositionFromCentreOfGravity3"
       source: variables/yAngularPositionFromCentreOfGravity3
+      chunks: [1000000]
       longName: "Y Angular Position From Centre Of Gravity (3)"
       units: "degree"
 
     - name: "MetaData/yAngularPositionFromCentreOfGravity4"
       source: variables/yAngularPositionFromCentreOfGravity4
+      chunks: [1000000]
       longName: "Y Angular Position From Centre Of Gravity (4)"
       units: "degree"
 
     - name: "MetaData/yAngularPositionFromCentreOfGravity5"
       source: variables/yAngularPositionFromCentreOfGravity5
+      chunks: [1000000]
       longName: "Y Angular Position From Centre Of Gravity (5)"
       units: "degree"
 
     - name: "MetaData/yAngularPositionFromCentreOfGravity6"
       source: variables/yAngularPositionFromCentreOfGravity6
+      chunks: [1000000]
       longName: "Y Angular Position From Centre Of Gravity (6)"
       units: "degree"
 
     - name: "MetaData/yAngularPositionFromCentreOfGravity7"
       source: variables/yAngularPositionFromCentreOfGravity7
+      chunks: [1000000]
       longName: "Y Angular Position From Centre Of Gravity (7)"
       units: "degree"
 
     - name: "MetaData/zAngularPositionFromCentreOfGravity1"
       source: variables/zAngularPositionFromCentreOfGravity1
+      chunks: [1000000]
       longName: "Z Angular Position From Centre Of Gravity (1)"
       units: "degree"
 
     - name: "MetaData/zAngularPositionFromCentreOfGravity2"
       source: variables/zAngularPositionFromCentreOfGravity2
+      chunks: [1000000]
       longName: "Z Angular Position From Centre Of Gravity (2)"
       units: "degree"
 
     - name: "MetaData/zAngularPositionFromCentreOfGravity3"
       source: variables/zAngularPositionFromCentreOfGravity3
+      chunks: [1000000]
       longName: "Z Angular Position From Centre Of Gravity (3)"
       units: "degree"
 
     - name: "MetaData/zAngularPositionFromCentreOfGravity4"
       source: variables/zAngularPositionFromCentreOfGravity4
+      chunks: [1000000]
       longName: "Z Angular Position From Centre Of Gravity (4)"
       units: "degree"
 
     - name: "MetaData/zAngularPositionFromCentreOfGravity5"
       source: variables/zAngularPositionFromCentreOfGravity5
+      chunks: [1000000]
       longName: "Z Angular Position From Centre Of Gravity (5)"
       units: "degree"
 
     - name: "MetaData/zAngularPositionFromCentreOfGravity6"
       source: variables/zAngularPositionFromCentreOfGravity6
+      chunks: [1000000]
       longName: "Z Angular Position From Centre Of Gravity (6)"
       units: "degree"
 
     - name: "MetaData/zAngularPositionFromCentreOfGravity7"
       source: variables/zAngularPositionFromCentreOfGravity7
+      chunks: [1000000]
       longName: "Z Angular Position From Centre Of Gravity (7)"
       units: "degree"
 
@@ -823,50 +879,61 @@ encoder:
 
     - name: "MetaData/sequenceNumber"
       source: variables/sequenceNumber
+      chunks: [1000000]
       longName: "Channel Sequence Number"
 
     - name: "MetaData/bulletinHeader"
       source: variables/bulletinHeader
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (TTAAii)"
 
     - name: "MetaData/bulletinOriginator"
       source: variables/bulletinOriginator
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (CCCC)"
 
     - name: "MetaData/bulletinTime"
       source: variables/bulletinTime
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (YYGGgg)"
 
     - name: "MetaData/bulletinBBB"
       source: variables/bulletinBBB
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (BBB)"
 
     - name: "MetaData/receiptTimeSignificance"
       source: variables/receiptTimeSignificance
+      chunks: [1000000]
       longName: "Receipt Time Significance"
 
     # ObsValue
     - name: "ObsValue/inDirOfNorthPoleDistanceFromTheEarths"
       source: variables/inDirOfNorthPoleDistanceFromTheEarths
+      chunks: [1000000]
       longName: "In DIR. Of North POLE, Distance From The EARTH'S Cente"
       units: "m"
 
     - name: "ObsValue/heightOfLandSurface"
       source: variables/heightOfLandSurface
+      chunks: [1000000]
       longName: "Height Of Land Surface"
       units: "m"
 
     - name: "ObsValue/landFraction"
       source: variables/landFraction
+      chunks: [1000000]
       longName: "Land Fraction"
 
     - name: "ObsValue/cloudCoverTotal"
       source: variables/cloudCoverTotal
+      chunks: [1000000]
       longName: "Cloud Cover (TOTAL)"
       units: "%"
 
     - name: "ObsValue/heightOfTopOfCloud"
       source: variables/heightOfTopOfCloud
+      chunks: [1000000]
       longName: "Height Of Top Of Cloud"
       units: "m"
 
@@ -887,30 +954,37 @@ encoder:
 
     - name: "ObsValue/cloudFree1"
       source: variables/cloudFree1
+      chunks: [1000000]
       longName: "Fraction Of Clear Pixels In Hirs Fov (1)"
 
     - name: "ObsValue/cloudFree2"
       source: variables/cloudFree2
+      chunks: [1000000]
       longName: "Fraction Of Clear Pixels In Hirs Fov (2)"
 
     - name: "ObsValue/cloudFree3"
       source: variables/cloudFree3
+      chunks: [1000000]
       longName: "Fraction Of Clear Pixels In Hirs Fov (3)"
 
     - name: "ObsValue/cloudFree4"
       source: variables/cloudFree4
+      chunks: [1000000]
       longName: "Fraction Of Clear Pixels In Hirs Fov (4)"
 
     - name: "ObsValue/cloudFree5"
       source: variables/cloudFree5
+      chunks: [1000000]
       longName: "Fraction Of Clear Pixels In Hirs Fov (5)"
 
     - name: "ObsValue/cloudFree6"
       source: variables/cloudFree6
+      chunks: [1000000]
       longName: "Fraction Of Clear Pixels In Hirs Fov (6)"
 
     - name: "ObsValue/cloudFree7"
       source: variables/cloudFree7
+      chunks: [1000000]
       longName: "Fraction Of Clear Pixels In Hirs Fov (7)"
 
     - name: "ObsValue/channelRadiance11"
@@ -986,36 +1060,45 @@ encoder:
     # QualityMarker
     - name: "QualityMarker/scanLevelQualityFlags"
       source: variables/scanLevelQualityFlags
+      chunks: [1000000]
       longName: "Scan Level Quality Flags"
 
     - name: "QualityMarker/calibrationQualityFlags1"
       source: variables/calibrationQualityFlags1
+      chunks: [1000000]
       longName: "Calibration Quality Flags (1)"
 
     - name: "QualityMarker/calibrationQualityFlags2"
       source: variables/calibrationQualityFlags2
+      chunks: [1000000]
       longName: "Calibration Quality Flags (2)"
 
     - name: "QualityMarker/calibrationQualityFlags3"
       source: variables/calibrationQualityFlags3
+      chunks: [1000000]
       longName: "Calibration Quality Flags (3)"
 
     - name: "QualityMarker/fieldOfViewQualityFlags1"
       source: variables/fieldOfViewQualityFlags1
+      chunks: [1000000]
       longName: "Field Of View Quality Flags (1)"
 
     - name: "QualityMarker/fieldOfViewQualityFlags2"
       source: variables/fieldOfViewQualityFlags2
+      chunks: [1000000]
       longName: "Field Of View Quality Flags (2)"
 
     - name: "QualityMarker/fieldOfViewQualityFlags3"
       source: variables/fieldOfViewQualityFlags3
+      chunks: [1000000]
       longName: "Field Of View Quality Flags (3)"
 
     - name: "QualityMarker/geolocationQuality"
       source: variables/geolocationQuality
+      chunks: [1000000]
       longName: "Geolocation Quality"
 
     - name: "QualityMarker/qualityInformation"
       source: variables/qualityInformation
+      chunks: [1000000]
       longName: "Quality Information"

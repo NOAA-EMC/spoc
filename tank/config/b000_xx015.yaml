@@ -149,130 +149,159 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/receiptTime"
       source: variables/receiptTime
+      chunks: [1000000]
       longName: "Receipt Time"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/wigosIdentifierSeries"
       source: variables/wigosIdentifierSeries
+      chunks: [1000000]
       longName: "Wigos Identifier Series"
 
     - name: "MetaData/wigosIssuerOfIdentifier"
       source: variables/wigosIssuerOfIdentifier
+      chunks: [1000000]
       longName: "Wigos Issuer Of Identifier"
 
     - name: "MetaData/wigosIssueNumber"
       source: variables/wigosIssueNumber
+      chunks: [1000000]
       longName: "Wigos Issue Number"
 
     - name: "MetaData/wigosLocalIdentifierCharacter"
       source: variables/wigosLocalIdentifierCharacter
+      chunks: [1000000]
       longName: "Wigos Local Identifier (CHARACTER)"
 
     - name: "MetaData/stateIdentifier"
       source: variables/stateIdentifier
+      chunks: [1000000]
       longName: "State identifier"
 
     - name: "MetaData/nationalStationNumber"
       source: variables/nationalStationNumber
+      chunks: [1000000]
       longName: "National station number"
 
     - name: "MetaData/stationLongName"
       source: variables/stationLongName
+      chunks: [1000000]
       longName: "Long station or site name"
 
     - name: "MetaData/stationType"
       source: variables/stationType
+      chunks: [1000000]
       longName: "Type Of Station"
 
     - name: "MetaData/stationElevation"
       source: variables/stationElevation
+      chunks: [1000000]
       longName: "Height Of Station Ground Above Msl"
       units: "m"
 
     - name: "MetaData/heightOfSensorAboveGround1"
       source: variables/heightOfSensorAboveGround1
+      chunks: [1000000]
       longName: "Height Of Sensor Above Local Ground"
       units: "m"
 
     - name: "MetaData/heightOfSensorAboveGround2"
       source: variables/heightOfSensorAboveGround2
+      chunks: [1000000]
       longName: "Height Of Sensor Above Local Ground"
       units: "m"
 
     - name: "MetaData/methodOfSnowDepthMeasurement"
       source: variables/methodOfSnowDepthMeasurement
+      chunks: [1000000]
       longName: "Method Of Snow Depth Measurement"
 
     - name: "MetaData/methodOfSnowWaterEquivalentMeasurement"
       source: variables/methodOfSnowWaterEquivalentMeasurement
+      chunks: [1000000]
       longName: "Method of snow water equivalent measurement"
 
     - name: "MetaData/sequenceNumber"
       source: variables/sequenceNumber
+      chunks: [1000000]
       longName: "Channel Sequence Number"
 
     - name: "MetaData/bulletinHeader"
       source: variables/bulletinHeader
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (TTAAii)"
 
     - name: "MetaData/bulletinOriginator"
       source: variables/bulletinOriginator
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (CCCC)"
 
     - name: "MetaData/bulletinTime"
       source: variables/bulletinTime
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (YYGGgg)"
 
     - name: "MetaData/bulletinBBB"
       source: variables/bulletinBBB
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (BBB)"
 
     - name: "MetaData/receiptTimeSignificance"
       source: variables/receiptTimeSignificance
+      chunks: [1000000]
       longName: "Receipt Time Significance"
 
     # ObsValue
     - name: "ObsValue/airTemperature"
       source: variables/airTemperature
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature"
       units: "K"
 
     - name: "ObsValue/groundState"
       source: variables/groundState
+      chunks: [1000000]
       longName: "State Of The Ground"
 
     - name: "ObsValue/totalSnowDepth"
       source: variables/totalSnowDepth
+      chunks: [1000000]
       longName: "Total Snow Depth"
       units: "m"
 
     - name: "ObsValue/snowDensityLiquidWaterContent"
       source: variables/snowDensityLiquidWaterContent
+      chunks: [1000000]
       longName: "Snow density (liquid water content)"
       units: "kg m-2"
 
     - name: "ObsValue/snowWaterEquivalent"
       source: variables/snowWaterEquivalent
+      chunks: [1000000]
       longName: "Snow water equivalent"
       units: "kg m-2"
 
     # QualityMarker
     - name: "QualityMarker/correctedReportIndicator"
       source: variables/correctedReportIndicator
+      chunks: [1000000]
       longName: "Corrected Report Indicator"

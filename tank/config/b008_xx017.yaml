@@ -458,90 +458,110 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/satelliteIdentifier"
       source: variables/satelliteIdentifier
+      chunks: [1000000]
       longName: "Satellite Identifier *"
 
     - name: "MetaData/instrumentIdentifier"
       source: variables/instrumentIdentifier
+      chunks: [1000000]
       longName: "Satellite Instruments"
 
     - name: "MetaData/solarZenithAngle1"
       source: variables/solarZenithAngle1
+      chunks: [1000000]
       longName: "Solar Zenith Angle"
       units: "degree"
 
     - name: "MetaData/timeSignificance1"
       source: variables/timeSignificance1
+      chunks: [1000000]
       longName: "Time Significance"
 
     - name: "MetaData/solarZenithAngle2"
       source: variables/solarZenithAngle2
+      chunks: [1000000]
       longName: "Solar Zenith Angle"
       units: "degree"
 
     - name: "MetaData/timeSignificance2"
       source: variables/timeSignificance2
+      chunks: [1000000]
       longName: "Time Significance"
 
     - name: "MetaData/solarZenithAngle3"
       source: variables/solarZenithAngle3
+      chunks: [1000000]
       longName: "Solar Zenith Angle"
       units: "degree"
 
     - name: "MetaData/timeSignificance3"
       source: variables/timeSignificance3
+      chunks: [1000000]
       longName: "Time Significance"
 
     - name: "MetaData/remotelySensedSurfaceType"
       source: variables/remotelySensedSurfaceType
+      chunks: [1000000]
       longName: "Remotely Sensed Surface Type"
 
     - name: "MetaData/orbitNumber"
       source: variables/orbitNumber
+      chunks: [1000000]
       longName: "Orbit Number"
 
     - name: "MetaData/ascendingDescendingOrbitQualifier"
       source: variables/ascendingDescendingOrbitQualifier
+      chunks: [1000000]
       longName: "ASCENDING/DESCENDING Orbit Qualifier"
 
     - name: "MetaData/verticalSignificanceSatellite1"
       source: variables/verticalSignificanceSatellite1
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS)"
 
     - name: "MetaData/verticalSignificanceSatellite2"
       source: variables/verticalSignificanceSatellite2
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS)"
 
     - name: "MetaData/totalOzoneQuality"
       source: variables/totalOzoneQuality
+      chunks: [1000000]
       longName: "Total Ozone Quality"
 
     - name: "MetaData/verticalSignificanceSatellite3"
       source: variables/verticalSignificanceSatellite3
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS)"
 
     - name: "MetaData/pressure"
       source: variables/pressure
+      chunks: [1000000]
       longName: "Pressure"
       units: "Pa"
 
     - name: "MetaData/verticalSignificanceSatellite4"
       source: variables/verticalSignificanceSatellite4
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS)"
 
     - name: "MetaData/pressure1"
@@ -581,348 +601,424 @@ encoder:
 
     - name: "MetaData/atmosphericChemicalOrPhysicalConstituentType1"
       source: variables/atmosphericChemicalOrPhysicalConstituentType1
+      chunks: [1000000]
       longName: "Atmospheric Chemical Or Physical Constituent Type"
 
     - name: "MetaData/pressureMixrvqsq1"
       source: variables/pressureMixrvqsq1
+      chunks: [1000000]
       longName: "Pressure (1)"
       units: "Pa"
 
     - name: "MetaData/pressureMixrvqsq2"
       source: variables/pressureMixrvqsq2
+      chunks: [1000000]
       longName: "Pressure (2)"
       units: "Pa"
 
     - name: "MetaData/pressureMixrvqsq3"
       source: variables/pressureMixrvqsq3
+      chunks: [1000000]
       longName: "Pressure (3)"
       units: "Pa"
 
     - name: "MetaData/pressureMixrvqsq4"
       source: variables/pressureMixrvqsq4
+      chunks: [1000000]
       longName: "Pressure (4)"
       units: "Pa"
 
     - name: "MetaData/pressureMixrvqsq5"
       source: variables/pressureMixrvqsq5
+      chunks: [1000000]
       longName: "Pressure (5)"
       units: "Pa"
 
     - name: "MetaData/pressureMixrvqsq6"
       source: variables/pressureMixrvqsq6
+      chunks: [1000000]
       longName: "Pressure (6)"
       units: "Pa"
 
     - name: "MetaData/pressureMixrvqsq7"
       source: variables/pressureMixrvqsq7
+      chunks: [1000000]
       longName: "Pressure (7)"
       units: "Pa"
 
     - name: "MetaData/pressureMixrvqsq8"
       source: variables/pressureMixrvqsq8
+      chunks: [1000000]
       longName: "Pressure (8)"
       units: "Pa"
 
     - name: "MetaData/pressureMixrvqsq9"
       source: variables/pressureMixrvqsq9
+      chunks: [1000000]
       longName: "Pressure (9)"
       units: "Pa"
 
     - name: "MetaData/pressureMixrvqsq10"
       source: variables/pressureMixrvqsq10
+      chunks: [1000000]
       longName: "Pressure (10)"
       units: "Pa"
 
     - name: "MetaData/pressureMixrvqsq11"
       source: variables/pressureMixrvqsq11
+      chunks: [1000000]
       longName: "Pressure (11)"
       units: "Pa"
 
     - name: "MetaData/pressureMixrvqsq12"
       source: variables/pressureMixrvqsq12
+      chunks: [1000000]
       longName: "Pressure (12)"
       units: "Pa"
 
     - name: "MetaData/pressureMixrvqsq13"
       source: variables/pressureMixrvqsq13
+      chunks: [1000000]
       longName: "Pressure (13)"
       units: "Pa"
 
     - name: "MetaData/pressureMixrvqsq14"
       source: variables/pressureMixrvqsq14
+      chunks: [1000000]
       longName: "Pressure (14)"
       units: "Pa"
 
     - name: "MetaData/pressureMixrvqsq15"
       source: variables/pressureMixrvqsq15
+      chunks: [1000000]
       longName: "Pressure (15)"
       units: "Pa"
 
     - name: "MetaData/decimalScaleOfFollowingValues11"
       source: variables/decimalScaleOfFollowingValues11
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (1)"
 
     - name: "MetaData/decimalScaleOfFollowingValues12"
       source: variables/decimalScaleOfFollowingValues12
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (2)"
 
     - name: "MetaData/decimalScaleOfFollowingValues13"
       source: variables/decimalScaleOfFollowingValues13
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (3)"
 
     - name: "MetaData/decimalScaleOfFollowingValues14"
       source: variables/decimalScaleOfFollowingValues14
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (4)"
 
     - name: "MetaData/decimalScaleOfFollowingValues15"
       source: variables/decimalScaleOfFollowingValues15
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (5)"
 
     - name: "MetaData/decimalScaleOfFollowingValues16"
       source: variables/decimalScaleOfFollowingValues16
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (6)"
 
     - name: "MetaData/decimalScaleOfFollowingValues17"
       source: variables/decimalScaleOfFollowingValues17
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (7)"
 
     - name: "MetaData/decimalScaleOfFollowingValues18"
       source: variables/decimalScaleOfFollowingValues18
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (8)"
 
     - name: "MetaData/decimalScaleOfFollowingValues19"
       source: variables/decimalScaleOfFollowingValues19
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (9)"
 
     - name: "MetaData/decimalScaleOfFollowingValues110"
       source: variables/decimalScaleOfFollowingValues110
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (10)"
 
     - name: "MetaData/decimalScaleOfFollowingValues111"
       source: variables/decimalScaleOfFollowingValues111
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (11)"
 
     - name: "MetaData/decimalScaleOfFollowingValues112"
       source: variables/decimalScaleOfFollowingValues112
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (12)"
 
     - name: "MetaData/decimalScaleOfFollowingValues113"
       source: variables/decimalScaleOfFollowingValues113
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (13)"
 
     - name: "MetaData/decimalScaleOfFollowingValues114"
       source: variables/decimalScaleOfFollowingValues114
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (14)"
 
     - name: "MetaData/decimalScaleOfFollowingValues115"
       source: variables/decimalScaleOfFollowingValues115
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (15)"
 
     - name: "MetaData/decimalScaleOfFollowingValues21"
       source: variables/decimalScaleOfFollowingValues21
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (1)"
 
     - name: "MetaData/decimalScaleOfFollowingValues22"
       source: variables/decimalScaleOfFollowingValues22
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (2)"
 
     - name: "MetaData/decimalScaleOfFollowingValues23"
       source: variables/decimalScaleOfFollowingValues23
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (3)"
 
     - name: "MetaData/decimalScaleOfFollowingValues24"
       source: variables/decimalScaleOfFollowingValues24
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (4)"
 
     - name: "MetaData/decimalScaleOfFollowingValues25"
       source: variables/decimalScaleOfFollowingValues25
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (5)"
 
     - name: "MetaData/decimalScaleOfFollowingValues26"
       source: variables/decimalScaleOfFollowingValues26
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (6)"
 
     - name: "MetaData/decimalScaleOfFollowingValues27"
       source: variables/decimalScaleOfFollowingValues27
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (7)"
 
     - name: "MetaData/decimalScaleOfFollowingValues28"
       source: variables/decimalScaleOfFollowingValues28
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (8)"
 
     - name: "MetaData/decimalScaleOfFollowingValues29"
       source: variables/decimalScaleOfFollowingValues29
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (9)"
 
     - name: "MetaData/decimalScaleOfFollowingValues210"
       source: variables/decimalScaleOfFollowingValues210
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (10)"
 
     - name: "MetaData/decimalScaleOfFollowingValues211"
       source: variables/decimalScaleOfFollowingValues211
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (11)"
 
     - name: "MetaData/decimalScaleOfFollowingValues212"
       source: variables/decimalScaleOfFollowingValues212
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (12)"
 
     - name: "MetaData/decimalScaleOfFollowingValues213"
       source: variables/decimalScaleOfFollowingValues213
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (13)"
 
     - name: "MetaData/decimalScaleOfFollowingValues214"
       source: variables/decimalScaleOfFollowingValues214
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (14)"
 
     - name: "MetaData/decimalScaleOfFollowingValues215"
       source: variables/decimalScaleOfFollowingValues215
+      chunks: [1000000]
       longName: "Decimal Scale Of Following Values (15)"
 
     - name: "MetaData/qiWithoutForecastMixrvqsq1"
       source: variables/qiWithoutForecastMixrvqsq1
+      chunks: [1000000]
       longName: "Per Cent Confidence (1)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastMixrvqsq2"
       source: variables/qiWithoutForecastMixrvqsq2
+      chunks: [1000000]
       longName: "Per Cent Confidence (2)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastMixrvqsq3"
       source: variables/qiWithoutForecastMixrvqsq3
+      chunks: [1000000]
       longName: "Per Cent Confidence (3)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastMixrvqsq4"
       source: variables/qiWithoutForecastMixrvqsq4
+      chunks: [1000000]
       longName: "Per Cent Confidence (4)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastMixrvqsq5"
       source: variables/qiWithoutForecastMixrvqsq5
+      chunks: [1000000]
       longName: "Per Cent Confidence (5)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastMixrvqsq6"
       source: variables/qiWithoutForecastMixrvqsq6
+      chunks: [1000000]
       longName: "Per Cent Confidence (6)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastMixrvqsq7"
       source: variables/qiWithoutForecastMixrvqsq7
+      chunks: [1000000]
       longName: "Per Cent Confidence (7)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastMixrvqsq8"
       source: variables/qiWithoutForecastMixrvqsq8
+      chunks: [1000000]
       longName: "Per Cent Confidence (8)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastMixrvqsq9"
       source: variables/qiWithoutForecastMixrvqsq9
+      chunks: [1000000]
       longName: "Per Cent Confidence (9)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastMixrvqsq10"
       source: variables/qiWithoutForecastMixrvqsq10
+      chunks: [1000000]
       longName: "Per Cent Confidence (10)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastMixrvqsq11"
       source: variables/qiWithoutForecastMixrvqsq11
+      chunks: [1000000]
       longName: "Per Cent Confidence (11)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastMixrvqsq12"
       source: variables/qiWithoutForecastMixrvqsq12
+      chunks: [1000000]
       longName: "Per Cent Confidence (12)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastMixrvqsq13"
       source: variables/qiWithoutForecastMixrvqsq13
+      chunks: [1000000]
       longName: "Per Cent Confidence (13)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastMixrvqsq14"
       source: variables/qiWithoutForecastMixrvqsq14
+      chunks: [1000000]
       longName: "Per Cent Confidence (14)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecastMixrvqsq15"
       source: variables/qiWithoutForecastMixrvqsq15
+      chunks: [1000000]
       longName: "Per Cent Confidence (15)"
       units: "%"
 
     - name: "MetaData/atmosphericChemicalOrPhysicalConstituentType2"
       source: variables/atmosphericChemicalOrPhysicalConstituentType2
+      chunks: [1000000]
       longName: "Atmospheric Chemical Or Physical Constituent Type"
 
     - name: "MetaData/profileOzoneQuality"
       source: variables/profileOzoneQuality
+      chunks: [1000000]
       longName: "Profile Ozone Quality"
 
     - name: "MetaData/spectrographicWavelength1"
       source: variables/spectrographicWavelength1
+      chunks: [1000000]
       longName: "Spectrographic Wavelength (1)"
       units: "m"
 
     - name: "MetaData/spectrographicWavelength2"
       source: variables/spectrographicWavelength2
+      chunks: [1000000]
       longName: "Spectrographic Wavelength (2)"
       units: "m"
 
     - name: "MetaData/spectrographicWavelength3"
       source: variables/spectrographicWavelength3
+      chunks: [1000000]
       longName: "Spectrographic Wavelength (3)"
       units: "m"
 
     - name: "MetaData/spectrographicWavelength4"
       source: variables/spectrographicWavelength4
+      chunks: [1000000]
       longName: "Spectrographic Wavelength (4)"
       units: "m"
 
     - name: "MetaData/spectrographicWavelength5"
       source: variables/spectrographicWavelength5
+      chunks: [1000000]
       longName: "Spectrographic Wavelength (5)"
       units: "m"
 
     - name: "MetaData/spectrographicWavelength6"
       source: variables/spectrographicWavelength6
+      chunks: [1000000]
       longName: "Spectrographic Wavelength (6)"
       units: "m"
 
     - name: "MetaData/spectrographicWavelength7"
       source: variables/spectrographicWavelength7
+      chunks: [1000000]
       longName: "Spectrographic Wavelength (7)"
       units: "m"
 
     - name: "MetaData/spectrographicWavelength8"
       source: variables/spectrographicWavelength8
+      chunks: [1000000]
       longName: "Spectrographic Wavelength (8)"
       units: "m"
 
     # ObsValue
     - name: "ObsValue/airPressure"
       source: variables/airPressure
+      chunks: [1000000]
       longName: "Terrain Pressure"
       units: "Pa"
 
     - name: "ObsValue/ozoneTotal1"
       source: variables/ozoneTotal1
+      chunks: [1000000]
       longName: "Total Ozone"
       units: "DU"
 
     - name: "ObsValue/aerosolContaminationIndex"
       source: variables/aerosolContaminationIndex
+      chunks: [1000000]
       longName: "Aerosol Contamination Index"
 
     - name: "ObsValue/cloudAmount"
       source: variables/cloudAmount
+      chunks: [1000000]
       longName: "Cloud Amount In Segment"
       units: "%"
 
     - name: "ObsValue/ozoneTotal2"
       source: variables/ozoneTotal2
+      chunks: [1000000]
       longName: "Total Ozone"
       units: "DU"
 
@@ -938,105 +1034,129 @@ encoder:
 
     - name: "ObsValue/scaledSignificandOfVolumetricMixingRatio1"
       source: variables/scaledSignificandOfVolumetricMixingRatio1
+      chunks: [1000000]
       longName: "Scaled (SIGNIFICAND OF) Volumetric Mixing Ratio (1)"
 
     - name: "ObsValue/scaledSignificandOfVolumetricMixingRatio2"
       source: variables/scaledSignificandOfVolumetricMixingRatio2
+      chunks: [1000000]
       longName: "Scaled (SIGNIFICAND OF) Volumetric Mixing Ratio (2)"
 
     - name: "ObsValue/scaledSignificandOfVolumetricMixingRatio3"
       source: variables/scaledSignificandOfVolumetricMixingRatio3
+      chunks: [1000000]
       longName: "Scaled (SIGNIFICAND OF) Volumetric Mixing Ratio (3)"
 
     - name: "ObsValue/scaledSignificandOfVolumetricMixingRatio4"
       source: variables/scaledSignificandOfVolumetricMixingRatio4
+      chunks: [1000000]
       longName: "Scaled (SIGNIFICAND OF) Volumetric Mixing Ratio (4)"
 
     - name: "ObsValue/scaledSignificandOfVolumetricMixingRatio5"
       source: variables/scaledSignificandOfVolumetricMixingRatio5
+      chunks: [1000000]
       longName: "Scaled (SIGNIFICAND OF) Volumetric Mixing Ratio (5)"
 
     - name: "ObsValue/scaledSignificandOfVolumetricMixingRatio6"
       source: variables/scaledSignificandOfVolumetricMixingRatio6
+      chunks: [1000000]
       longName: "Scaled (SIGNIFICAND OF) Volumetric Mixing Ratio (6)"
 
     - name: "ObsValue/scaledSignificandOfVolumetricMixingRatio7"
       source: variables/scaledSignificandOfVolumetricMixingRatio7
+      chunks: [1000000]
       longName: "Scaled (SIGNIFICAND OF) Volumetric Mixing Ratio (7)"
 
     - name: "ObsValue/scaledSignificandOfVolumetricMixingRatio8"
       source: variables/scaledSignificandOfVolumetricMixingRatio8
+      chunks: [1000000]
       longName: "Scaled (SIGNIFICAND OF) Volumetric Mixing Ratio (8)"
 
     - name: "ObsValue/scaledSignificandOfVolumetricMixingRatio9"
       source: variables/scaledSignificandOfVolumetricMixingRatio9
+      chunks: [1000000]
       longName: "Scaled (SIGNIFICAND OF) Volumetric Mixing Ratio (9)"
 
     - name: "ObsValue/scaledSignificandOfVolumetricMixingRatio10"
       source: variables/scaledSignificandOfVolumetricMixingRatio10
+      chunks: [1000000]
       longName: "Scaled (SIGNIFICAND OF) Volumetric Mixing Ratio (10)"
 
     - name: "ObsValue/scaledSignificandOfVolumetricMixingRatio11"
       source: variables/scaledSignificandOfVolumetricMixingRatio11
+      chunks: [1000000]
       longName: "Scaled (SIGNIFICAND OF) Volumetric Mixing Ratio (11)"
 
     - name: "ObsValue/scaledSignificandOfVolumetricMixingRatio12"
       source: variables/scaledSignificandOfVolumetricMixingRatio12
+      chunks: [1000000]
       longName: "Scaled (SIGNIFICAND OF) Volumetric Mixing Ratio (12)"
 
     - name: "ObsValue/scaledSignificandOfVolumetricMixingRatio13"
       source: variables/scaledSignificandOfVolumetricMixingRatio13
+      chunks: [1000000]
       longName: "Scaled (SIGNIFICAND OF) Volumetric Mixing Ratio (13)"
 
     - name: "ObsValue/scaledSignificandOfVolumetricMixingRatio14"
       source: variables/scaledSignificandOfVolumetricMixingRatio14
+      chunks: [1000000]
       longName: "Scaled (SIGNIFICAND OF) Volumetric Mixing Ratio (14)"
 
     - name: "ObsValue/scaledSignificandOfVolumetricMixingRatio15"
       source: variables/scaledSignificandOfVolumetricMixingRatio15
+      chunks: [1000000]
       longName: "Scaled (SIGNIFICAND OF) Volumetric Mixing Ratio (15)"
 
     - name: "ObsValue/cloudAmountWavcldsq1"
       source: variables/cloudAmountWavcldsq1
+      chunks: [1000000]
       longName: "Cloud Amount In Segment (1)"
       units: "%"
 
     - name: "ObsValue/cloudAmountWavcldsq2"
       source: variables/cloudAmountWavcldsq2
+      chunks: [1000000]
       longName: "Cloud Amount In Segment (2)"
       units: "%"
 
     - name: "ObsValue/cloudAmountWavcldsq3"
       source: variables/cloudAmountWavcldsq3
+      chunks: [1000000]
       longName: "Cloud Amount In Segment (3)"
       units: "%"
 
     - name: "ObsValue/cloudAmountWavcldsq4"
       source: variables/cloudAmountWavcldsq4
+      chunks: [1000000]
       longName: "Cloud Amount In Segment (4)"
       units: "%"
 
     - name: "ObsValue/cloudAmountWavcldsq5"
       source: variables/cloudAmountWavcldsq5
+      chunks: [1000000]
       longName: "Cloud Amount In Segment (5)"
       units: "%"
 
     - name: "ObsValue/cloudAmountWavcldsq6"
       source: variables/cloudAmountWavcldsq6
+      chunks: [1000000]
       longName: "Cloud Amount In Segment (6)"
       units: "%"
 
     - name: "ObsValue/cloudAmountWavcldsq7"
       source: variables/cloudAmountWavcldsq7
+      chunks: [1000000]
       longName: "Cloud Amount In Segment (7)"
       units: "%"
 
     - name: "ObsValue/cloudAmountWavcldsq8"
       source: variables/cloudAmountWavcldsq8
+      chunks: [1000000]
       longName: "Cloud Amount In Segment (8)"
       units: "%"
 
     # QualityMarker
     - name: "QualityMarker/typeOfLimitRepresentedByFollowingValue"
       source: variables/typeOfLimitRepresentedByFollowingValue
+      chunks: [1000000]
       longName: "Type Of Limit Represented By Following Value"

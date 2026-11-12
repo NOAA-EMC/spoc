@@ -87,48 +87,58 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/height"
       source: variables/height
+      chunks: [1000000]
       longName: "Height"
       units: "m"
 
     - name: "MetaData/restrictionFlag"
       source: variables/restrictionFlag
+      chunks: [1000000]
       longName: "Restrictions On Redistribution"
 
     - name: "MetaData/restrictionExpiration"
       source: variables/restrictionExpiration
+      chunks: [1000000]
       longName: "Expiration Of Restrictions On Redistribution"
       units: "h"
 
     # ObsValue
     - name: "ObsValue/amplitudeofstrike"
       source: variables/amplitudeofstrike
+      chunks: [1000000]
       longName: "Amplitude Of Lightning Strike"
       units: "A"
 
     - name: "ObsValue/polarityofstroke"
       source: variables/polarityofstroke
+      chunks: [1000000]
       longName: "Polarity Of Stroke"
 
     - name: "ObsValue/otherWeatherPhenomena"
       source: variables/otherWeatherPhenomena
+      chunks: [1000000]
       longName: "Other Weather Phenomena"
 
     - name: "ObsValue/numberofflashes"
       source: variables/numberofflashes
+      chunks: [1000000]
       longName: "Number Of Flashes (THUNDERSTORM)"

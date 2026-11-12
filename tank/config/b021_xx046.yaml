@@ -801,432 +801,526 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/satelliteIdentifier"
       source: variables/satelliteIdentifier
+      chunks: [1000000]
       longName: "Satellite Identifier"
 
     - name: "MetaData/generatingCenterLong"
       source: variables/generatingCenterLong
+      chunks: [1000000]
       longName: "ORIGINATING/GENERATING Center"
 
     - name: "MetaData/satelliteConstellationRO"
       source: variables/satelliteConstellationRO
+      chunks: [1000000]
       longName: "Satellite Classification"
 
     - name: "MetaData/segmentSizeAtNadirInXDirection"
       source: variables/segmentSizeAtNadirInXDirection
+      chunks: [1000000]
       longName: "Segment Size At Nadir In X Direction"
       units: "m"
 
     - name: "MetaData/segmentSizeAtNadirInYDirection"
       source: variables/segmentSizeAtNadirInYDirection
+      chunks: [1000000]
       longName: "Segment Size At Nadir In Y Direction"
       units: "m"
 
     - name: "MetaData/numberOfPixelsPerRow"
       source: variables/numberOfPixelsPerRow
+      chunks: [1000000]
       longName: "Number Of Pixels Per Row"
 
     - name: "MetaData/numberOfPixelsPerColumn"
       source: variables/numberOfPixelsPerColumn
+      chunks: [1000000]
       longName: "Number Of Pixels Per Column"
 
     - name: "MetaData/landOrSeaQualifier"
       source: variables/landOrSeaQualifier
+      chunks: [1000000]
       longName: "LAND/SEA Qualifier"
 
     - name: "MetaData/satelliteZenithAngle"
       source: variables/satelliteZenithAngle
+      chunks: [1000000]
       longName: "Satellite Zenith Angle"
       units: "degree"
 
     - name: "MetaData/sensorAzimuthAngle"
       source: variables/sensorAzimuthAngle
+      chunks: [1000000]
       longName: "Bearing Or Azimuth"
       units: "degree"
 
     - name: "MetaData/solarZenithAngle"
       source: variables/solarZenithAngle
+      chunks: [1000000]
       longName: "Solar Zenith Angle"
       units: "degree"
 
     - name: "MetaData/solarAzimuthAngle"
       source: variables/solarAzimuthAngle
+      chunks: [1000000]
       longName: "Solar Azimuth"
       units: "degree"
 
     - name: "MetaData/geopotentialHeight"
       source: variables/geopotentialHeight
+      chunks: [1000000]
       longName: "Geopotential Height"
       units: "m"
 
     - name: "MetaData/sensorCentralFrequencyClfraseq1"
       source: variables/sensorCentralFrequencyClfraseq1
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (1)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequencyClfraseq2"
       source: variables/sensorCentralFrequencyClfraseq2
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (2)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequencyClfraseq3"
       source: variables/sensorCentralFrequencyClfraseq3
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (3)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequencyClfraseq4"
       source: variables/sensorCentralFrequencyClfraseq4
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (4)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequencyClfraseq5"
       source: variables/sensorCentralFrequencyClfraseq5
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (5)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequencyClfraseq6"
       source: variables/sensorCentralFrequencyClfraseq6
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (6)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequencyClfraseq7"
       source: variables/sensorCentralFrequencyClfraseq7
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (7)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequencyClfraseq8"
       source: variables/sensorCentralFrequencyClfraseq8
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (8)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequencyClfraseq9"
       source: variables/sensorCentralFrequencyClfraseq9
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (9)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequencyClfraseq10"
       source: variables/sensorCentralFrequencyClfraseq10
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (10)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthClfraseq1"
       source: variables/sensorBandWidthClfraseq1
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (1)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthClfraseq2"
       source: variables/sensorBandWidthClfraseq2
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (2)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthClfraseq3"
       source: variables/sensorBandWidthClfraseq3
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (3)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthClfraseq4"
       source: variables/sensorBandWidthClfraseq4
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (4)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthClfraseq5"
       source: variables/sensorBandWidthClfraseq5
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (5)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthClfraseq6"
       source: variables/sensorBandWidthClfraseq6
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (6)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthClfraseq7"
       source: variables/sensorBandWidthClfraseq7
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (7)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthClfraseq8"
       source: variables/sensorBandWidthClfraseq8
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (8)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthClfraseq9"
       source: variables/sensorBandWidthClfraseq9
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (9)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthClfraseq10"
       source: variables/sensorBandWidthClfraseq10
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (10)"
       units: "Hz"
 
     - name: "MetaData/satelliteInstrumentData1"
       source: variables/satelliteInstrumentData1
+      chunks: [1000000]
       longName: "Satellite Instrument Data Used In Processing"
 
     - name: "MetaData/integratedMeanHumidityComputationalMethod1"
       source: variables/integratedMeanHumidityComputationalMethod1
+      chunks: [1000000]
       longName: "Integrated Mean Humidity Computational Method"
 
     - name: "MetaData/pressure1"
       source: variables/pressure1
+      chunks: [1000000]
       longName: "Pressure"
       units: "Pa"
 
     - name: "MetaData/pressure2"
       source: variables/pressure2
+      chunks: [1000000]
       longName: "Pressure"
       units: "Pa"
 
     - name: "MetaData/satelliteInstrumentData2"
       source: variables/satelliteInstrumentData2
+      chunks: [1000000]
       longName: "Satellite Instrument Data Used In Processing"
 
     - name: "MetaData/integratedMeanHumidityComputationalMethod2"
       source: variables/integratedMeanHumidityComputationalMethod2
+      chunks: [1000000]
       longName: "Integrated Mean Humidity Computational Method"
 
     - name: "MetaData/pressure3"
       source: variables/pressure3
+      chunks: [1000000]
       longName: "Pressure"
       units: "Pa"
 
     - name: "MetaData/pressure4"
       source: variables/pressure4
+      chunks: [1000000]
       longName: "Pressure"
       units: "Pa"
 
     - name: "MetaData/satelliteInstrumentData1_2"
       source: variables/satelliteInstrumentData1_2
+      chunks: [1000000]
       longName: "Satellite Instrument Data Used In Processing (1)"
 
     - name: "MetaData/satelliteInstrumentData2_2"
       source: variables/satelliteInstrumentData2_2
+      chunks: [1000000]
       longName: "Satellite Instrument Data Used In Processing (2)"
 
     - name: "MetaData/satelliteInstrumentData3"
       source: variables/satelliteInstrumentData3
+      chunks: [1000000]
       longName: "Satellite Instrument Data Used In Processing (3)"
 
     - name: "MetaData/satelliteInstrumentData4"
       source: variables/satelliteInstrumentData4
+      chunks: [1000000]
       longName: "Satellite Instrument Data Used In Processing (4)"
 
     - name: "MetaData/satelliteInstrumentData5"
       source: variables/satelliteInstrumentData5
+      chunks: [1000000]
       longName: "Satellite Instrument Data Used In Processing (5)"
 
     - name: "MetaData/satelliteInstrumentData6"
       source: variables/satelliteInstrumentData6
+      chunks: [1000000]
       longName: "Satellite Instrument Data Used In Processing (6)"
 
     - name: "MetaData/satelliteInstrumentData7"
       source: variables/satelliteInstrumentData7
+      chunks: [1000000]
       longName: "Satellite Instrument Data Used In Processing (7)"
 
     - name: "MetaData/satelliteInstrumentData8"
       source: variables/satelliteInstrumentData8
+      chunks: [1000000]
       longName: "Satellite Instrument Data Used In Processing (8)"
 
     - name: "MetaData/satelliteInstrumentData9"
       source: variables/satelliteInstrumentData9
+      chunks: [1000000]
       longName: "Satellite Instrument Data Used In Processing (9)"
 
     - name: "MetaData/satelliteInstrumentData10"
       source: variables/satelliteInstrumentData10
+      chunks: [1000000]
       longName: "Satellite Instrument Data Used In Processing (10)"
 
     - name: "MetaData/radianceType1"
       source: variables/radianceType1
+      chunks: [1000000]
       longName: "Radiance Type (1)"
 
     - name: "MetaData/radianceType2"
       source: variables/radianceType2
+      chunks: [1000000]
       longName: "Radiance Type (2)"
 
     - name: "MetaData/radianceType3"
       source: variables/radianceType3
+      chunks: [1000000]
       longName: "Radiance Type (3)"
 
     - name: "MetaData/radianceType4"
       source: variables/radianceType4
+      chunks: [1000000]
       longName: "Radiance Type (4)"
 
     - name: "MetaData/radianceType5"
       source: variables/radianceType5
+      chunks: [1000000]
       longName: "Radiance Type (5)"
 
     - name: "MetaData/radianceType6"
       source: variables/radianceType6
+      chunks: [1000000]
       longName: "Radiance Type (6)"
 
     - name: "MetaData/radianceType7"
       source: variables/radianceType7
+      chunks: [1000000]
       longName: "Radiance Type (7)"
 
     - name: "MetaData/radianceType8"
       source: variables/radianceType8
+      chunks: [1000000]
       longName: "Radiance Type (8)"
 
     - name: "MetaData/radianceType9"
       source: variables/radianceType9
+      chunks: [1000000]
       longName: "Radiance Type (9)"
 
     - name: "MetaData/radianceType10"
       source: variables/radianceType10
+      chunks: [1000000]
       longName: "Radiance Type (10)"
 
     - name: "MetaData/radianceComputationalMethod1"
       source: variables/radianceComputationalMethod1
+      chunks: [1000000]
       longName: "Radiance Computational Method (1)"
 
     - name: "MetaData/radianceComputationalMethod2"
       source: variables/radianceComputationalMethod2
+      chunks: [1000000]
       longName: "Radiance Computational Method (2)"
 
     - name: "MetaData/radianceComputationalMethod3"
       source: variables/radianceComputationalMethod3
+      chunks: [1000000]
       longName: "Radiance Computational Method (3)"
 
     - name: "MetaData/radianceComputationalMethod4"
       source: variables/radianceComputationalMethod4
+      chunks: [1000000]
       longName: "Radiance Computational Method (4)"
 
     - name: "MetaData/radianceComputationalMethod5"
       source: variables/radianceComputationalMethod5
+      chunks: [1000000]
       longName: "Radiance Computational Method (5)"
 
     - name: "MetaData/radianceComputationalMethod6"
       source: variables/radianceComputationalMethod6
+      chunks: [1000000]
       longName: "Radiance Computational Method (6)"
 
     - name: "MetaData/radianceComputationalMethod7"
       source: variables/radianceComputationalMethod7
+      chunks: [1000000]
       longName: "Radiance Computational Method (7)"
 
     - name: "MetaData/radianceComputationalMethod8"
       source: variables/radianceComputationalMethod8
+      chunks: [1000000]
       longName: "Radiance Computational Method (8)"
 
     - name: "MetaData/radianceComputationalMethod9"
       source: variables/radianceComputationalMethod9
+      chunks: [1000000]
       longName: "Radiance Computational Method (9)"
 
     - name: "MetaData/radianceComputationalMethod10"
       source: variables/radianceComputationalMethod10
+      chunks: [1000000]
       longName: "Radiance Computational Method (10)"
 
     - name: "MetaData/sensorCentralFrequencyCsradseq1"
       source: variables/sensorCentralFrequencyCsradseq1
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (1)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequencyCsradseq2"
       source: variables/sensorCentralFrequencyCsradseq2
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (2)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequencyCsradseq3"
       source: variables/sensorCentralFrequencyCsradseq3
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (3)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequencyCsradseq4"
       source: variables/sensorCentralFrequencyCsradseq4
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (4)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequencyCsradseq5"
       source: variables/sensorCentralFrequencyCsradseq5
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (5)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequencyCsradseq6"
       source: variables/sensorCentralFrequencyCsradseq6
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (6)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequencyCsradseq7"
       source: variables/sensorCentralFrequencyCsradseq7
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (7)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequencyCsradseq8"
       source: variables/sensorCentralFrequencyCsradseq8
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (8)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequencyCsradseq9"
       source: variables/sensorCentralFrequencyCsradseq9
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (9)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequencyCsradseq10"
       source: variables/sensorCentralFrequencyCsradseq10
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (10)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthCsradseq1"
       source: variables/sensorBandWidthCsradseq1
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (1)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthCsradseq2"
       source: variables/sensorBandWidthCsradseq2
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (2)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthCsradseq3"
       source: variables/sensorBandWidthCsradseq3
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (3)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthCsradseq4"
       source: variables/sensorBandWidthCsradseq4
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (4)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthCsradseq5"
       source: variables/sensorBandWidthCsradseq5
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (5)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthCsradseq6"
       source: variables/sensorBandWidthCsradseq6
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (6)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthCsradseq7"
       source: variables/sensorBandWidthCsradseq7
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (7)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthCsradseq8"
       source: variables/sensorBandWidthCsradseq8
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (8)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthCsradseq9"
       source: variables/sensorBandWidthCsradseq9
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (9)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidthCsradseq10"
       source: variables/sensorBandWidthCsradseq10
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (10)"
       units: "Hz"
 
@@ -1236,10 +1330,12 @@ encoder:
 
     - name: "MetaData/generatingCenterLong1"
       source: variables/generatingCenterLong1
+      chunks: [1000000]
       longName: "ORIGINATING/GENERATING Center"
 
     - name: "MetaData/windGeneratingApplication1"
       source: variables/windGeneratingApplication1
+      chunks: [1000000]
       longName: "Generating Application"
 
     - name: "MetaData/qiWithoutForecastRpseq41"
@@ -1249,14 +1345,17 @@ encoder:
 
     - name: "MetaData/generatingCenterLong2"
       source: variables/generatingCenterLong2
+      chunks: [1000000]
       longName: "ORIGINATING/GENERATING Center"
 
     - name: "MetaData/windGeneratingApplication2"
       source: variables/windGeneratingApplication2
+      chunks: [1000000]
       longName: "Generating Application"
 
     - name: "MetaData/methodOfDeviationOfPercentageConfidence1"
       source: variables/methodOfDeviationOfPercentageConfidence1
+      chunks: [1000000]
       longName: "Method Of Deviation Of Percentage Confidence"
 
     - name: "MetaData/qiWithoutForecastRpseq42"
@@ -1266,14 +1365,17 @@ encoder:
 
     - name: "MetaData/generatingCenterLong3"
       source: variables/generatingCenterLong3
+      chunks: [1000000]
       longName: "ORIGINATING/GENERATING Center"
 
     - name: "MetaData/windGeneratingApplication3"
       source: variables/windGeneratingApplication3
+      chunks: [1000000]
       longName: "Generating Application"
 
     - name: "MetaData/methodOfDeviationOfPercentageConfidence2"
       source: variables/methodOfDeviationOfPercentageConfidence2
+      chunks: [1000000]
       longName: "Method Of Deviation Of Percentage Confidence"
 
     - name: "MetaData/qiWithoutForecastRpseq43"
@@ -1283,14 +1385,17 @@ encoder:
 
     - name: "MetaData/generatingCenterLong4"
       source: variables/generatingCenterLong4
+      chunks: [1000000]
       longName: "ORIGINATING/GENERATING Center"
 
     - name: "MetaData/windGeneratingApplication4"
       source: variables/windGeneratingApplication4
+      chunks: [1000000]
       longName: "Generating Application"
 
     - name: "MetaData/methodOfDeviationOfPercentageConfidence3"
       source: variables/methodOfDeviationOfPercentageConfidence3
+      chunks: [1000000]
       longName: "Method Of Deviation Of Percentage Confidence"
 
     - name: "MetaData/qiWithoutForecastRpseq44"
@@ -1300,14 +1405,17 @@ encoder:
 
     - name: "MetaData/generatingCenterLong5"
       source: variables/generatingCenterLong5
+      chunks: [1000000]
       longName: "ORIGINATING/GENERATING Center"
 
     - name: "MetaData/windGeneratingApplication5"
       source: variables/windGeneratingApplication5
+      chunks: [1000000]
       longName: "Generating Application"
 
     - name: "MetaData/methodOfDeviationOfPercentageConfidence4"
       source: variables/methodOfDeviationOfPercentageConfidence4
+      chunks: [1000000]
       longName: "Method Of Deviation Of Percentage Confidence"
 
     - name: "MetaData/qiWithoutForecastRpseq45"
@@ -1317,625 +1425,753 @@ encoder:
 
     - name: "MetaData/generatingCenterLong6"
       source: variables/generatingCenterLong6
+      chunks: [1000000]
       longName: "ORIGINATING/GENERATING Center"
 
     - name: "MetaData/windGeneratingApplication6"
       source: variables/windGeneratingApplication6
+      chunks: [1000000]
       longName: "Generating Application"
 
     - name: "MetaData/firstOrderStatistics1"
       source: variables/firstOrderStatistics1
+      chunks: [1000000]
       longName: "First Order Statistics"
 
     - name: "MetaData/generatingCenterLong7"
       source: variables/generatingCenterLong7
+      chunks: [1000000]
       longName: "ORIGINATING/GENERATING Center"
 
     - name: "MetaData/windGeneratingApplication7"
       source: variables/windGeneratingApplication7
+      chunks: [1000000]
       longName: "Generating Application"
 
     - name: "MetaData/firstOrderStatistics2"
       source: variables/firstOrderStatistics2
+      chunks: [1000000]
       longName: "First Order Statistics"
 
     # ObsValue
     - name: "ObsValue/cloudAmount1"
       source: variables/cloudAmount1
+      chunks: [1000000]
       longName: "Cloud Amount In Segment (1)"
       units: "%"
 
     - name: "ObsValue/cloudAmount2"
       source: variables/cloudAmount2
+      chunks: [1000000]
       longName: "Cloud Amount In Segment (2)"
       units: "%"
 
     - name: "ObsValue/cloudAmount3"
       source: variables/cloudAmount3
+      chunks: [1000000]
       longName: "Cloud Amount In Segment (3)"
       units: "%"
 
     - name: "ObsValue/cloudAmount4"
       source: variables/cloudAmount4
+      chunks: [1000000]
       longName: "Cloud Amount In Segment (4)"
       units: "%"
 
     - name: "ObsValue/cloudAmount5"
       source: variables/cloudAmount5
+      chunks: [1000000]
       longName: "Cloud Amount In Segment (5)"
       units: "%"
 
     - name: "ObsValue/cloudAmount6"
       source: variables/cloudAmount6
+      chunks: [1000000]
       longName: "Cloud Amount In Segment (6)"
       units: "%"
 
     - name: "ObsValue/cloudAmount7"
       source: variables/cloudAmount7
+      chunks: [1000000]
       longName: "Cloud Amount In Segment (7)"
       units: "%"
 
     - name: "ObsValue/cloudAmount8"
       source: variables/cloudAmount8
+      chunks: [1000000]
       longName: "Cloud Amount In Segment (8)"
       units: "%"
 
     - name: "ObsValue/cloudAmount9"
       source: variables/cloudAmount9
+      chunks: [1000000]
       longName: "Cloud Amount In Segment (9)"
       units: "%"
 
     - name: "ObsValue/cloudAmount10"
       source: variables/cloudAmount10
+      chunks: [1000000]
       longName: "Cloud Amount In Segment (10)"
       units: "%"
 
     - name: "ObsValue/cloudFree1"
       source: variables/cloudFree1
+      chunks: [1000000]
       longName: "Amount Segment Cloud Free (1)"
       units: "%"
 
     - name: "ObsValue/cloudFree2"
       source: variables/cloudFree2
+      chunks: [1000000]
       longName: "Amount Segment Cloud Free (2)"
       units: "%"
 
     - name: "ObsValue/cloudFree3"
       source: variables/cloudFree3
+      chunks: [1000000]
       longName: "Amount Segment Cloud Free (3)"
       units: "%"
 
     - name: "ObsValue/cloudFree4"
       source: variables/cloudFree4
+      chunks: [1000000]
       longName: "Amount Segment Cloud Free (4)"
       units: "%"
 
     - name: "ObsValue/cloudFree5"
       source: variables/cloudFree5
+      chunks: [1000000]
       longName: "Amount Segment Cloud Free (5)"
       units: "%"
 
     - name: "ObsValue/cloudFree6"
       source: variables/cloudFree6
+      chunks: [1000000]
       longName: "Amount Segment Cloud Free (6)"
       units: "%"
 
     - name: "ObsValue/cloudFree7"
       source: variables/cloudFree7
+      chunks: [1000000]
       longName: "Amount Segment Cloud Free (7)"
       units: "%"
 
     - name: "ObsValue/cloudFree8"
       source: variables/cloudFree8
+      chunks: [1000000]
       longName: "Amount Segment Cloud Free (8)"
       units: "%"
 
     - name: "ObsValue/cloudFree9"
       source: variables/cloudFree9
+      chunks: [1000000]
       longName: "Amount Segment Cloud Free (9)"
       units: "%"
 
     - name: "ObsValue/cloudFree10"
       source: variables/cloudFree10
+      chunks: [1000000]
       longName: "Amount Segment Cloud Free (10)"
       units: "%"
 
     - name: "ObsValue/cloudType1"
       source: variables/cloudType1
+      chunks: [1000000]
       longName: "Cloud Type (1)"
 
     - name: "ObsValue/cloudType2"
       source: variables/cloudType2
+      chunks: [1000000]
       longName: "Cloud Type (2)"
 
     - name: "ObsValue/cloudType3"
       source: variables/cloudType3
+      chunks: [1000000]
       longName: "Cloud Type (3)"
 
     - name: "ObsValue/cloudType4"
       source: variables/cloudType4
+      chunks: [1000000]
       longName: "Cloud Type (4)"
 
     - name: "ObsValue/cloudType5"
       source: variables/cloudType5
+      chunks: [1000000]
       longName: "Cloud Type (5)"
 
     - name: "ObsValue/cloudType6"
       source: variables/cloudType6
+      chunks: [1000000]
       longName: "Cloud Type (6)"
 
     - name: "ObsValue/cloudType7"
       source: variables/cloudType7
+      chunks: [1000000]
       longName: "Cloud Type (7)"
 
     - name: "ObsValue/cloudType8"
       source: variables/cloudType8
+      chunks: [1000000]
       longName: "Cloud Type (8)"
 
     - name: "ObsValue/cloudType9"
       source: variables/cloudType9
+      chunks: [1000000]
       longName: "Cloud Type (9)"
 
     - name: "ObsValue/cloudType10"
       source: variables/cloudType10
+      chunks: [1000000]
       longName: "Cloud Type (10)"
 
     - name: "ObsValue/relativeHumidity1"
       source: variables/relativeHumidity1
+      chunks: [1000000]
       longName: "Relative Humidity"
       units: "%"
 
     - name: "ObsValue/relativeHumidity2"
       source: variables/relativeHumidity2
+      chunks: [1000000]
       longName: "Relative Humidity"
       units: "%"
 
     - name: "ObsValue/spectralRadianceCsradseq1"
       source: variables/spectralRadianceCsradseq1
+      chunks: [1000000]
       longName: "Spectral Radiance (1)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceCsradseq2"
       source: variables/spectralRadianceCsradseq2
+      chunks: [1000000]
       longName: "Spectral Radiance (2)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceCsradseq3"
       source: variables/spectralRadianceCsradseq3
+      chunks: [1000000]
       longName: "Spectral Radiance (3)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceCsradseq4"
       source: variables/spectralRadianceCsradseq4
+      chunks: [1000000]
       longName: "Spectral Radiance (4)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceCsradseq5"
       source: variables/spectralRadianceCsradseq5
+      chunks: [1000000]
       longName: "Spectral Radiance (5)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceCsradseq6"
       source: variables/spectralRadianceCsradseq6
+      chunks: [1000000]
       longName: "Spectral Radiance (6)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceCsradseq7"
       source: variables/spectralRadianceCsradseq7
+      chunks: [1000000]
       longName: "Spectral Radiance (7)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceCsradseq8"
       source: variables/spectralRadianceCsradseq8
+      chunks: [1000000]
       longName: "Spectral Radiance (8)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceCsradseq9"
       source: variables/spectralRadianceCsradseq9
+      chunks: [1000000]
       longName: "Spectral Radiance (9)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceCsradseq10"
       source: variables/spectralRadianceCsradseq10
+      chunks: [1000000]
       longName: "Spectral Radiance (10)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/radianceCsradseq1"
       source: variables/radianceCsradseq1
+      chunks: [1000000]
       longName: "Radiance (1)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceCsradseq2"
       source: variables/radianceCsradseq2
+      chunks: [1000000]
       longName: "Radiance (2)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceCsradseq3"
       source: variables/radianceCsradseq3
+      chunks: [1000000]
       longName: "Radiance (3)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceCsradseq4"
       source: variables/radianceCsradseq4
+      chunks: [1000000]
       longName: "Radiance (4)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceCsradseq5"
       source: variables/radianceCsradseq5
+      chunks: [1000000]
       longName: "Radiance (5)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceCsradseq6"
       source: variables/radianceCsradseq6
+      chunks: [1000000]
       longName: "Radiance (6)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceCsradseq7"
       source: variables/radianceCsradseq7
+      chunks: [1000000]
       longName: "Radiance (7)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceCsradseq8"
       source: variables/radianceCsradseq8
+      chunks: [1000000]
       longName: "Radiance (8)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceCsradseq9"
       source: variables/radianceCsradseq9
+      chunks: [1000000]
       longName: "Radiance (9)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceCsradseq10"
       source: variables/radianceCsradseq10
+      chunks: [1000000]
       longName: "Radiance (10)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/brightnessTemperature1"
       source: variables/brightnessTemperature1
+      chunks: [1000000]
       longName: "Brightness Temperature (1)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature2"
       source: variables/brightnessTemperature2
+      chunks: [1000000]
       longName: "Brightness Temperature (2)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature3"
       source: variables/brightnessTemperature3
+      chunks: [1000000]
       longName: "Brightness Temperature (3)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature4"
       source: variables/brightnessTemperature4
+      chunks: [1000000]
       longName: "Brightness Temperature (4)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature5"
       source: variables/brightnessTemperature5
+      chunks: [1000000]
       longName: "Brightness Temperature (5)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature6"
       source: variables/brightnessTemperature6
+      chunks: [1000000]
       longName: "Brightness Temperature (6)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature7"
       source: variables/brightnessTemperature7
+      chunks: [1000000]
       longName: "Brightness Temperature (7)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature8"
       source: variables/brightnessTemperature8
+      chunks: [1000000]
       longName: "Brightness Temperature (8)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature9"
       source: variables/brightnessTemperature9
+      chunks: [1000000]
       longName: "Brightness Temperature (9)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature10"
       source: variables/brightnessTemperature10
+      chunks: [1000000]
       longName: "Brightness Temperature (10)"
       units: "K"
 
     - name: "ObsValue/spectralRadianceSdradsq11"
       source: variables/spectralRadianceSdradsq11
+      chunks: [1000000]
       longName: "Spectral Radiance (1)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceSdradsq12"
       source: variables/spectralRadianceSdradsq12
+      chunks: [1000000]
       longName: "Spectral Radiance (2)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceSdradsq13"
       source: variables/spectralRadianceSdradsq13
+      chunks: [1000000]
       longName: "Spectral Radiance (3)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceSdradsq14"
       source: variables/spectralRadianceSdradsq14
+      chunks: [1000000]
       longName: "Spectral Radiance (4)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceSdradsq15"
       source: variables/spectralRadianceSdradsq15
+      chunks: [1000000]
       longName: "Spectral Radiance (5)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceSdradsq16"
       source: variables/spectralRadianceSdradsq16
+      chunks: [1000000]
       longName: "Spectral Radiance (6)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceSdradsq17"
       source: variables/spectralRadianceSdradsq17
+      chunks: [1000000]
       longName: "Spectral Radiance (7)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceSdradsq18"
       source: variables/spectralRadianceSdradsq18
+      chunks: [1000000]
       longName: "Spectral Radiance (8)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceSdradsq19"
       source: variables/spectralRadianceSdradsq19
+      chunks: [1000000]
       longName: "Spectral Radiance (9)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceSdradsq110"
       source: variables/spectralRadianceSdradsq110
+      chunks: [1000000]
       longName: "Spectral Radiance (10)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/radianceSdradsq11"
       source: variables/radianceSdradsq11
+      chunks: [1000000]
       longName: "Radiance (1)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceSdradsq12"
       source: variables/radianceSdradsq12
+      chunks: [1000000]
       longName: "Radiance (2)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceSdradsq13"
       source: variables/radianceSdradsq13
+      chunks: [1000000]
       longName: "Radiance (3)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceSdradsq14"
       source: variables/radianceSdradsq14
+      chunks: [1000000]
       longName: "Radiance (4)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceSdradsq15"
       source: variables/radianceSdradsq15
+      chunks: [1000000]
       longName: "Radiance (5)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceSdradsq16"
       source: variables/radianceSdradsq16
+      chunks: [1000000]
       longName: "Radiance (6)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceSdradsq17"
       source: variables/radianceSdradsq17
+      chunks: [1000000]
       longName: "Radiance (7)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceSdradsq18"
       source: variables/radianceSdradsq18
+      chunks: [1000000]
       longName: "Radiance (8)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceSdradsq19"
       source: variables/radianceSdradsq19
+      chunks: [1000000]
       longName: "Radiance (9)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceSdradsq110"
       source: variables/radianceSdradsq110
+      chunks: [1000000]
       longName: "Radiance (10)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq11"
       source: variables/clearSkyStandardDeviationSdradsq11
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (1)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq12"
       source: variables/clearSkyStandardDeviationSdradsq12
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (2)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq13"
       source: variables/clearSkyStandardDeviationSdradsq13
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (3)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq14"
       source: variables/clearSkyStandardDeviationSdradsq14
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (4)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq15"
       source: variables/clearSkyStandardDeviationSdradsq15
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (5)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq16"
       source: variables/clearSkyStandardDeviationSdradsq16
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (6)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq17"
       source: variables/clearSkyStandardDeviationSdradsq17
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (7)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq18"
       source: variables/clearSkyStandardDeviationSdradsq18
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (8)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq19"
       source: variables/clearSkyStandardDeviationSdradsq19
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (9)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq110"
       source: variables/clearSkyStandardDeviationSdradsq110
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (10)"
       units: "K"
 
     - name: "ObsValue/spectralRadianceSdradsq21"
       source: variables/spectralRadianceSdradsq21
+      chunks: [1000000]
       longName: "Spectral Radiance (1)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceSdradsq22"
       source: variables/spectralRadianceSdradsq22
+      chunks: [1000000]
       longName: "Spectral Radiance (2)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceSdradsq23"
       source: variables/spectralRadianceSdradsq23
+      chunks: [1000000]
       longName: "Spectral Radiance (3)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceSdradsq24"
       source: variables/spectralRadianceSdradsq24
+      chunks: [1000000]
       longName: "Spectral Radiance (4)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceSdradsq25"
       source: variables/spectralRadianceSdradsq25
+      chunks: [1000000]
       longName: "Spectral Radiance (5)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceSdradsq26"
       source: variables/spectralRadianceSdradsq26
+      chunks: [1000000]
       longName: "Spectral Radiance (6)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceSdradsq27"
       source: variables/spectralRadianceSdradsq27
+      chunks: [1000000]
       longName: "Spectral Radiance (7)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceSdradsq28"
       source: variables/spectralRadianceSdradsq28
+      chunks: [1000000]
       longName: "Spectral Radiance (8)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceSdradsq29"
       source: variables/spectralRadianceSdradsq29
+      chunks: [1000000]
       longName: "Spectral Radiance (9)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/spectralRadianceSdradsq210"
       source: variables/spectralRadianceSdradsq210
+      chunks: [1000000]
       longName: "Spectral Radiance (10)"
       units: "W m-3 sr-1"
 
     - name: "ObsValue/radianceSdradsq21"
       source: variables/radianceSdradsq21
+      chunks: [1000000]
       longName: "Radiance (1)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceSdradsq22"
       source: variables/radianceSdradsq22
+      chunks: [1000000]
       longName: "Radiance (2)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceSdradsq23"
       source: variables/radianceSdradsq23
+      chunks: [1000000]
       longName: "Radiance (3)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceSdradsq24"
       source: variables/radianceSdradsq24
+      chunks: [1000000]
       longName: "Radiance (4)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceSdradsq25"
       source: variables/radianceSdradsq25
+      chunks: [1000000]
       longName: "Radiance (5)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceSdradsq26"
       source: variables/radianceSdradsq26
+      chunks: [1000000]
       longName: "Radiance (6)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceSdradsq27"
       source: variables/radianceSdradsq27
+      chunks: [1000000]
       longName: "Radiance (7)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceSdradsq28"
       source: variables/radianceSdradsq28
+      chunks: [1000000]
       longName: "Radiance (8)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceSdradsq29"
       source: variables/radianceSdradsq29
+      chunks: [1000000]
       longName: "Radiance (9)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/radianceSdradsq210"
       source: variables/radianceSdradsq210
+      chunks: [1000000]
       longName: "Radiance (10)"
       units: "W m-2 sr-1"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq21"
       source: variables/clearSkyStandardDeviationSdradsq21
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (1)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq22"
       source: variables/clearSkyStandardDeviationSdradsq22
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (2)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq23"
       source: variables/clearSkyStandardDeviationSdradsq23
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (3)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq24"
       source: variables/clearSkyStandardDeviationSdradsq24
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (4)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq25"
       source: variables/clearSkyStandardDeviationSdradsq25
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (5)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq26"
       source: variables/clearSkyStandardDeviationSdradsq26
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (6)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq27"
       source: variables/clearSkyStandardDeviationSdradsq27
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (7)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq28"
       source: variables/clearSkyStandardDeviationSdradsq28
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (8)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq29"
       source: variables/clearSkyStandardDeviationSdradsq29
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (9)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviationSdradsq210"
       source: variables/clearSkyStandardDeviationSdradsq210
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (10)"
       units: "K"

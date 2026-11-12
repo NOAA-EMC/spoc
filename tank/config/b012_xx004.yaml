@@ -177,45 +177,54 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/receiptTime"
       source: variables/receiptTime
+      chunks: [1000000]
       longName: "Receipt Time"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/stationName"
       source: variables/stationName
+      chunks: [1000000]
       longName: "Station or site name"
 
     - name: "MetaData/stationElevation"
       source: variables/stationElevation
+      chunks: [1000000]
       longName: "Height Of Station"
       units: "m"
 
     - name: "MetaData/timeSignificance"
       source: variables/timeSignificance
+      chunks: [1000000]
       longName: "Time significance"
 
     - name: "MetaData/timePeriodMinutes"
       source: variables/timePeriodMinutes
+      chunks: [1000000]
       longName: "Time period or displacement"
       units: "min"
 
     - name: "MetaData/totalNumberWithRespectToAccumulationOrAverage"
       source: variables/totalNumberWithRespectToAccumulationOrAverage
+      chunks: [1000000]
       longName: "Total number (with respect to accumulation or average)"
 
     - name: "MetaData/satelliteConstellationRO"
@@ -238,58 +247,71 @@ encoder:
 
     - name: "MetaData/sampleScanningModeSignificance1"
       source: variables/sampleScanningModeSignificance1
+      chunks: [1000000]
       longName: "Sample scanning mode significance"
 
     - name: "MetaData/sampleScanningModeSignificance2"
       source: variables/sampleScanningModeSignificance2
+      chunks: [1000000]
       longName: "Sample scanning mode significance"
 
     - name: "MetaData/sequenceNumber"
       source: variables/sequenceNumber
+      chunks: [1000000]
       longName: "Channel Sequence Number"
 
     - name: "MetaData/bulletinHeader"
       source: variables/bulletinHeader
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (TTAAii)"
 
     - name: "MetaData/bulletinOriginator"
       source: variables/bulletinOriginator
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (CCCC)"
 
     - name: "MetaData/bulletinTime"
       source: variables/bulletinTime
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (YYGGgg)"
 
     - name: "MetaData/bulletinBBB"
       source: variables/bulletinBBB
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (BBB)"
 
     - name: "MetaData/receiptTimeSignificance"
       source: variables/receiptTimeSignificance
+      chunks: [1000000]
       longName: "Receipt Time Significance"
 
     - name: "MetaData/restrictionFlag"
       source: variables/restrictionFlag
+      chunks: [1000000]
       longName: "Restrictions On Redistribution"
 
     - name: "MetaData/restrictionExpiration"
       source: variables/restrictionExpiration
+      chunks: [1000000]
       longName: "Expiration Of Restrictions On Redistribution"
       units: "h"
 
     # ObsValue
     - name: "ObsValue/airPressure"
       source: variables/airPressure
+      chunks: [1000000]
       longName: "Pressure"
       units: "Pa"
 
     - name: "ObsValue/airTemperature"
       source: variables/airTemperature
+      chunks: [1000000]
       longName: "Temperature/dry-bulb temperature"
       units: "K"
 
     - name: "ObsValue/relativeHumidity"
       source: variables/relativeHumidity
+      chunks: [1000000]
       longName: "Relative Humidity"
       units: "%"
 
@@ -305,44 +327,53 @@ encoder:
 
     - name: "ObsValue/differenceInPathDelaysForLimbViewsAtExtremes1"
       source: variables/differenceInPathDelaysForLimbViewsAtExtremes1
+      chunks: [1000000]
       longName: "Difference in path delays for limb views at extremes o"
       units: "m"
 
     - name: "ObsValue/estimatedErrorInPathDelayDifference1"
       source: variables/estimatedErrorInPathDelayDifference1
+      chunks: [1000000]
       longName: "Estimated error in path delay difference"
       units: "m"
 
     - name: "ObsValue/differenceInPathDelaysForLimbViewsAtExtremes2"
       source: variables/differenceInPathDelaysForLimbViewsAtExtremes2
+      chunks: [1000000]
       longName: "Difference in path delays for limb views at extremes o"
       units: "m"
 
     - name: "ObsValue/estimatedErrorInPathDelayDifference2"
       source: variables/estimatedErrorInPathDelayDifference2
+      chunks: [1000000]
       longName: "Estimated error in path delay difference"
       units: "m"
 
     - name: "ObsValue/componentOfZenithPathDelayDueToWaterVapour"
       source: variables/componentOfZenithPathDelayDueToWaterVapour
+      chunks: [1000000]
       longName: "Component of zenith path delay due to water vapour"
       units: "m"
 
     - name: "ObsValue/totalPrecipitableWater"
       source: variables/totalPrecipitableWater
+      chunks: [1000000]
       longName: "Total Precipitable Water"
       units: "kg m-2"
 
     - name: "ObsValue/log10OfIntegratedElectronDensity"
       source: variables/log10OfIntegratedElectronDensity
+      chunks: [1000000]
       longName: "Log 10 of integrated electron density"
       units: "log(m-2)"
 
     # QualityMarker
     - name: "QualityMarker/qualityFlagsForGroundBasedGnssData"
       source: variables/qualityFlagsForGroundBasedGnssData
+      chunks: [1000000]
       longName: "Quality flags for ground-based GNSS data"
 
     - name: "QualityMarker/correctedReportIndicator"
       source: variables/correctedReportIndicator
+      chunks: [1000000]
       longName: "Corrected Report Indicator"

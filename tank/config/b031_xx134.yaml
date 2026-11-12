@@ -634,273 +634,333 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/receiptTime"
       source: variables/receiptTime
+      chunks: [1000000]
       longName: "Receipt Time"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/satelliteIdentifier"
       source: variables/satelliteIdentifier
+      chunks: [1000000]
       longName: "Satellite Identifier"
 
     - name: "MetaData/instrumentIdentifier"
       source: variables/instrumentIdentifier
+      chunks: [1000000]
       longName: "Satellite instruments"
 
     - name: "MetaData/satelliteCycleNumber"
       source: variables/satelliteCycleNumber
+      chunks: [1000000]
       longName: "Satellite Cycle Number"
 
     - name: "MetaData/stationAcquisition"
       source: variables/stationAcquisition
+      chunks: [1000000]
       longName: "Station acquisition"
 
     - name: "MetaData/orbitNumber"
       source: variables/orbitNumber
+      chunks: [1000000]
       longName: "Orbit Number"
 
     - name: "MetaData/processingCentreIdCode"
       source: variables/processingCentreIdCode
+      chunks: [1000000]
       longName: "Processing centre ID code"
 
     - name: "MetaData/softwareVersion"
       source: variables/softwareVersion
+      chunks: [1000000]
       longName: "Software identification and version number"
 
     - name: "MetaData/l1ProcessingFlag"
       source: variables/l1ProcessingFlag
+      chunks: [1000000]
       longName: "L1 processing flag"
 
     - name: "MetaData/l1ProcessingQuality"
       source: variables/l1ProcessingQuality
+      chunks: [1000000]
       longName: "L1 processing quality"
       units: "%"
 
     - name: "MetaData/l2ProcessingFlag"
       source: variables/l2ProcessingFlag
+      chunks: [1000000]
       longName: "L2 processing flag"
 
     - name: "MetaData/l2ProductStatus"
       source: variables/l2ProductStatus
+      chunks: [1000000]
       longName: "L2 product status"
 
     - name: "MetaData/secondWithinAMinuteMicrosecondAccuracy"
       source: variables/secondWithinAMinuteMicrosecondAccuracy
+      chunks: [1000000]
       longName: "Second within a minute (microsecond accuracy)"
       units: "s"
 
     - name: "MetaData/spacecraftRoll"
       source: variables/spacecraftRoll
+      chunks: [1000000]
       longName: "Spacecraft Roll"
       units: "degree"
 
     - name: "MetaData/spacecraftPitch"
       source: variables/spacecraftPitch
+      chunks: [1000000]
       longName: "Spacecraft Pitch"
       units: "degree"
 
     - name: "MetaData/spacecraftYaw"
       source: variables/spacecraftYaw
+      chunks: [1000000]
       longName: "Spacecraft Yaw"
       units: "degree"
 
     - name: "MetaData/ascendingDescendingOrbitQualifier"
       source: variables/ascendingDescendingOrbitQualifier
+      chunks: [1000000]
       longName: "ASCENDING/DESCENDING Orbit Qualifier"
 
     - name: "MetaData/orbitStateFlag"
       source: variables/orbitStateFlag
+      chunks: [1000000]
       longName: "Orbit State Flag"
 
     - name: "MetaData/remotelySensedSurfaceType"
       source: variables/remotelySensedSurfaceType
+      chunks: [1000000]
       longName: "Remotely Sensed Surface Type"
 
     - name: "MetaData/distanceToGateCenter"
       source: variables/distanceToGateCenter
+      chunks: [1000000]
       longName: "Distance"
       units: "m"
 
     - name: "MetaData/radiometerStateFlag"
       source: variables/radiometerStateFlag
+      chunks: [1000000]
       longName: "Radiometer State Flag"
 
     - name: "MetaData/radiometerSensedSurfaceType"
       source: variables/radiometerSensedSurfaceType
+      chunks: [1000000]
       longName: "Radiometer sensed surface type"
 
     - name: "MetaData/sensorCentralFrequency1"
       source: variables/sensorCentralFrequency1
+      chunks: [1000000]
       longName: "Satellite channel center frequency (1)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequency2"
       source: variables/sensorCentralFrequency2
+      chunks: [1000000]
       longName: "Satellite channel center frequency (2)"
       units: "Hz"
 
     - name: "MetaData/heightOfStation1"
       source: variables/heightOfStation1
+      chunks: [1000000]
       longName: "Height or altitude"
       units: "m"
 
     - name: "MetaData/radiometerWetTroposphericCorrection1"
       source: variables/radiometerWetTroposphericCorrection1
+      chunks: [1000000]
       longName: "Radiometer wet tropospheric correction"
       units: "m"
 
     - name: "MetaData/altimeterStateFlag"
       source: variables/altimeterStateFlag
+      chunks: [1000000]
       longName: "Altimeter State Flag"
 
     - name: "MetaData/bandSpecificAltimeterCorrectionQualityFlag1"
       source: variables/bandSpecificAltimeterCorrectionQualityFlag1
+      chunks: [1000000]
       longName: "Band specific altimeter correction quality flag"
 
     - name: "MetaData/altimeterEchoType"
       source: variables/altimeterEchoType
+      chunks: [1000000]
       longName: "Altimeter Echo Type"
 
     - name: "MetaData/altimeterEchoProcessingMode1"
       source: variables/altimeterEchoProcessingMode1
+      chunks: [1000000]
       longName: "Altimeter echo processing mode"
 
     - name: "MetaData/altimeterTrackingMode"
       source: variables/altimeterTrackingMode
+      chunks: [1000000]
       longName: "Altimeter tracking mode"
 
     - name: "MetaData/heightOfStation2"
       source: variables/heightOfStation2
+      chunks: [1000000]
       longName: "Height or altitude"
       units: "m"
 
     - name: "MetaData/heightOfStation3"
       source: variables/heightOfStation3
+      chunks: [1000000]
       longName: "Height or altitude"
       units: "m"
 
     - name: "MetaData/modelDryTroposphericCorrection"
       source: variables/modelDryTroposphericCorrection
+      chunks: [1000000]
       longName: "Model dry tropospheric correction"
       units: "m"
 
     - name: "MetaData/modelWetTroposphericCorrection1"
       source: variables/modelWetTroposphericCorrection1
+      chunks: [1000000]
       longName: "Model wet tropospheric correction"
       units: "m"
 
     - name: "MetaData/heightOfStation4"
       source: variables/heightOfStation4
+      chunks: [1000000]
       longName: "Height or altitude"
       units: "m"
 
     - name: "MetaData/invertedBarometerCorrection"
       source: variables/invertedBarometerCorrection
+      chunks: [1000000]
       longName: "Inverted barometer correction"
       units: "m"
 
     - name: "MetaData/typeOfBand1"
       source: variables/typeOfBand1
+      chunks: [1000000]
       longName: "Type Of Band"
 
     - name: "MetaData/ionosphericCorrectionFromModelOnSpecificBand1"
       source: variables/ionosphericCorrectionFromModelOnSpecificBand1
+      chunks: [1000000]
       longName: "Ionospheric correction from model on specific band"
       units: "m"
 
     - name: "MetaData/seaStateBiasCorrectionOnSpecificBand1"
       source: variables/seaStateBiasCorrectionOnSpecificBand1
+      chunks: [1000000]
       longName: "Sea state bias correction on specific band"
       units: "m"
 
     - name: "MetaData/specificBandNetInstrumentalCorrection1"
       source: variables/specificBandNetInstrumentalCorrection1
+      chunks: [1000000]
       longName: "Specific band net instrumental correction"
       units: "m"
 
     - name: "MetaData/bandSpecificAltimeterDataQualityFlag1"
       source: variables/bandSpecificAltimeterDataQualityFlag1
+      chunks: [1000000]
       longName: "Band specific altimeter data quality flag"
 
     - name: "MetaData/bandSpecificAltimeterCorrectionQualityFlag2"
       source: variables/bandSpecificAltimeterCorrectionQualityFlag2
+      chunks: [1000000]
       longName: "Band specific altimeter correction quality flag"
 
     - name: "MetaData/typeOfBand2"
       source: variables/typeOfBand2
+      chunks: [1000000]
       longName: "Type Of Band"
 
     - name: "MetaData/ionosphericCorrectionFromModelOnSpecificBand2"
       source: variables/ionosphericCorrectionFromModelOnSpecificBand2
+      chunks: [1000000]
       longName: "Ionospheric correction from model on specific band"
       units: "m"
 
     - name: "MetaData/seaStateBiasCorrectionOnSpecificBand2"
       source: variables/seaStateBiasCorrectionOnSpecificBand2
+      chunks: [1000000]
       longName: "Sea state bias correction on specific band"
       units: "m"
 
     - name: "MetaData/specificBandNetInstrumentalCorrection2"
       source: variables/specificBandNetInstrumentalCorrection2
+      chunks: [1000000]
       longName: "Specific band net instrumental correction"
       units: "m"
 
     - name: "MetaData/bandSpecificAltimeterDataQualityFlag2"
       source: variables/bandSpecificAltimeterDataQualityFlag2
+      chunks: [1000000]
       longName: "Band specific altimeter data quality flag"
 
     - name: "MetaData/bandSpecificAltimeterCorrectionQualityFlag3"
       source: variables/bandSpecificAltimeterCorrectionQualityFlag3
+      chunks: [1000000]
       longName: "Band specific altimeter correction quality flag"
 
     - name: "MetaData/altimeterEchoProcessingMode2"
       source: variables/altimeterEchoProcessingMode2
+      chunks: [1000000]
       longName: "Altimeter echo processing mode"
 
     - name: "MetaData/modelWetTroposphericCorrection2"
       source: variables/modelWetTroposphericCorrection2
+      chunks: [1000000]
       longName: "Model wet tropospheric correction"
       units: "m"
 
     - name: "MetaData/altimeterIonosphericCorrectionOnKuBand"
       source: variables/altimeterIonosphericCorrectionOnKuBand
+      chunks: [1000000]
       longName: "Altimeter ionospheric correction on Ku band"
       units: "m"
 
     - name: "MetaData/radiometerWetTroposphericCorrection2"
       source: variables/radiometerWetTroposphericCorrection2
+      chunks: [1000000]
       longName: "Radiometer wet tropospheric correction"
       units: "m"
 
     - name: "MetaData/seaStateBiasCorrectionOnSpecificBand3"
       source: variables/seaStateBiasCorrectionOnSpecificBand3
+      chunks: [1000000]
       longName: "Sea state bias correction on specific band"
       units: "m"
 
     - name: "MetaData/bandSpecificAltimeterDataQualityFlag3"
       source: variables/bandSpecificAltimeterDataQualityFlag3
+      chunks: [1000000]
       longName: "Band specific altimeter data quality flag"
 
     - name: "MetaData/bandSpecificAltimeterCorrectionQualityFlag4"
       source: variables/bandSpecificAltimeterCorrectionQualityFlag4
+      chunks: [1000000]
       longName: "Band specific altimeter correction quality flag"
 
     - name: "MetaData/numberOfObservations"
       source: variables/numberOfObservations
+      chunks: [1000000]
       longName: "Number Of Observations"
 
     - name: "MetaData/year"
@@ -977,437 +1037,529 @@ encoder:
 
     - name: "MetaData/sequenceNumber"
       source: variables/sequenceNumber
+      chunks: [1000000]
       longName: "Channel Sequence Number"
 
     - name: "MetaData/bulletinHeader"
       source: variables/bulletinHeader
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (TTAAii)"
 
     - name: "MetaData/bulletinOriginator"
       source: variables/bulletinOriginator
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (CCCC)"
 
     - name: "MetaData/bulletinTime"
       source: variables/bulletinTime
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (YYGGgg)"
 
     - name: "MetaData/bulletinBBB"
       source: variables/bulletinBBB
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (BBB)"
 
     - name: "MetaData/receiptTimeSignificance"
       source: variables/receiptTimeSignificance
+      chunks: [1000000]
       longName: "Receipt Time Significance"
 
     # ObsValue
     - name: "ObsValue/altitudeOfCogAboveReferenceEllipsoid"
       source: variables/altitudeOfCogAboveReferenceEllipsoid
+      chunks: [1000000]
       longName: "Altitude of COG above reference ellipsoid"
       units: "m"
 
     - name: "ObsValue/instantaneousAltitudeRate"
       source: variables/instantaneousAltitudeRate
+      chunks: [1000000]
       longName: "Instantaneous altitude rate"
       units: "m s-1"
 
     - name: "ObsValue/oceanDepthLandElevation"
       source: variables/oceanDepthLandElevation
+      chunks: [1000000]
       longName: "Ocean depth/land elevation"
       units: "m"
 
     - name: "ObsValue/radiometerDataQualityFlag"
       source: variables/radiometerDataQualityFlag
+      chunks: [1000000]
       longName: "Radiometer data quality flag"
 
     - name: "ObsValue/brightnessTemperature1"
       source: variables/brightnessTemperature1
+      chunks: [1000000]
       longName: "Brightness temperature (1)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature2"
       source: variables/brightnessTemperature2
+      chunks: [1000000]
       longName: "Brightness temperature (2)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation1"
       source: variables/clearSkyStandardDeviation1
+      chunks: [1000000]
       longName: "Standard deviation brightness temperature (1)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation2"
       source: variables/clearSkyStandardDeviation2
+      chunks: [1000000]
       longName: "Standard deviation brightness temperature (2)"
       units: "K"
 
     - name: "ObsValue/radiometerBrightnessTemperatureInterpretationFlag1"
       source: variables/radiometerBrightnessTemperatureInterpretationFlag1
+      chunks: [1000000]
       longName: "Radiometer brightness temperature interpretation flag (1)"
 
     - name: "ObsValue/radiometerBrightnessTemperatureInterpretationFlag2"
       source: variables/radiometerBrightnessTemperatureInterpretationFlag2
+      chunks: [1000000]
       longName: "Radiometer brightness temperature interpretation flag (2)"
 
     - name: "ObsValue/windSpeedFromRadiometer"
       source: variables/windSpeedFromRadiometer
+      chunks: [1000000]
       longName: "Wind speed from radiometer"
       units: "m s-1"
 
     - name: "ObsValue/radiometerWaterVaporContent1"
       source: variables/radiometerWaterVaporContent1
+      chunks: [1000000]
       longName: "Radiometer Water Vapor Content"
       units: "kg m-2"
 
     - name: "ObsValue/radiometerLiquidContent1"
       source: variables/radiometerLiquidContent1
+      chunks: [1000000]
       longName: "Radiometer Liquid Content"
       units: "kg m-2"
 
     - name: "ObsValue/auxilliaryAltimeterStateFlags"
       source: variables/auxilliaryAltimeterStateFlags
+      chunks: [1000000]
       longName: "Auxilliary altimeter state flags"
 
     - name: "ObsValue/altimeterRainFlag"
       source: variables/altimeterRainFlag
+      chunks: [1000000]
       longName: "Altimeter rain flag"
 
     - name: "ObsValue/kuBandRainAttenuation1"
       source: variables/kuBandRainAttenuation1
+      chunks: [1000000]
       longName: "Ku band rain attenuation"
       units: "dB"
 
     - name: "ObsValue/intensityOfPrecipitation"
       source: variables/intensityOfPrecipitation
+      chunks: [1000000]
       longName: "Intensity of precipitation"
       units: "kg m-2 s-1"
 
     - name: "ObsValue/icePresenceIndicator"
       source: variables/icePresenceIndicator
+      chunks: [1000000]
       longName: "Ice presence indicator"
 
     - name: "ObsValue/squaredOffNadirAngleOfTheSatelliteFromWaveform"
       source: variables/squaredOffNadirAngleOfTheSatelliteFromWaveform
+      chunks: [1000000]
       longName: "Squared off nadir angle of the satellite from waveform"
       units: "degree2"
 
     - name: "ObsValue/totalElectronCountPerSquareMetre"
       source: variables/totalElectronCountPerSquareMetre
+      chunks: [1000000]
       longName: "Total electron count per square metre"
       units: "m-2"
 
     - name: "ObsValue/windSpeedFromAltimeter1"
       source: variables/windSpeedFromAltimeter1
+      chunks: [1000000]
       longName: "Wind speed from altimeter"
       units: "m s-1"
 
     - name: "ObsValue/meteorologicalMapAvailability"
       source: variables/meteorologicalMapAvailability
+      chunks: [1000000]
       longName: "Meteorological map availability"
 
     - name: "ObsValue/interpolationFlag"
       source: variables/interpolationFlag
+      chunks: [1000000]
       longName: "Interpolation flag"
 
     - name: "ObsValue/modelWindEastward"
       source: variables/modelWindEastward
+      chunks: [1000000]
       longName: "u-component of the model wind vector"
       units: "m s-1"
 
     - name: "ObsValue/modelWindNorthward"
       source: variables/modelWindNorthward
+      chunks: [1000000]
       longName: "v-component of the model wind vector"
       units: "m s-1"
 
     - name: "ObsValue/totalGeocentricOceanTideHeightSolution1"
       source: variables/totalGeocentricOceanTideHeightSolution1
+      chunks: [1000000]
       longName: "Total geocentric ocean tide height solution 1"
       units: "m"
 
     - name: "ObsValue/totalGeocentricOceanTideHeightSolution2"
       source: variables/totalGeocentricOceanTideHeightSolution2
+      chunks: [1000000]
       longName: "Total geocentric ocean tide height solution 2"
       units: "m"
 
     - name: "ObsValue/longPeriodTideHeight"
       source: variables/longPeriodTideHeight
+      chunks: [1000000]
       longName: "Long period tide height"
       units: "m"
 
     - name: "ObsValue/solidEarthTideHeight"
       source: variables/solidEarthTideHeight
+      chunks: [1000000]
       longName: "Solid earth tide height"
       units: "m"
 
     - name: "ObsValue/geocentricPoleTideHeight"
       source: variables/geocentricPoleTideHeight
+      chunks: [1000000]
       longName: "Geocentric pole tide height"
       units: "m"
 
     - name: "ObsValue/loadingTideHeightGeocentricOceanTideSolution1"
       source: variables/loadingTideHeightGeocentricOceanTideSolution1
+      chunks: [1000000]
       longName: "Loading tide height geocentric ocean tide solution 1"
       units: "m"
 
     - name: "ObsValue/loadingTideHeightGeocentricOceanTideSolution2"
       source: variables/loadingTideHeightGeocentricOceanTideSolution2
+      chunks: [1000000]
       longName: "Loading tide height geocentric ocean tide solution 2"
       units: "m"
 
     - name: "ObsValue/nonEquilibriumLongPeriodTideHeight"
       source: variables/nonEquilibriumLongPeriodTideHeight
+      chunks: [1000000]
       longName: "Non-equilibrium long period tide height"
       units: "m"
 
     - name: "ObsValue/highFrequencyFluctuationsOfTheSeaSurface"
       source: variables/highFrequencyFluctuationsOfTheSeaSurface
+      chunks: [1000000]
       longName: "High frequency fluctuations of the sea surface topogra"
       units: "m"
 
     - name: "ObsValue/meanSeaSurfaceHeight"
       source: variables/meanSeaSurfaceHeight
+      chunks: [1000000]
       longName: "Mean sea-surface height"
       units: "m"
 
     - name: "ObsValue/geoidsHeight"
       source: variables/geoidsHeight
+      chunks: [1000000]
       longName: "Geoid's height"
       units: "m"
 
     - name: "ObsValue/meanDynamicTopography"
       source: variables/meanDynamicTopography
+      chunks: [1000000]
       longName: "Mean dynamic topography"
       units: "m"
 
     - name: "ObsValue/meanDynamicTopographyAccuracy"
       source: variables/meanDynamicTopographyAccuracy
+      chunks: [1000000]
       longName: "Mean dynamic topography accuracy"
       units: "m"
 
     - name: "ObsValue/seaSurfaceHeightAnomoly1"
       source: variables/seaSurfaceHeightAnomoly1
+      chunks: [1000000]
       longName: "Sea surface height anomoly"
       units: "m"
 
     - name: "ObsValue/wavebandCentralFrequency1"
       source: variables/wavebandCentralFrequency1
+      chunks: [1000000]
       longName: "Waveband central frequency"
       units: "Hz"
 
     - name: "ObsValue/specificBandOceanRange1"
       source: variables/specificBandOceanRange1
+      chunks: [1000000]
       longName: "Specific band ocean range"
       units: "m"
 
     - name: "ObsValue/rmsOfSpecificBandOceanRange1"
       source: variables/rmsOfSpecificBandOceanRange1
+      chunks: [1000000]
       longName: "RMS of specific band ocean range"
       units: "m"
 
     - name: "ObsValue/numberOfValidPointsForSpecificBand1"
       source: variables/numberOfValidPointsForSpecificBand1
+      chunks: [1000000]
       longName: "Number of valid points for specific band"
 
     - name: "ObsValue/specificBandCorrectedOceanBackscatterCoefficient1"
       source: variables/specificBandCorrectedOceanBackscatterCoefficient1
+      chunks: [1000000]
       longName: "Specific band corrected ocean backscatter coefficient"
       units: "dB"
 
     - name: "ObsValue/stdSpecificBandCorrectedOceanBackscatter1"
       source: variables/stdSpecificBandCorrectedOceanBackscatter1
+      chunks: [1000000]
       longName: "STD specific band corrected ocean backscatter coeffici"
       units: "dB"
 
     - name: "ObsValue/numberOfValidPointsForSpecificBandBackscatter1"
       source: variables/numberOfValidPointsForSpecificBandBackscatter1
+      chunks: [1000000]
       longName: "Number of valid points for specific band backscatter"
 
     - name: "ObsValue/attenuationCorrectionOnSigma0FromTb1"
       source: variables/attenuationCorrectionOnSigma0FromTb1
+      chunks: [1000000]
       longName: "Attenuation correction on sigma-0 (from tB)"
       units: "dB"
 
     - name: "ObsValue/specificBandSignificantWaveHeight1"
       source: variables/specificBandSignificantWaveHeight1
+      chunks: [1000000]
       longName: "Specific band significant wave height"
       units: "m"
 
     - name: "ObsValue/rmsSpecificBandSignificantWaveHeight1"
       source: variables/rmsSpecificBandSignificantWaveHeight1
+      chunks: [1000000]
       longName: "RMS specific band significant wave height"
       units: "m"
 
     - name: "ObsValue/numberOfValidPointsForSpecificBandSignificant1"
       source: variables/numberOfValidPointsForSpecificBandSignificant1
+      chunks: [1000000]
       longName: "Number of valid points for specific band significant w"
 
     - name: "ObsValue/specificBandNetInstrumentCorrectionForSignficant1"
       source: variables/specificBandNetInstrumentCorrectionForSignficant1
+      chunks: [1000000]
       longName: "Specific band net instrument correction for signficant"
       units: "m"
 
     - name: "ObsValue/specificBandAutomaticGainControl1"
       source: variables/specificBandAutomaticGainControl1
+      chunks: [1000000]
       longName: "Specific band automatic gain control"
       units: "dB"
 
     - name: "ObsValue/rmsSpecificBandAutomaticGainControl1"
       source: variables/rmsSpecificBandAutomaticGainControl1
+      chunks: [1000000]
       longName: "RMS specific band automatic gain control"
       units: "dB"
 
     - name: "ObsValue/numberOfValidPointsForSpecificBandAutomatic1"
       source: variables/numberOfValidPointsForSpecificBandAutomatic1
+      chunks: [1000000]
       longName: "Number of valid points for specific band automatic gai"
 
     - name: "ObsValue/specificBandNetInstrumentalCorrectionForAgc1"
       source: variables/specificBandNetInstrumentalCorrectionForAgc1
+      chunks: [1000000]
       longName: "Specific band net instrumental correction for agc"
       units: "dB"
 
     - name: "ObsValue/specificBandOceanRange2"
       source: variables/specificBandOceanRange2
+      chunks: [1000000]
       longName: "Specific band ocean range"
       units: "m"
 
     - name: "ObsValue/rmsOfSpecificBandOceanRange2"
       source: variables/rmsOfSpecificBandOceanRange2
+      chunks: [1000000]
       longName: "RMS of specific band ocean range"
       units: "m"
 
     - name: "ObsValue/numberOfValidPointsForSpecificBand2"
       source: variables/numberOfValidPointsForSpecificBand2
+      chunks: [1000000]
       longName: "Number of valid points for specific band"
 
     - name: "ObsValue/specificBandCorrectedOceanBackscatterCoefficient2"
       source: variables/specificBandCorrectedOceanBackscatterCoefficient2
+      chunks: [1000000]
       longName: "Specific band corrected ocean backscatter coefficient"
       units: "dB"
 
     - name: "ObsValue/stdSpecificBandCorrectedOceanBackscatter2"
       source: variables/stdSpecificBandCorrectedOceanBackscatter2
+      chunks: [1000000]
       longName: "STD specific band corrected ocean backscatter coeffici"
       units: "dB"
 
     - name: "ObsValue/numberOfValidPointsForSpecificBandBackscatter2"
       source: variables/numberOfValidPointsForSpecificBandBackscatter2
+      chunks: [1000000]
       longName: "Number of valid points for specific band backscatter"
 
     - name: "ObsValue/attenuationCorrectionOnSigma0FromTb2"
       source: variables/attenuationCorrectionOnSigma0FromTb2
+      chunks: [1000000]
       longName: "Attenuation correction on sigma-0 (from tB)"
       units: "dB"
 
     - name: "ObsValue/specificBandSignificantWaveHeight2"
       source: variables/specificBandSignificantWaveHeight2
+      chunks: [1000000]
       longName: "Specific band significant wave height"
       units: "m"
 
     - name: "ObsValue/rmsSpecificBandSignificantWaveHeight2"
       source: variables/rmsSpecificBandSignificantWaveHeight2
+      chunks: [1000000]
       longName: "RMS specific band significant wave height"
       units: "m"
 
     - name: "ObsValue/numberOfValidPointsForSpecificBandSignificant2"
       source: variables/numberOfValidPointsForSpecificBandSignificant2
+      chunks: [1000000]
       longName: "Number of valid points for specific band significant w"
 
     - name: "ObsValue/specificBandNetInstrumentCorrectionForSignficant2"
       source: variables/specificBandNetInstrumentCorrectionForSignficant2
+      chunks: [1000000]
       longName: "Specific band net instrument correction for signficant"
       units: "m"
 
     - name: "ObsValue/specificBandAutomaticGainControl2"
       source: variables/specificBandAutomaticGainControl2
+      chunks: [1000000]
       longName: "Specific band automatic gain control"
       units: "dB"
 
     - name: "ObsValue/rmsSpecificBandAutomaticGainControl2"
       source: variables/rmsSpecificBandAutomaticGainControl2
+      chunks: [1000000]
       longName: "RMS specific band automatic gain control"
       units: "dB"
 
     - name: "ObsValue/numberOfValidPointsForSpecificBandAutomatic2"
       source: variables/numberOfValidPointsForSpecificBandAutomatic2
+      chunks: [1000000]
       longName: "Number of valid points for specific band automatic gai"
 
     - name: "ObsValue/specificBandNetInstrumentalCorrectionForAgc2"
       source: variables/specificBandNetInstrumentalCorrectionForAgc2
+      chunks: [1000000]
       longName: "Specific band net instrumental correction for agc"
       units: "dB"
 
     - name: "ObsValue/windSpeedFromAltimeter2"
       source: variables/windSpeedFromAltimeter2
+      chunks: [1000000]
       longName: "Wind speed from altimeter"
       units: "m s-1"
 
     - name: "ObsValue/radiometerWaterVaporContent2"
       source: variables/radiometerWaterVaporContent2
+      chunks: [1000000]
       longName: "Radiometer Water Vapor Content"
       units: "kg m-2"
 
     - name: "ObsValue/radiometerLiquidContent2"
       source: variables/radiometerLiquidContent2
+      chunks: [1000000]
       longName: "Radiometer Liquid Content"
       units: "kg m-2"
 
     - name: "ObsValue/kuBandRainAttenuation2"
       source: variables/kuBandRainAttenuation2
+      chunks: [1000000]
       longName: "Ku band rain attenuation"
       units: "dB"
 
     - name: "ObsValue/stdSpecificBandCorrectedOceanBackscatter3"
       source: variables/stdSpecificBandCorrectedOceanBackscatter3
+      chunks: [1000000]
       longName: "STD specific band corrected ocean backscatter coeffici"
       units: "dB"
 
     - name: "ObsValue/seaSurfaceHeightAnomoly2"
       source: variables/seaSurfaceHeightAnomoly2
+      chunks: [1000000]
       longName: "Sea surface height anomoly"
       units: "m"
 
     - name: "ObsValue/specificBandOceanRange3"
       source: variables/specificBandOceanRange3
+      chunks: [1000000]
       longName: "Specific band ocean range"
       units: "m"
 
     - name: "ObsValue/rmsOfSpecificBandOceanRange3"
       source: variables/rmsOfSpecificBandOceanRange3
+      chunks: [1000000]
       longName: "RMS of specific band ocean range"
       units: "m"
 
     - name: "ObsValue/numberOfValidPointsForSpecificBand3"
       source: variables/numberOfValidPointsForSpecificBand3
+      chunks: [1000000]
       longName: "Number of valid points for specific band"
 
     - name: "ObsValue/specificBandCorrectedOceanBackscatterCoefficient3"
       source: variables/specificBandCorrectedOceanBackscatterCoefficient3
+      chunks: [1000000]
       longName: "Specific band corrected ocean backscatter coefficient"
       units: "dB"
 
     - name: "ObsValue/stdSpecificBandCorrectedOceanBackscatter4"
       source: variables/stdSpecificBandCorrectedOceanBackscatter4
+      chunks: [1000000]
       longName: "STD specific band corrected ocean backscatter coeffici"
       units: "dB"
 
     - name: "ObsValue/numberOfValidPointsForSpecificBandBackscatter3"
       source: variables/numberOfValidPointsForSpecificBandBackscatter3
+      chunks: [1000000]
       longName: "Number of valid points for specific band backscatter"
 
     - name: "ObsValue/specificBandSignificantWaveHeight3"
       source: variables/specificBandSignificantWaveHeight3
+      chunks: [1000000]
       longName: "Specific band significant wave height"
       units: "m"
 
     - name: "ObsValue/rmsSpecificBandSignificantWaveHeight3"
       source: variables/rmsSpecificBandSignificantWaveHeight3
+      chunks: [1000000]
       longName: "RMS specific band significant wave height"
       units: "m"
 
     - name: "ObsValue/numberOfValidPointsForSpecificBandSignificant3"
       source: variables/numberOfValidPointsForSpecificBandSignificant3
+      chunks: [1000000]
       longName: "Number of valid points for specific band significant w"
 
     - name: "ObsValue/wavebandCentralFrequency2"
       source: variables/wavebandCentralFrequency2
+      chunks: [1000000]
       longName: "Waveband central frequency"
       units: "Hz"
 
@@ -1496,14 +1648,17 @@ encoder:
     # QualityMarker
     - name: "QualityMarker/bandSpecificOceanQualityFlag1"
       source: variables/bandSpecificOceanQualityFlag1
+      chunks: [1000000]
       longName: "Band specific ocean quality flag"
 
     - name: "QualityMarker/bandSpecificOceanQualityFlag2"
       source: variables/bandSpecificOceanQualityFlag2
+      chunks: [1000000]
       longName: "Band specific ocean quality flag"
 
     - name: "QualityMarker/bandSpecificOceanQualityFlag3"
       source: variables/bandSpecificOceanQualityFlag3
+      chunks: [1000000]
       longName: "Band specific ocean quality flag"
 
     - name: "QualityMarker/bandSpecificOceanQualityFlag"
@@ -1512,4 +1667,5 @@ encoder:
 
     - name: "QualityMarker/correctedReportIndicator"
       source: variables/correctedReportIndicator
+      chunks: [1000000]
       longName: "Corrected Report Indicator"

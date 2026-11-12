@@ -1062,1565 +1062,1897 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/receiptTime"
       source: variables/receiptTime
+      chunks: [1000000]
       longName: "Receipt Time"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/satelliteIdentifier"
       source: variables/satelliteIdentifier
+      chunks: [1000000]
       longName: "Satellite Identifier"
 
     - name: "MetaData/generatingCenterLong"
       source: variables/generatingCenterLong
+      chunks: [1000000]
       longName: "ORIGINATING/GENERATING Center"
 
     - name: "MetaData/satelliteConstellationRO"
       source: variables/satelliteConstellationRO
+      chunks: [1000000]
       longName: "Satellite Classification"
 
     - name: "MetaData/segmentSizeAtNadirInXDirection"
       source: variables/segmentSizeAtNadirInXDirection
+      chunks: [1000000]
       longName: "Segment Size At Nadir In X Direction"
       units: "m"
 
     - name: "MetaData/segmentSizeAtNadirInYDirection"
       source: variables/segmentSizeAtNadirInYDirection
+      chunks: [1000000]
       longName: "Segment Size At Nadir In Y Direction"
       units: "m"
 
     - name: "MetaData/numberOfPixelsPerRow"
       source: variables/numberOfPixelsPerRow
+      chunks: [1000000]
       longName: "Number Of Pixels Per Row"
 
     - name: "MetaData/numberOfPixelsPerColumn"
       source: variables/numberOfPixelsPerColumn
+      chunks: [1000000]
       longName: "Number Of Pixels Per Column"
 
     - name: "MetaData/satelliteZenithAngle"
       source: variables/satelliteZenithAngle
+      chunks: [1000000]
       longName: "Satellite Zenith Angle"
       units: "degree"
 
     - name: "MetaData/solarZenithAngle"
       source: variables/solarZenithAngle
+      chunks: [1000000]
       longName: "Solar Zenith Angle"
       units: "degree"
 
     - name: "MetaData/geopotentialHeight"
       source: variables/geopotentialHeight
+      chunks: [1000000]
       longName: "Geopotential Height"
       units: "m"
 
     - name: "MetaData/landOrSeaQualifier1"
       source: variables/landOrSeaQualifier1
+      chunks: [1000000]
       longName: "LAND/SEA Qualifier"
 
     - name: "MetaData/landOrSeaQualifier2"
       source: variables/landOrSeaQualifier2
+      chunks: [1000000]
       longName: "LAND/SEA Qualifier"
 
     - name: "MetaData/verticalSignificanceSatellite1"
       source: variables/verticalSignificanceSatellite1
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS)"
 
     - name: "MetaData/verticalSignificanceSatellite2"
       source: variables/verticalSignificanceSatellite2
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS)"
 
     - name: "MetaData/verticalSignificanceSatellite3"
       source: variables/verticalSignificanceSatellite3
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS)"
 
     - name: "MetaData/verticalSignificanceSatellite4"
       source: variables/verticalSignificanceSatellite4
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS)"
 
     - name: "MetaData/satelliteInstrumentData"
       source: variables/satelliteInstrumentData
+      chunks: [1000000]
       longName: "Satellite Instrument Data Used In Processing"
 
     - name: "MetaData/radianceComputationalMethod"
       source: variables/radianceComputationalMethod
+      chunks: [1000000]
       longName: "Radiance Computational Method"
 
     - name: "MetaData/windGeneratingApplication"
       source: variables/windGeneratingApplication
+      chunks: [1000000]
       longName: "Generating Application"
 
     - name: "MetaData/sensorCentralFrequency1"
       source: variables/sensorCentralFrequency1
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (1)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequency2"
       source: variables/sensorCentralFrequency2
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (2)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequency3"
       source: variables/sensorCentralFrequency3
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (3)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequency4"
       source: variables/sensorCentralFrequency4
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (4)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequency5"
       source: variables/sensorCentralFrequency5
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (5)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequency6"
       source: variables/sensorCentralFrequency6
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (6)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequency7"
       source: variables/sensorCentralFrequency7
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (7)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequency8"
       source: variables/sensorCentralFrequency8
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (8)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequency9"
       source: variables/sensorCentralFrequency9
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (9)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequency10"
       source: variables/sensorCentralFrequency10
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (10)"
       units: "Hz"
 
     - name: "MetaData/sensorCentralFrequency11"
       source: variables/sensorCentralFrequency11
+      chunks: [1000000]
       longName: "Satellite Channel Center Frequency (11)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidth1"
       source: variables/sensorBandWidth1
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (1)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidth2"
       source: variables/sensorBandWidth2
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (2)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidth3"
       source: variables/sensorBandWidth3
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (3)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidth4"
       source: variables/sensorBandWidth4
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (4)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidth5"
       source: variables/sensorBandWidth5
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (5)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidth6"
       source: variables/sensorBandWidth6
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (6)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidth7"
       source: variables/sensorBandWidth7
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (7)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidth8"
       source: variables/sensorBandWidth8
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (8)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidth9"
       source: variables/sensorBandWidth9
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (9)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidth10"
       source: variables/sensorBandWidth10
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (10)"
       units: "Hz"
 
     - name: "MetaData/sensorBandWidth11"
       source: variables/sensorBandWidth11
+      chunks: [1000000]
       longName: "Satellite Channel Band Width (11)"
       units: "Hz"
 
     - name: "MetaData/qiWithoutForecast11"
       source: variables/qiWithoutForecast11
+      chunks: [1000000]
       longName: "Percent Confidence (1)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast12"
       source: variables/qiWithoutForecast12
+      chunks: [1000000]
       longName: "Percent Confidence (2)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast13"
       source: variables/qiWithoutForecast13
+      chunks: [1000000]
       longName: "Percent Confidence (3)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast14"
       source: variables/qiWithoutForecast14
+      chunks: [1000000]
       longName: "Percent Confidence (4)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast15"
       source: variables/qiWithoutForecast15
+      chunks: [1000000]
       longName: "Percent Confidence (5)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast16"
       source: variables/qiWithoutForecast16
+      chunks: [1000000]
       longName: "Percent Confidence (6)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast17"
       source: variables/qiWithoutForecast17
+      chunks: [1000000]
       longName: "Percent Confidence (7)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast18"
       source: variables/qiWithoutForecast18
+      chunks: [1000000]
       longName: "Percent Confidence (8)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast19"
       source: variables/qiWithoutForecast19
+      chunks: [1000000]
       longName: "Percent Confidence (9)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast110"
       source: variables/qiWithoutForecast110
+      chunks: [1000000]
       longName: "Percent Confidence (10)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast111"
       source: variables/qiWithoutForecast111
+      chunks: [1000000]
       longName: "Percent Confidence (11)"
       units: "%"
 
     - name: "MetaData/meteorologicalFeature11"
       source: variables/meteorologicalFeature11
+      chunks: [1000000]
       longName: "Meteorological Feature (1)"
 
     - name: "MetaData/meteorologicalFeature12"
       source: variables/meteorologicalFeature12
+      chunks: [1000000]
       longName: "Meteorological Feature (2)"
 
     - name: "MetaData/meteorologicalFeature13"
       source: variables/meteorologicalFeature13
+      chunks: [1000000]
       longName: "Meteorological Feature (3)"
 
     - name: "MetaData/meteorologicalFeature14"
       source: variables/meteorologicalFeature14
+      chunks: [1000000]
       longName: "Meteorological Feature (4)"
 
     - name: "MetaData/meteorologicalFeature15"
       source: variables/meteorologicalFeature15
+      chunks: [1000000]
       longName: "Meteorological Feature (5)"
 
     - name: "MetaData/meteorologicalFeature16"
       source: variables/meteorologicalFeature16
+      chunks: [1000000]
       longName: "Meteorological Feature (6)"
 
     - name: "MetaData/meteorologicalFeature17"
       source: variables/meteorologicalFeature17
+      chunks: [1000000]
       longName: "Meteorological Feature (7)"
 
     - name: "MetaData/meteorologicalFeature18"
       source: variables/meteorologicalFeature18
+      chunks: [1000000]
       longName: "Meteorological Feature (8)"
 
     - name: "MetaData/meteorologicalFeature19"
       source: variables/meteorologicalFeature19
+      chunks: [1000000]
       longName: "Meteorological Feature (9)"
 
     - name: "MetaData/meteorologicalFeature110"
       source: variables/meteorologicalFeature110
+      chunks: [1000000]
       longName: "Meteorological Feature (10)"
 
     - name: "MetaData/meteorologicalFeature111"
       source: variables/meteorologicalFeature111
+      chunks: [1000000]
       longName: "Meteorological Feature (11)"
 
     - name: "MetaData/qiWithoutForecast21"
       source: variables/qiWithoutForecast21
+      chunks: [1000000]
       longName: "Percent Confidence (1)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast22"
       source: variables/qiWithoutForecast22
+      chunks: [1000000]
       longName: "Percent Confidence (2)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast23"
       source: variables/qiWithoutForecast23
+      chunks: [1000000]
       longName: "Percent Confidence (3)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast24"
       source: variables/qiWithoutForecast24
+      chunks: [1000000]
       longName: "Percent Confidence (4)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast25"
       source: variables/qiWithoutForecast25
+      chunks: [1000000]
       longName: "Percent Confidence (5)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast26"
       source: variables/qiWithoutForecast26
+      chunks: [1000000]
       longName: "Percent Confidence (6)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast27"
       source: variables/qiWithoutForecast27
+      chunks: [1000000]
       longName: "Percent Confidence (7)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast28"
       source: variables/qiWithoutForecast28
+      chunks: [1000000]
       longName: "Percent Confidence (8)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast29"
       source: variables/qiWithoutForecast29
+      chunks: [1000000]
       longName: "Percent Confidence (9)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast210"
       source: variables/qiWithoutForecast210
+      chunks: [1000000]
       longName: "Percent Confidence (10)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast211"
       source: variables/qiWithoutForecast211
+      chunks: [1000000]
       longName: "Percent Confidence (11)"
       units: "%"
 
     - name: "MetaData/meteorologicalFeature21"
       source: variables/meteorologicalFeature21
+      chunks: [1000000]
       longName: "Meteorological Feature (1)"
 
     - name: "MetaData/meteorologicalFeature22"
       source: variables/meteorologicalFeature22
+      chunks: [1000000]
       longName: "Meteorological Feature (2)"
 
     - name: "MetaData/meteorologicalFeature23"
       source: variables/meteorologicalFeature23
+      chunks: [1000000]
       longName: "Meteorological Feature (3)"
 
     - name: "MetaData/meteorologicalFeature24"
       source: variables/meteorologicalFeature24
+      chunks: [1000000]
       longName: "Meteorological Feature (4)"
 
     - name: "MetaData/meteorologicalFeature25"
       source: variables/meteorologicalFeature25
+      chunks: [1000000]
       longName: "Meteorological Feature (5)"
 
     - name: "MetaData/meteorologicalFeature26"
       source: variables/meteorologicalFeature26
+      chunks: [1000000]
       longName: "Meteorological Feature (6)"
 
     - name: "MetaData/meteorologicalFeature27"
       source: variables/meteorologicalFeature27
+      chunks: [1000000]
       longName: "Meteorological Feature (7)"
 
     - name: "MetaData/meteorologicalFeature28"
       source: variables/meteorologicalFeature28
+      chunks: [1000000]
       longName: "Meteorological Feature (8)"
 
     - name: "MetaData/meteorologicalFeature29"
       source: variables/meteorologicalFeature29
+      chunks: [1000000]
       longName: "Meteorological Feature (9)"
 
     - name: "MetaData/meteorologicalFeature210"
       source: variables/meteorologicalFeature210
+      chunks: [1000000]
       longName: "Meteorological Feature (10)"
 
     - name: "MetaData/meteorologicalFeature211"
       source: variables/meteorologicalFeature211
+      chunks: [1000000]
       longName: "Meteorological Feature (11)"
 
     - name: "MetaData/qiWithoutForecast31"
       source: variables/qiWithoutForecast31
+      chunks: [1000000]
       longName: "Percent Confidence (1)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast32"
       source: variables/qiWithoutForecast32
+      chunks: [1000000]
       longName: "Percent Confidence (2)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast33"
       source: variables/qiWithoutForecast33
+      chunks: [1000000]
       longName: "Percent Confidence (3)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast34"
       source: variables/qiWithoutForecast34
+      chunks: [1000000]
       longName: "Percent Confidence (4)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast35"
       source: variables/qiWithoutForecast35
+      chunks: [1000000]
       longName: "Percent Confidence (5)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast36"
       source: variables/qiWithoutForecast36
+      chunks: [1000000]
       longName: "Percent Confidence (6)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast37"
       source: variables/qiWithoutForecast37
+      chunks: [1000000]
       longName: "Percent Confidence (7)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast38"
       source: variables/qiWithoutForecast38
+      chunks: [1000000]
       longName: "Percent Confidence (8)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast39"
       source: variables/qiWithoutForecast39
+      chunks: [1000000]
       longName: "Percent Confidence (9)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast310"
       source: variables/qiWithoutForecast310
+      chunks: [1000000]
       longName: "Percent Confidence (10)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast311"
       source: variables/qiWithoutForecast311
+      chunks: [1000000]
       longName: "Percent Confidence (11)"
       units: "%"
 
     - name: "MetaData/meteorologicalFeature31"
       source: variables/meteorologicalFeature31
+      chunks: [1000000]
       longName: "Meteorological Feature (1)"
 
     - name: "MetaData/meteorologicalFeature32"
       source: variables/meteorologicalFeature32
+      chunks: [1000000]
       longName: "Meteorological Feature (2)"
 
     - name: "MetaData/meteorologicalFeature33"
       source: variables/meteorologicalFeature33
+      chunks: [1000000]
       longName: "Meteorological Feature (3)"
 
     - name: "MetaData/meteorologicalFeature34"
       source: variables/meteorologicalFeature34
+      chunks: [1000000]
       longName: "Meteorological Feature (4)"
 
     - name: "MetaData/meteorologicalFeature35"
       source: variables/meteorologicalFeature35
+      chunks: [1000000]
       longName: "Meteorological Feature (5)"
 
     - name: "MetaData/meteorologicalFeature36"
       source: variables/meteorologicalFeature36
+      chunks: [1000000]
       longName: "Meteorological Feature (6)"
 
     - name: "MetaData/meteorologicalFeature37"
       source: variables/meteorologicalFeature37
+      chunks: [1000000]
       longName: "Meteorological Feature (7)"
 
     - name: "MetaData/meteorologicalFeature38"
       source: variables/meteorologicalFeature38
+      chunks: [1000000]
       longName: "Meteorological Feature (8)"
 
     - name: "MetaData/meteorologicalFeature39"
       source: variables/meteorologicalFeature39
+      chunks: [1000000]
       longName: "Meteorological Feature (9)"
 
     - name: "MetaData/meteorologicalFeature310"
       source: variables/meteorologicalFeature310
+      chunks: [1000000]
       longName: "Meteorological Feature (10)"
 
     - name: "MetaData/meteorologicalFeature311"
       source: variables/meteorologicalFeature311
+      chunks: [1000000]
       longName: "Meteorological Feature (11)"
 
     - name: "MetaData/verticalSignificanceSatellite1Rpseq101"
       source: variables/verticalSignificanceSatellite1Rpseq101
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (1)"
 
     - name: "MetaData/verticalSignificanceSatellite1Rpseq102"
       source: variables/verticalSignificanceSatellite1Rpseq102
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (2)"
 
     - name: "MetaData/verticalSignificanceSatellite1Rpseq103"
       source: variables/verticalSignificanceSatellite1Rpseq103
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (3)"
 
     - name: "MetaData/verticalSignificanceSatellite1Rpseq104"
       source: variables/verticalSignificanceSatellite1Rpseq104
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (4)"
 
     - name: "MetaData/verticalSignificanceSatellite1Rpseq105"
       source: variables/verticalSignificanceSatellite1Rpseq105
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (5)"
 
     - name: "MetaData/verticalSignificanceSatellite1Rpseq106"
       source: variables/verticalSignificanceSatellite1Rpseq106
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (6)"
 
     - name: "MetaData/verticalSignificanceSatellite1Rpseq107"
       source: variables/verticalSignificanceSatellite1Rpseq107
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (7)"
 
     - name: "MetaData/verticalSignificanceSatellite1Rpseq108"
       source: variables/verticalSignificanceSatellite1Rpseq108
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (8)"
 
     - name: "MetaData/verticalSignificanceSatellite1Rpseq109"
       source: variables/verticalSignificanceSatellite1Rpseq109
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (9)"
 
     - name: "MetaData/verticalSignificanceSatellite1Rpseq1010"
       source: variables/verticalSignificanceSatellite1Rpseq1010
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (10)"
 
     - name: "MetaData/verticalSignificanceSatellite1Rpseq1011"
       source: variables/verticalSignificanceSatellite1Rpseq1011
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (11)"
 
     - name: "MetaData/qiWithoutForecast41"
       source: variables/qiWithoutForecast41
+      chunks: [1000000]
       longName: "Percent Confidence (1)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast42"
       source: variables/qiWithoutForecast42
+      chunks: [1000000]
       longName: "Percent Confidence (2)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast43"
       source: variables/qiWithoutForecast43
+      chunks: [1000000]
       longName: "Percent Confidence (3)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast44"
       source: variables/qiWithoutForecast44
+      chunks: [1000000]
       longName: "Percent Confidence (4)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast45"
       source: variables/qiWithoutForecast45
+      chunks: [1000000]
       longName: "Percent Confidence (5)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast46"
       source: variables/qiWithoutForecast46
+      chunks: [1000000]
       longName: "Percent Confidence (6)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast47"
       source: variables/qiWithoutForecast47
+      chunks: [1000000]
       longName: "Percent Confidence (7)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast48"
       source: variables/qiWithoutForecast48
+      chunks: [1000000]
       longName: "Percent Confidence (8)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast49"
       source: variables/qiWithoutForecast49
+      chunks: [1000000]
       longName: "Percent Confidence (9)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast410"
       source: variables/qiWithoutForecast410
+      chunks: [1000000]
       longName: "Percent Confidence (10)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast411"
       source: variables/qiWithoutForecast411
+      chunks: [1000000]
       longName: "Percent Confidence (11)"
       units: "%"
 
     - name: "MetaData/verticalSignificanceSatellite2Rpseq101"
       source: variables/verticalSignificanceSatellite2Rpseq101
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (1)"
 
     - name: "MetaData/verticalSignificanceSatellite2Rpseq102"
       source: variables/verticalSignificanceSatellite2Rpseq102
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (2)"
 
     - name: "MetaData/verticalSignificanceSatellite2Rpseq103"
       source: variables/verticalSignificanceSatellite2Rpseq103
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (3)"
 
     - name: "MetaData/verticalSignificanceSatellite2Rpseq104"
       source: variables/verticalSignificanceSatellite2Rpseq104
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (4)"
 
     - name: "MetaData/verticalSignificanceSatellite2Rpseq105"
       source: variables/verticalSignificanceSatellite2Rpseq105
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (5)"
 
     - name: "MetaData/verticalSignificanceSatellite2Rpseq106"
       source: variables/verticalSignificanceSatellite2Rpseq106
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (6)"
 
     - name: "MetaData/verticalSignificanceSatellite2Rpseq107"
       source: variables/verticalSignificanceSatellite2Rpseq107
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (7)"
 
     - name: "MetaData/verticalSignificanceSatellite2Rpseq108"
       source: variables/verticalSignificanceSatellite2Rpseq108
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (8)"
 
     - name: "MetaData/verticalSignificanceSatellite2Rpseq109"
       source: variables/verticalSignificanceSatellite2Rpseq109
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (9)"
 
     - name: "MetaData/verticalSignificanceSatellite2Rpseq1010"
       source: variables/verticalSignificanceSatellite2Rpseq1010
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (10)"
 
     - name: "MetaData/verticalSignificanceSatellite2Rpseq1011"
       source: variables/verticalSignificanceSatellite2Rpseq1011
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (11)"
 
     - name: "MetaData/qiWithoutForecast51"
       source: variables/qiWithoutForecast51
+      chunks: [1000000]
       longName: "Percent Confidence (1)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast52"
       source: variables/qiWithoutForecast52
+      chunks: [1000000]
       longName: "Percent Confidence (2)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast53"
       source: variables/qiWithoutForecast53
+      chunks: [1000000]
       longName: "Percent Confidence (3)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast54"
       source: variables/qiWithoutForecast54
+      chunks: [1000000]
       longName: "Percent Confidence (4)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast55"
       source: variables/qiWithoutForecast55
+      chunks: [1000000]
       longName: "Percent Confidence (5)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast56"
       source: variables/qiWithoutForecast56
+      chunks: [1000000]
       longName: "Percent Confidence (6)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast57"
       source: variables/qiWithoutForecast57
+      chunks: [1000000]
       longName: "Percent Confidence (7)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast58"
       source: variables/qiWithoutForecast58
+      chunks: [1000000]
       longName: "Percent Confidence (8)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast59"
       source: variables/qiWithoutForecast59
+      chunks: [1000000]
       longName: "Percent Confidence (9)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast510"
       source: variables/qiWithoutForecast510
+      chunks: [1000000]
       longName: "Percent Confidence (10)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast511"
       source: variables/qiWithoutForecast511
+      chunks: [1000000]
       longName: "Percent Confidence (11)"
       units: "%"
 
     - name: "MetaData/verticalSignificanceSatellite3Rpseq101"
       source: variables/verticalSignificanceSatellite3Rpseq101
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (1)"
 
     - name: "MetaData/verticalSignificanceSatellite3Rpseq102"
       source: variables/verticalSignificanceSatellite3Rpseq102
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (2)"
 
     - name: "MetaData/verticalSignificanceSatellite3Rpseq103"
       source: variables/verticalSignificanceSatellite3Rpseq103
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (3)"
 
     - name: "MetaData/verticalSignificanceSatellite3Rpseq104"
       source: variables/verticalSignificanceSatellite3Rpseq104
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (4)"
 
     - name: "MetaData/verticalSignificanceSatellite3Rpseq105"
       source: variables/verticalSignificanceSatellite3Rpseq105
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (5)"
 
     - name: "MetaData/verticalSignificanceSatellite3Rpseq106"
       source: variables/verticalSignificanceSatellite3Rpseq106
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (6)"
 
     - name: "MetaData/verticalSignificanceSatellite3Rpseq107"
       source: variables/verticalSignificanceSatellite3Rpseq107
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (7)"
 
     - name: "MetaData/verticalSignificanceSatellite3Rpseq108"
       source: variables/verticalSignificanceSatellite3Rpseq108
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (8)"
 
     - name: "MetaData/verticalSignificanceSatellite3Rpseq109"
       source: variables/verticalSignificanceSatellite3Rpseq109
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (9)"
 
     - name: "MetaData/verticalSignificanceSatellite3Rpseq1010"
       source: variables/verticalSignificanceSatellite3Rpseq1010
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (10)"
 
     - name: "MetaData/verticalSignificanceSatellite3Rpseq1011"
       source: variables/verticalSignificanceSatellite3Rpseq1011
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (11)"
 
     - name: "MetaData/qiWithoutForecast61"
       source: variables/qiWithoutForecast61
+      chunks: [1000000]
       longName: "Percent Confidence (1)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast62"
       source: variables/qiWithoutForecast62
+      chunks: [1000000]
       longName: "Percent Confidence (2)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast63"
       source: variables/qiWithoutForecast63
+      chunks: [1000000]
       longName: "Percent Confidence (3)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast64"
       source: variables/qiWithoutForecast64
+      chunks: [1000000]
       longName: "Percent Confidence (4)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast65"
       source: variables/qiWithoutForecast65
+      chunks: [1000000]
       longName: "Percent Confidence (5)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast66"
       source: variables/qiWithoutForecast66
+      chunks: [1000000]
       longName: "Percent Confidence (6)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast67"
       source: variables/qiWithoutForecast67
+      chunks: [1000000]
       longName: "Percent Confidence (7)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast68"
       source: variables/qiWithoutForecast68
+      chunks: [1000000]
       longName: "Percent Confidence (8)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast69"
       source: variables/qiWithoutForecast69
+      chunks: [1000000]
       longName: "Percent Confidence (9)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast610"
       source: variables/qiWithoutForecast610
+      chunks: [1000000]
       longName: "Percent Confidence (10)"
       units: "%"
 
     - name: "MetaData/qiWithoutForecast611"
       source: variables/qiWithoutForecast611
+      chunks: [1000000]
       longName: "Percent Confidence (11)"
       units: "%"
 
     - name: "MetaData/verticalSignificanceSatellite4Rpseq101"
       source: variables/verticalSignificanceSatellite4Rpseq101
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (1)"
 
     - name: "MetaData/verticalSignificanceSatellite4Rpseq102"
       source: variables/verticalSignificanceSatellite4Rpseq102
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (2)"
 
     - name: "MetaData/verticalSignificanceSatellite4Rpseq103"
       source: variables/verticalSignificanceSatellite4Rpseq103
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (3)"
 
     - name: "MetaData/verticalSignificanceSatellite4Rpseq104"
       source: variables/verticalSignificanceSatellite4Rpseq104
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (4)"
 
     - name: "MetaData/verticalSignificanceSatellite4Rpseq105"
       source: variables/verticalSignificanceSatellite4Rpseq105
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (5)"
 
     - name: "MetaData/verticalSignificanceSatellite4Rpseq106"
       source: variables/verticalSignificanceSatellite4Rpseq106
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (6)"
 
     - name: "MetaData/verticalSignificanceSatellite4Rpseq107"
       source: variables/verticalSignificanceSatellite4Rpseq107
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (7)"
 
     - name: "MetaData/verticalSignificanceSatellite4Rpseq108"
       source: variables/verticalSignificanceSatellite4Rpseq108
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (8)"
 
     - name: "MetaData/verticalSignificanceSatellite4Rpseq109"
       source: variables/verticalSignificanceSatellite4Rpseq109
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (9)"
 
     - name: "MetaData/verticalSignificanceSatellite4Rpseq1010"
       source: variables/verticalSignificanceSatellite4Rpseq1010
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (10)"
 
     - name: "MetaData/verticalSignificanceSatellite4Rpseq1011"
       source: variables/verticalSignificanceSatellite4Rpseq1011
+      chunks: [1000000]
       longName: "Vertical Significance (SATELLITE OBSERVATIONS) (11)"
 
     - name: "MetaData/sequenceNumber"
       source: variables/sequenceNumber
+      chunks: [1000000]
       longName: "Channel Sequence Number"
 
     - name: "MetaData/bulletinHeader"
       source: variables/bulletinHeader
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (TTAAii)"
 
     - name: "MetaData/bulletinOriginator"
       source: variables/bulletinOriginator
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (CCCC)"
 
     - name: "MetaData/bulletinTime"
       source: variables/bulletinTime
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (YYGGgg)"
 
     - name: "MetaData/bulletinBBB"
       source: variables/bulletinBBB
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (BBB)"
 
     - name: "MetaData/receiptTimeSignificance"
       source: variables/receiptTimeSignificance
+      chunks: [1000000]
       longName: "Receipt Time Significance"
 
     # ObsValue
     - name: "ObsValue/cloudFree1"
       source: variables/cloudFree1
+      chunks: [1000000]
       longName: "Amount Segment Cloud Free"
       units: "%"
 
     - name: "ObsValue/cloudFree2"
       source: variables/cloudFree2
+      chunks: [1000000]
       longName: "Amount Segment Cloud Free"
       units: "%"
 
     - name: "ObsValue/cloudAmount1"
       source: variables/cloudAmount1
+      chunks: [1000000]
       longName: "Cloud Amount In Segment"
       units: "%"
 
     - name: "ObsValue/cloudAmount2"
       source: variables/cloudAmount2
+      chunks: [1000000]
       longName: "Cloud Amount In Segment"
       units: "%"
 
     - name: "ObsValue/cloudAmount3"
       source: variables/cloudAmount3
+      chunks: [1000000]
       longName: "Cloud Amount In Segment"
       units: "%"
 
     - name: "ObsValue/cloudAmount4"
       source: variables/cloudAmount4
+      chunks: [1000000]
       longName: "Cloud Amount In Segment"
       units: "%"
 
     - name: "ObsValue/brightnessTemperature11"
       source: variables/brightnessTemperature11
+      chunks: [1000000]
       longName: "Brightness Temperature (1)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature12"
       source: variables/brightnessTemperature12
+      chunks: [1000000]
       longName: "Brightness Temperature (2)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature13"
       source: variables/brightnessTemperature13
+      chunks: [1000000]
       longName: "Brightness Temperature (3)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature14"
       source: variables/brightnessTemperature14
+      chunks: [1000000]
       longName: "Brightness Temperature (4)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature15"
       source: variables/brightnessTemperature15
+      chunks: [1000000]
       longName: "Brightness Temperature (5)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature16"
       source: variables/brightnessTemperature16
+      chunks: [1000000]
       longName: "Brightness Temperature (6)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature17"
       source: variables/brightnessTemperature17
+      chunks: [1000000]
       longName: "Brightness Temperature (7)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature18"
       source: variables/brightnessTemperature18
+      chunks: [1000000]
       longName: "Brightness Temperature (8)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature19"
       source: variables/brightnessTemperature19
+      chunks: [1000000]
       longName: "Brightness Temperature (9)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature110"
       source: variables/brightnessTemperature110
+      chunks: [1000000]
       longName: "Brightness Temperature (10)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature111"
       source: variables/brightnessTemperature111
+      chunks: [1000000]
       longName: "Brightness Temperature (11)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation11"
       source: variables/clearSkyStandardDeviation11
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (1)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation12"
       source: variables/clearSkyStandardDeviation12
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (2)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation13"
       source: variables/clearSkyStandardDeviation13
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (3)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation14"
       source: variables/clearSkyStandardDeviation14
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (4)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation15"
       source: variables/clearSkyStandardDeviation15
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (5)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation16"
       source: variables/clearSkyStandardDeviation16
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (6)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation17"
       source: variables/clearSkyStandardDeviation17
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (7)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation18"
       source: variables/clearSkyStandardDeviation18
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (8)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation19"
       source: variables/clearSkyStandardDeviation19
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (9)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation110"
       source: variables/clearSkyStandardDeviation110
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (10)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation111"
       source: variables/clearSkyStandardDeviation111
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (11)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature21"
       source: variables/brightnessTemperature21
+      chunks: [1000000]
       longName: "Brightness Temperature (1)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature22"
       source: variables/brightnessTemperature22
+      chunks: [1000000]
       longName: "Brightness Temperature (2)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature23"
       source: variables/brightnessTemperature23
+      chunks: [1000000]
       longName: "Brightness Temperature (3)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature24"
       source: variables/brightnessTemperature24
+      chunks: [1000000]
       longName: "Brightness Temperature (4)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature25"
       source: variables/brightnessTemperature25
+      chunks: [1000000]
       longName: "Brightness Temperature (5)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature26"
       source: variables/brightnessTemperature26
+      chunks: [1000000]
       longName: "Brightness Temperature (6)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature27"
       source: variables/brightnessTemperature27
+      chunks: [1000000]
       longName: "Brightness Temperature (7)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature28"
       source: variables/brightnessTemperature28
+      chunks: [1000000]
       longName: "Brightness Temperature (8)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature29"
       source: variables/brightnessTemperature29
+      chunks: [1000000]
       longName: "Brightness Temperature (9)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature210"
       source: variables/brightnessTemperature210
+      chunks: [1000000]
       longName: "Brightness Temperature (10)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature211"
       source: variables/brightnessTemperature211
+      chunks: [1000000]
       longName: "Brightness Temperature (11)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation21"
       source: variables/clearSkyStandardDeviation21
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (1)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation22"
       source: variables/clearSkyStandardDeviation22
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (2)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation23"
       source: variables/clearSkyStandardDeviation23
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (3)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation24"
       source: variables/clearSkyStandardDeviation24
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (4)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation25"
       source: variables/clearSkyStandardDeviation25
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (5)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation26"
       source: variables/clearSkyStandardDeviation26
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (6)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation27"
       source: variables/clearSkyStandardDeviation27
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (7)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation28"
       source: variables/clearSkyStandardDeviation28
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (8)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation29"
       source: variables/clearSkyStandardDeviation29
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (9)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation210"
       source: variables/clearSkyStandardDeviation210
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (10)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation211"
       source: variables/clearSkyStandardDeviation211
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (11)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature31"
       source: variables/brightnessTemperature31
+      chunks: [1000000]
       longName: "Brightness Temperature (1)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature32"
       source: variables/brightnessTemperature32
+      chunks: [1000000]
       longName: "Brightness Temperature (2)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature33"
       source: variables/brightnessTemperature33
+      chunks: [1000000]
       longName: "Brightness Temperature (3)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature34"
       source: variables/brightnessTemperature34
+      chunks: [1000000]
       longName: "Brightness Temperature (4)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature35"
       source: variables/brightnessTemperature35
+      chunks: [1000000]
       longName: "Brightness Temperature (5)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature36"
       source: variables/brightnessTemperature36
+      chunks: [1000000]
       longName: "Brightness Temperature (6)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature37"
       source: variables/brightnessTemperature37
+      chunks: [1000000]
       longName: "Brightness Temperature (7)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature38"
       source: variables/brightnessTemperature38
+      chunks: [1000000]
       longName: "Brightness Temperature (8)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature39"
       source: variables/brightnessTemperature39
+      chunks: [1000000]
       longName: "Brightness Temperature (9)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature310"
       source: variables/brightnessTemperature310
+      chunks: [1000000]
       longName: "Brightness Temperature (10)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature311"
       source: variables/brightnessTemperature311
+      chunks: [1000000]
       longName: "Brightness Temperature (11)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation31"
       source: variables/clearSkyStandardDeviation31
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (1)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation32"
       source: variables/clearSkyStandardDeviation32
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (2)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation33"
       source: variables/clearSkyStandardDeviation33
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (3)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation34"
       source: variables/clearSkyStandardDeviation34
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (4)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation35"
       source: variables/clearSkyStandardDeviation35
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (5)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation36"
       source: variables/clearSkyStandardDeviation36
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (6)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation37"
       source: variables/clearSkyStandardDeviation37
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (7)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation38"
       source: variables/clearSkyStandardDeviation38
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (8)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation39"
       source: variables/clearSkyStandardDeviation39
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (9)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation310"
       source: variables/clearSkyStandardDeviation310
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (10)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation311"
       source: variables/clearSkyStandardDeviation311
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (11)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature41"
       source: variables/brightnessTemperature41
+      chunks: [1000000]
       longName: "Brightness Temperature (1)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature42"
       source: variables/brightnessTemperature42
+      chunks: [1000000]
       longName: "Brightness Temperature (2)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature43"
       source: variables/brightnessTemperature43
+      chunks: [1000000]
       longName: "Brightness Temperature (3)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature44"
       source: variables/brightnessTemperature44
+      chunks: [1000000]
       longName: "Brightness Temperature (4)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature45"
       source: variables/brightnessTemperature45
+      chunks: [1000000]
       longName: "Brightness Temperature (5)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature46"
       source: variables/brightnessTemperature46
+      chunks: [1000000]
       longName: "Brightness Temperature (6)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature47"
       source: variables/brightnessTemperature47
+      chunks: [1000000]
       longName: "Brightness Temperature (7)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature48"
       source: variables/brightnessTemperature48
+      chunks: [1000000]
       longName: "Brightness Temperature (8)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature49"
       source: variables/brightnessTemperature49
+      chunks: [1000000]
       longName: "Brightness Temperature (9)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature410"
       source: variables/brightnessTemperature410
+      chunks: [1000000]
       longName: "Brightness Temperature (10)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature411"
       source: variables/brightnessTemperature411
+      chunks: [1000000]
       longName: "Brightness Temperature (11)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation41"
       source: variables/clearSkyStandardDeviation41
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (1)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation42"
       source: variables/clearSkyStandardDeviation42
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (2)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation43"
       source: variables/clearSkyStandardDeviation43
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (3)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation44"
       source: variables/clearSkyStandardDeviation44
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (4)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation45"
       source: variables/clearSkyStandardDeviation45
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (5)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation46"
       source: variables/clearSkyStandardDeviation46
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (6)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation47"
       source: variables/clearSkyStandardDeviation47
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (7)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation48"
       source: variables/clearSkyStandardDeviation48
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (8)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation49"
       source: variables/clearSkyStandardDeviation49
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (9)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation410"
       source: variables/clearSkyStandardDeviation410
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (10)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation411"
       source: variables/clearSkyStandardDeviation411
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (11)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature51"
       source: variables/brightnessTemperature51
+      chunks: [1000000]
       longName: "Brightness Temperature (1)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature52"
       source: variables/brightnessTemperature52
+      chunks: [1000000]
       longName: "Brightness Temperature (2)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature53"
       source: variables/brightnessTemperature53
+      chunks: [1000000]
       longName: "Brightness Temperature (3)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature54"
       source: variables/brightnessTemperature54
+      chunks: [1000000]
       longName: "Brightness Temperature (4)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature55"
       source: variables/brightnessTemperature55
+      chunks: [1000000]
       longName: "Brightness Temperature (5)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature56"
       source: variables/brightnessTemperature56
+      chunks: [1000000]
       longName: "Brightness Temperature (6)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature57"
       source: variables/brightnessTemperature57
+      chunks: [1000000]
       longName: "Brightness Temperature (7)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature58"
       source: variables/brightnessTemperature58
+      chunks: [1000000]
       longName: "Brightness Temperature (8)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature59"
       source: variables/brightnessTemperature59
+      chunks: [1000000]
       longName: "Brightness Temperature (9)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature510"
       source: variables/brightnessTemperature510
+      chunks: [1000000]
       longName: "Brightness Temperature (10)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature511"
       source: variables/brightnessTemperature511
+      chunks: [1000000]
       longName: "Brightness Temperature (11)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation51"
       source: variables/clearSkyStandardDeviation51
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (1)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation52"
       source: variables/clearSkyStandardDeviation52
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (2)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation53"
       source: variables/clearSkyStandardDeviation53
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (3)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation54"
       source: variables/clearSkyStandardDeviation54
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (4)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation55"
       source: variables/clearSkyStandardDeviation55
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (5)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation56"
       source: variables/clearSkyStandardDeviation56
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (6)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation57"
       source: variables/clearSkyStandardDeviation57
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (7)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation58"
       source: variables/clearSkyStandardDeviation58
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (8)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation59"
       source: variables/clearSkyStandardDeviation59
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (9)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation510"
       source: variables/clearSkyStandardDeviation510
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (10)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation511"
       source: variables/clearSkyStandardDeviation511
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (11)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature61"
       source: variables/brightnessTemperature61
+      chunks: [1000000]
       longName: "Brightness Temperature (1)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature62"
       source: variables/brightnessTemperature62
+      chunks: [1000000]
       longName: "Brightness Temperature (2)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature63"
       source: variables/brightnessTemperature63
+      chunks: [1000000]
       longName: "Brightness Temperature (3)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature64"
       source: variables/brightnessTemperature64
+      chunks: [1000000]
       longName: "Brightness Temperature (4)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature65"
       source: variables/brightnessTemperature65
+      chunks: [1000000]
       longName: "Brightness Temperature (5)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature66"
       source: variables/brightnessTemperature66
+      chunks: [1000000]
       longName: "Brightness Temperature (6)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature67"
       source: variables/brightnessTemperature67
+      chunks: [1000000]
       longName: "Brightness Temperature (7)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature68"
       source: variables/brightnessTemperature68
+      chunks: [1000000]
       longName: "Brightness Temperature (8)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature69"
       source: variables/brightnessTemperature69
+      chunks: [1000000]
       longName: "Brightness Temperature (9)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature610"
       source: variables/brightnessTemperature610
+      chunks: [1000000]
       longName: "Brightness Temperature (10)"
       units: "K"
 
     - name: "ObsValue/brightnessTemperature611"
       source: variables/brightnessTemperature611
+      chunks: [1000000]
       longName: "Brightness Temperature (11)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation61"
       source: variables/clearSkyStandardDeviation61
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (1)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation62"
       source: variables/clearSkyStandardDeviation62
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (2)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation63"
       source: variables/clearSkyStandardDeviation63
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (3)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation64"
       source: variables/clearSkyStandardDeviation64
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (4)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation65"
       source: variables/clearSkyStandardDeviation65
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (5)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation66"
       source: variables/clearSkyStandardDeviation66
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (6)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation67"
       source: variables/clearSkyStandardDeviation67
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (7)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation68"
       source: variables/clearSkyStandardDeviation68
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (8)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation69"
       source: variables/clearSkyStandardDeviation69
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (9)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation610"
       source: variables/clearSkyStandardDeviation610
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (10)"
       units: "K"
 
     - name: "ObsValue/clearSkyStandardDeviation611"
       source: variables/clearSkyStandardDeviation611
+      chunks: [1000000]
       longName: "Standard Deviation Brightness Temperature (11)"
       units: "K"

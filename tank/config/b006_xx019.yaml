@@ -2,6 +2,9 @@ bufr:
   subsets:
     - NC006019
 
+  # One row per element of this sequence
+  group_by_variable: distanceToGateCenter125m
+
   variables:
     # MetaData
     timestamp:
@@ -61,10 +64,6 @@ bufr:
       query: "*/QCRW"
 
 encoder:
-  dimensions:
-    - name: RadialWindGate
-      path: "*/NL2RW"
-
   globals:
     - name: "description"
       type: string
@@ -110,78 +109,94 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/radarStationIdentifier"
       source: variables/radarStationIdentifier
+      chunks: [1000000]
       longName: "Radar Station Identifier (SHORT)"
 
     - name: "MetaData/stationElevation"
       source: variables/stationElevation
+      chunks: [1000000]
       longName: "Height Of Station Ground Above Msl"
       units: "m"
 
     - name: "MetaData/heightOfSensorAboveGround"
       source: variables/heightOfSensorAboveGround
+      chunks: [1000000]
       longName: "Height Of Antenna Above Ground"
       units: "m"
 
     - name: "MetaData/antennaAzimuthAngle"
       source: variables/antennaAzimuthAngle
+      chunks: [1000000]
       longName: "Antenna Azimuth Angle"
       units: "degree"
 
     - name: "MetaData/antennaElevationAngle"
       source: variables/antennaElevationAngle
+      chunks: [1000000]
       longName: "Antenna Elevation Angle"
       units: "degree"
 
     - name: "MetaData/distanceToGateCenter125m"
       source: variables/distanceToGateCenter125m
+      chunks: [1000000]
       longName: "Distance (FROM Antenna To Gate CENTER) In Units Of 125"
       units: "125 m"
 
     - name: "MetaData/radarVolumeIdentifier"
       source: variables/radarVolumeIdentifier
+      chunks: [1000000]
       longName: "Radar Volume Id (IN The Form DDHHMM)"
 
     - name: "MetaData/radarScanIdentifier"
       source: variables/radarScanIdentifier
+      chunks: [1000000]
       longName: "Radar Scan Id (RANGE 1-21)"
 
     - name: "MetaData/highNyquistVelocity"
       source: variables/highNyquistVelocity
+      chunks: [1000000]
       longName: "High Nyquist Velocity"
       units: "m s-1"
 
     - name: "MetaData/volumeCoveragePattern"
       source: variables/volumeCoveragePattern
+      chunks: [1000000]
       longName: "Volume Coverage Pattern"
 
     # ObsValue
     - name: "ObsValue/dopplerMeanRadialVelocity"
       source: variables/dopplerMeanRadialVelocity
+      chunks: [1000000]
       longName: "Doppler Mean Radial Velocity"
       units: "m s-1"
 
     - name: "ObsValue/dopplerVelocitySpectralWidth"
       source: variables/dopplerVelocitySpectralWidth
+      chunks: [1000000]
       longName: "Doppler Velocity Spectral Width"
       units: "m s-1"
 
     # QualityMarker
     - name: "QualityMarker/radialWind"
       source: variables/radialWind
+      chunks: [1000000]
       longName: "Quality Mark For Winds Along Radial Line"

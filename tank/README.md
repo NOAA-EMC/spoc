@@ -18,5 +18,6 @@ Most repeated sequences are stored on the `Location` dimension, so that data fro
 different files can be appended together. See GEODE's `docs/bufr-tanks.md` for how each
 kind of sequence is stored.
 
-The radar mappings (`b006_*`) are from an earlier version of the generator and may not
-append cleanly from file to file.
+Variables stored only on `Location` set `chunks: [1000000]`. Without it, `bufr-query`'s
+netCDF encoder writes each variable as one chunk, and a tank that pads every report to the
+longest one (such as radar) can exceed netCDF's 4 GB chunk limit.

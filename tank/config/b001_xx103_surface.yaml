@@ -327,388 +327,471 @@ encoder:
     # MetaData
     - name: "MetaData/dateTime"
       source: variables/timestamp
+      chunks: [1000000]
       longName: "Datetime"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/receiptTime"
       source: variables/receiptTime
+      chunks: [1000000]
       longName: "Receipt Time"
       units: "seconds since 1970-01-01T00:00:00Z"
 
     - name: "MetaData/latitude"
       source: variables/latitude
+      chunks: [1000000]
       longName: "Latitude"
       units: "degree_north"
       range: [-90, 90]
 
     - name: "MetaData/longitude"
       source: variables/longitude
+      chunks: [1000000]
       longName: "Longitude"
       units: "degree_east"
 
     - name: "MetaData/stationIdentification"
       source: variables/stationIdentification
+      chunks: [1000000]
       longName: "Report Identifier"
 
     - name: "MetaData/wmoRegionNumber"
       source: variables/wmoRegionNumber
+      chunks: [1000000]
       longName: "Wmo Region Number"
 
     - name: "MetaData/wmoRegionSubArea"
       source: variables/wmoRegionSubArea
+      chunks: [1000000]
       longName: "WMO Region sub-area"
 
     - name: "MetaData/buoyPlatformIdentifier"
       source: variables/buoyPlatformIdentifier
+      chunks: [1000000]
       longName: "BUOY/PLATFORM Identifier"
 
     - name: "MetaData/wigosIdentifierSeries"
       source: variables/wigosIdentifierSeries
+      chunks: [1000000]
       longName: "Wigos Identifier Series"
 
     - name: "MetaData/wigosIssuerOfIdentifier"
       source: variables/wigosIssuerOfIdentifier
+      chunks: [1000000]
       longName: "Wigos Issuer Of Identifier"
 
     - name: "MetaData/wigosIssueNumber"
       source: variables/wigosIssueNumber
+      chunks: [1000000]
       longName: "Wigos Issue Number"
 
     - name: "MetaData/wigosLocalIdentifierCharacter"
       source: variables/wigosLocalIdentifierCharacter
+      chunks: [1000000]
       longName: "Wigos Local Identifier (CHARACTER)"
 
     - name: "MetaData/wmoMarineObservingPlatformExtendedIdentifier"
       source: variables/wmoMarineObservingPlatformExtendedIdentifier
+      chunks: [1000000]
       longName: "WMO marine observing platform extended identifier"
 
     - name: "MetaData/stationName"
       source: variables/stationName
+      chunks: [1000000]
       longName: "Station or site name"
 
     - name: "MetaData/buoyType"
       source: variables/buoyType
+      chunks: [1000000]
       longName: "Buoy Type"
 
     - name: "MetaData/stationElevation"
       source: variables/stationElevation
+      chunks: [1000000]
       longName: "Height Of Station Ground Above Msl"
       units: "m"
 
     - name: "MetaData/heightOfSensorAboveWater1"
       source: variables/heightOfSensorAboveWater1
+      chunks: [1000000]
       longName: "Height of sensor above water surface"
       units: "m"
 
     - name: "MetaData/heightOfSensorAboveWater2"
       source: variables/heightOfSensorAboveWater2
+      chunks: [1000000]
       longName: "Height of sensor above water surface"
       units: "m"
 
     - name: "MetaData/timeSignificance1"
       source: variables/timeSignificance1
+      chunks: [1000000]
       longName: "Time Significance"
 
     - name: "MetaData/timePeriodMinutes1"
       source: variables/timePeriodMinutes1
+      chunks: [1000000]
       longName: "Time Period Or Displacement"
       units: "min"
 
     - name: "MetaData/timeSignificance2"
       source: variables/timeSignificance2
+      chunks: [1000000]
       longName: "Time Significance"
 
     - name: "MetaData/timePeriodMinutes2"
       source: variables/timePeriodMinutes2
+      chunks: [1000000]
       longName: "Time Period Or Displacement"
       units: "min"
 
     - name: "MetaData/timePeriodMinutes3"
       source: variables/timePeriodMinutes3
+      chunks: [1000000]
       longName: "Time Period Or Displacement"
       units: "min"
 
     - name: "MetaData/heightOfSensorAboveWater3"
       source: variables/heightOfSensorAboveWater3
+      chunks: [1000000]
       longName: "Height of sensor above water surface"
       units: "m"
 
     - name: "MetaData/precisionOfTemperatureObservation"
       source: variables/precisionOfTemperatureObservation
+      chunks: [1000000]
       longName: "Precision of temperature observation"
       units: "K"
 
     - name: "MetaData/depthBelowSeaWaterSurfaceCm"
       source: variables/depthBelowSeaWaterSurfaceCm
+      chunks: [1000000]
       longName: "Depth below sea/water surface (cm)"
       units: "m"
 
     - name: "MetaData/precisionOfTemperatureObservation2"
       source: variables/precisionOfTemperatureObservation2
+      chunks: [1000000]
       longName: "Precision of temperature observation"
       units: "K"
 
     - name: "MetaData/indicatorForDigitization"
       source: variables/indicatorForDigitization
+      chunks: [1000000]
       longName: "Indicator for digitization"
 
     - name: "MetaData/methodOfSalinityDepthMeasurement"
       source: variables/methodOfSalinityDepthMeasurement
+      chunks: [1000000]
       longName: "Method Of SALINITY/DEPTH Measurement"
 
     - name: "MetaData/timePeriodHours"
       source: variables/timePeriodHours
+      chunks: [1000000]
       longName: "Time Period Or Displacement"
       units: "h"
 
     - name: "MetaData/timePeriodMinutes"
       source: variables/timePeriodMinutes
+      chunks: [1000000]
       longName: "Time Period Or Displacement"
       units: "min"
 
     - name: "MetaData/durationTimeOfCurrentCode"
       source: variables/durationTimeOfCurrentCode
+      chunks: [1000000]
       longName: "Duration & Time Of Current Code"
 
     - name: "MetaData/sequenceNumber"
       source: variables/sequenceNumber
+      chunks: [1000000]
       longName: "Channel Sequence Number"
 
     - name: "MetaData/bulletinHeader"
       source: variables/bulletinHeader
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (TTAAii)"
 
     - name: "MetaData/bulletinOriginator"
       source: variables/bulletinOriginator
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (CCCC)"
 
     - name: "MetaData/bulletinTime"
       source: variables/bulletinTime
+      chunks: [1000000]
       longName: "BULLETIN BEING MONITORED (YYGGgg)"
 
     - name: "MetaData/bulletinBBB"
       source: variables/bulletinBBB
+      chunks: [1000000]
       longName: "Bulletin Being Monitored (BBB)"
 
     - name: "MetaData/receiptTimeSignificance"
       source: variables/receiptTimeSignificance
+      chunks: [1000000]
       longName: "Receipt Time Significance"
 
     # ObsValue
     - name: "ObsValue/airPressure"
       source: variables/airPressure
+      chunks: [1000000]
       longName: "Pressure"
       units: "Pa"
 
     - name: "ObsValue/pressureReducedToMeanSeaLevel"
       source: variables/pressureReducedToMeanSeaLevel
+      chunks: [1000000]
       longName: "Pressure Reduced To Msl"
       units: "Pa"
 
     - name: "ObsValue/airTemperatureTMDB"
       source: variables/airTemperatureTMDB
+      chunks: [1000000]
       longName: "TEMPERATURE/DRY Bulb Temperature"
       units: "K"
 
     - name: "ObsValue/dewPointTemperature"
       source: variables/dewPointTemperature
+      chunks: [1000000]
       longName: "Dew Point Temperature"
       units: "K"
 
     - name: "ObsValue/relativeHumidity"
       source: variables/relativeHumidity
+      chunks: [1000000]
       longName: "Relative Humidity"
       units: "%"
 
     - name: "ObsValue/windDirection"
       source: variables/windDirection
+      chunks: [1000000]
       longName: "Wind Direction"
       units: "degree"
 
     - name: "ObsValue/windSpeed"
       source: variables/windSpeed
+      chunks: [1000000]
       longName: "Wind Speed"
       units: "m s-1"
 
     - name: "ObsValue/maximumWindGustSpeed"
       source: variables/maximumWindGustSpeed
+      chunks: [1000000]
       longName: "Maximum Wind Speed (GUSTS)"
       units: "m s-1"
 
     - name: "ObsValue/seaSurfaceTemperatureSST0"
       source: variables/seaSurfaceTemperatureSST0
+      chunks: [1000000]
       longName: "Sea-surface temperature"
       units: "K"
 
     - name: "ObsValue/pressureChange3Hour"
       source: variables/pressureChange3Hour
+      chunks: [1000000]
       longName: "3 Hour Pressure Change"
       units: "Pa"
 
     - name: "ObsValue/pressureTendencyCharacteristic"
       source: variables/pressureTendencyCharacteristic
+      chunks: [1000000]
       longName: "Characteristic Of Pressure Tendency"
 
     - name: "ObsValue/durationOfWaveRecordBasicwav"
       source: variables/durationOfWaveRecordBasicwav
+      chunks: [1000000]
       longName: "Duration of wave record"
       units: "s"
 
     - name: "ObsValue/significantWaveHeight"
       source: variables/significantWaveHeight
+      chunks: [1000000]
       longName: "Significant wave height"
       units: "m"
 
     - name: "ObsValue/maximumWaveHeight"
       source: variables/maximumWaveHeight
+      chunks: [1000000]
       longName: "Maximum Wave Height"
       units: "m"
 
     - name: "ObsValue/averageWavePeriod"
       source: variables/averageWavePeriod
+      chunks: [1000000]
       longName: "Average wave period"
       units: "s"
 
     - name: "ObsValue/spectralPeakWavePeriod"
       source: variables/spectralPeakWavePeriod
+      chunks: [1000000]
       longName: "Spectral peak wave period"
       units: "s"
 
     - name: "ObsValue/directionFromWhichDominantWavesAreComing"
       source: variables/directionFromWhichDominantWavesAreComing
+      chunks: [1000000]
       longName: "Direction from which dominant waves are coming"
       units: "degree"
 
     - name: "ObsValue/directionalSpreadOfDominantWave"
       source: variables/directionalSpreadOfDominantWave
+      chunks: [1000000]
       longName: "Directional spread of dominant wave"
       units: "degree"
 
     - name: "ObsValue/durationOfWaveRecordSpctrwav"
       source: variables/durationOfWaveRecordSpctrwav
+      chunks: [1000000]
       longName: "Duration of wave record"
       units: "s"
 
     - name: "ObsValue/maximumNonDirectionalSpectralWaveDensity"
       source: variables/maximumNonDirectionalSpectralWaveDensity
+      chunks: [1000000]
       longName: "Maximum non-directional spectral wave density"
       units: "m2 s-1"
 
     - name: "ObsValue/horizontalVisibility"
       source: variables/horizontalVisibility
+      chunks: [1000000]
       longName: "Horizontal Visibility"
       units: "m"
 
     - name: "ObsValue/totalPrecipitation"
       source: variables/totalPrecipitation
+      chunks: [1000000]
       longName: "Total PRECIPITATION/TOTAL Water Equivalent"
       units: "kg m-2"
 
     - name: "ObsValue/longWaveRadiationIntegratedOverPeriodSpecified"
       source: variables/longWaveRadiationIntegratedOverPeriodSpecified
+      chunks: [1000000]
       longName: "Long-wave radiation, integrated over period specified"
       units: "J m-2"
 
     - name: "ObsValue/shortWaveRadiationIntegratedOverPeriodSpecified"
       source: variables/shortWaveRadiationIntegratedOverPeriodSpecified
+      chunks: [1000000]
       longName: "Short-wave radiation, integrated over period specified"
       units: "J m-2"
 
     - name: "ObsValue/netRadiationIntegratedOverPeriodSpecified"
       source: variables/netRadiationIntegratedOverPeriodSpecified
+      chunks: [1000000]
       longName: "Net radiation, integrated over period specified"
       units: "J m-2"
 
     - name: "ObsValue/globalSolarRadiationHighAccuracyIntegrated"
       source: variables/globalSolarRadiationHighAccuracyIntegrated
+      chunks: [1000000]
       longName: "Global solar radiation (high accuracy), integrated ove"
       units: "J m-2"
 
     - name: "ObsValue/diffuseSolarRadiationHighAccuracyIntegrated"
       source: variables/diffuseSolarRadiationHighAccuracyIntegrated
+      chunks: [1000000]
       longName: "Diffuse solar radiation (high accuracy), integrated ov"
       units: "J m-2"
 
     - name: "ObsValue/directSolarRadiationHighAccuracyIntegrated"
       source: variables/directSolarRadiationHighAccuracyIntegrated
+      chunks: [1000000]
       longName: "Direct solar radiation (high accuracy), integrated ove"
       units: "J m-2"
 
     # QualityMarker
     - name: "QualityMarker/pressure"
       source: variables/pressure
+      chunks: [1000000]
       longName: "SDMEDIT/QUIPS Quality Mark For Pressure"
 
     - name: "QualityMarker/airTemperature"
       source: variables/airTemperature
+      chunks: [1000000]
       longName: "SDMEDIT/QUIPS Quality Mark For Temperature"
 
     - name: "QualityMarker/moisture"
       source: variables/moisture
+      chunks: [1000000]
       longName: "SDMEDIT/QUIPS Quality Mark For Moisture"
 
     - name: "QualityMarker/wind"
       source: variables/wind
+      chunks: [1000000]
       longName: "SDMEDIT/QUIPS Quality Mark For Wind"
 
     - name: "QualityMarker/seaSurfaceTemperature"
       source: variables/seaSurfaceTemperature
+      chunks: [1000000]
       longName: "SDMEDIT/QUIPS Quality Mark For Sea Surface Temperature"
 
     - name: "QualityMarker/correctedReportIndicator"
       source: variables/correctedReportIndicator
+      chunks: [1000000]
       longName: "Corrected Report Indicator"
 
     # Not in this tank: read as missing so the dataset has one set of variables
     - name: "MetaData/depthBelowSeaSurface"
       source: variables/depthBelowSeaSurface
+      chunks: [1000000]
       longName: "Depth Below Sea Surface"
       units: "m"
 
     - name: "ObsValue/seaSurfaceTemperatureSST1"
       source: variables/seaSurfaceTemperatureSST1
+      chunks: [1000000]
       longName: "Sea Temperature"
       units: "K"
 
     - name: "ObsValue/salinity"
       source: variables/salinity
+      chunks: [1000000]
       longName: "Salinity"
       units: "1e-3"
 
     - name: "ObsValue/directionOfCurrent"
       source: variables/directionOfCurrent
+      chunks: [1000000]
       longName: "Direction Of Current"
       units: "degree"
 
     - name: "ObsValue/speedOfCurrent"
       source: variables/speedOfCurrent
+      chunks: [1000000]
       longName: "Speed Of Current"
       units: "m s-1"
 
     - name: "ObsValue/wavebandCentralFrequency"
       source: variables/wavebandCentralFrequency
+      chunks: [1000000]
       longName: "Waveband central frequency"
       units: "Hz"
 
     - name: "ObsValue/spectralWaveDensity"
       source: variables/spectralWaveDensity
+      chunks: [1000000]
       longName: "Spectral wave density"
       units: "m2 Hz-1"
 
     - name: "ObsValue/meanDirectionFromWhichWavesAreComing"
       source: variables/meanDirectionFromWhichWavesAreComing
+      chunks: [1000000]
       longName: "Mean direction from which waves are coming"
       units: "degree"
 
     - name: "ObsValue/principalDirectionFromWhichWavesAreComing"
       source: variables/principalDirectionFromWhichWavesAreComing
+      chunks: [1000000]
       longName: "Principal direction from which waves are coming"
       units: "degree"
 
     - name: "ObsValue/firstNormalizedPolarCoordinateFromFourier"
       source: variables/firstNormalizedPolarCoordinateFromFourier
+      chunks: [1000000]
       longName: "First normalized polar coordinate from Fourier coeffic"
 
     - name: "ObsValue/secondNormalizedPolarCoordinateFromFourier"
       source: variables/secondNormalizedPolarCoordinateFromFourier
+      chunks: [1000000]
       longName: "Second normalized polar coordinate from Fourier coeffi"
