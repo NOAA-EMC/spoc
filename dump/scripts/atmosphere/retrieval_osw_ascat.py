@@ -4,11 +4,13 @@ import os
 import numpy as np
 
 import bufr
-from bufr.obs_builder import ObsBuilder, add_main_functions, map_path, add_dummy_variable
+from bufr.obs_builder import ObsBuilder, add_main_functions, add_dummy_variable
 from bufr.transforms import compute_wind_components
 
+from ..config_path import config_path
 
-MAPPING_PATH = map_path('retrieval_osw_ascat.yaml')
+
+MAPPING_PATH = config_path("atmosphere", "retrieval_osw_ascat.yaml")
 
 
 class BufrAscatObsBuilder(ObsBuilder):
