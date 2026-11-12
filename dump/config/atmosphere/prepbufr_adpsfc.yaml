@@ -112,6 +112,8 @@ bufr:
     # QualityMarker
     stationPressureQualityMarker:
       query: "*/P___INFO/P__EVENT{1}/PQM"
+    heightQualityMarker:
+      query: "*/Z___INFO/Z__EVENT{1}/ZQM"
     specificHumidityQualityMarker:
       query: "*/Q___INFO/Q__EVENT{1}/QQM"
     windEastwardQualityMarker:
@@ -285,6 +287,10 @@ encoder:
       source: variables/stationPressureQualityMarker
       longName: "Station Pressure Quality Marker"
 
+    - name: "QualityMarker/height"
+      source: variables/heightQualityMarker
+      longName: "Height Quality Marker"
+
     - name: "QualityMarker/airTemperatureAt2M"
       source: variables/airTemperatureQualityMarker
       longName: "Air Temperature at 2m Quality Marker"
@@ -325,7 +331,7 @@ encoder:
     # will need to be cleaned up.
     - name: "ObsError/specificHumidityAt2M"
       source: variables/relativeHumidityObsError
-      longName: "Specific Humidity at 2m Error"
+      longName: "Relative Humidity Error"
       units: "1"
 
     - name: "ObsError/windEastward"
