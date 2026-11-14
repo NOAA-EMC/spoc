@@ -6,7 +6,7 @@ import numpy.ma as ma
 
 import bufr
 from bufr.obs_builder import add_main_functions
-from prepbufr_obs_builder import PrepbufrObsBuilder, map_path, check_include_tv
+from prepbufr_obs_builder import PrepbufrObsBuilder, map_path, check_include_tv, check_legacy_tv_selection
 
 
 MAPPING_PATH = map_path('prepbufr_adpsfc.yaml')
@@ -106,6 +106,7 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
         self.log.debug(f' sequenceNum min/max =  {sequenceNum.min()} {sequenceNum.max()}')
 
         include_tv = check_include_tv(MAPPING_PATH)
+        legacy_tv_over_tdry = check_legacy_tv_selection(MAPPING_PATH)
         self.log.debug(f'Extract temperature from event stack (include_tv={include_tv})')
 
         # get record-specific data
@@ -126,7 +127,7 @@ class AdpsfcPrepbufrObsBuilder(PrepbufrObsBuilder):
         # sub-sequence path instead lets their missing pattern reshape the
         # shared Location dimension and drop obs from other variables.
         tsen, tsenqm, tsenoe, tvo, tvoqm, tvooe = self._select_temperature_events(
-            tpc_events, tob_events, tqm_events, toboe, include_tv, NUM_T_EVENTS)
+            tpc_events, tob_events, tqm_events, toboe, include_tv, NUM_T_EVENTS, legacy_tv_over_tdry)
 
         self.log.debug(f'Update variables in container')
         container.add('airTemperatureObsValue', tsen, dhr_paths)

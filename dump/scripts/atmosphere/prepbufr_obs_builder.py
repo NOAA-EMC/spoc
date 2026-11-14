@@ -27,6 +27,13 @@ def check_include_tv(yaml_path):
     return any(v.get('name', '').startswith('ObsType/virtualTemperature') for v in encoder_vars)
 
 
+def check_legacy_tv_selection(yaml_path):
+    """Check if legacy Tv-over-Tdry output selection is enabled in YAML."""
+    with open(yaml_path, 'r') as f:
+        config = yaml.safe_load(f) or {}
+    return bool(config.get('bufr', {}).get('legacy_tv_over_tdry', False))
+
+
 class PrepbufrObsBuilder(ObsBuilder):
     def __init__(self, mapping_path, log_name=os.path.basename(__file__)):
         super().__init__(mapping_path, log_name=log_name)
@@ -115,18 +122,17 @@ class PrepbufrObsBuilder(ObsBuilder):
 
         container.replace('timestamp', timestamps)
 
-    def _select_temperature_events(self, tpc_events, tob_events, tqm_events, toboe, use_tv, num_events):
+    def _select_temperature_events(
+            self, tpc_events, tob_events, tqm_events, toboe, use_tv, num_events, legacy_tv_over_tdry=False):
         """
         Extract the reported air temperature(s) per observation from a
         stack of PREPBUFR temperature events. The sensible (Tdry) output is
-        always taken from the first sensible event (1 <= temperatureEventCode
-        < 8). When virtual temperature is desired (use_tv), the virtual
-        (Tv) output is additionally taken from the virtual-temperature event
-        (temperatureEventCode == 8), which sits above its underlying Tdry
-        event in the same stack. Both outputs can therefore be populated for
-        the same observation: airTemperature carries Tdry, virtualTemperature
-        carries Tv. This mirrors the GSI's Tsensible option while keeping
-        Tdry available (e.g. for QC) even when Tv is assimilated.
+        taken from the first sensible event (1 <= temperatureEventCode < 8).
+        When virtual temperature is desired (use_tv), Tv is taken from
+        temperatureEventCode == 8. By default, both outputs can be populated
+        for the same observation (Tdry in airTemperature, Tv in
+        virtualTemperature). Optionally, legacy behavior can be enabled to
+        suppress Tdry whenever Tv is selected for an observation.
 
         Parameters
         ----------
@@ -141,6 +147,9 @@ class PrepbufrObsBuilder(ObsBuilder):
             per-observation array to enable/disable Tv on a per-obs basis.
         num_events: int
             Number of event-stack levels to search.
+        legacy_tv_over_tdry: bool, optional
+            If True, suppress Tdry outputs for observations where Tv is
+            selected (use_tv=True and a Tv event is found).
 
         Returns
         -------
@@ -197,5 +206,10 @@ class PrepbufrObsBuilder(ObsBuilder):
                 # done once Tdry is captured and Tv is captured (or not wanted)
                 if tsen_found and (tv_found or not use_tv_idx):
                     break
+
+            if legacy_tv_over_tdry and use_tv_idx and tv_found:
+                tsen[idx] = tob_events[0].fill_value
+                tsenqm[idx] = tqm_events[0].fill_value
+                tsenoe[idx] = toboe.fill_value
 
         return tsen, tsenqm, tsenoe, tvo, tvoqm, tvooe
