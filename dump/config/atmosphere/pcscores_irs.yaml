@@ -1,0 +1,1645 @@
+encoder:
+
+  dimensions:
+    - name: Channel
+      source: variables/sensorChannelNumber
+      path: "Channel"
+
+  globals:
+
+    - name: dummy
+      type: string
+      value: dummy str
+
+  variables:
+
+    - name: MetaData/sensorCentralWavenumber
+      source: variables/sensorCentralWavenumber
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/sensorChannelNumber
+      source: variables/sensorChannelNumber
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/cloudFraction
+      source: variables/cloudFraction
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/cloudSignal
+      source: variables/cloudSignal
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/dateTime
+      source: variables/dateTime
+      longName: "none"
+      units: "seconds since 1970-01-01T00:00:00Z"
+
+    - name: MetaData/detectorSampleQualityLw
+      source: variables/detectorSampleQualityLw
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/detectorSampleQualityMw
+      source: variables/detectorSampleQualityMw
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/dustWarning
+      source: variables/dustWarning
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/dwellNumber
+      source: variables/dwellNumber
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/dwellType
+      source: variables/dwellType
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/globalPcrQualityLw
+      source: variables/globalPcrQualityLw
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/globalPcrQualityMw
+      source: variables/globalPcrQualityMw
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/globalPcrScoresLw
+      source: variables/globalPcrScoresLw
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/globalPcrScoresMw
+      source: variables/globalPcrScoresMw
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/latitude
+      source: variables/latitude
+      longName: "Geolocation latitude"
+      units: "degrees_north"
+
+    - name: MetaData/longitude
+      source: variables/longitude
+      longName: "Geolocation longitude"
+      units: "degrees_east"
+
+    - name: MetaData/overallQuality
+      source: variables/overallQuality
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/satelliteIdentifier
+      source: variables/satelliteIdentifier
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/sensorAzimuthAngle
+      source: variables/sensorAzimuthAngle
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/sensorScanPosition
+      source: variables/sensorScanPosition
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/sensorViewAngle
+      source: variables/sensorViewAngle
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/sensorZenithAngle
+      source: variables/sensorZenithAngle
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/solarAzimuthAngle
+      source: variables/solarAzimuthAngle
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/solarZenithAngle
+      source: variables/solarZenithAngle
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/spatialSampleQualityLw
+      source: variables/spatialSampleQualityLw
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/spatialSampleQualityMw
+      source: variables/spatialSampleQualityMw
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore1
+      source: variables/principalComponentScore1
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore2
+      source: variables/principalComponentScore2
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore3
+      source: variables/principalComponentScore3
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore4
+      source: variables/principalComponentScore4
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore5
+      source: variables/principalComponentScore5
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore6
+      source: variables/principalComponentScore6
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore7
+      source: variables/principalComponentScore7
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore8
+      source: variables/principalComponentScore8
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore9
+      source: variables/principalComponentScore9
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore10
+      source: variables/principalComponentScore10
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore11
+      source: variables/principalComponentScore11
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore12
+      source: variables/principalComponentScore12
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore13
+      source: variables/principalComponentScore13
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore14
+      source: variables/principalComponentScore14
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore15
+      source: variables/principalComponentScore15
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore16
+      source: variables/principalComponentScore16
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore17
+      source: variables/principalComponentScore17
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore18
+      source: variables/principalComponentScore18
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore19
+      source: variables/principalComponentScore19
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore20
+      source: variables/principalComponentScore20
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore21
+      source: variables/principalComponentScore21
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore22
+      source: variables/principalComponentScore22
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore23
+      source: variables/principalComponentScore23
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore24
+      source: variables/principalComponentScore24
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore25
+      source: variables/principalComponentScore25
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore26
+      source: variables/principalComponentScore26
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore27
+      source: variables/principalComponentScore27
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore28
+      source: variables/principalComponentScore28
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore29
+      source: variables/principalComponentScore29
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore30
+      source: variables/principalComponentScore30
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore31
+      source: variables/principalComponentScore31
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore32
+      source: variables/principalComponentScore32
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore33
+      source: variables/principalComponentScore33
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore34
+      source: variables/principalComponentScore34
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore35
+      source: variables/principalComponentScore35
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore36
+      source: variables/principalComponentScore36
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore37
+      source: variables/principalComponentScore37
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore38
+      source: variables/principalComponentScore38
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore39
+      source: variables/principalComponentScore39
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore40
+      source: variables/principalComponentScore40
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore41
+      source: variables/principalComponentScore41
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore42
+      source: variables/principalComponentScore42
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore43
+      source: variables/principalComponentScore43
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore44
+      source: variables/principalComponentScore44
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore45
+      source: variables/principalComponentScore45
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore46
+      source: variables/principalComponentScore46
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore47
+      source: variables/principalComponentScore47
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore48
+      source: variables/principalComponentScore48
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore49
+      source: variables/principalComponentScore49
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore50
+      source: variables/principalComponentScore50
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore51
+      source: variables/principalComponentScore51
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore52
+      source: variables/principalComponentScore52
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore53
+      source: variables/principalComponentScore53
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore54
+      source: variables/principalComponentScore54
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore55
+      source: variables/principalComponentScore55
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore56
+      source: variables/principalComponentScore56
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore57
+      source: variables/principalComponentScore57
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore58
+      source: variables/principalComponentScore58
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore59
+      source: variables/principalComponentScore59
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore60
+      source: variables/principalComponentScore60
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore61
+      source: variables/principalComponentScore61
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore62
+      source: variables/principalComponentScore62
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore63
+      source: variables/principalComponentScore63
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore64
+      source: variables/principalComponentScore64
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore65
+      source: variables/principalComponentScore65
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore66
+      source: variables/principalComponentScore66
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore67
+      source: variables/principalComponentScore67
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore68
+      source: variables/principalComponentScore68
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore69
+      source: variables/principalComponentScore69
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore70
+      source: variables/principalComponentScore70
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore71
+      source: variables/principalComponentScore71
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore72
+      source: variables/principalComponentScore72
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore73
+      source: variables/principalComponentScore73
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore74
+      source: variables/principalComponentScore74
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore75
+      source: variables/principalComponentScore75
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore76
+      source: variables/principalComponentScore76
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore77
+      source: variables/principalComponentScore77
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore78
+      source: variables/principalComponentScore78
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore79
+      source: variables/principalComponentScore79
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore80
+      source: variables/principalComponentScore80
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore81
+      source: variables/principalComponentScore81
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore82
+      source: variables/principalComponentScore82
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore83
+      source: variables/principalComponentScore83
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore84
+      source: variables/principalComponentScore84
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore85
+      source: variables/principalComponentScore85
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore86
+      source: variables/principalComponentScore86
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore87
+      source: variables/principalComponentScore87
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore88
+      source: variables/principalComponentScore88
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore89
+      source: variables/principalComponentScore89
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore90
+      source: variables/principalComponentScore90
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore91
+      source: variables/principalComponentScore91
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore92
+      source: variables/principalComponentScore92
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore93
+      source: variables/principalComponentScore93
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore94
+      source: variables/principalComponentScore94
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore95
+      source: variables/principalComponentScore95
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore96
+      source: variables/principalComponentScore96
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore97
+      source: variables/principalComponentScore97
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore98
+      source: variables/principalComponentScore98
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore99
+      source: variables/principalComponentScore99
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore100
+      source: variables/principalComponentScore100
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore101
+      source: variables/principalComponentScore101
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore102
+      source: variables/principalComponentScore102
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore103
+      source: variables/principalComponentScore103
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore104
+      source: variables/principalComponentScore104
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore105
+      source: variables/principalComponentScore105
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore106
+      source: variables/principalComponentScore106
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore107
+      source: variables/principalComponentScore107
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore108
+      source: variables/principalComponentScore108
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore109
+      source: variables/principalComponentScore109
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore110
+      source: variables/principalComponentScore110
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore111
+      source: variables/principalComponentScore111
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore112
+      source: variables/principalComponentScore112
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore113
+      source: variables/principalComponentScore113
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore114
+      source: variables/principalComponentScore114
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore115
+      source: variables/principalComponentScore115
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore116
+      source: variables/principalComponentScore116
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore117
+      source: variables/principalComponentScore117
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore118
+      source: variables/principalComponentScore118
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore119
+      source: variables/principalComponentScore119
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore120
+      source: variables/principalComponentScore120
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore121
+      source: variables/principalComponentScore121
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore122
+      source: variables/principalComponentScore122
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore123
+      source: variables/principalComponentScore123
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore124
+      source: variables/principalComponentScore124
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore125
+      source: variables/principalComponentScore125
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore126
+      source: variables/principalComponentScore126
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore127
+      source: variables/principalComponentScore127
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore128
+      source: variables/principalComponentScore128
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore129
+      source: variables/principalComponentScore129
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore130
+      source: variables/principalComponentScore130
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore131
+      source: variables/principalComponentScore131
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore132
+      source: variables/principalComponentScore132
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore133
+      source: variables/principalComponentScore133
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore134
+      source: variables/principalComponentScore134
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore135
+      source: variables/principalComponentScore135
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore136
+      source: variables/principalComponentScore136
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore137
+      source: variables/principalComponentScore137
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore138
+      source: variables/principalComponentScore138
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore139
+      source: variables/principalComponentScore139
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore140
+      source: variables/principalComponentScore140
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore141
+      source: variables/principalComponentScore141
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore142
+      source: variables/principalComponentScore142
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore143
+      source: variables/principalComponentScore143
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore144
+      source: variables/principalComponentScore144
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore145
+      source: variables/principalComponentScore145
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore146
+      source: variables/principalComponentScore146
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore147
+      source: variables/principalComponentScore147
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore148
+      source: variables/principalComponentScore148
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore149
+      source: variables/principalComponentScore149
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore150
+      source: variables/principalComponentScore150
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore151
+      source: variables/principalComponentScore151
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore152
+      source: variables/principalComponentScore152
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore153
+      source: variables/principalComponentScore153
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore154
+      source: variables/principalComponentScore154
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore155
+      source: variables/principalComponentScore155
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore156
+      source: variables/principalComponentScore156
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore157
+      source: variables/principalComponentScore157
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore158
+      source: variables/principalComponentScore158
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore159
+      source: variables/principalComponentScore159
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore160
+      source: variables/principalComponentScore160
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore161
+      source: variables/principalComponentScore161
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore162
+      source: variables/principalComponentScore162
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore163
+      source: variables/principalComponentScore163
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore164
+      source: variables/principalComponentScore164
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore165
+      source: variables/principalComponentScore165
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore166
+      source: variables/principalComponentScore166
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore167
+      source: variables/principalComponentScore167
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore168
+      source: variables/principalComponentScore168
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore169
+      source: variables/principalComponentScore169
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore170
+      source: variables/principalComponentScore170
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore171
+      source: variables/principalComponentScore171
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore172
+      source: variables/principalComponentScore172
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore173
+      source: variables/principalComponentScore173
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore174
+      source: variables/principalComponentScore174
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore175
+      source: variables/principalComponentScore175
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore176
+      source: variables/principalComponentScore176
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore177
+      source: variables/principalComponentScore177
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore178
+      source: variables/principalComponentScore178
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore179
+      source: variables/principalComponentScore179
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore180
+      source: variables/principalComponentScore180
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore181
+      source: variables/principalComponentScore181
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore182
+      source: variables/principalComponentScore182
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore183
+      source: variables/principalComponentScore183
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore184
+      source: variables/principalComponentScore184
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore185
+      source: variables/principalComponentScore185
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore186
+      source: variables/principalComponentScore186
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore187
+      source: variables/principalComponentScore187
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore188
+      source: variables/principalComponentScore188
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore189
+      source: variables/principalComponentScore189
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore190
+      source: variables/principalComponentScore190
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore191
+      source: variables/principalComponentScore191
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore192
+      source: variables/principalComponentScore192
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore193
+      source: variables/principalComponentScore193
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore194
+      source: variables/principalComponentScore194
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore195
+      source: variables/principalComponentScore195
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore196
+      source: variables/principalComponentScore196
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore197
+      source: variables/principalComponentScore197
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore198
+      source: variables/principalComponentScore198
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore199
+      source: variables/principalComponentScore199
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore200
+      source: variables/principalComponentScore200
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore201
+      source: variables/principalComponentScore201
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore202
+      source: variables/principalComponentScore202
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore203
+      source: variables/principalComponentScore203
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore204
+      source: variables/principalComponentScore204
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore205
+      source: variables/principalComponentScore205
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore206
+      source: variables/principalComponentScore206
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore207
+      source: variables/principalComponentScore207
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore208
+      source: variables/principalComponentScore208
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore209
+      source: variables/principalComponentScore209
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore210
+      source: variables/principalComponentScore210
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore211
+      source: variables/principalComponentScore211
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore212
+      source: variables/principalComponentScore212
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore213
+      source: variables/principalComponentScore213
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore214
+      source: variables/principalComponentScore214
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore215
+      source: variables/principalComponentScore215
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore216
+      source: variables/principalComponentScore216
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore217
+      source: variables/principalComponentScore217
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore218
+      source: variables/principalComponentScore218
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore219
+      source: variables/principalComponentScore219
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore220
+      source: variables/principalComponentScore220
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore221
+      source: variables/principalComponentScore221
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore222
+      source: variables/principalComponentScore222
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore223
+      source: variables/principalComponentScore223
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore224
+      source: variables/principalComponentScore224
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore225
+      source: variables/principalComponentScore225
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore226
+      source: variables/principalComponentScore226
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore227
+      source: variables/principalComponentScore227
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore228
+      source: variables/principalComponentScore228
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore229
+      source: variables/principalComponentScore229
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore230
+      source: variables/principalComponentScore230
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore231
+      source: variables/principalComponentScore231
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore232
+      source: variables/principalComponentScore232
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore233
+      source: variables/principalComponentScore233
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore234
+      source: variables/principalComponentScore234
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore235
+      source: variables/principalComponentScore235
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore236
+      source: variables/principalComponentScore236
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore237
+      source: variables/principalComponentScore237
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore238
+      source: variables/principalComponentScore238
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore239
+      source: variables/principalComponentScore239
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore240
+      source: variables/principalComponentScore240
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore241
+      source: variables/principalComponentScore241
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore242
+      source: variables/principalComponentScore242
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore243
+      source: variables/principalComponentScore243
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore244
+      source: variables/principalComponentScore244
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore245
+      source: variables/principalComponentScore245
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore246
+      source: variables/principalComponentScore246
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore247
+      source: variables/principalComponentScore247
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore248
+      source: variables/principalComponentScore248
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore249
+      source: variables/principalComponentScore249
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore250
+      source: variables/principalComponentScore250
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore251
+      source: variables/principalComponentScore251
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore252
+      source: variables/principalComponentScore252
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore253
+      source: variables/principalComponentScore253
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore254
+      source: variables/principalComponentScore254
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore255
+      source: variables/principalComponentScore255
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore256
+      source: variables/principalComponentScore256
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore257
+      source: variables/principalComponentScore257
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore258
+      source: variables/principalComponentScore258
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore259
+      source: variables/principalComponentScore259
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore260
+      source: variables/principalComponentScore260
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore261
+      source: variables/principalComponentScore261
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore262
+      source: variables/principalComponentScore262
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore263
+      source: variables/principalComponentScore263
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore264
+      source: variables/principalComponentScore264
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore265
+      source: variables/principalComponentScore265
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore266
+      source: variables/principalComponentScore266
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore267
+      source: variables/principalComponentScore267
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore268
+      source: variables/principalComponentScore268
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore269
+      source: variables/principalComponentScore269
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore270
+      source: variables/principalComponentScore270
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore271
+      source: variables/principalComponentScore271
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore272
+      source: variables/principalComponentScore272
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore273
+      source: variables/principalComponentScore273
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore274
+      source: variables/principalComponentScore274
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore275
+      source: variables/principalComponentScore275
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore276
+      source: variables/principalComponentScore276
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore277
+      source: variables/principalComponentScore277
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore278
+      source: variables/principalComponentScore278
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore279
+      source: variables/principalComponentScore279
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore280
+      source: variables/principalComponentScore280
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore281
+      source: variables/principalComponentScore281
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore282
+      source: variables/principalComponentScore282
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore283
+      source: variables/principalComponentScore283
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore284
+      source: variables/principalComponentScore284
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore285
+      source: variables/principalComponentScore285
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore286
+      source: variables/principalComponentScore286
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore287
+      source: variables/principalComponentScore287
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore288
+      source: variables/principalComponentScore288
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore289
+      source: variables/principalComponentScore289
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore290
+      source: variables/principalComponentScore290
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore291
+      source: variables/principalComponentScore291
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore292
+      source: variables/principalComponentScore292
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore293
+      source: variables/principalComponentScore293
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore294
+      source: variables/principalComponentScore294
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore295
+      source: variables/principalComponentScore295
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore296
+      source: variables/principalComponentScore296
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore297
+      source: variables/principalComponentScore297
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore298
+      source: variables/principalComponentScore298
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore299
+      source: variables/principalComponentScore299
+      longName: "none"
+      units: "none"
+
+    - name: MetaData/principalComponentScore300
+      source: variables/principalComponentScore300
+      longName: "none"
+      units: "none"
+
