@@ -7,7 +7,11 @@ import numpy.ma as ma
 import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions
 from bufr.bufr_python.encoders import *
-from ..config_path import config_path
+
+if __package__:
+    from ..config_path import config_path
+else:
+    from config_path import config_path
 
 
 MAPPING_PATH = config_path("atmosphere", "gnssro.yaml")
