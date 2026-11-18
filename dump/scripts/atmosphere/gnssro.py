@@ -4,9 +4,14 @@ import os
 import numpy as np
 
 import bufr
-from bufr.obs_builder import add_main_functions, map_path
-from gnssro_obs_builder import BaseGnssroBufrObsBuilder
-from spoc.dump.scripts.config_path import config_path
+from bufr.obs_builder import add_main_functions
+
+if __package__:
+    from .gnssro_obs_builder import BaseGnssroBufrObsBuilder
+    from ..config_path import config_path
+else:
+    from gnssro_obs_builder import BaseGnssroBufrObsBuilder
+    from config_path import config_path
 
 
 MAPPING_PATH = config_path("atmosphere", "gnssro.yaml")

@@ -1,7 +1,8 @@
-import sys, os
-from pathlib import Path
+import os
+
 
 def config_path(*path_components):
+    """Return the path of a file under dump/config, raising FileNotFoundError if it is missing."""
     config_path = os.path.realpath(
         os.path.join(
             os.path.dirname(os.path.abspath(__file__)), '..', 'config', *path_components

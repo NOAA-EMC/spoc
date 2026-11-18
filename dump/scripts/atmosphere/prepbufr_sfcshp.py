@@ -6,8 +6,13 @@ import numpy.ma as ma
 
 import bufr
 from bufr.obs_builder import add_main_functions
-from prepbufr_obs_builder import PrepbufrObsBuilder, check_include_tv
-from spoc.dump.scripts.config_path import config_path
+
+if __package__:
+    from .prepbufr_obs_builder import PrepbufrObsBuilder, check_include_tv
+    from ..config_path import config_path
+else:
+    from prepbufr_obs_builder import PrepbufrObsBuilder, check_include_tv
+    from config_path import config_path
 
 
 MAPPING_PATH = config_path("atmosphere", "prepbufr_sfcshp.yaml")

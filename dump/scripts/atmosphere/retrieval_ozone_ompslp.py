@@ -5,7 +5,7 @@ import numpy.ma as ma
 
 import bufr
 from bufr.obs_builder import ObsBuilder, add_main_functions
-from retrieval_ozone_obs_builder import BufrOzoneObsBuilder
+from .retrieval_ozone_obs_builder import BufrOzoneObsBuilder
 
 from ..config_path import config_path
 
