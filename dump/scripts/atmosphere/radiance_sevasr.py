@@ -3,9 +3,10 @@ import os
 import numpy as np
 
 import bufr
-from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
+from bufr.obs_builder import ObsBuilder, add_main_functions
+from ..config_path import config_path
 
-MAPPING_PATH = map_path('radiance_sevasr.yaml')
+MAPPING_PATH = config_path("atmosphere", "radiance_sevasr.yaml")
 
 
 class BufrSevasrObsBuilder(ObsBuilder):

@@ -1,15 +1,24 @@
 #!/usr/bin/env python3
 import os
+import sys
 import numpy as np
 import time
 import calendar
 from datetime import datetime
 
 import bufr
-from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
-from prepbufr_obs_builder import PrepbufrObsBuilder, check_include_tv
+from bufr.obs_builder import ObsBuilder, add_main_functions
 
-MAPPING_PATH = map_path('prepbufr_adpupa.yaml')
+if __package__:
+    from .prepbufr_obs_builder import PrepbufrObsBuilder, check_include_tv
+    from ..config_path import config_path
+else:
+    # Run as a file: config_path.py is in the parent directory
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from prepbufr_obs_builder import PrepbufrObsBuilder, check_include_tv
+    from config_path import config_path
+
+MAPPING_PATH = config_path("atmosphere", "prepbufr_adpupa.yaml")
 NUM_T_EVENTS = 5
 
 

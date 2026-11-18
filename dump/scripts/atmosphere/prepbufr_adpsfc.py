@@ -1,15 +1,24 @@
 #!/usr/bin/env python3
 import calendar
 import os
+import sys
 import numpy as np
 import numpy.ma as ma
 
 import bufr
 from bufr.obs_builder import add_main_functions
-from prepbufr_obs_builder import PrepbufrObsBuilder, map_path, check_include_tv
+
+if __package__:
+    from .prepbufr_obs_builder import PrepbufrObsBuilder, check_include_tv
+    from ..config_path import config_path
+else:
+    # Run as a file: config_path.py is in the parent directory
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from prepbufr_obs_builder import PrepbufrObsBuilder, check_include_tv
+    from config_path import config_path
 
 
-MAPPING_PATH = map_path('prepbufr_adpsfc.yaml')
+MAPPING_PATH = config_path("atmosphere", "prepbufr_adpsfc.yaml")
 
 # Fixed number of temperature event levels handled by this builder.
 NUM_T_EVENTS = 5

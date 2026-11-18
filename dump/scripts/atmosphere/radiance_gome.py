@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 import os
 import bufr
-from bufr.obs_builder import ObsBuilder, add_main_functions, map_path
+from bufr.obs_builder import ObsBuilder, add_main_functions
+from ..config_path import config_path
 
 
-MAPPING_PATH = map_path('radiance_gome.yaml')
+MAPPING_PATH = config_path("atmosphere", "radiance_gome.yaml")
 
 
 class BufrGomeObsBuilder(ObsBuilder):
