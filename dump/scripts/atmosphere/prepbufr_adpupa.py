@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import sys
 import numpy as np
 import time
 import calendar
@@ -12,6 +13,8 @@ if __package__:
     from .prepbufr_obs_builder import PrepbufrObsBuilder, check_include_tv
     from ..config_path import config_path
 else:
+    # Run as a file: config_path.py is in the parent directory
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     from prepbufr_obs_builder import PrepbufrObsBuilder, check_include_tv
     from config_path import config_path
 
