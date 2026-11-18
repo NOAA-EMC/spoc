@@ -1,13 +1,23 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 import numpy as np
 
 import bufr
-from bufr.obs_builder import add_main_functions, map_path
-from gnssro_obs_builder import BaseGnssroBufrObsBuilder
+from bufr.obs_builder import add_main_functions
 
-MAPPING_PATH = map_path("./gnssro.yaml")
+if __package__:
+    from .gnssro_obs_builder import BaseGnssroBufrObsBuilder
+    from ..config_path import config_path
+else:
+    # Run as a file: config_path.py is in the parent directory
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from gnssro_obs_builder import BaseGnssroBufrObsBuilder
+    from config_path import config_path
+
+
+MAPPING_PATH = config_path("atmosphere", "gnssro.yaml")
 
 # ----------------------------------------------------------------------
 # Concrete implementation
