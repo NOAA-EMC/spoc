@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 import numpy as np
 import numpy.ma as ma
 
@@ -11,6 +12,8 @@ from bufr.bufr_python.encoders import *
 if __package__:
     from ..config_path import config_path
 else:
+    # Run as a file: config_path.py is in the parent directory
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     from config_path import config_path
 
 
